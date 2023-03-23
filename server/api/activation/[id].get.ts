@@ -1,4 +1,8 @@
-import { serverSupabaseClient, serverSupabaseUser, serverSupabaseServiceRole } from '#supabase/server'
+import {
+  serverSupabaseClient,
+  serverSupabaseUser,
+  serverSupabaseServiceRole
+} from '#supabase/server'
 import { H3Event } from 'h3'
 import { Activation } from '~/types/futures'
 
@@ -46,7 +50,8 @@ export async function handleActivation (event: H3Event, activation: Activation) 
     })
   }
 
-  return await updateActivation(event, activation.id)
+  await updateActivation(event, activation.id)
+  return sendRedirect(event, '/grow', 302)
 }
 
 export async function updateActivation (event: H3Event, id: string) {
@@ -55,7 +60,7 @@ export async function updateActivation (event: H3Event, id: string) {
 
   const { data, error } = await client
     .from('activations')
-    .update({ friend_id: user?.id })
+    .update({ friend_id: user?.id, status: 'accepted', updated_at: new Date() })
     .eq('id', id)
     .select()
 
@@ -71,14 +76,10 @@ export async function updateActivation (event: H3Event, id: string) {
   }
 }
 
-
 export async function getActivation (event: H3Event, id: string) {
   const client = serverSupabaseServiceRole(event)
 
-  const { data, error } = await client
-    .from('activations')
-    .select()
-    .eq('id', id)
+  const { data, error } = await client.from('activations').select().eq('id', id)
 
   if (error) {
     console.log(error.message)

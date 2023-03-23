@@ -17,4 +17,5 @@ export interface Activation {
   friend_id?: string
   type: [number, number]
   accounts?: [Object, Object]
+  status: 'created' | 'accepted' | 'completed'
 }

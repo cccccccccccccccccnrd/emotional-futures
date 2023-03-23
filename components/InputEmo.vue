@@ -2,7 +2,7 @@
   <div class="emotion outer">
     <div class="inner" :style="`width: ${amount}%; height: ${amount}%;`"></div>
   </div>
-  <input type="range" min="0" max="100" v-on:input="updateValue" />
+  <input type="range" min="0" max="10" v-on:input="updateValue" />
 </template>
 
 <script setup lang="ts">

@@ -32,9 +32,7 @@ definePageMeta({
 
 const user = useSupabaseUser()
 const emoxy: any = await useEmoxy()
-console.log(emoxy)
 const activations: any = await useActivations()
-console.log(activations)
 </script>
 
 <style scoped></style>

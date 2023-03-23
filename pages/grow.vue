@@ -122,7 +122,7 @@
       v-if="step === 3"
       class="h-[10%] flex flex-col justify-center items-center"
     >
-      <Btn v-if="selectedRelationshape.name" @click="step = 4">Confirm</Btn>
+      <Btn v-if="selectedRelationshape.name" @click="handleConfirmClick">Confirm</Btn>
     </div>
     <div v-if="step === 4" class="h-[80%] flex flex-col">
       <p>
@@ -137,7 +137,7 @@
       v-if="step === 4"
       class="h-[10%] flex flex-col justify-center items-center"
     >
-      <Btn @click="handleConfirmClick">Share Invite</Btn>
+      <Btn @click="step = 5">Share Invite</Btn>
     </div>
     <div v-if="step === 5" class="h-[70%] flex flex-col">
       <div
@@ -164,8 +164,8 @@
     >
       <p>Waiting for friend to join activation</p>
       <div class="w-full flex gap-4 mt-4">
-        <Btn @click="handleConfirmClick">Terminate</Btn>
-        <Btn @click="handleConfirmClick">Reminder</Btn>
+        <Btn @click="handleTerminateClick">Terminate</Btn>
+        <Btn @click="step = 4">Reminder</Btn>
       </div>
     </div>
     <div v-if="step === 6" class="h-[70%] flex flex-col">
@@ -334,20 +334,20 @@ const selectedAccount = ref({
   text: null
 })
 const completedAccounts = ref(<any>[])
-const sweat = ref('50')
-const tears = ref('50')
+const sweat = ref('5')
+const tears = ref('5')
 
 onMounted(async () => {
   const latest = activations[0]
-  if (!latest.friend_id && latest.accounts.length === 0) {
+  if (latest.status === 'created') {
     setActivation(latest)
     step.value = 5
     console.log('open activation', activation.value)
-  } else if (latest.friend_id && latest.accounts.length === 0) {
+  } else if (latest.status === 'accepted' && latest.accounts.length === 0) {
     setActivation(latest)
     step.value = 6
-    console.log('active activation', activation.value)
-  } else if (latest.friend_id && latest.accounts.length === 1) {
+    console.log('accepted activation', activation.value)
+  } else if (latest.status === 'accepted' && latest.accounts.length === 1) {
     setActivation(latest)
     const a = latest.accounts.find((a: any) => a.userId === user.value?.id)
     if (a) {
@@ -371,8 +371,6 @@ function setActivation(a: any) {
   selectedRelationshape.value = relationshapes.find(
     (r: any) => r.id === a.type[1]
   )
-
-  console.log('set open or active activation', activation.value)
 }
 
 async function handleConfirmClick() {
@@ -404,7 +402,8 @@ async function handleMeasureClick() {
 async function handleInvestmentClick() {
   if (!user.value) return
 
-  updateActivation(activation.value.id, user.value.id, completedAccounts.value)
+  await updateActivation(activation.value.id, user.value.id, completedAccounts.value)
+  step.value = 11
 }
 
 async function handleTerminateClick() {
