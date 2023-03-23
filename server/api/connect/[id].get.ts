@@ -1,4 +1,8 @@
-import { serverSupabaseClient, serverSupabaseUser, serverSupabaseServiceRole } from '#supabase/server'
+import {
+  serverSupabaseClient,
+  serverSupabaseUser,
+  serverSupabaseServiceRole
+} from '#supabase/server'
 import { H3Event } from 'h3'
 import { Emoxy } from '~/types/futures'
 
@@ -55,8 +59,9 @@ export async function handleConnection (event: H3Event, emoxy: Emoxy) {
     friends: [...emoxy.friends, ownEmoxy.id]
   })
 
-  return 'wow'
-  console.log(user)
+  return {
+    status: 'top'
+  }
 }
 
 export async function updateEmoxy (
@@ -79,14 +84,12 @@ export async function updateEmoxy (
     .select()
 
   if (error) {
-    console.log('update', error.message)
     throw createError({
       statusCode: 500,
       name: 'InternalServerError',
       message: error.message
     })
   } else {
-    console.log(data)
     return data
   }
 }
@@ -101,14 +104,12 @@ export async function getEmoxyByUserId (event: H3Event, id: string) {
     .single()
 
   if (error) {
-    console.log('get', error.message)
     throw createError({
       statusCode: 404,
       name: 'NotFoundError',
       message: error.message
     })
   } else {
-    console.log('get', data)
     return data
   }
 }
@@ -123,14 +124,12 @@ export async function getEmoxy (event: H3Event, id: string) {
     .single()
 
   if (error) {
-    console.log('get', error.message)
     throw createError({
       statusCode: 404,
       name: 'NotFoundError',
       message: error.message
     })
   } else {
-    console.log('get', data)
     return data
   }
 }

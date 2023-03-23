@@ -17,21 +17,18 @@ export default defineEventHandler(async event => {
   const {data, error} = await updateActivation(event, body.activationId, body.userId, body.accounts)
 
   if (error) {
-    console.log('update', error.message)
     throw createError({
       statusCode: 500,
       name: 'InternalServerError',
       message: error.message
     })
   } else {
-    console.log('updated activation', data)
     return data
   }
 })
 
 export async function updateActivation (event: H3Event, activationId: string, userId: string, accounts: []) {
   const client: any = serverSupabaseServiceRole(event)
-  const user = await serverSupabaseUser(event)
 
   const activation: any = await getActivation(event, activationId)
   console.log('activation', activation)
@@ -52,7 +49,11 @@ export async function updateActivation (event: H3Event, activationId: string, us
     }
   }
 
-  console.log(newAccounts)
+  if (newAccounts.length === 2) {
+
+  } else {
+    
+  }
 
   return await client
     .from('activations')
@@ -82,6 +83,5 @@ export async function getActivation (event: H3Event, activationId: string) {
     })
   } else {
     return data
-    console.log(data)
   }
 }

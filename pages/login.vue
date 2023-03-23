@@ -17,7 +17,7 @@ const user = useSupabaseUser()
 const email = ref('')
 
 if (user.value) {
-  navigateTo('/friends')
+  navigateTo('/emoxy')
 }
 
 function handleSignIn() {

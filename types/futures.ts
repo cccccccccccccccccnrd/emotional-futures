@@ -6,13 +6,15 @@ export interface Emoxy {
   name: string
   bst: [number, number, number]
   friends: Array<string>
+  r: number
 }
 
 export interface Activation {
   id: string
   created_at: string
+  updated_at: string
   user_id: string
   friend_id?: string
   type: [number, number]
-  evaluations?: [Object, Object]
+  accounts?: [Object, Object]
 }

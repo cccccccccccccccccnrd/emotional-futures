@@ -11,7 +11,6 @@ export async function useEmoxy () {
   if (error) {
     console.log(error.message)
   } else {
-    console.log(data)
     return data
   }
 }
@@ -19,8 +18,6 @@ export async function useEmoxy () {
 export async function useFriends () {
   const client: any = useSupabaseClient()
   const emoxy = await useEmoxy()
-
-  console.log(emoxy.friends)
 
   const { data, error } = await client
     .from('emoxies')
@@ -49,7 +46,7 @@ export async function createEmoxy (metadata: object) {
   if (error) {
     console.log(error.message)
   } else {
-    console.log(data)
+    return data
   }
 }
 
@@ -69,6 +66,71 @@ export async function updateEmoxy (metadata: object) {
   if (error) {
     console.log(error.message)
   } else {
-    console.log(data)
+    return data
+  }
+}
+
+export async function createActivation (type: [number, number]) {
+  try {
+    const response = await useFetch('/api/activation', {
+      method: 'POST',
+      body: {
+        type
+      }
+    })
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function updateActivation (
+  activationId: string,
+  userId: string,
+  accounts: Array<any>
+) {
+  try {
+    const response = await useFetch('/api/activation', {
+      method: 'PATCH',
+      body: {
+        activationId,
+        userId,
+        accounts
+      }
+    })
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function deleteActivation (id: string) {
+  try {
+    const response = await useFetch('/api/activation', {
+      method: 'DELETE',
+      body: {
+        id
+      }
+    })
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function useActivations () {
+  const client: any = useSupabaseClient()
+  const user = useSupabaseUser()
+
+  const { data, error } = await client
+    .from('activations')
+    .select()
+    .or(`user_id.eq.${user?.value?.id},friend_id.eq.${user?.value?.id}`)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.log(error.message)
+  } else {
+    return data
   }
 }

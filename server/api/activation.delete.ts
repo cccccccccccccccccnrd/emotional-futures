@@ -1,4 +1,4 @@
-import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'
+import { serverSupabaseClient, serverSupabaseUser, serverSupabaseServiceRole } from '#supabase/server'
 import { H3Event } from 'h3'
 
 export default defineEventHandler(async event => {
@@ -14,7 +14,7 @@ export default defineEventHandler(async event => {
 
   const body = await readBody(event)
 
-  const {data, error} = await createActivation(event, body.type)
+  const {data, error} = await deleteActivation(event, body.id)
 
   if (error) {
     throw createError({
@@ -27,14 +27,10 @@ export default defineEventHandler(async event => {
   }
 })
 
-export async function createActivation (event: H3Event, type: [number, number]) {
-  const client: any = await serverSupabaseClient(event)
-  const user = await serverSupabaseUser(event)
+export async function deleteActivation (event: H3Event, id: string) {
+  const client: any = await serverSupabaseServiceRole(event)
 
   return await client.from('activations')
-    .insert({
-      user_id: user?.id,
-      type
-    })
-    .select()
+    .delete()
+    .eq('id', id)
 }

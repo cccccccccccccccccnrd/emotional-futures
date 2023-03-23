@@ -22,9 +22,7 @@ export default defineEventHandler(async event => {
 export async function handleActivation (event: H3Event, activation: Activation) {
   const user = await serverSupabaseUser(event)
 
-  console.log('wow', activation)
-
-  if (activation.evaluations?.length === 2) {
+  if (activation.accounts?.length === 2) {
     throw createError({
       statusCode: 406,
       name: 'NotAcceptableError',
