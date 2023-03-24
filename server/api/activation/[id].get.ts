@@ -42,6 +42,14 @@ export async function handleActivation (event: H3Event, activation: Activation) 
     })
   }
 
+  if (activation.friend_id !== user?.id) {
+    throw createError({
+      statusCode: 406,
+      name: 'NotAcceptableError',
+      message: 'nah, activation is not for you'
+    })
+  }
+
   if (activation.user_id === user?.id) {
     throw createError({
       statusCode: 406,
@@ -89,7 +97,6 @@ export async function getActivation (event: H3Event, id: string) {
       message: error.message
     })
   } else {
-    console.log(data)
     return data[0]
   }
 }

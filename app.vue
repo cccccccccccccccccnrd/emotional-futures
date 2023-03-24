@@ -9,10 +9,17 @@
 
 <style>
 @font-face {
-  font-family: 'Jomolhari';
-  src: url('~/assets/fonts/Jomolhari-Regular.ttf') format('truetype');
+  font-family: 'UbuntuMono';
+  src: url('~/assets/fonts/UbuntuMono-R.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+@font-face {
+  font-family: 'UbuntuMono';
+  src: url('~/assets/fonts/UbuntuMono-B.ttf') format('truetype');
+  font-weight: bold;
+  font-style: bold;
 }
 
 :root {
@@ -36,8 +43,8 @@ html, body {
 
 body {
   width: 100vw;
-  font-family: 'Jomolhari', sans-serif;
-  font-size: 14px;
+  font-family: 'UbuntuMono', sans-serif;
+  font-size: 16px;
   line-height: 1;
   color: var(--color-text);
   background: var(--color-bg);

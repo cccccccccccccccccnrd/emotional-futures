@@ -7,7 +7,7 @@
   >
     <Camera :position="{ x: 0, y: 0, z: 10 }" />
     <Scene background="#000">
-      <Box :size="3" :rotation="{ y: Math.PI / 4, z: Math.PI / 4 }">
+      <Box :size="2" :rotation="{ y: Math.PI / 4, z: Math.PI / 4 }">
         <MatcapMaterial name="2E763A_78A0B7_B3D1CF_14F209" />
       </Box>
     </Scene>

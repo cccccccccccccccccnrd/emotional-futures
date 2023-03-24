@@ -138,3 +138,19 @@ export async function useActivations () {
     return data
   }
 }
+
+export async function useFriendsActivations (friendIds: Array<string>) {
+  const client: any = useSupabaseClient()
+
+  const { data, error } = await client
+    .from('activations')
+    .select()
+    .or(`user_id.in.(${friendIds.toString()}),friend_id.in.(${friendIds.toString()})`)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.log(error.message)
+  } else {
+    return data
+  }
+}

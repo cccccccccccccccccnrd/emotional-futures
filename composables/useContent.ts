@@ -68,7 +68,17 @@ export function useEmotions () {
     {
       id: 6,
       name: 'disgust',
-      color: 'magenta'
+      color: 'magenta',
+      prompts: [
+        'Write all words that come to your mind when you think of JOY. When you run out of words look at the list of your partner and construct a spell from their writing. Send this spell back to them.',
+        'Joy warms our body to move us towards the things we desire. Describe the most recent memory in which you felt intense peak of Joy. Describe the setting and your physical reaction as accurate as possible. Exchange texts and write the subtext for each others stories. What did joy have to say?',
+        'Shades of joy range from a soft serenity to a radiant ecstasy. When joy is colored by other emotions it produces mixtures such as optimism or love. Think of a situation that  produces joy in you. Describe it to each other in all its details. Visualize your joy in its pure form. It’s color, shade and shape. Then let other emotions enter the scene. Describe how they merge and transform each other. Make a drawing of each others joy while you listen to each other. Exchange images.',
+        'Think of your patterns of joy. How often do you experience it? Discuss repeating situations or habits in which you experience joy. What would be its rhythm? Find a suitable song to represent this.',
+        'The heart tells us what we desire. Close your eyes and feel inside of you. Lay your hand on your chest. How is your heart today? Tell each other what gives you the most joy in life. How do you pursue it? Do you feel in balance? Start laughing until your actually make each other laugh.',
+        'Look at each others faces. Seduce to produce joy in each other. Try until you catch a real smile. A fake smile only moves the mouth. An authentic smile should be accompanied by wrinkles around the eyes.',
+        'Think of a situation when  you spilled over with Joy. Find a movement that represents this feeling. Then create a freeze frame of the situation after. Observe yourselves and share what you read in each other. Recount the context of the situation and give each other feedback.',
+        'Talk about a character you played in your life to make someone feel happy.'
+      ]
     },
     {
       id: 7,

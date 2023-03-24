@@ -1,39 +1,38 @@
 <template>
-  <div class="h-full p-4">
+  <div class="h-full w-full p-5 bg-popup backdrop-blur-md">
     <div class="h-[10%] flex justify-between items-center">
-      <div>Help</div>
       <div>
-        <p>Grow Emoxy</p>
+        <Icon type="help"/>
       </div>
-      <div @click="navigateTo('/friends')">Close</div>
+      <div>
+        <p class="text-lg text-white-50">Feed Emoxy</p>
+      </div>
+      <div @click="navigateTo('/friends')">
+        <Icon type="close"/>
+      </div>
     </div>
-    <div v-if="step === 0" class="h-[80%] flex flex-col">
-      <p>Choose a Friend</p>
-      <div class="flex flex-col items-center justify-start mt-8">
+    <div v-if="step === 0" class="h-[75%] flex flex-col">
+      <p class="text-lg font-bold">Who will help you?</p>
+      <div class="flex flex-col items-center justify-start mt-8 overflow-x-scroll">
         <p v-if="emoxy.friends.length === 0">No connections yet</p>
-        <div v-if="friends.length > 0" class="w-full flex flex-col gap-4">
-          <div
+        <div v-if="friends.length > 0" class="w-full flex flex-col gap-2">
+          <Friend
             v-for="friend in friends"
-            @click="selectedFriend = friend"
-            class="w-full flex flex-col gap-4 p-4"
-            :class="`${
-              selectedFriend?.id === friend.id
-                ? 'border-solid border-2 border-white'
-                : ''
-            }`"
-          >
-            <div class="w-full flex justify-between items-center">
-              <div>{{ friend.name }} {{ friend.bst }}</div>
-            </div>
-          </div>
+            @click="isFriendUnavailable(friend.user_id) ? null : selectedFriend = friend"
+            :name="friend.name"
+            :activations="getActivationsWithFriend(friend.user_id)"
+            :selected="selectedFriend?.id === friend.id"
+            :unavailable="isFriendUnavailable(friend.user_id)"
+          />
         </div>
       </div>
     </div>
     <div
       v-if="step === 0"
-      class="h-[10%] flex flex-col justify-center items-center"
+      class="h-[15%] flex flex-col justify-center items-center"
     >
-      <Btn v-if="selectedFriend.id" @click="step = 1">Add Friend</Btn>
+      <p class="text-xs">Accounterparts appear here only when they have accepted your invitation to connect</p>
+      <Btn class="mt-2" @click="step = 1" :disabled="selectedFriend.id ? false : true">Confirm Accounterpart</Btn>
     </div>
     <div v-if="step === 1" class="h-[70%] flex flex-col">
       <p v-if="!selectedEmotion.name">Choose an Emotion Color</p>
@@ -126,22 +125,7 @@
         >Confirm</Btn
       >
     </div>
-    <div v-if="step === 4" class="h-[80%] flex flex-col">
-      <p>
-        If you are in the same place, scan the Qr-Code and you will be instantly
-        connected. You can also share an invite link below. {{ activation.id }}
-      </p>
-      <div class="mt-4">
-        <Qr :value="`http://192.168.178.47:3000/activation/${activation.id}`" />
-      </div>
-    </div>
-    <div
-      v-if="step === 4"
-      class="h-[10%] flex flex-col justify-center items-center"
-    >
-      <Btn @click="step = 5">Share Invite</Btn>
-    </div>
-    <div v-if="step === 5" class="h-[70%] flex flex-col">
+    <div v-if="step === 4" class="h-[70%] flex flex-col">
       <div
         class="h-full flex flex-col justify-between mt-4 p-4 text-black border border-white rounded-2xl"
         :style="`background: ${selectedEmotion.color}`"
@@ -161,14 +145,29 @@
       </div>
     </div>
     <div
-      v-if="step === 5"
+      v-if="step === 4"
       class="h-[20%] flex flex-col justify-center items-center"
     >
       <p>Waiting for friend to join activation</p>
       <div class="w-full flex gap-4 mt-4">
         <Btn @click="handleTerminateClick">Terminate</Btn>
-        <Btn @click="step = 4">Reminder</Btn>
+        <Btn @click="step = 5">Invitation</Btn>
       </div>
+    </div>
+    <div v-if="step === 5" class="h-[80%] flex flex-col">
+      <p>
+        If you are in the same place, scan the Qr-Code and you will be instantly
+        connected. You can also share an invite link below. {{ activation.id }}
+      </p>
+      <div class="mt-4">
+        <Qr :value="`http://localhost:3000/api/activation/${activation.id}`" />
+      </div>
+    </div>
+    <div
+      v-if="step === 5"
+      class="h-[10%] flex flex-col justify-center items-center"
+    >
+      <Btn @click="step = 4">I shared the invitation</Btn>
     </div>
     <div v-if="step === 6" class="h-[70%] flex flex-col">
       <div
@@ -296,6 +295,11 @@
       </div>
     </div>
   </div>
+  <div class="absolute top-0 left-0 h-full w-full z-[-10]">
+    <div class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover p-10">
+      <Emoxy/>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -310,6 +314,10 @@ const emotions: any = await useEmotions()
 const relationshapes: any = await useRelationshapes()
 const activations: any = await useActivations()
 const activation: any = ref(null)
+const friendsActivations: any = await useFriendsActivations(
+  friends.map((f: any) => f.user_id)
+)
+console.log(friendsActivations)
 
 const step = ref(0)
 const isRevealed = ref(false)
@@ -341,10 +349,12 @@ const sweat = ref('5')
 const tears = ref('5')
 
 onMounted(async () => {
+  if (activations.length === 0) return
+
   const latest = activations[0]
   if (latest.status === 'created') {
     setActivation(latest)
-    step.value = 5
+    step.value = 4
     console.log('open activation', activation.value)
   } else if (latest.status === 'accepted' && latest.accounts.length === 0) {
     setActivation(latest)
@@ -362,6 +372,22 @@ onMounted(async () => {
     }
   }
 })
+
+function isFriendUnavailable(userId: string) {
+  return friendsActivations.find(
+    (a: any) =>
+      (a.user_id === userId || a.friend_id === userId) &&
+      a.status === 'accepted'
+  )
+    ? true
+    : false
+}
+
+function getActivationsWithFriend(userId: string) {
+  return activations.filter(
+    (a: any) => a.user_id === userId || a.friend_id === userId
+  )
+}
 
 function setActivation(a: any) {
   activation.value = a

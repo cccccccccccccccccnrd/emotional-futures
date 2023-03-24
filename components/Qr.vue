@@ -21,6 +21,7 @@ onMounted(async () => {
   qr.value = await QRCode.toString(props.value, {
     margin: 0
   })
+  console.log('𝓘𝓷𝓿𝓲𝓽𝓪𝓽𝓲𝓸𝓷', props.value)
 })
 
 </script>

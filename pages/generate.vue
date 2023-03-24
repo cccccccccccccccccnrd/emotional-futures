@@ -147,7 +147,6 @@
 
 <script setup lang="ts">
 const user = useSupabaseUser()
-console.log(user.value)
 
 const step = ref(user.value ? -1 : 0)
 const email = ref('')
