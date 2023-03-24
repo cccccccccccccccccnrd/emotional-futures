@@ -70,15 +70,19 @@ export async function updateEmoxy (metadata: object) {
   }
 }
 
-export async function createActivation (type: [number, number]) {
+export async function createActivation (type: [number, number], friendId: string) {
   try {
     const response = await useFetch('/api/activation', {
       method: 'POST',
       body: {
-        type
+        type,
+        friendId
       }
     })
-    return response
+
+    if (Array.isArray(response.data.value)) {
+      return response.data.value[0]
+    }
   } catch (error) {
     console.log(error)
   }

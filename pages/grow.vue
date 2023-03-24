@@ -122,15 +122,17 @@
       v-if="step === 3"
       class="h-[10%] flex flex-col justify-center items-center"
     >
-      <Btn v-if="selectedRelationshape.name" @click="handleConfirmClick">Confirm</Btn>
+      <Btn v-if="selectedRelationshape.name" @click="handleConfirmClick"
+        >Confirm</Btn
+      >
     </div>
     <div v-if="step === 4" class="h-[80%] flex flex-col">
       <p>
         If you are in the same place, scan the Qr-Code and you will be instantly
-        connected. You can also share an invite link below.
+        connected. You can also share an invite link below. {{ activation.id }}
       </p>
       <div class="mt-4">
-        {{ activation }}
+        <Qr :value="`http://192.168.178.47:3000/activation/${activation.id}`" />
       </div>
     </div>
     <div
@@ -314,7 +316,8 @@ const isRevealed = ref(false)
 
 const selectedFriend = ref({
   id: null,
-  name: null
+  name: null,
+  user_id: null
 })
 const selectedEmotion = ref({
   id: null,
@@ -362,11 +365,9 @@ onMounted(async () => {
 
 function setActivation(a: any) {
   activation.value = a
-  if (a.friend_id) {
-    selectedFriend.value = friends.find(
-      (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
-    )
-  }
+  selectedFriend.value = friends.find(
+    (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
+  )
   selectedEmotion.value = emotions.find((e: any) => e.id === a.type[0])
   selectedRelationshape.value = relationshapes.find(
     (r: any) => r.id === a.type[1]
@@ -374,11 +375,15 @@ function setActivation(a: any) {
 }
 
 async function handleConfirmClick() {
-  if (selectedEmotion.value.id && selectedRelationshape.value.id) {
-    activation.value = await createActivation([
-      selectedEmotion.value.id,
-      selectedRelationshape.value.id
-    ])
+  if (
+    selectedFriend.value.user_id &&
+    selectedEmotion.value.id &&
+    selectedRelationshape.value.id
+  ) {
+    activation.value = await createActivation(
+      [selectedEmotion.value.id, selectedRelationshape.value.id],
+      selectedFriend.value.user_id
+    )
   } else {
     console.log('no selected emotion or relationshape')
   }
@@ -402,7 +407,11 @@ async function handleMeasureClick() {
 async function handleInvestmentClick() {
   if (!user.value) return
 
-  await updateActivation(activation.value.id, user.value.id, completedAccounts.value)
+  await updateActivation(
+    activation.value.id,
+    user.value.id,
+    completedAccounts.value
+  )
   step.value = 11
 }
 

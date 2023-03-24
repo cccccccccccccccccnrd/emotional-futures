@@ -26,19 +26,19 @@ export default defineEventHandler(async event => {
 export async function handleActivation (event: H3Event, activation: Activation) {
   const user = await serverSupabaseUser(event)
 
-  if (activation.accounts?.length === 2) {
+  if (activation.status === 'completed') {
     throw createError({
       statusCode: 406,
       name: 'NotAcceptableError',
-      message: 'nah, emo is finished'
+      message: 'nah, activation is completed'
     })
   }
 
-  if (activation.friend_id) {
+  if (activation.status === 'accepted') {
     throw createError({
       statusCode: 406,
       name: 'NotAcceptableError',
-      message: 'nah, emo is active'
+      message: 'nah, activation is accepted'
     })
   }
 

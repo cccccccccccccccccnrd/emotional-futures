@@ -1,4 +1,8 @@
-import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'
+import {
+  serverSupabaseClient,
+  serverSupabaseUser,
+  serverSupabaseServiceRole
+} from '#supabase/server'
 import { H3Event } from 'h3'
 
 export default defineEventHandler(async event => {
@@ -22,9 +26,14 @@ export default defineEventHandler(async event => {
     })
   }
 
-  const { data, error } = await createActivation(event, body.type, body.friendId)
+  const { data, error } = await createActivation(
+    event,
+    body.type,
+    body.friendId
+  )
 
   if (error) {
+    console.log(error)
     throw createError({
       statusCode: 500,
       name: 'InternalServerError',
@@ -35,8 +44,12 @@ export default defineEventHandler(async event => {
   }
 })
 
-export async function createActivation (event: H3Event, type: [number, number], friendId: string) {
-  const client: any = await serverSupabaseClient(event)
+export async function createActivation (
+  event: H3Event,
+  type: [number, number],
+  friendId: string
+) {
+  const client: any = await serverSupabaseServiceRole(event)
   const user = await serverSupabaseUser(event)
 
   return await client
@@ -50,7 +63,7 @@ export async function createActivation (event: H3Event, type: [number, number], 
 }
 
 export async function hasAcceptedActivation (event: H3Event) {
-  const client: any = serverSupabaseClient(event)
+  const client: any = serverSupabaseServiceRole(event)
   const user = await serverSupabaseUser(event)
 
   const { data, error } = await client
@@ -61,6 +74,7 @@ export async function hasAcceptedActivation (event: H3Event) {
     .order('created_at', { ascending: false })
 
   if (error) {
+    console.log(error)
     throw createError({
       statusCode: 500,
       name: 'InternalServerError',

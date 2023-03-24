@@ -1,0 +1,26 @@
+<template>
+  <div
+    v-html="qr"
+    class="rounded-lg overflow-hidden m-8 p-4 bg-white"
+  >
+  </div>
+</template>
+
+<script setup lang="ts">
+import QRCode from 'qrcode'
+
+const props = defineProps({
+  value: String
+})
+
+const qr = ref('')
+
+onMounted(async () => {
+  if (!props.value) return
+
+  qr.value = await QRCode.toString(props.value, {
+    margin: 0
+  })
+})
+
+</script>
