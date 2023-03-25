@@ -1,7 +1,7 @@
 <template>
   <div
     v-html="qr"
-    class="rounded-lg overflow-hidden m-8 p-4 bg-white"
+    class="rounded-lg overflow-hidden m-8 p-4 bg-white-100"
   >
   </div>
 </template>

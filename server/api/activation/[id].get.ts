@@ -59,7 +59,7 @@ export async function handleActivation (event: H3Event, activation: Activation) 
   }
 
   await updateActivation(event, activation.id)
-  return sendRedirect(event, '/grow', 302)
+  return sendRedirect(event, '/feed', 302)
 }
 
 export async function updateActivation (event: H3Event, id: string) {

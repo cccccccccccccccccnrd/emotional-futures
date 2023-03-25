@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex justify-between items-center h-[55px] px-5 bg-dark-50 border-2 border-white-20"
+    class="flex justify-between items-center h-[55px] px-5 bg-dark-50 backdrop-blur-md border-2 border-white-20"
     :class="selected ? '!border-2 !border-white-80' : ''"
   >
     <div class="flex flex-col">

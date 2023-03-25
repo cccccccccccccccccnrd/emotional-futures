@@ -2,7 +2,7 @@
   <div class="h-full w-full p-5 bg-popup backdrop-blur-md">
     <div class="h-[10%] flex justify-between items-center">
       <div>
-        <Icon type="help"/>
+        <Icon type="files"/>
       </div>
       <div>
         <p class="text-lg text-white-50">Feed Emoxy</p>
@@ -154,14 +154,12 @@
         <Btn @click="step = 5">Invitation</Btn>
       </div>
     </div>
-    <div v-if="step === 5" class="h-[80%] flex flex-col">
+    <div v-if="step === 5" class="h-[80%] flex flex-col items-center">
       <p>
         If you are in the same place, scan the Qr-Code and you will be instantly
-        connected. You can also share an invite link below. {{ activation.id }}
+        connected. You can also share an invite link below.
       </p>
-      <div class="mt-4">
-        <Qr :value="`http://localhost:3000/api/activation/${activation.id}`" />
-      </div>
+      <Qr :value="`http://localhost:3000/api/activation/${activation.id}`" class="w-3/5"/>
     </div>
     <div
       v-if="step === 5"
@@ -317,7 +315,6 @@ const activation: any = ref(null)
 const friendsActivations: any = await useFriendsActivations(
   friends.map((f: any) => f.user_id)
 )
-console.log(friendsActivations)
 
 const step = ref(0)
 const isRevealed = ref(false)
