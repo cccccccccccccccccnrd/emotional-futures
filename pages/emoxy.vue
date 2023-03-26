@@ -1,6 +1,6 @@
 <template>
   <div class="h-full p-5 flex flex-col">
-    <div class="flex justify-between items-center shrink">
+    <div class="flex justify-between items-center">
       <p class="text-xl font-bold">{{ emoxy.name }}</p>
       <Icon type="menu" />
     </div>
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="flex justify-center items-end shrink gap-2 mt-5">
+    <div class="flex justify-center items-end gap-2 mt-5">
       <Btn @click="navigateTo('/friends')" type="dark">
         <Icon type="friends" size="m" />
       </Btn>

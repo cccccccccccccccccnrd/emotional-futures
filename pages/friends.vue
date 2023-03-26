@@ -1,20 +1,37 @@
 <template>
   <div class="h-full p-5 flex flex-col">
     <div class="flex justify-between items-center shrink">
-      <p class="text-xl font-bold">Accounterparts</p>
-      <Icon type="menu" />
+      <p v-if="step === 0" class="text-xl font-bold">Accounterparts</p>
+      <Icon v-if="step === 0" type="menu" />
+      <Icon v-if="step === 1" @click="handleBackClick" type="arrow-l" />
+      <Icon v-if="step === 1" type="files" />
     </div>
-    <div class="flex flex-col grow items-center justify-between mt-5">
+    <div
+      v-if="step === 0"
+      class="flex flex-col grow items-center justify-between mt-5"
+    >
       <p v-if="emoxy.friends.length === 0">No connections yet</p>
       <div v-if="friends.length > 0" class="w-full flex flex-col gap-2">
-        <Friend
-            v-for="friend in friends"
-            @click="selectedFriend = friend"
-            :name="friend.name"
-            :activations="getActivationsWithFriend(friend.user_id)"
-            :selected="selectedFriend?.id === friend.id"
-            :unavailable="isFriendUnavailable(friend.user_id)"
-          />
+        <LiFriend
+          v-for="friend in friends"
+          @click="handleFriendClick(friend)"
+          :name="friend.name"
+          :activations="getActivationsWithFriend(friend.user_id)"
+          :selected="selectedFriend?.id === friend.id"
+          :unavailable="isFriendUnavailable(friend.user_id)"
+        />
+      </div>
+    </div>
+    <div
+      v-if="step === 1"
+      class="flex flex-col grow items-center justify-between mt-5"
+    >
+      <p class="text-xl font-bold">{{ selectedFriend.name }}</p>
+      <div class="w-full flex flex-col gap-2 grow mt-5">
+        <LiActivation
+          v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
+          :activation="a"
+        />
       </div>
     </div>
     <div class="flex justify-center items-end shrink gap-2 mt-5">
@@ -31,8 +48,8 @@
     <div class="absolute top-0 left-0 h-full w-full z-[-10]">
       <div
         class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover"
-      >
-      </div>
+        :class="step === 1 ? 'blur-md' : ''"
+      ></div>
     </div>
   </div>
 </template>
@@ -52,8 +69,24 @@ const activations: any = await useActivations()
 const selectedFriend = ref({
   id: null,
   name: null,
-  user_id: null
+  user_id: null || ''
 })
+
+const step = ref(0)
+
+function handleFriendClick(friend: any) {
+  selectedFriend.value = friend
+  step.value = 1
+}
+
+function handleBackClick() {
+  selectedFriend.value = {
+    id: null,
+    name: null,
+    user_id: null || ''
+  }
+  step.value = 0
+}
 
 function getActivationsWithFriend(userId: string) {
   return activations.filter(

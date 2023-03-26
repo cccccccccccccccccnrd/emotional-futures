@@ -1,22 +1,22 @@
 <template>
-  <div class="h-full w-full p-5 bg-popup backdrop-blur-md">
-    <div class="h-[10%] flex justify-between items-center">
+  <div class="h-full w-full p-5 flex flex-col bg-popup backdrop-blur-md">
+    <div class="flex justify-between items-center">
       <div>
         <Icon type="files"/>
       </div>
       <div>
         <p class="text-lg text-white-50">Feed Emoxy</p>
       </div>
-      <div @click="navigateTo('/friends')">
+      <div @click="navigateTo('/emoxy')">
         <Icon type="close"/>
       </div>
     </div>
-    <div v-if="step === 0" class="h-[75%] flex flex-col">
-      <p class="text-lg font-bold">Who will help you?</p>
-      <div class="flex flex-col items-center justify-start mt-8 overflow-x-scroll">
+    <div v-if="step === 0" class="grow flex flex-col mt-5">
+      <p class="text-lg font-bold text-center">Who will help you?</p>
+      <div class="flex flex-col items-center justify-start mt-5 overflow-x-scroll">
         <p v-if="emoxy.friends.length === 0">No connections yet</p>
         <div v-if="friends.length > 0" class="w-full flex flex-col gap-2">
-          <Friend
+          <LiFriend
             v-for="friend in friends"
             @click="isFriendUnavailable(friend.user_id) ? null : selectedFriend = friend"
             :name="friend.name"
@@ -29,38 +29,21 @@
     </div>
     <div
       v-if="step === 0"
-      class="h-[15%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
-      <p class="text-xs">Accounterparts appear here only when they have accepted your invitation to connect</p>
+      <p class="text-xs text-center">Accounterparts appear here only when they have accepted your invitation to connect</p>
       <Btn class="mt-2" @click="step = 1" :disabled="selectedFriend.id ? false : true">Confirm Accounterpart</Btn>
     </div>
-    <div v-if="step === 1" class="h-[70%] flex flex-col">
-      <p v-if="!selectedEmotion.name">Choose an Emotion Color</p>
-      <p
-        v-if="selectedEmotion.name"
-        :style="`color: ${selectedEmotion.color}`"
-        class="text-xl"
-      >
-        {{ selectedEmotion.name }}
-      </p>
-      <div
-        class="h-full flex flex-col justify-between mt-4 p-4 text-black border border-white rounded-2xl"
-        :style="`background: ${selectedEmotion.color}`"
-      >
-        <div>
-          <p class="mt-4">Activation partner</p>
-          <p>
-            <strong>{{ selectedFriend.name }}</strong>
-          </p>
-        </div>
-        <div>
-          <Btn v-if="selectedFriend.id" @click="step = 2">Add Emotion</Btn>
-        </div>
+    <div v-if="step === 1" class="h-[70%] flex flex-col mt-5">
+      <p v-if="!selectedEmotion.name" class="text-lg font-bold text-center">Choose emotion to activate</p>
+      <p v-if="selectedEmotion.name" class="text-lg font-bold text-center capitalize">{{ selectedEmotion.name }}</p>
+      <div class="grow px-5 mt-5">
+        <Activation @click="selectedEmotion?.id ? step = 2 : ''" :accounterpart="selectedFriend" :emotion="selectedEmotion"/>
       </div>
     </div>
     <div
       v-if="step === 1"
-      class="h-[20%] flex flex-wrap justify-center gap-2 pt-4"
+      class="flex flex-wrap justify-center gap-2 mt-5"
     >
       <div
         v-for="emotion in emotions"
@@ -72,10 +55,10 @@
         :style="`background: ${emotion.color}`"
       ></div>
     </div>
-    <div v-if="step === 2" class="h-[80%] flex flex-col">
-      <p v-if="!selectedRelationshape.name">Choose Relationshape</p>
-      <p v-if="selectedRelationshape.name">{{ selectedRelationshape.name }}</p>
-      <div class="w-full h-full grid grid-cols-2 gap-2 mt-8">
+    <div v-if="step === 2" class="grow flex flex-col mt-5">
+      <p v-if="!selectedRelationshape.name" class="text-lg font-bold text-center">Choose Relationshape</p>
+      <p v-if="selectedRelationshape.name" class="text-lg font-bold text-center">{{ selectedRelationshape.name }}</p>
+      <div class="w-full h-full grid grid-cols-2 gap-2 mt-5">
         <div
           v-for="relationshape in relationshapes"
           @click="selectedRelationshape = relationshape"
@@ -91,13 +74,13 @@
     </div>
     <div
       v-if="step === 2"
-      class="h-[10%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center mt-5"
     >
-      <Btn v-if="selectedRelationshape.name" @click="step = 3"
-        >Add Relationshape</Btn
+      <Btn @click="selectedRelationshape.id ? step = 3 : ''" :disabled="selectedRelationshape.id ? false : true"
+        >Confirm Relationshape</Btn
       >
     </div>
-    <div v-if="step === 3" class="h-[80%] flex flex-col">
+    <div v-if="step === 3" class="grow flex flex-col">
       <p>Your Activation Card</p>
       <div
         class="h-full flex flex-col justify-between mt-4 p-4 text-black border border-white rounded-2xl"
@@ -119,13 +102,13 @@
     </div>
     <div
       v-if="step === 3"
-      class="h-[10%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
       <Btn v-if="selectedRelationshape.name" @click="handleConfirmClick"
         >Confirm</Btn
       >
     </div>
-    <div v-if="step === 4" class="h-[70%] flex flex-col">
+    <div v-if="step === 4" class="grow flex flex-col">
       <div
         class="h-full flex flex-col justify-between mt-4 p-4 text-black border border-white rounded-2xl"
         :style="`background: ${selectedEmotion.color}`"
@@ -146,7 +129,7 @@
     </div>
     <div
       v-if="step === 4"
-      class="h-[20%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
       <p>Waiting for friend to join activation</p>
       <div class="w-full flex gap-4 mt-4">
@@ -154,7 +137,7 @@
         <Btn @click="step = 5">Invitation</Btn>
       </div>
     </div>
-    <div v-if="step === 5" class="h-[80%] flex flex-col items-center">
+    <div v-if="step === 5" class="grow flex flex-col items-center">
       <p>
         If you are in the same place, scan the Qr-Code and you will be instantly
         connected. You can also share an invite link below.
@@ -163,11 +146,11 @@
     </div>
     <div
       v-if="step === 5"
-      class="h-[10%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
       <Btn @click="step = 4">I shared the invitation</Btn>
     </div>
-    <div v-if="step === 6" class="h-[70%] flex flex-col">
+    <div v-if="step === 6" class="grow flex flex-col">
       <div
         class="h-full flex flex-col justify-between mt-4 p-4 text-black border border-white rounded-2xl"
         :style="`background: ${selectedEmotion.color}`"
@@ -208,7 +191,7 @@
     </div>
     <div
       v-if="step === 6"
-      class="h-[20%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
       <p>Touch the card to reveal</p>
       <div class="w-full flex gap-4 mt-4">
@@ -216,7 +199,7 @@
         <Btn @click="step = 7">Accounting</Btn>
       </div>
     </div>
-    <div v-if="step === 7" class="h-[70%] flex flex-col">
+    <div v-if="step === 7" class="grow flex flex-col">
       <p>
         The {{ selectedRelationshape.name }} Relationshape requires
         {{ selectedRelationshape.accounting.length }} Accounting step{{
@@ -239,46 +222,46 @@
     </div>
     <div
       v-if="step === 7"
-      class="h-[20%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
       <div class="w-full flex gap-4 mt-4">
         <Btn @click="handleInvestmentClick">Confirm Investment</Btn>
       </div>
     </div>
-    <div v-if="step === 8" class="h-[70%] flex flex-col">
+    <div v-if="step === 8" class="grow flex flex-col">
       <p>{{ selectedAccount.text }}</p>
     </div>
     <div
       v-if="step === 8"
-      class="h-[20%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
       <div class="w-full flex gap-4 mt-4">
         <Btn @click="step = 9">Measure</Btn>
       </div>
     </div>
-    <div v-if="step === 9" class="h-[70%] flex flex-col">
+    <div v-if="step === 9" class="grow flex flex-col">
       <InputEmo v-model="sweat" />
     </div>
     <div
       v-if="step === 9"
-      class="h-[20%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
       <div class="w-full flex gap-4 mt-4">
         <Btn @click="step = 10">Confirm Sweat Measure</Btn>
       </div>
     </div>
-    <div v-if="step === 10" class="h-[70%] flex flex-col">
+    <div v-if="step === 10" class="grow flex flex-col">
       <InputEmo v-model="tears" />
     </div>
     <div
       v-if="step === 10"
-      class="h-[20%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
       <div class="w-full flex gap-4 mt-4">
         <Btn @click="handleMeasureClick">Confirm Tear Measure</Btn>
       </div>
     </div>
-    <div v-if="step === 11" class="h-[70%] flex flex-col">
+    <div v-if="step === 11" class="grow flex flex-col">
       <p>
         Final Balance will become available as soon as your Accounterpart
         confirms their investment.
@@ -286,7 +269,7 @@
     </div>
     <div
       v-if="step === 11"
-      class="h-[20%] flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center"
     >
       <div class="w-full flex gap-4 mt-4">
         <Btn>Send Reminder</Btn>
@@ -295,7 +278,9 @@
   </div>
   <div class="absolute top-0 left-0 h-full w-full z-[-10]">
     <div class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover p-10">
-      <Emoxy/>
+      <div class="h-1/2">
+        <Emoxy />
+      </div>
     </div>
   </div>
 </template>

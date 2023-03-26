@@ -17,7 +17,12 @@
     >
       {{ activations?.length }}
     </div>
-    <div v-if="activations.length === 0 && !selected">New</div>
+    <div
+      v-if="activations.length === 0 && !selected"
+      class="flex justify-center items-center h-6 px-2 border-2 border-white-20 font-bold"
+    >
+      New
+    </div>
     <div v-if="selected">
       <Icon type="check" />
     </div>
