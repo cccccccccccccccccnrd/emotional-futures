@@ -31,6 +31,57 @@ export async function useFriends () {
   }
 }
 
+export async function useActivation (id: string) {
+  const client: any = useSupabaseClient()
+
+  const { data, error } = await client
+    .from('activations')
+    .select()
+    .eq('id', id)
+    .single()
+
+  if (error) {
+    console.log(error.message)
+  } else {
+    return data
+  }
+}
+
+export async function useActivations () {
+  const client: any = useSupabaseClient()
+  const user = useSupabaseUser()
+
+  const { data, error } = await client
+    .from('activations')
+    .select()
+    .or(`user_id.eq.${user?.value?.id},friend_id.eq.${user?.value?.id}`)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.log(error.message)
+  } else {
+    return data
+  }
+}
+
+export async function useFriendsActivations (friendIds: Array<string>) {
+  const client: any = useSupabaseClient()
+
+  const { data, error } = await client
+    .from('activations')
+    .select()
+    .or(
+      `user_id.in.(${friendIds.toString()}),friend_id.in.(${friendIds.toString()})`
+    )
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.log(error.message)
+  } else {
+    return data
+  }
+}
+
 export async function createEmoxy (metadata: object) {
   const client: any = useSupabaseClient()
   const user = useSupabaseUser()
@@ -70,7 +121,10 @@ export async function updateEmoxy (metadata: object) {
   }
 }
 
-export async function createActivation (type: [number, number], friendId: string) {
+export async function createActivation (
+  type: [number, number],
+  friendId: string
+) {
   try {
     const response = await useFetch('/api/activation', {
       method: 'POST',
@@ -119,38 +173,5 @@ export async function deleteActivation (id: string) {
     return response
   } catch (error) {
     console.log(error)
-  }
-}
-
-export async function useActivations () {
-  const client: any = useSupabaseClient()
-  const user = useSupabaseUser()
-
-  const { data, error } = await client
-    .from('activations')
-    .select()
-    .or(`user_id.eq.${user?.value?.id},friend_id.eq.${user?.value?.id}`)
-    .order('created_at', { ascending: false })
-
-  if (error) {
-    console.log(error.message)
-  } else {
-    return data
-  }
-}
-
-export async function useFriendsActivations (friendIds: Array<string>) {
-  const client: any = useSupabaseClient()
-
-  const { data, error } = await client
-    .from('activations')
-    .select()
-    .or(`user_id.in.(${friendIds.toString()}),friend_id.in.(${friendIds.toString()})`)
-    .order('created_at', { ascending: false })
-
-  if (error) {
-    console.log(error.message)
-  } else {
-    return data
   }
 }

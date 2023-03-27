@@ -1,21 +1,43 @@
 <template>
   <div
     class="absolute h-full w-full p-5 flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
-    v-if="step === 1 || step === 3 || step === 4 || step === 5 || step === 6 || step === 7"
+    v-if="
+      step === 1 ||
+      step === 3 ||
+      step === 4 ||
+      step === 5 ||
+      step === 6 ||
+      step === 7 ||
+      step === 10
+    "
   >
     <div class="flex justify-between items-center">
       <div>
-        <Icon v-if="step === 3 || step === 4 || step === 5 || step === 6 || step === 7" type="files" />
+        <Icon
+          v-if="
+            step === 3 || step === 4 || step === 5 || step === 6 || step === 7
+          "
+          type="files"
+        />
       </div>
       <div v-if="step === 3 || step === 4">
         <p class="text-lg text-white-50">Accounting</p>
       </div>
       <div v-if="step === 5 || step === 6 || step === 7">
-        <p class="text-lg text-white-50 capitalize">{{ selectedAccount.name }}</p>
+        <p class="text-lg text-white-50 capitalize">
+          {{ selectedAccount.name }}
+        </p>
       </div>
       <div>
         <Icon v-if="step === 1" type="close" @click="step = 0" />
-        <Icon v-if="step === 3 || step === 4 || step === 5 || step === 6 || step === 7" type="close" @click="step = 2" />
+        <Icon
+          v-if="
+            step === 3 || step === 4 || step === 5 || step === 6 || step === 7
+          "
+          type="close"
+          @click="step = 2"
+        />
+        <Icon v-if="step === 10" type="close" @click="step = 9" />
       </div>
     </div>
     <div v-if="step === 1" class="grow flex flex-col items-center">
@@ -48,7 +70,9 @@
     </div>
     <div v-if="step === 4" class="grow flex flex-col">
       <p class="mt-5">
-        The <span class="capitalize">{{ selectedRelationshape.name }}</span> Relationshape requires
+        The
+        <span class="capitalize">{{ selectedRelationshape.name }}</span>
+        Relationshape requires
         {{ selectedRelationshape.accounting.length }} Accounting step{{
           selectedRelationshape.accounting.length > 1 ? 's' : ''
         }}:
@@ -59,14 +83,28 @@
           :title="account.name"
           :icon="completedAccounts.find((a: any) => a.name === account.name) ? 'check' : 'arrow-r'"
           :disabled="index > completedAccounts.length"
-          @click="index === completedAccounts.length ? handleAccountClick(account) : null"
+          @click="
+            index === completedAccounts.length
+              ? handleAccountClick(account)
+              : null
+          "
         />
         {{ completedAccounts }}
       </div>
     </div>
     <div v-if="step === 4" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-4">
-        <Btn @click="selectedRelationshape.accounting.length !== completedAccounts.length ? null : handleInvestmentClick()" :disabled="selectedRelationshape.accounting.length !== completedAccounts.length">Confirm Investment</Btn>
+        <Btn
+          @click="
+            selectedRelationshape.accounting.length !== completedAccounts.length
+              ? null
+              : handleInvestmentClick()
+          "
+          :disabled="
+            selectedRelationshape.accounting.length !== completedAccounts.length
+          "
+          >Confirm Investment</Btn
+        >
       </div>
     </div>
     <div v-if="step === 5" class="grow flex justify-center items-center">
@@ -79,7 +117,7 @@
     </div>
     <div v-if="step === 6" class="grow flex flex-col">
       <p class="text-lg text-center font-bold mt-5">The Sweat you gave</p>
-      <div class="grow flex justify-center items-center mt-5 px-10 ">
+      <div class="grow flex justify-center items-center mt-5 px-10">
         <InputDrop v-model="sweat" type="sweat" />
       </div>
     </div>
@@ -90,13 +128,24 @@
     </div>
     <div v-if="step === 7" class="grow flex flex-col">
       <p class="text-lg text-center font-bold mt-5">The Tears you received</p>
-      <div class="grow flex justify-center items-center mt-5 px-10 ">
+      <div class="grow flex justify-center items-center mt-5 px-10">
         <InputDrop v-model="tears" type="tears" />
       </div>
     </div>
     <div v-if="step === 7" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-5">
         <Btn @click="handleMeasureClick">Confirm Tear Measure</Btn>
+      </div>
+    </div>
+    <div v-if="step === 10" class="grow flex flex-col">
+      <p class="text-lg text-center font-bold mt-5">Accounting Results</p>
+      <div class="grow flex justify-center items-center mt-5 px-10">
+        {{ results }}
+      </div>
+    </div>
+    <div v-if="step === 10" class="flex flex-col justify-center items-center">
+      <div class="w-full flex gap-4 mt-5">
+        <Btn @click="navigateTo('/emoxy')">Feed Emoxy</Btn>
       </div>
     </div>
   </div>
@@ -106,7 +155,10 @@
         <Icon @click="navigateTo('/emoxy')" type="arrow-l" />
       </div>
       <div>
-        <Icon v-if="step === 0 || step === 1 || step === 2" type="files" />
+        <Icon
+          v-if="step === 0 || step === 1 || step === 2 || step === 8"
+          type="files"
+        />
       </div>
     </div>
     <div v-if="step === 0 || step === 1" class="grow flex flex-col mt-5">
@@ -139,43 +191,42 @@
       <Btn @click="handleTerminateClick" type="dark">Terminate</Btn>
       <Btn @click="step = 3">Accounting</Btn>
     </div>
-    <div v-if="step === 8" class="grow flex flex-col">
-      <p>
-        Final Balance will become available as soon as your Accounterpart
-        confirms their investment.
-      </p>
+    <div
+      v-if="step === 8"
+      class="grow relative flex flex-col justify-center items-center"
+    >
+      <p class="text-lg font-bold text-center mt-5">Accounting</p>
+      <Activation
+        class="mt-5"
+        :emotion="selectedEmotion"
+        :relationshape="selectedRelationshape"
+        :accounterpart="selectedFriend"
+        waiting
+        locked
+      />
     </div>
     <div v-if="step === 8" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-5">
-        <Btn>Send Reminder</Btn>
+        <Btn type="dark">Send Reminder</Btn>
       </div>
     </div>
-  </div>
-  <div class="absolute top-0 left-0 h-full w-full z-[-10]">
     <div
-      v-if="step === 1"
-      class="h-full w-full flex flex-col justify-center items-center p-5"
+      v-if="step === 9 || step === 10"
+      class="grow relative flex flex-col justify-center items-center"
     >
-      <div class="w-full flex justify-between items-center">
-        <div>
-          <Icon @click="navigateTo('/emoxy')" type="arrow-l" />
-        </div>
-        <div @click="navigateTo('/emoxy')">
-          <Icon type="files" />
-        </div>
-      </div>
-      <div class="grow w-full flex flex-col mt-5">
-        <p class="text-lg font-bold text-center">Awaiting confirmation</p>
-        <Activation
-          class="mt-5"
-          :emotion="selectedEmotion"
-          :relationshape="selectedRelationshape"
-          :accounterpart="selectedFriend"
-        />
-      </div>
-      <div class="flex gap-2 justify-center items-center mt-5">
-        <Btn @click="handleTerminateClick" type="dark">Terminate</Btn>
-        <Btn @click="step = 1">Invitation</Btn>
+      <p class="text-lg font-bold text-center mt-5">Accounting</p>
+      <Activation
+        class="mt-5"
+        :emotion="selectedEmotion"
+        :relationshape="selectedRelationshape"
+        :accounterpart="selectedFriend"
+        completed
+        locked
+      />
+    </div>
+    <div v-if="step === 9  || step === 10" class="flex flex-col justify-center items-center">
+      <div class="w-full flex gap-4 mt-5">
+        <Btn @click="step = 10">Show Accounting Results</Btn>
       </div>
     </div>
   </div>
@@ -197,7 +248,6 @@ const user = useSupabaseUser()
 const friends: any = await useFriends()
 const emotions: any = await useEmotions()
 const relationshapes: any = await useRelationshapes()
-const activations: any = await useActivations()
 const activation: any = ref(null)
 
 const step = ref(0)
@@ -211,7 +261,7 @@ const selectedEmotion = ref({
   id: null,
   name: null,
   color: null,
-  prompts: []
+  prompts: <any>[]
 })
 const selectedRelationshape = ref({
   id: null,
@@ -228,28 +278,46 @@ const completedAccounts = ref(<any>[])
 const sweat = ref('5')
 const tears = ref('5')
 
-onMounted(async () => {
-  if (activations.length === 0) return
+const results = computed(() => {
+  const f = activation.value.results.find((a: any) => a.userId === user.value?.id)
+  if (f) {
+    return f.results
+  } else {
+    return null
+  }
+})
 
-  const latest = activations[0]
-  if (latest.status === 'created') {
-    setActivation(latest)
+onMounted(async () => {
+  const id = String(route.params.id)
+  const a = await useActivation(id)
+
+  if (!a) {
+    navigateTo('/emoxy')
+    return
+  }
+
+  if (a.status === 'created') {
+    setActivation(a)
     step.value = 0
     console.log('open activation', activation.value)
-  } else if (latest.status === 'accepted' && latest.accounts.length === 0) {
-    setActivation(latest)
+  } else if (a.status === 'accepted' && a.accounts.length === 0) {
+    setActivation(a)
     step.value = 2
     console.log('accepted activation', activation.value)
-  } else if (latest.status === 'accepted' && latest.accounts.length === 1) {
-    setActivation(latest)
-    const a = latest.accounts.find((a: any) => a.userId === user.value?.id)
-    if (a) {
+  } else if (a.status === 'accepted' && a.accounts.length === 1) {
+    setActivation(a)
+    const f = a.accounts.find((a: any) => a.userId === user.value?.id)
+    if (f) {
       step.value = 8
       console.log('friends move activation', activation.value)
     } else {
       step.value = 2
-      console.log('active activation', activation.value)
+      console.log('accepted activation', activation.value)
     }
+  } else if (a.status === 'completed') {
+    setActivation(a)
+    step.value = 9
+    console.log('completed activation', activation.value)
   }
 })
 
@@ -281,12 +349,20 @@ async function handleMeasureClick() {
 async function handleInvestmentClick() {
   if (!user.value) return
 
-  await updateActivation(
+  const a: any = await updateActivation(
     activation.value.id,
     user.value.id,
     completedAccounts.value
   )
-  step.value = 8
+
+  if (!a) return
+
+  setActivation(a)
+  if (a.status === 'completed') {
+    step.value = 9
+  } else {
+    step.value = 8
+  }
 }
 
 async function handleTerminateClick() {

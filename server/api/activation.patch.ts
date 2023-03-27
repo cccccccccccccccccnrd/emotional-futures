@@ -119,7 +119,17 @@ export async function updateActivation (
       .from('activations')
       .update({
         accounts: newAccounts,
-        status: 'finished',
+        results: [
+          {
+            userId: ownAccounts.userId,
+            results: [ownB, ownSt[0], otherSt[1]]
+          },
+          {
+            userId: otherAccounts.userId,
+            results: [otherB, otherSt[0], ownSt[1]]
+          }
+        ],
+        status: 'completed',
         updated_at: new Date()
       })
       .eq('id', activationId)
@@ -134,8 +144,6 @@ export async function updateActivation (
       .eq('id', activationId)
       .select()
   }
-
-  
 }
 
 export async function updateEmoxy (
