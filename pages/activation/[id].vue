@@ -1,13 +1,21 @@
 <template>
   <div
     class="absolute h-full w-full p-5 flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
-    v-if="step === 1 || step === 3"
+    v-if="step === 1 || step === 3 || step === 4 || step === 5 || step === 6 || step === 7"
   >
     <div class="flex justify-between items-center">
       <div>
+        <Icon v-if="step === 3 || step === 4 || step === 5 || step === 6 || step === 7" type="files" />
+      </div>
+      <div v-if="step === 3 || step === 4">
+        <p class="text-lg text-white-50">Accounting</p>
+      </div>
+      <div v-if="step === 5 || step === 6 || step === 7">
+        <p class="text-lg text-white-50 capitalize">{{ selectedAccount.name }}</p>
       </div>
       <div>
         <Icon v-if="step === 1" type="close" @click="step = 0" />
+        <Icon v-if="step === 3 || step === 4 || step === 5 || step === 6 || step === 7" type="close" @click="step = 2" />
       </div>
     </div>
     <div v-if="step === 1" class="grow flex flex-col items-center">
@@ -25,40 +33,73 @@
     <div v-if="step === 1" class="flex flex-col justify-center items-center">
       <Btn @click="step = 0">I shared the invitation</Btn>
     </div>
-    <div v-if="step === 3" class="grow flex flex-col">
-      <p>
-        The {{ selectedRelationshape.name }} Relationshape requires
+    <div v-if="step === 3" class="grow flex flex-col items-center">
+      <p class="text-lg font-bold mt-5">Get ready to invest in your future.</p>
+      <p class="mt-5">
+        Measuring the value of an emotional interaction is not easy for
+        humans.<br /><br />
+        Humans may find the accounting process uncomfortable, and at times even
+        upsetting.<br /><br />
+        This is an essential step on your path to your Emotional Future.<br />
+      </p>
+    </div>
+    <div v-if="step === 3" class="flex flex-col justify-center items-center">
+      <Btn @click="step = 4">Start Accounting</Btn>
+    </div>
+    <div v-if="step === 4" class="grow flex flex-col">
+      <p class="mt-5">
+        The <span class="capitalize">{{ selectedRelationshape.name }}</span> Relationshape requires
         {{ selectedRelationshape.accounting.length }} Accounting step{{
           selectedRelationshape.accounting.length > 1 ? 's' : ''
         }}:
       </p>
-      <div>
-        <div v-for="account in selectedRelationshape.accounting" class="mt-4">
-          <div @click="handleAccountClick(account)" class="p-3 border">
-            {{ account.name }}
-            {{
-              completedAccounts.find((a: any) => a.name === account.name)
-                ? 'X'
-                : ''
-            }}
-          </div>
-        </div>
+      <div class="flex flex-col gap-2 mt-5">
+        <LiAccounting
+          v-for="(account, index) in selectedRelationshape.accounting"
+          :title="account.name"
+          :icon="completedAccounts.find((a: any) => a.name === account.name) ? 'check' : 'arrow-r'"
+          :disabled="index > completedAccounts.length"
+          @click="index === completedAccounts.length ? handleAccountClick(account) : null"
+        />
         {{ completedAccounts }}
       </div>
     </div>
-    <div v-if="step === 3" class="flex flex-col justify-center items-center">
+    <div v-if="step === 4" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-4">
         <Btn @click="handleInvestmentClick">Confirm Investment</Btn>
+      </div>
+    </div>
+    <div v-if="step === 5" class="grow flex justify-center items-center">
+      <p class="mt-5 text-center">{{ selectedAccount.text }}</p>
+    </div>
+    <div v-if="step === 5" class="flex flex-col justify-center items-center">
+      <div class="w-full flex gap-4 mt-4">
+        <Btn @click="step = 6">Measure</Btn>
+      </div>
+    </div>
+    <div v-if="step === 6" class="grow flex flex-col">
+      <p class="text-lg text-center font-bold mt-5">The Sweat you gave</p>
+      <InputEmo v-model="sweat" class="mt-5"/>
+    </div>
+    <div v-if="step === 6" class="flex flex-col justify-center items-center">
+      <div class="w-full flex gap-4 mt-4">
+        <Btn @click="step = 7">Confirm Sweat Measure</Btn>
+      </div>
+    </div>
+    <div v-if="step === 7" class="grow flex flex-col">
+      <p class="text-lg text-center font-bold mt-5">The Tears you received</p>
+      <InputEmo v-model="tears" class="mt-5"/>
+    </div>
+    <div v-if="step === 7" class="flex flex-col justify-center items-center">
+      <div class="w-full flex gap-4 mt-4">
+        <Btn @click="handleMeasureClick">Confirm Tear Measure</Btn>
       </div>
     </div>
   </div>
   <div class="h-full w-full p-5 flex flex-col">
     <div class="flex justify-between items-center">
       <div>
-        <Icon
-          @click="navigateTo('/emoxy')"
-          type="arrow-l"
-        />
+        <Icon @click="navigateTo('/emoxy')" type="arrow-l" />
       </div>
       <div>
         <Icon v-if="step === 0 || step === 1 || step === 2" type="files" />
@@ -87,33 +128,12 @@
         :accounterpart="selectedFriend"
       />
     </div>
-    <div v-if="step === 2 || step === 3" class="flex gap-2 justify-center items-center mt-5">
+    <div
+      v-if="step === 2 || step === 3"
+      class="flex gap-2 justify-center items-center mt-5"
+    >
       <Btn @click="handleTerminateClick" type="dark">Terminate</Btn>
       <Btn @click="step = 3">Accounting</Btn>
-    </div>
-    <div v-if="step === 4" class="grow flex flex-col">
-      <p>{{ selectedAccount.text }}</p>
-    </div>
-    <div v-if="step === 4" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-4">
-        <Btn @click="step = 9">Measure</Btn>
-      </div>
-    </div>
-    <div v-if="step === 5" class="grow flex flex-col">
-      <InputEmo v-model="sweat" />
-    </div>
-    <div v-if="step === 5" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-4">
-        <Btn @click="step = 10">Confirm Sweat Measure</Btn>
-      </div>
-    </div>
-    <div v-if="step === 6" class="grow flex flex-col">
-      <InputEmo v-model="tears" />
-    </div>
-    <div v-if="step === 6" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-4">
-        <Btn @click="handleMeasureClick">Confirm Tear Measure</Btn>
-      </div>
     </div>
     <div v-if="step === 7" class="grow flex flex-col">
       <p>
@@ -243,7 +263,7 @@ function setActivation(a: any) {
 
 async function handleAccountClick(a: any) {
   selectedAccount.value = a
-  step.value = 8
+  step.value = 5
 }
 
 async function handleMeasureClick() {
@@ -252,7 +272,7 @@ async function handleMeasureClick() {
     st: [sweat.value, tears.value]
   })
 
-  step.value = 7
+  step.value = 4
 }
 
 async function handleInvestmentClick() {

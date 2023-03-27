@@ -1,20 +1,25 @@
 <template>
-  <div class="emotion outer">
-    <div class="inner" :style="`width: ${amount}%; height: ${amount}%;`"></div>
+  <div>
+    <div class="emotion outer">
+      <div
+        class="inner"
+        :style="`width: ${amount}%; height: ${amount}%;`"
+      ></div>
+    </div>
+    <input type="range" min="0" max="10" v-on:input="updateValue" />
   </div>
-  <input type="range" min="0" max="10" v-on:input="updateValue" />
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
-  modelValue: String
+  modelValue: String,
 })
 
 const emit = defineEmits(['update:modelValue'])
 
 const amount = ref(props.modelValue)
 
-function updateValue (event: Event) {
+function updateValue(event: Event) {
   const target = event.target as HTMLInputElement
   amount.value = target.value
   emit('update:modelValue', target.value)
@@ -37,7 +42,7 @@ function updateValue (event: Event) {
   border-radius: 100px;
 }
 
-input[type="range"]{
+input[type='range'] {
   height: 0.2em;
   margin: 4em 0 0 0;
   background: var(--color-text);
@@ -47,7 +52,7 @@ input[type="range"]{
   appearance: none;
 }
 
-input[type="range"]::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
   appearance: none;
   width: 1em;
   height: 1em;
@@ -57,7 +62,7 @@ input[type="range"]::-webkit-slider-thumb {
   outline: none;
 }
 
-input[type="range"]::-webkit-slider-thumb:hover {
+input[type='range']::-webkit-slider-thumb:hover {
   box-shadow: 0 0 0.6em var(--color-text);
 }
 </style>

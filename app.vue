@@ -63,7 +63,7 @@ body {
 
 p {
   margin: 0;
-  line-height: 1.15 !important;
+  line-height: 1.1 !important;
 }
 
 h2 {
