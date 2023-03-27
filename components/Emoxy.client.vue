@@ -24,13 +24,9 @@ const renderer = ref()
 const light = ref()
 const pointer = ref({})
 
-onMounted(() => {
-  init()
-})
-
-function init () {
+/* onMounted(() => {
   renderer.value.onBeforeRender(animate)
-}
+}) */
 
 function animate () {
   const { pointer } = renderer.value.three

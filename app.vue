@@ -1,10 +1,20 @@
 <template>
   <NuxtLayout>
+    <div v-if="loading" class="absolute w-full h-full backdrop-blur-md z-10"></div>
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
+const nuxtApp = useNuxtApp()
+const loading = ref(false)
+
+nuxtApp.hook('page:start', () => {
+  loading.value = true
+})
+nuxtApp.hook('page:finish', () => {
+  loading.value = false
+})
 </script>
 
 <style>
@@ -26,7 +36,7 @@
   --color-bg: rgba(30, 30, 30, 1);
   --color-text: white;
   --height-section: 20vh;
-  --indent:
+  --indent: ;
 }
 
 * {
@@ -34,7 +44,8 @@
   user-select: none;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;

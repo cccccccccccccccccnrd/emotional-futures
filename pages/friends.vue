@@ -19,6 +19,7 @@
           :activations="getActivationsWithFriend(friend.user_id)"
           :selected="selectedFriend?.id === friend.id"
           :unavailable="isFriendUnavailable(friend.user_id)"
+          :invitation="hasInvitation(friend.user_id)"
         />
       </div>
     </div>
@@ -30,7 +31,17 @@
       <div class="w-full flex flex-col gap-2 grow mt-5">
         <LiActivation
           v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
+          @click="
+            a.status === 'created' && a.user_id === selectedFriend?.user_id
+              ? navigateTo(`http://localhost:3000/api/activation/${a.id}`, {
+                  external: true
+                })
+              : navigateTo(`/activation/${a.id}`)
+          "
           :activation="a"
+          :invitation="
+            a.status === 'created' && a.user_id === selectedFriend?.user_id
+          "
         />
       </div>
     </div>
@@ -45,12 +56,12 @@
         <Icon type="emotions" size="m" />
       </Btn>
     </div>
-    <div class="absolute top-0 left-0 h-full w-full z-[-10]">
-      <div
-        class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover"
-        :class="step === 1 ? 'blur-md' : ''"
-      ></div>
-    </div>
+  </div>
+  <div class="absolute top-0 left-0 h-full w-full z-[-10]">
+    <div
+      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover"
+      :class="step === 1 ? 'blur-md' : ''"
+    ></div>
   </div>
 </template>
 
@@ -61,10 +72,10 @@ definePageMeta({
 
 const emoxy: any = await useEmoxy()
 const friends: any = await useFriends()
+const activations: any = await useActivations()
 const friendsActivations: any = await useFriendsActivations(
   friends.map((f: any) => f.user_id)
 )
-const activations: any = await useActivations()
 
 const selectedFriend = ref({
   id: null,
@@ -103,6 +114,11 @@ function isFriendUnavailable(userId: string) {
     ? true
     : false
 }
-</script>
 
-<style scoped></style>
+function hasInvitation(userId: string) {
+  const a = getActivationsWithFriend(userId)
+  return a.find((a: any) => a.status === 'created' && a.user_id === userId)
+    ? true
+    : false
+}
+</script>

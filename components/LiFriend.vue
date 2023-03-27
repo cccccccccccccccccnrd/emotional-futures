@@ -14,6 +14,7 @@
     <div
       v-if="activations.length > 0 && !selected"
       class="flex justify-center items-center h-6 w-6 border-2 border-white-20 font-bold"
+      :class="invitation ? 'border-white-80' : ''"
     >
       {{ activations?.length }}
     </div>
@@ -48,6 +49,10 @@ const props = defineProps({
   unavailable: {
     type: Boolean,
     required: true
+  },
+  invitation: {
+    type: Boolean,
+    required: false
   }
 })
 </script>
