@@ -79,4 +79,28 @@ input {
 input:focus {
   outline: none;
 }
+
+input[type='range'] {
+  width: 100%;
+  height: 0.4em;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 100px;
+  outline: none;
+  appearance: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 0.9em;
+  height: 0.9em;
+  background: var(--color-text);
+  cursor: pointer;
+  border-radius: 100px;
+  outline: none;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.3);
+}
 </style>

@@ -66,7 +66,7 @@
     </div>
     <div v-if="step === 4" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-4">
-        <Btn @click="handleInvestmentClick">Confirm Investment</Btn>
+        <Btn @click="selectedRelationshape.accounting.length !== completedAccounts.length ? null : handleInvestmentClick()" :disabled="selectedRelationshape.accounting.length !== completedAccounts.length">Confirm Investment</Btn>
       </div>
     </div>
     <div v-if="step === 5" class="grow flex justify-center items-center">
@@ -79,19 +79,23 @@
     </div>
     <div v-if="step === 6" class="grow flex flex-col">
       <p class="text-lg text-center font-bold mt-5">The Sweat you gave</p>
-      <InputEmo v-model="sweat" class="mt-5"/>
+      <div class="grow flex justify-center items-center mt-5 px-10 ">
+        <InputDrop v-model="sweat" type="sweat" />
+      </div>
     </div>
     <div v-if="step === 6" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-4">
+      <div class="w-full flex gap-4 mt-5">
         <Btn @click="step = 7">Confirm Sweat Measure</Btn>
       </div>
     </div>
     <div v-if="step === 7" class="grow flex flex-col">
       <p class="text-lg text-center font-bold mt-5">The Tears you received</p>
-      <InputEmo v-model="tears" class="mt-5"/>
+      <div class="grow flex justify-center items-center mt-5 px-10 ">
+        <InputDrop v-model="tears" type="tears" />
+      </div>
     </div>
     <div v-if="step === 7" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-4">
+      <div class="w-full flex gap-4 mt-5">
         <Btn @click="handleMeasureClick">Confirm Tear Measure</Btn>
       </div>
     </div>
@@ -135,14 +139,14 @@
       <Btn @click="handleTerminateClick" type="dark">Terminate</Btn>
       <Btn @click="step = 3">Accounting</Btn>
     </div>
-    <div v-if="step === 7" class="grow flex flex-col">
+    <div v-if="step === 8" class="grow flex flex-col">
       <p>
         Final Balance will become available as soon as your Accounterpart
         confirms their investment.
       </p>
     </div>
-    <div v-if="step === 7" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-4">
+    <div v-if="step === 8" class="flex flex-col justify-center items-center">
+      <div class="w-full flex gap-4 mt-5">
         <Btn>Send Reminder</Btn>
       </div>
     </div>
@@ -197,7 +201,6 @@ const activations: any = await useActivations()
 const activation: any = ref(null)
 
 const step = ref(0)
-const isRevealed = ref(false)
 
 const selectedFriend = ref({
   id: null,
@@ -241,7 +244,7 @@ onMounted(async () => {
     setActivation(latest)
     const a = latest.accounts.find((a: any) => a.userId === user.value?.id)
     if (a) {
-      step.value = 7
+      step.value = 8
       console.log('friends move activation', activation.value)
     } else {
       step.value = 2
@@ -283,7 +286,7 @@ async function handleInvestmentClick() {
     user.value.id,
     completedAccounts.value
   )
-  step.value = 11
+  step.value = 8
 }
 
 async function handleTerminateClick() {
