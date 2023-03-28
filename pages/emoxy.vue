@@ -27,7 +27,7 @@
           <p class="text-sm text-align">
             {{ say }}
           </p>
-          <div class="flex gap-2 mt-3 text-sm">
+          <div v-if="!accepted" class="flex gap-2 mt-3 text-sm">
             <Btn
               @click="navigateTo('/feed')"
               type="dark"
@@ -44,6 +44,15 @@
               <span v-if="paused">Hear</span>
               <Icon v-else type="pause" size="s" />
             </Btn>
+          </div>
+          <div v-else class="flex gap-2 mt-3 text-sm">
+            <Btn
+              @click="navigateTo(`/activation/${accepted.id}`)"
+              type="dark"
+              padding="1"
+              class="rounded-lg border-2 border-white-80"
+              >Ongoing Activation</Btn
+            >
           </div>
         </div>
       </div>
@@ -72,12 +81,15 @@ definePageMeta({
   middleware: 'auth'
 })
 
-const user = useSupabaseUser()
 const emoxy: any = await useEmoxy()
 const activations: any = await useActivations()
 const emotions = await useEmotions()
 const audio = ref(new Audio('/audios/0.mp3'))
 const paused = ref(true)
+
+const accepted = computed(() => {
+  return activations.find((a: any) => a.status === 'accepted')
+})
 
 const say = computed(() => {
   const completed = activations.filter((a: any) => a.status === 'completed')

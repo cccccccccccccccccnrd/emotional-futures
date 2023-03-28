@@ -126,17 +126,15 @@ export async function createActivation (
   friendId: string
 ) {
   try {
-    const response = await useFetch('/api/activation', {
+    const response = await $fetch('/api/activation', {
       method: 'POST',
       body: {
         type,
         friendId
       }
     })
-
-    if (Array.isArray(response.data.value)) {
-      return response.data.value[0]
-    }
+    console.log(response)
+    return response
   } catch (error) {
     console.log(error)
   }
@@ -148,7 +146,7 @@ export async function updateActivation (
   accounts?: Array<any>
 ) {
   try {
-    const response = await useFetch('/api/activation', {
+    const response = await $fetch('/api/activation', {
       method: 'PATCH',
       body: {
         activationId,
@@ -164,7 +162,7 @@ export async function updateActivation (
 
 export async function deleteActivation (id: string) {
   try {
-    const response = await useFetch('/api/activation', {
+    const response = await $fetch('/api/activation', {
       method: 'DELETE',
       body: {
         id

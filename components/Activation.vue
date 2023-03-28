@@ -5,9 +5,14 @@
       class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20"
       :style="isRevealed ? 'transform: rotateY(180deg)' : ''"
     >
-      <div v-if="waiting" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]">
+      <div v-if="waiting === 'accounting'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]">
         <Icon type="time" size="l"/>
         <p class="text-center mt-5">Final Balance will become available as soon as your Accounterpart confirms their investment.</p>
+      </div>
+      <div v-if="waiting === 'feeding'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]">
+        <Icon type="time" size="l"/>
+        <p class="text-center mt-5">Your Accounterpart {{ accounterpart.name }} still needs to feed their Emoxy.</p>
+        <p class="text-center mt-5">It is time for you to inspire your Accounterpart to feed their Emoxy.</p>
       </div>
       <div v-if="ending" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]">
         <div class="flex gap-2">
@@ -127,7 +132,7 @@ const props = defineProps({
     required: false
   },
   waiting: {
-    type: Boolean,
+    type: String,
     required: false
   },
   ending: {

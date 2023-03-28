@@ -68,7 +68,7 @@
     <div v-if="step === 3" class="flex flex-col justify-center items-center">
       <Btn @click="step = 4">Start Accounting</Btn>
     </div>
-    <div v-if="step === 4" class="grow flex flex-col">
+    <div v-if="step === 4" class="grow flex flex-col overflow-hidden">
       <p class="mt-5">
         The
         <span class="capitalize">{{ selectedRelationshape.name }}</span>
@@ -77,19 +77,20 @@
           selectedRelationshape.accounting.length > 1 ? 's' : ''
         }}:
       </p>
-      <div class="flex flex-col gap-2 mt-5">
-        <LiAccounting
-          v-for="(account, index) in selectedRelationshape.accounting"
-          :title="account.name"
-          :icon="completedAccounts.find((a: any) => a.name === account.name) ? 'check' : 'arrow-r'"
-          :disabled="index > completedAccounts.length"
-          @click="
-            index === completedAccounts.length
-              ? handleAccountClick(account)
-              : null
-          "
-        />
-        {{ completedAccounts }}
+      <div class="mt-5 overflow-scroll">
+        <div class="flex flex-col gap-2">
+          <LiAccounting
+            v-for="(account, index) in selectedRelationshape.accounting"
+            :title="account.name"
+            :icon="completedAccounts.find((a: any) => a.name === account.name) ? 'check' : 'arrow-r'"
+            :disabled="index > completedAccounts.length"
+            @click="
+              index === completedAccounts.length
+                ? handleAccountClick(account)
+                : null
+            "
+          />
+        </div>
       </div>
     </div>
     <div v-if="step === 4" class="flex flex-col justify-center items-center">
@@ -157,7 +158,7 @@
       <div>
         <Icon
           v-if="
-            step === 0 || step === 1 || step === 2 || step === 8 || step === 11
+            step === 0 || step === 1 || step === 2 || step === 8 || step === 12
           "
           type="files"
         />
@@ -203,7 +204,7 @@
         :emotion="selectedEmotion"
         :relationshape="selectedRelationshape"
         :accounterpart="selectedFriend"
-        waiting
+        waiting="accounting"
         locked
       />
     </div>
@@ -238,6 +239,25 @@
       v-if="step === 11"
       class="grow relative flex flex-col justify-center items-center"
     >
+      <p class="text-lg font-bold text-center mt-5">Accounting</p>
+      <Activation
+        class="mt-5"
+        :emotion="selectedEmotion"
+        :relationshape="selectedRelationshape"
+        :accounterpart="selectedFriend"
+        waiting="feeding"
+        locked
+      />
+    </div>
+    <div v-if="step === 11" class="flex flex-col justify-center items-center">
+      <div class="w-full flex gap-4 mt-5">
+        <Btn type="dark">Send Reminder</Btn>
+      </div>
+    </div>
+    <div
+      v-if="step === 12"
+      class="grow relative flex flex-col justify-center items-center"
+    >
       <p class="text-lg font-bold text-center mt-5">Activation complete</p>
       <Activation
         class="mt-5"
@@ -247,8 +267,8 @@
         completed
       />
     </div>
-    <div v-if="step === 11" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-2 mt-5">
+    <div v-if="step === 12" class="flex flex-col justify-center items-center">
+      <div class="w-full flex gap-2 mt-5 opacity-0">
         <Btn @click="" type="dark">Terminate</Btn>
         <Btn @click="" type="dark">Accounting</Btn>
       </div>
@@ -262,6 +282,8 @@
 </template>
 
 <script setup lang="ts">
+import { checkCompatEnabled } from '@vue/compiler-core'
+
 definePageMeta({
   middleware: 'auth'
 })
@@ -313,7 +335,7 @@ const results = computed(() => {
   }
 })
 
-let check: any = null
+let interval: any = null
 
 onMounted(async () => {
   const id = String(route.params.id)
@@ -327,21 +349,17 @@ onMounted(async () => {
   loadActivation(a)
 })
 
+onUnmounted(async () => {
+  if (interval) clearInterval(interval)
+})
+
 function loadActivation(a: any) {
   setActivation(a)
 
   if (a.status === 'created') {
     step.value = 0
+    check('accepted')
     console.log('open activation', activation.value)
-    check = setInterval(async () => {
-      const id = String(route.params.id)
-      const a = await useActivation(id)
-
-      if (a.status === 'accepted') {
-        loadActivation(a)
-        clearInterval(check)
-      }
-    }, 3000)
   } else if (a.status === 'accepted' && a.accounts.length === 0) {
     step.value = 2
     console.log('accepted activation', activation.value)
@@ -349,18 +367,64 @@ function loadActivation(a: any) {
     const f = a.accounts.find((a: any) => a.userId === user.value?.id)
     if (f) {
       step.value = 8
-      console.log('friends move activation', activation.value)
+      check('accounting')
+      console.log('friends accounting move activation', activation.value)
     } else {
       step.value = 2
       console.log('accepted activation', activation.value)
     }
-  } else if (a.status === 'accepted' && a.accounts.length === 2) {
+  } else if (
+    a.status === 'accepted' &&
+    a.accounts.length === 2 &&
+    a.fed.length === 0
+  ) {
     step.value = 9
     console.log('ending activation', activation.value)
+  } else if (
+    a.status === 'accepted' &&
+    a.accounts.length === 2 &&
+    a.fed.length === 1
+  ) {
+    const f = a.fed.find((f: any) => f === user.value?.id)
+    console.log(f)
+    if (f) {
+      step.value = 11
+      check('feeding')
+      console.log('friends fed move activation', activation.value)
+    } else {
+      step.value = 9
+      console.log('ending activation', activation.value)
+    }
   } else if (a.status === 'completed') {
-    step.value = 11
+    step.value = 12
     console.log('completed activation', activation.value)
   }
+}
+
+function check(status: any) {
+  interval = setInterval(async () => {
+    const id = String(route.params.id)
+    const a = await useActivation(id)
+
+    if (status === 'accepted') {
+      if (a.status === 'accepted') {
+        loadActivation(a)
+        clearInterval(interval)
+      }
+    } else if (status === 'accounting') {
+      const f = a.accounts.find((a: any) => a.userId !== user.value?.id)
+      if (f) {
+        loadActivation(a)
+        clearInterval(interval)
+      }
+    } else if (status === 'feeding') {
+      const f = a.fed.find((f: any) => f !== user.value?.id)
+      if (f) {
+        loadActivation(a)
+        clearInterval(interval)
+      }
+    }
+  }, 3000)
 }
 
 function setActivation(a: any) {
@@ -386,6 +450,8 @@ async function handleMeasureClick() {
     st: [sweat.value, tears.value]
   })
 
+  sweat.value = '5'
+  tears.value = '5'
   step.value = 4
 }
 
@@ -401,10 +467,11 @@ async function handleInvestmentClick() {
   if (!a) return
 
   setActivation(a)
-  if (a.status === 'completed') {
+  if (a.status === 'accepted' && a.accounts.length === 2) {
     step.value = 9
   } else {
     step.value = 8
+    check('accounting')
   }
 }
 
@@ -419,9 +486,10 @@ async function handleFeedClick() {
 
   setActivation(a)
   if (a.status === 'completed') {
-    step.value = 9
+    step.value = 12
   } else {
-    step.value = 8
+    step.value = 11
+    check('feeding')
   }
 }
 

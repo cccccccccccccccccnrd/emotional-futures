@@ -155,7 +155,7 @@ export function useRelationshapes () {
       shape: 'yellow',
       accounting: [
         {
-          name: 'Account',
+          name: 'account',
           text: 'Take account of the emotion you could capture in words.'
         }
       ]

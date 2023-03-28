@@ -60,6 +60,7 @@ export async function createActivation (
       type
     })
     .select()
+    .single()
 }
 
 export async function hasAcceptedActivation (event: H3Event) {

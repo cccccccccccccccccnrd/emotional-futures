@@ -82,6 +82,7 @@ export async function updateActivation (
       })
       .eq('id', activationId)
       .select()
+      .single()
   } 
 
   let newAccounts = activation.accounts
@@ -144,11 +145,11 @@ export async function updateActivation (
             results: [otherB, otherSt[0], ownSt[1]]
           }
         ],
-        status: 'completed',
         updated_at: new Date()
       })
       .eq('id', activationId)
       .select()
+      .single()
   } else {
     return await client
       .from('activations')
@@ -158,6 +159,7 @@ export async function updateActivation (
       })
       .eq('id', activationId)
       .select()
+      .single()
   }
 }
 
@@ -177,6 +179,7 @@ export async function updateEmoxy (
     })
     .eq('id', id)
     .select()
+    .single()
 
   if (error) {
     throw createError({

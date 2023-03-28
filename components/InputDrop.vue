@@ -46,7 +46,6 @@ const amount = ref(props.modelValue)
 function updateValue(event: Event) {
   const target = event.target as HTMLInputElement
   amount.value = target.value
-  console.log('amount', amount.value)
   emit('update:modelValue', target.value)
 }
 </script>

@@ -18,5 +18,6 @@ export interface Activation {
   type: [number, number]
   accounts?: [Object, Object]
   results?: [Object, Object]
+  fed: [string, string]
   status: 'created' | 'accepted' | 'completed'
 }

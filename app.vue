@@ -32,13 +32,6 @@ nuxtApp.hook('page:finish', () => {
   font-style: bold;
 }
 
-:root {
-  --color-bg: rgba(30, 30, 30, 1);
-  --color-text: white;
-  --height-section: 20vh;
-  --indent: ;
-}
-
 * {
   box-sizing: border-box;
   user-select: none;
@@ -57,23 +50,13 @@ body {
   font-family: 'UbuntuMono', sans-serif;
   font-size: 16px;
   line-height: 1;
-  color: var(--color-text);
-  background: var(--color-bg);
+  color: white;
+  background: black;
 }
 
 p {
   margin: 0;
   line-height: 1.1 !important;
-}
-
-h2 {
-  margin: 0;
-  font-size: 1.5em;
-  font-weight: normal;
-}
-
-input {
-  font-family: 'Jomolhari', sans-serif;
 }
 
 input:focus {
