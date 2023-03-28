@@ -22,7 +22,7 @@ export default defineEventHandler(async event => {
     event,
     body.activationId,
     body.userId,
-    body.accounts
+    body.accounts ? body.accounts : null
   )
 
   if (error) {
@@ -32,6 +32,7 @@ export default defineEventHandler(async event => {
       message: error.message
     })
   } else {
+    console.log(data)
     return data
   }
 })
@@ -40,11 +41,48 @@ export async function updateActivation (
   event: H3Event,
   activationId: string,
   userId: string,
-  accounts: []
+  accounts: [] | null
 ) {
   const client: any = serverSupabaseServiceRole(event)
 
   const activation: any = await getActivation(event, activationId)
+
+  if (!accounts) {
+    console.log('goin in')
+    const emoxy = await getEmoxyByUserId(event, userId)
+    const results = activation.results.find((r: any) => r.userId === userId)
+
+    if (!results) throw createError({
+      statusCode: 500,
+      name: 'InternalServerError',
+      message: 'no results yet'
+    })
+
+    const bst = [
+      emoxy.bst[0] + results.results[0],
+      emoxy.bst[1] + results.results[1],
+      emoxy.bst[2] + results.results[2]
+    ]
+
+    console.log('bst', bst)
+    
+    await updateEmoxy(event, emoxy.id, {
+      bst
+    })
+
+    const fed = activation.fed.length === 0 ? [emoxy.user_id] : [...activation.fed, emoxy.user_id]
+    console.log('fed', fed)
+
+    return await client
+      .from('activations')
+      .update({
+        fed,
+        status: fed.length === 2 ? 'completed' : 'accepted',
+        updated_at: new Date()
+      })
+      .eq('id', activationId)
+      .select()
+  } 
 
   let newAccounts = activation.accounts
   const a = newAccounts.find((a: any) => a.userId === userId)
@@ -90,30 +128,7 @@ export async function updateActivation (
       10 * otherAccounts.accounts.length - Math.abs(otherSt[0] - ownSt[1])
     )
 
-    const ownEmoxy = await getEmoxyByUserId(event, ownAccounts.userId)
-    const otherEmoxy = await getEmoxyByUserId(event, otherAccounts.userId)
-
-    const ownBst = [
-      ownEmoxy.bst[0] + ownB,
-      ownEmoxy.bst[1] + ownSt[0],
-      ownEmoxy.bst[2] + otherSt[1]
-    ]
-    const otherBst = [
-      otherEmoxy.bst[0] + otherB,
-      otherEmoxy.bst[1] + otherSt[0],
-      otherEmoxy.bst[2] + ownSt[1]
-    ]
-
-    await Promise.all(
-      newAccounts.map(async (a: any) => {
-        await updateEmoxy(event, ownEmoxy.id, {
-          bst: ownBst
-        })
-        await updateEmoxy(event, otherEmoxy.id, {
-          bst: otherBst
-        })
-      })
-    )
+    /* gl hf <3 */
 
     return await client
       .from('activations')

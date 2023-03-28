@@ -145,7 +145,7 @@ export async function createActivation (
 export async function updateActivation (
   activationId: string,
   userId: string,
-  accounts: Array<any>
+  accounts?: Array<any>
 ) {
   try {
     const response = await useFetch('/api/activation', {
@@ -153,7 +153,7 @@ export async function updateActivation (
       body: {
         activationId,
         userId,
-        accounts
+        accounts: accounts
       }
     })
     return response

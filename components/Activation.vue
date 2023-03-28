@@ -9,15 +9,14 @@
         <Icon type="time" size="l"/>
         <p class="text-center mt-5">Final Balance will become available as soon as your Accounterpart confirms their investment.</p>
       </div>
-      <div v-if="completed" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]">
+      <div v-if="ending" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]">
         <div class="flex gap-2">
           <Icon type="drop-empty" size="l"/>
           <Icon type="drop-half" size="l"/>
           <Icon type="drop-full" size="l"/>
         </div>
         <p class="text-center mt-5">Your activation with {{ accounterpart.name }} comes to an end.</p>
-        <p class="text-center mt-5">It is time to know how the liquidity of your relationship was rebalanced.</p>
-        <p class="text-center mt-5">And feed your Emoxy with what you have gained, or perhaps lost in the process.</p>
+        <p class="text-center mt-5">Your Accounting results are ready. Soon you will feed your Emoxy with the Drops you gained (or perhaps lost) in the process.</p>
       </div>
       <div>
         <p class="text-xs text-white-80 text-center drop-shadow-md">
@@ -128,6 +127,10 @@ const props = defineProps({
     required: false
   },
   waiting: {
+    type: Boolean,
+    required: false
+  },
+  ending: {
     type: Boolean,
     required: false
   },

@@ -82,7 +82,8 @@ const paused = ref(true)
 const say = computed(() => {
   const completed = activations.filter((a: any) => a.status === 'completed')
   if (completed.length === 0) return 'No activations yet'
-  return emotions[completed[0].type[0]].say[
+
+  return emotions[completed[0].type[0] - 1].say[
     new Set(activations.map((a: any) => a.type[0])).size
   ]
 })

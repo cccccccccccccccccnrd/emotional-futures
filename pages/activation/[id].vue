@@ -145,7 +145,7 @@
     </div>
     <div v-if="step === 10" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-5">
-        <Btn @click="navigateTo('/emoxy')">Feed Emoxy</Btn>
+        <Btn @click="handleFeedClick">Feed Emoxy</Btn>
       </div>
     </div>
   </div>
@@ -156,7 +156,9 @@
       </div>
       <div>
         <Icon
-          v-if="step === 0 || step === 1 || step === 2 || step === 8"
+          v-if="
+            step === 0 || step === 1 || step === 2 || step === 8 || step === 11
+          "
           type="files"
         />
       </div>
@@ -220,13 +222,35 @@
         :emotion="selectedEmotion"
         :relationshape="selectedRelationshape"
         :accounterpart="selectedFriend"
-        completed
+        ending
         locked
       />
     </div>
-    <div v-if="step === 9  || step === 10" class="flex flex-col justify-center items-center">
+    <div
+      v-if="step === 9 || step === 10"
+      class="flex flex-col justify-center items-center"
+    >
       <div class="w-full flex gap-4 mt-5">
         <Btn @click="step = 10">Show Accounting Results</Btn>
+      </div>
+    </div>
+    <div
+      v-if="step === 11"
+      class="grow relative flex flex-col justify-center items-center"
+    >
+      <p class="text-lg font-bold text-center mt-5">Activation complete</p>
+      <Activation
+        class="mt-5"
+        :emotion="selectedEmotion"
+        :relationshape="selectedRelationshape"
+        :accounterpart="selectedFriend"
+        completed
+      />
+    </div>
+    <div v-if="step === 11" class="flex flex-col justify-center items-center">
+      <div class="w-full flex gap-2 mt-5">
+        <Btn @click="" type="dark">Terminate</Btn>
+        <Btn @click="" type="dark">Accounting</Btn>
       </div>
     </div>
   </div>
@@ -279,13 +303,17 @@ const sweat = ref('5')
 const tears = ref('5')
 
 const results = computed(() => {
-  const f = activation.value.results.find((a: any) => a.userId === user.value?.id)
+  const f = activation.value.results.find(
+    (a: any) => a.userId === user.value?.id
+  )
   if (f) {
     return f.results
   } else {
     return null
   }
 })
+
+let check: any = null
 
 onMounted(async () => {
   const id = String(route.params.id)
@@ -296,16 +324,28 @@ onMounted(async () => {
     return
   }
 
+  loadActivation(a)
+})
+
+function loadActivation(a: any) {
+  setActivation(a)
+
   if (a.status === 'created') {
-    setActivation(a)
     step.value = 0
     console.log('open activation', activation.value)
+    check = setInterval(async () => {
+      const id = String(route.params.id)
+      const a = await useActivation(id)
+
+      if (a.status === 'accepted') {
+        loadActivation(a)
+        clearInterval(check)
+      }
+    }, 3000)
   } else if (a.status === 'accepted' && a.accounts.length === 0) {
-    setActivation(a)
     step.value = 2
     console.log('accepted activation', activation.value)
   } else if (a.status === 'accepted' && a.accounts.length === 1) {
-    setActivation(a)
     const f = a.accounts.find((a: any) => a.userId === user.value?.id)
     if (f) {
       step.value = 8
@@ -314,14 +354,17 @@ onMounted(async () => {
       step.value = 2
       console.log('accepted activation', activation.value)
     }
-  } else if (a.status === 'completed') {
-    setActivation(a)
+  } else if (a.status === 'accepted' && a.accounts.length === 2) {
     step.value = 9
+    console.log('ending activation', activation.value)
+  } else if (a.status === 'completed') {
+    step.value = 11
     console.log('completed activation', activation.value)
   }
-})
+}
 
 function setActivation(a: any) {
+  console.log(a)
   activation.value = a
   selectedFriend.value = friends.find(
     (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
@@ -354,6 +397,23 @@ async function handleInvestmentClick() {
     user.value.id,
     completedAccounts.value
   )
+
+  if (!a) return
+
+  setActivation(a)
+  if (a.status === 'completed') {
+    step.value = 9
+  } else {
+    step.value = 8
+  }
+}
+
+async function handleFeedClick() {
+  if (!user.value) return
+
+  const a: any = await updateActivation(activation.value.id, user.value.id)
+
+  console.log('got back', a)
 
   if (!a) return
 
