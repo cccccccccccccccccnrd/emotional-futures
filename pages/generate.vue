@@ -103,7 +103,7 @@
     </div>
     <div class="h-1/4 flex flex-col justify-center items-center">
       <div v-if="step === -1" class="w-full">
-        <Btn @click="navigateTo('/friends')">Connect with Friends</Btn>
+        <Btn @click="navigateTo('/accounterparts')">Connect with Friends</Btn>
       </div>
       <div v-if="step === 0" class="w-full">
         <Btn @click="step = 1">Take me to the Quiz</Btn>

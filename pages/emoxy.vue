@@ -58,13 +58,13 @@
       </div>
     </div>
     <div class="flex justify-center items-end gap-2 mt-5">
-      <Btn @click="navigateTo('/friends')" type="dark">
+      <Btn @click="navigateTo('/accounterparts')" type="dark">
         <Icon type="friends" size="m" />
       </Btn>
       <Btn @click="navigateTo('/emoxy')">
         <Icon type="heart" size="m" invert />
       </Btn>
-      <Btn @click="navigateTo('/activations')" type="dark">
+      <Btn @click="navigateTo('/emotions')" type="dark">
         <Icon type="emotions" size="m" />
       </Btn>
     </div>

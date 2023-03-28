@@ -12,7 +12,7 @@
     >
       <p v-if="emoxy.friends.length === 0">No connections yet</p>
       <div v-if="friends.length > 0" class="w-full flex flex-col gap-2">
-        <LiFriend
+        <LiAccounterpart
           v-for="friend in friends"
           @click="handleFriendClick(friend)"
           :name="friend.name"
@@ -46,13 +46,13 @@
       </div>
     </div>
     <div class="flex justify-center items-end shrink gap-2 mt-5">
-      <Btn @click="navigateTo('/friends')">
+      <Btn @click="navigateTo('/accounterparts')">
         <Icon type="friends" size="m" invert />
       </Btn>
       <Btn @click="navigateTo('/emoxy')" type="dark">
         <Icon type="heart" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/activations')" type="dark">
+      <Btn @click="navigateTo('/emotions')" type="dark">
         <Icon type="emotions" size="m" />
       </Btn>
     </div>

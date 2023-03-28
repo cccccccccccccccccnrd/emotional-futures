@@ -20,7 +20,7 @@
       >
         <p v-if="emoxy.friends.length === 0">No connections yet</p>
         <div v-if="friends.length > 0" class="w-full flex flex-col gap-2">
-          <LiFriend
+          <LiAccounterpart
             v-for="friend in friends"
             @click="
               isFriendUnavailable(friend.user_id)
