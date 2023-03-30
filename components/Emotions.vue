@@ -1,12 +1,12 @@
 <template>
-  <div class="h-[11.5rem] w-[11.5rem] flex flex-col items-center ease-in-out duration-300" :style="`transform: rotate(-${ (emotionsValue - 1) * 45 }deg)`">
+  <div class="h-[11.5rem] w-[11.5rem] flex flex-col items-center ease-in-out duration-300" :style="`transform: rotate(-${ (emotionsValue.id - 1) * 45 }deg)`">
     <div class="circle-container">
       <img
         v-for="(emotion, index) in emotions"
-        @click="handleEmotionClick(emotion.id)"
+        @click="handleEmotionClick(emotion)"
         :src="`/imgs/emotions/drop-${emotion.id}.png`"
-        :class="!availableEmotions.includes(emotion.id) ? '!grayscale' : ''"
-        :style="emotionsValue === emotion.id ? 'filter: drop-shadow(0 -0.2rem 0.5rem rgba(255, 255, 255, 1)' : 'filter: brightness(0.6)'"
+        :class="!availableEmotions.find((e: any) => e.id === emotion.id) ? '!grayscale' : ''"
+        :style="emotionsValue.id === emotion.id ? 'filter: drop-shadow(0 -0.2rem 0.5rem rgba(255, 255, 255, 1)' : 'filter: brightness(0.6)'"
       />
     </div>
   </div>
@@ -15,7 +15,7 @@
 <script setup lang="ts">
 const props = defineProps({
   modelValue: {
-    type: Number,
+    type: Object,
     required: true
   },
   availableEmotions: {
@@ -24,18 +24,21 @@ const props = defineProps({
   }
 })
 
+console.log(props.availableEmotions)
+
 const emotions = await useEmotions()
 const emotionsValue: any = ref(props.modelValue)
 
 const emit = defineEmits(['update:modelValue'])
 
-function handleEmotionClick(emotionId: any) {
-  if (!props.availableEmotions.includes(emotionId)) return
+function handleEmotionClick(emotion: any) {
+  if (!props.availableEmotions.find((e: any) => e.id === emotion.id)) return
+  console.log(emotion)
 
-  if (emotionsValue.value === emotionId) {
+  if (emotionsValue.value === emotion) {
     emotionsValue.value = 0
   } else {
-    emotionsValue.value = emotionId
+    emotionsValue.value = emotion
   }
   emit('update:modelValue', emotionsValue.value)
 }

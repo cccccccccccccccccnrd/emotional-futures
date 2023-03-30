@@ -140,8 +140,24 @@
     </div>
     <div v-if="step === 10" class="grow flex flex-col">
       <p class="text-lg text-center font-bold mt-5">Accounting Results</p>
-      <div class="grow flex justify-center items-center mt-5 px-10">
-        {{ results }}
+      <div class="grow flex flex-col gap-2 justify-center items-center mt-5">
+        <div
+          v-for="(r, i) in [results[1], results[2], results[0]]"
+          class="w-full flex justify-between items-center font-bold p-5 bg-dark-50 backdrop-blur-md border-2 border-white-50"
+        >
+          <p v-if="i === 0">You gave Sweat</p>
+          <p v-if="i === 1">You received Tears</p>
+          <p v-if="i === 2">You gained Blood</p>
+          <div class="flex gap-2 items-center">
+            {{ r }}
+            <img
+              :src="`/imgs/drop-${
+                i === 0 ? 'sweat' : i === 1 ? 'tears' : 'blood'
+              }.png`"
+              class="w-4"
+            />
+          </div>
+        </div>
       </div>
     </div>
     <div v-if="step === 10" class="flex flex-col justify-center items-center">
@@ -264,7 +280,7 @@
         :emotion="selectedEmotion"
         :relationshape="selectedRelationshape"
         :accounterpart="selectedFriend"
-        completed
+        :results="results"
       />
     </div>
     <div v-if="step === 12" class="flex flex-col justify-center items-center">
@@ -480,17 +496,16 @@ async function handleFeedClick() {
 
   const a: any = await updateActivation(activation.value.id, user.value.id)
 
-  console.log('got back', a)
-
   if (!a) return
 
   setActivation(a)
-  if (a.status === 'completed') {
+  /* if (a.status === 'completed') {
     step.value = 12
   } else {
     step.value = 11
     check('feeding')
-  }
+  } */
+  navigateTo('/emoxy?animation=true')
 }
 
 async function handleTerminateClick() {

@@ -6,8 +6,11 @@
     </div>
     <div class="flex flex-col grow items-center justify-between">
       <div class="flex justify-between w-full">
-        <div v-for="v in emoxy.bst" class="flex justify-center flex-grow p-5">
-          <p>{{ v }}</p>
+        <div v-for="(v, i) in emoxy.bst" class="flex justify-center flex-grow mt-5">
+          <div class="flex gap-1 justify-center items-center">
+            <p class="text-lg">{{ v }}</p>
+            <img :src="`/imgs/drop-${ i === 0 ? 'blood' : i === 1 ? 'sweat' : 'tears' }.png`" class="w-4" />
+          </div>
         </div>
       </div>
       <div class="h-1/2">

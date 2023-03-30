@@ -47,7 +47,7 @@
         >Confirm Accounterpart</Btn
       >
     </div>
-    <div v-if="step === 1" class="h-[70%] flex flex-col mt-5">
+    <div v-if="step === 1" class="grow flex flex-col mt-5">
       <p v-if="!selectedEmotion.name" class="text-lg font-bold text-center">
         Choose emotion to activate
       </p>
@@ -57,7 +57,7 @@
       >
         {{ selectedEmotion.name }}
       </p>
-      <div class="grow px-5 mt-5">
+      <div class="grow px-8 mt-5">
         <Activation
           @click="selectedEmotion?.id ? (step = 2) : ''"
           :accounterpart="selectedFriend"
@@ -67,15 +67,7 @@
       </div>
     </div>
     <div v-if="step === 1" class="flex flex-wrap justify-center gap-2 mt-5">
-      <div
-        v-for="emotion in emotions"
-        @click="selectedEmotion = emotion"
-        class="flex w-6 h-6 rounded-full"
-        :class="`${
-          selectedEmotion.name === emotion.name ? 'border-2 border-white' : ''
-        }`"
-        :style="`background: ${emotion.color}`"
-      ></div>
+      <Emotions v-model="selectedEmotion" :availableEmotions="emotions" />
     </div>
     <div v-if="step === 2" class="grow flex flex-col mt-5">
       <p

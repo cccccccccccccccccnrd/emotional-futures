@@ -5,23 +5,45 @@
       class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20"
       :style="isRevealed ? 'transform: rotateY(180deg)' : ''"
     >
-      <div v-if="waiting === 'accounting'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]">
-        <Icon type="time" size="l"/>
-        <p class="text-center mt-5">Final Balance will become available as soon as your Accounterpart confirms their investment.</p>
+      <div
+        v-if="waiting === 'accounting'"
+        class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]"
+      >
+        <Icon type="time" size="l" />
+        <p class="text-center mt-5">
+          Final Balance will become available as soon as your Accounterpart
+          confirms their investment.
+        </p>
       </div>
-      <div v-if="waiting === 'feeding'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]">
-        <Icon type="time" size="l"/>
-        <p class="text-center mt-5">Your Accounterpart {{ accounterpart.name }} still needs to feed their Emoxy.</p>
-        <p class="text-center mt-5">It is time for you to inspire your Accounterpart to feed their Emoxy.</p>
+      <div
+        v-if="waiting === 'feeding'"
+        class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]"
+      >
+        <Icon type="time" size="l" />
+        <p class="text-center mt-5">
+          Your Accounterpart {{ accounterpart.name }} still needs to feed their
+          Emoxy.
+        </p>
+        <p class="text-center mt-5">
+          It is time for you to inspire your Accounterpart to feed their Emoxy.
+        </p>
       </div>
-      <div v-if="ending" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]">
+      <div
+        v-if="ending"
+        class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[10]"
+      >
         <div class="flex gap-2">
-          <Icon type="drop-empty" size="l"/>
-          <Icon type="drop-half" size="l"/>
-          <Icon type="drop-full" size="l"/>
+          <Icon type="drop-empty" size="l" />
+          <Icon type="drop-half" size="l" />
+          <Icon type="drop-full" size="l" />
         </div>
-        <p class="text-center mt-5">Your activation with {{ accounterpart.name }} comes to an end.</p>
-        <p class="text-center mt-5">Your Accounting results are ready. Soon you will feed your Emoxy with the Drops you gained (or perhaps lost) in the process.</p>
+        <p class="text-center mt-5">
+          Your activation with {{ accounterpart.name }} comes to an end.
+        </p>
+        <p class="text-center mt-5">
+          Your Accounting results are ready. Soon you will feed your Emoxy with
+          the Drops you gained (or perhaps lost) in the process.
+        </p>
       </div>
       <div>
         <p class="text-xs text-white-80 text-center drop-shadow-md">
@@ -37,7 +59,9 @@
       >
         <Btn class="text-sm font-bold">Confirm Emotion</Btn>
       </div>
-      <div class="absolute left-0 top-0 w-full h-full flex justify-center items-center z-[-10]">
+      <div
+        class="absolute left-0 top-0 w-full h-full flex justify-center items-center z-[-10]"
+      >
         <img
           v-if="relationshape?.id"
           :src="`/imgs/relationshapes/bg-${relationshape?.id}.png`"
@@ -52,7 +76,7 @@
         </p>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full bg-cover z-[-20]"
+        class="absolute left-0 top-0 w-full h-full bg-dark-50 bg-cover z-[-20]"
         :style="
           emotion?.id
             ? `background-image: url('/imgs/emotions/bg-${emotion.id}.png')`
@@ -83,7 +107,7 @@
       >
         {{ relationshape?.id ? emotion?.prompts[relationshape.id - 1] : '' }}
       </div>
-      <div>
+      <div v-if="!results">
         <div class="px-10 flex justify-center items-center">
           <Icon v-for="d in relationshape?.id" type="drop-full" />
         </div>
@@ -91,6 +115,27 @@
           <Icon type="book" />
           <Icon type="audio" />
           <Icon @click="isRevealed = !isRevealed" type="flip" />
+        </div>
+      </div>
+      <div v-if="results">
+        <div class="px-5 mt-5 flex justify-between items-center">
+          <div
+            v-for="(r, i) in results"
+            class="flex flex-col"
+          >
+            <div class="flex justify-center items-center gap-1">
+              <p class="font-bold">{{ r }}</p>
+              <img
+                :src="`/imgs/drop-${
+                  i === 0 ? 'blood' : i === 1 ? 'sweat' : 'tears'
+                }.png`"
+                class="w-3"
+              />
+            </div>
+            <p v-if="i === 0" class="text-xs mt-0.5">Blood</p>
+            <p v-if="i === 1" class="text-xs mt-0.5">Sweat</p>
+            <p v-if="i === 2" class="text-xs mt-0.5">Tears</p>
+          </div>
         </div>
       </div>
       <div
@@ -139,8 +184,8 @@ const props = defineProps({
     type: Boolean,
     required: false
   },
-  completed: {
-    type: Boolean,
+  results: {
+    type: Array,
     required: false
   }
 })

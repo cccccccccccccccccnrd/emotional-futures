@@ -5,10 +5,12 @@
       <Icon type="menu" />
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
-      <p v-if="emotion" class="text-lg font-bold text-center capitalize">{{ emotions[emotion - 1].name }}</p>
+      <p v-if="selectedEmotion.id" class="text-lg font-bold text-center capitalize">
+        {{ selectedEmotion.name }}
+      </p>
       <p v-else class="text-lg font-bold text-center">Select Emotion</p>
       <div class="w-full flex flex-col items-center mt-5">
-        <Emotions v-model="emotion" :availableEmotions="availableEmotions" />
+        <Emotions v-model="selectedEmotion" :availableEmotions="availableEmotions" />
       </div>
       <div class="w-full mt-5 overflow-scroll">
         <div v-if="completedActivations" class="flex flex-col gap-2">
@@ -48,14 +50,24 @@ definePageMeta({
 const activations: any = await useActivations()
 const emotions = await useEmotions()
 
-const emotion = ref(0)
+const selectedEmotion = ref({
+  id: null,
+  name: null,
+  color: null,
+  prompts: []
+})
 const completedActivations = computed(() =>
   activations.filter((a: any) => a.status === 'completed')
 )
 const availableEmotions = computed(() =>
-  Array.from(new Set(completedActivations.value.map((a: any) => a.type[0])))
+  emotions.filter((e: any) =>
+    Array.from(
+      new Set(completedActivations.value.map((a: any) => a.type[0]))
+    ).includes(e.id)
+  )
 )
+
 const activationsByEmotion = computed(() =>
-  completedActivations.value.filter((a: any) => a.type[0] === emotion.value)
+  completedActivations.value.filter((a: any) => a.type[0] === selectedEmotion.value.id)
 )
 </script>
