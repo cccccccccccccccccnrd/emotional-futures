@@ -30,7 +30,7 @@
           <p class="text-sm text-align">
             {{ say }}
           </p>
-          <div v-if="!accepted" class="flex gap-2 mt-3 text-sm">
+          <div v-if="!busy" class="flex gap-2 mt-3 text-sm">
             <Btn
               @click="navigateTo('/feed')"
               type="dark"
@@ -50,7 +50,7 @@
           </div>
           <div v-else class="flex gap-2 mt-3 text-sm">
             <Btn
-              @click="navigateTo(`/activation/${accepted.id}`)"
+              @click="navigateTo(`/activation/${busy.id}`)"
               type="dark"
               padding="1"
               class="rounded-lg border-2 border-white-80"
@@ -61,13 +61,13 @@
       </div>
     </div>
     <div class="flex justify-center items-end gap-2 mt-5">
-      <Btn @click="navigateTo('/accounterparts')" type="dark">
-        <Icon type="friends" size="m" />
+      <Btn @click="navigateTo('/accounterparts')" type="dark" padding="1.5">
+        <Icon type="accounterparts" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/emoxy')">
+      <Btn @click="navigateTo('/emoxy')" padding="1.5">
         <Icon type="heart" size="m" invert />
       </Btn>
-      <Btn @click="navigateTo('/emotions')" type="dark">
+      <Btn @click="navigateTo('/emotions')" type="dark" padding="1.5">
         <Icon type="emotions" size="m" />
       </Btn>
     </div>
@@ -90,8 +90,8 @@ const emotions = await useEmotions()
 const audio = ref(new Audio('/audios/0.mp3'))
 const paused = ref(true)
 
-const accepted = computed(() => {
-  return activations.find((a: any) => a.status === 'accepted')
+const busy = computed(() => {
+  return activations.find((a: any) => a.status === 'accepted' || a.status === 'created')
 })
 
 const say = computed(() => {

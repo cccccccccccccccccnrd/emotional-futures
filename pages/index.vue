@@ -1,90 +1,131 @@
 <template>
-  <div class="h-1/4 flex flex-col justify-center items-center">
-    <h2>Emotional Futures</h2>
-    <p>the game</p>
-  </div>
-  <div
-    class="h-2/4 flex flex-col items-center"
-    :class="step !== 0 ? 'justify-between' : 'justify-center'"
-  >
-    <div v-if="step === 0" class="w-full">
-      <Btn @click="navigateTo('/generate')">Generate New Emoxy</Btn>
-      <Btn @click="navigateTo('/login')" class="mt-4">
-        Keep Growing My Emoxy</Btn
-      >
-      <Btn class="mt-4" v-if="user" @click="logout">Logout</Btn>
-    </div>
-    <div v-if="step === 1" class="w-full text-lg">
-      <p>
-        In a world that crushes every possibility of deepening intimate
-        connections, what is at stake when you become truly accountable for your
-        relationships?
-      </p>
-      <p class="mt-4">
-        In this extended reality card game you grow your own Emoxy, an alchemic
-        creature that embodies your Emotional Future.
-      </p>
-    </div>
-    <div v-if="step === 2" class="w-full text-lg">
-      <p>
-        You will account for your Emotional Future in three difference virtual
-        currencies
-      </p>
-      <p class="mt-4"><strong>Blood, Sweat, and Tears</strong></p>
-      <p class="mt-4">
-        they measure your own efforts, how you are perceived, and the balance
-        between the two
-      </p>
-    </div>
-    <div v-if="step === 3" class="w-full text-lg">
-      <p>
-        Invite friends to grow your Emoxy and create your game cards exploring
-        the 8 basic emotions with the help of relationshapes. These structures
-        follow a long tradition of alchemy and spiritual practices
-      </p>
-    </div>
-    <div v-if="step === 4" class="w-full text-lg">
-      <p>
-        Prepare yourself to mint your intuitions, efforts, and relationships.
-      </p>
-      <p class="mt-4">Secure your Emotional Future</p>
+  <div class="h-full flex flex-col">
+    <div
+      v-if="step === 0"
+      class="flex flex-col justify-center items-center px-5"
+    >
+      <img src="/imgs/logos/ef.png" />
     </div>
     <div
-      v-if="step !== 0"
-      class="w-full max-w-[75%] flex justify-between items-center justify-self-end"
+      class="grow flex flex-col items-center text-center p-5"
+      :class="
+        step !== 0
+          ? 'justify-between bg-dark-70 backdrop-blur-md'
+          : 'justify-center'
+      "
     >
-      <div
-        class="text-xl"
-        :class="step <= 1 ? 'opacity-20' : ''"
-        @click="step <= 1 ? null : step--"
-      >
-        &#8592;
+      <div v-if="step === 0" class="w-full">
+        <Btn @click="navigateTo('/generate')">Generate New Emoxy</Btn>
+        <Btn @click="navigateTo('/login')" type="dark" class="mt-2">
+          Keep Feeding My Emoxy</Btn
+        >
+        <Btn class="mt-4" v-if="user" @click="logout">Logout</Btn>
       </div>
-      <div class="flex items-center gap-1">
-        <div
-          v-for="n in 4"
-          :class="step === n ? 'w-2 h-2' : 'w-1.5 h-1.5 opacity-20'"
-          class="bg-white rounded-full"
-        ></div>
+      <div v-if="step !== 0" class="w-full text-lg">
+        <p class="text-2xl font-bold">Emotional Futures</p>
+        <p class="">the game</p>
+      </div>
+      <div v-if="step === 1">
+        <p>
+          Emotional Futures is not just a game, it is the beginning of a new
+          economy.
+        </p>
+        <p class="mt-5">
+          An invitation to greater accountability and collective growth.
+        </p>
+        <p class="mt-5">
+          When the world has become a game, any human can be a player.
+        </p>
+        <p class="mt-5">
+          Reprogram your Emotional Operating System (EOS). Extract the value of
+          your relationships. Grow your Emoxy, your emotional proxy.
+        </p>
+      </div>
+      <div v-if="step === 2" class="flex flex-col items-center">
+        <Icon type="accounterparts" />
+        <p class="mt-2 font-bold">Accounterparts</p>
+        <p class="mt-5">
+          The Emotional Futures game interface connects humans in a network of
+          players called Accounterparts.
+        </p>
+        <p class="mt-5">
+          Accounterparts are humans that are linked through existing, real-life
+          relationships: friends, lovers, and acquaintances.
+        </p>
+        <p class="mt-5">
+          Accounterparts grow their personal Emoxys by playing activations and
+          accounting for their emotional investments.
+        </p>
+      </div>
+      <div v-if="step === 3" class="flex flex-col items-center">
+        <Icon type="flip" />
+        <p class="mt-2 font-bold">Activations</p>
+        <p class="mt-5">
+          Activations are unique tasks asking players to recall memories, discuss feelings, and produce new emotional experiences.
+        </p>
+        <p class="mt-5">
+          Grow your Emoxy by feeding it with the virtual currencies Blood, Sweat and Tears. Extract them from your body through playing Activations with your chosen Accounterpart.
+        </p>
+        <p class="mt-5">
+          Complete Activations from eight core emotions to realize your Emoxy's full potential.
+        </p>
+      </div>
+      <div v-if="step === 4" class="flex flex-col items-center">
+        <Icon type="drop-half" />
+        <p class="mt-2 font-bold">Accounting</p>
+        <p class="mt-5">
+          Once you complete an Activation, you will be directed to the Accounting phase where you collect Drops of Blood, Sweat and Tears. These fluids account for the emotional energy you give and receive from your Accounterpart.
+        </p>
+        <p class="mt-5">
+          Accounting allows you to extract your mutual emotional investment as Drops that feed your Emoxy’s growth.
+        </p>
+        <p class="mt-5 font-bold underline">
+          Learn More
+        </p>
       </div>
       <div
-        class="text-xl"
-        :class="step >= 4 ? 'opacity-20' : ''"
-        @click="step >= 4 ? null : step++"
+        v-if="step !== 0"
+        class="w-full px-5 flex justify-between items-center justify-self-end"
       >
-        &#8594;
+        <Icon
+          type="arrow-l"
+          @click="step <= 1 ? null : step--"
+          :class="step <= 1 ? 'opacity-20' : ''"
+        />
+        <div class="flex justify-center items-center gap-1">
+          <div
+            v-for="n in 4"
+            :class="step === n ? 'w-2 h-2' : 'w-1 h-1'"
+            class="bg-white-100"
+          ></div>
+        </div>
+        <Icon
+          type="arrow-r"
+          @click="step >= 4 ? null : step++"
+          :class="step >= 4 ? 'opacity-20' : ''"
+        />
+      </div>
+    </div>
+    <div class="flex flex-col justify-center text-center font-bold mt-5 p-5">
+      <div v-if="step === 0">
+        <p @click="step = 1" class="underline">What is this game about?</p>
+        <div class="flex gap-5 justify-center items-center mt-5">
+          <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
+          <img src="/imgs/logos/las.png" class="h-5 w-auto" />
+        </div>
+        <p @click="step = 1" class="text-xs underline mt-5">Data Privacy</p>
+      </div>
+      <div v-if="step !== 0">
+        <Btn @click="navigateTo('/generate')">Generate New Emoxy</Btn>
+        <Btn @click="navigateTo('/login')" type="dark" class="mt-2">Keep Feeding My Emoxy</Btn>
+        <p @click="step = 1" class="text-xs underline mt-5">Data Privacy</p>
       </div>
     </div>
   </div>
-  <div class="h-1/4 flex flex-col justify-center">
-    <div v-if="step === 0">
-      <p @click="step = 1">What is this game about?</p>
-      <p>Youtube Telegram</p>
-    </div>
-    <div v-if="step !== 0">
-      <Btn>Generate New Emoxy</Btn>
-      <Btn class="mt-4">Keep Growing My Emoxy</Btn>
-    </div>
+  <div class="absolute top-0 left-0 h-full w-full z-[-10]">
+    <div
+      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-4.png')] bg-cover"
+    ></div>
   </div>
 </template>
 

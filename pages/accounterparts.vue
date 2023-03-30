@@ -48,13 +48,13 @@
       </div>
     </div>
     <div class="flex justify-center items-end shrink gap-2 mt-5">
-      <Btn @click="navigateTo('/accounterparts')">
-        <Icon type="friends" size="m" invert />
+      <Btn @click="navigateTo('/accounterparts')" padding="1.5">
+        <Icon type="accounterparts" size="m" invert />
       </Btn>
-      <Btn @click="navigateTo('/emoxy')" type="dark">
+      <Btn @click="navigateTo('/emoxy')" type="dark" padding="1.5">
         <Icon type="heart" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/emotions')" type="dark">
+      <Btn @click="navigateTo('/emotions')" type="dark" padding="1.5">
         <Icon type="emotions" size="m" />
       </Btn>
     </div>

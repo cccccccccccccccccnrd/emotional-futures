@@ -24,8 +24,6 @@ const props = defineProps({
   }
 })
 
-console.log(props.availableEmotions)
-
 const emotions = await useEmotions()
 const emotionsValue: any = ref(props.modelValue)
 
@@ -33,7 +31,6 @@ const emit = defineEmits(['update:modelValue'])
 
 function handleEmotionClick(emotion: any) {
   if (!props.availableEmotions.find((e: any) => e.id === emotion.id)) return
-  console.log(emotion)
 
   if (emotionsValue.value === emotion) {
     emotionsValue.value = 0
