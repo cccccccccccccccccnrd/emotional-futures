@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex flex-col">
     <div
-      v-if="step === 0"
+      v-if="step === 0 || step === 5"
       class="flex flex-col justify-center items-center px-5"
     >
       <img src="/imgs/logos/ef.png" />
@@ -9,19 +9,20 @@
     <div
       class="grow flex flex-col items-center text-center p-5"
       :class="
-        step !== 0
+        step === 1 || step === 2 || step === 3 || step === 4
           ? 'justify-between bg-dark-70 backdrop-blur-md'
           : 'justify-center'
       "
     >
       <div v-if="step === 0" class="w-full">
         <Btn @click="navigateTo('/generate')">Generate New Emoxy</Btn>
-        <Btn @click="navigateTo('/login')" type="dark" class="mt-2">
+        <Btn @click="step = 5" type="dark" class="mt-2">
           Keep Feeding My Emoxy</Btn
         >
+        <p @click="step = 0" class="text-md underline mt-5 font-bold opacity-0">Back</p>
         <Btn class="mt-4" v-if="user" @click="logout">Logout</Btn>
       </div>
-      <div v-if="step !== 0" class="w-full text-lg">
+      <div v-if="step === 1 || step === 2 || step === 3 || step === 4" class="w-full text-lg">
         <p class="text-2xl font-bold">Emotional Futures</p>
         <p class="">the game</p>
       </div>
@@ -83,8 +84,16 @@
           Learn More
         </p>
       </div>
+      <div v-if="step === 5" class="w-full">
+        <InputText v-model="email" placeholder="Type your e-mail"/>
+        <Btn @click="handleSignIn" type="dark" :disabled="!validEmail" class="mt-2">
+          Send me a Login Link</Btn
+        >
+        <p @click="step = 0" class="text-md underline mt-5 font-bold">Back</p>
+        <Btn class="mt-4" v-if="user" @click="logout">Logout</Btn>
+      </div>
       <div
-        v-if="step !== 0"
+        v-if="step === 1 || step === 2 || step === 3 || step === 4"
         class="w-full px-5 flex justify-between items-center justify-self-end"
       >
         <Icon
@@ -106,8 +115,8 @@
         />
       </div>
     </div>
-    <div class="flex flex-col justify-center text-center font-bold mt-5 p-5">
-      <div v-if="step === 0">
+    <div class="flex flex-col justify-center text-center font-bold p-5">
+      <div v-if="step === 0 || step === 5">
         <p @click="step = 1" class="underline">What is this game about?</p>
         <div class="flex gap-5 justify-center items-center mt-5">
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
@@ -115,9 +124,9 @@
         </div>
         <p @click="step = 1" class="text-xs underline mt-5">Data Privacy</p>
       </div>
-      <div v-if="step !== 0">
+      <div v-if="step === 1 || step === 2 || step === 3 || step === 4">
         <Btn @click="navigateTo('/generate')">Generate New Emoxy</Btn>
-        <Btn @click="navigateTo('/login')" type="dark" class="mt-2">Keep Feeding My Emoxy</Btn>
+        <Btn @click="step = 5" type="dark" class="mt-2">Keep Feeding My Emoxy</Btn>
         <p @click="step = 1" class="text-xs underline mt-5">Data Privacy</p>
       </div>
     </div>
@@ -137,6 +146,16 @@ const user = useSupabaseUser()
 } */
 
 const step = ref(0)
+const email = ref('')
+
+const validEmail = computed(() => {
+  return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email.value)
+})
+
+function handleSignIn() {
+  if (!validEmail.value) return
+  signInWithMagic(email.value)
+}
 </script>
 
 <style scoped></style>
