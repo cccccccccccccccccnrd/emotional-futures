@@ -4,12 +4,21 @@
       <p class="text-xl font-bold">Emotions</p>
       <Icon type="menu" />
     </div>
-    <div
-      class="flex flex-col grow items-center justify-between overflow-hidden"
-    >
-      <p class="text-lg font-bold text-center mt-5">Select Emotion</p>
-      <div class="overflow-scroll mt-5">
-        {{ activations }}
+    <div class="flex flex-col grow items-center mt-5 overflow-hidden">
+      <p v-if="emotion" class="text-lg font-bold text-center capitalize">{{ emotions[emotion - 1].name }}</p>
+      <p v-else class="text-lg font-bold text-center">Select Emotion</p>
+      <div class="w-full flex flex-col items-center mt-5">
+        <Emotions v-model="emotion" :availableEmotions="availableEmotions" />
+      </div>
+      <div class="w-full mt-5 overflow-scroll">
+        <div v-if="completedActivations" class="flex flex-col gap-2">
+          <LiActivation
+            v-for="a in activationsByEmotion"
+            @click="navigateTo(`/activation/${a.id}`)"
+            :activation="a"
+          />
+        </div>
+        <p v-else class="text-base font-bold text-center">No Activations</p>
       </div>
     </div>
     <div class="flex justify-center items-end shrink gap-2 mt-5">
@@ -36,7 +45,17 @@ definePageMeta({
   middleware: 'auth'
 })
 
-const emoxy: any = await useEmoxy()
-const friends: any = await useFriends()
 const activations: any = await useActivations()
+const emotions = await useEmotions()
+
+const emotion = ref(0)
+const completedActivations = computed(() =>
+  activations.filter((a: any) => a.status === 'completed')
+)
+const availableEmotions = computed(() =>
+  Array.from(new Set(completedActivations.value.map((a: any) => a.type[0])))
+)
+const activationsByEmotion = computed(() =>
+  completedActivations.value.filter((a: any) => a.type[0] === emotion.value)
+)
 </script>

@@ -55,7 +55,7 @@
         class="absolute left-0 top-0 w-full h-full bg-cover z-[-20]"
         :style="
           emotion?.id
-            ? `background-image: url('/imgs/emotions/${emotion.id}.png')`
+            ? `background-image: url('/imgs/emotions/bg-${emotion.id}.png')`
             : ''
         "
       ></div>
@@ -105,7 +105,7 @@
         class="absolute left-0 top-0 w-full h-full bg-cover z-[-20]"
         :style="
           emotion?.id
-            ? `background-image: url('/imgs/emotions/${emotion.id}.png')`
+            ? `background-image: url('/imgs/emotions/bg-${emotion.id}.png')`
             : ''
         "
       ></div>

@@ -49,10 +49,3 @@ function updateValue(event: Event) {
   emit('update:modelValue', target.value)
 }
 </script>
-
-<style scoped>
-.inner {
-  background: red;
-  border-radius: 100px;
-}
-</style>

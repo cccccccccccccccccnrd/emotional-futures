@@ -14,6 +14,8 @@
     "@types/qrcode": "^1.5.0",
     "@types/three": "^0.146.0",
     "nuxt": "3.0.0",
+    "sass": "^1.60.0",
+    "sass-loader": "^10.4.1",
     "supabase": "^1.27.4"
   },
   "dependencies": {

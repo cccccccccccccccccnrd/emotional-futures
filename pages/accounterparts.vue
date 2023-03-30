@@ -25,24 +25,26 @@
     </div>
     <div
       v-if="step === 1"
-      class="flex flex-col grow items-center justify-between mt-5"
+      class="flex flex-col grow items-center mt-5 overflow-hidden"
     >
       <p class="text-xl font-bold">{{ selectedFriend.name }}</p>
-      <div class="w-full flex flex-col gap-2 grow mt-5">
-        <LiActivation
-          v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
-          @click="
-            a.status === 'created' && a.user_id === selectedFriend?.user_id
-              ? navigateTo(`http://localhost:3000/api/activation/${a.id}`, {
-                  external: true
-                })
-              : navigateTo(`/activation/${a.id}`)
-          "
-          :activation="a"
-          :invitation="
-            a.status === 'created' && a.user_id === selectedFriend?.user_id
-          "
-        />
+      <div class="w-full mt-5 overflow-scroll">
+        <div class="flex flex-col gap-2">
+          <LiActivation
+            v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
+            @click="
+              a.status === 'created' && a.user_id === selectedFriend?.user_id
+                ? navigateTo(`http://localhost:3000/api/activation/${a.id}`, {
+                    external: true
+                  })
+                : navigateTo(`/activation/${a.id}`)
+            "
+            :activation="a"
+            :invitation="
+              a.status === 'created' && a.user_id === selectedFriend?.user_id
+            "
+          />
+        </div>
       </div>
     </div>
     <div class="flex justify-center items-end shrink gap-2 mt-5">
