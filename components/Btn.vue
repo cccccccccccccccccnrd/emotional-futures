@@ -1,15 +1,15 @@
 <template>
   <div
     v-if="type === 'dark'"
-    class="w-full flex justify-center items-center font-bold text-white-100 bg-dark-50 backdrop-blur-md"
-    :class="`${ disabled ? '!bg-white-20' : '' } ${ padding ? `p-${padding}` : 'p-2' }`"
+    class="w-full flex justify-center items-center font-bold text-white-100 bg-dark-50 backdrop-blur-md border-2 border-transparent"
+    :class="`${ disabled ? '!bg-white-20' : '' } ${ padding ? `p-${padding}` : 'p-1.5' }`"
   >
     <slot></slot>
   </div>
   <div
     v-else
-    class="w-full flex justify-center items-center font-bold text-dark-100 bg-white-100"
-    :class="`${ disabled ? '!bg-white-20' : '' } ${ padding ? `p-${padding}` : 'p-2' }`"
+    class="w-full flex justify-center items-center font-bold text-dark-100 bg-white-100 border-2 border-transparent"
+    :class="`${ disabled ? '!bg-white-20' : '' } ${ padding ? `p-${padding}` : 'p-1.5' }`"
   >
     <slot></slot>
   </div>

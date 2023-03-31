@@ -76,21 +76,29 @@
           step === 3 ||
           step === 4 ||
           step === 5 ||
-          step === 7
+          step === 7 ||
+          step === 8
         "
         class="text-2xl font-bold"
       >
         Emotional Futures
       </p>
-      <p v-if="step >= 1 && step <= 7">the game</p>
-      <p v-if="step === 17">Analising</p>
-      <p v-if="step === 18">You are a {{ isGiver ? 'Giver' : 'Taker' }}</p>
-      <p v-if="step === 19">Meet your Emoxy</p>
-      <p v-if="step === 20 || step === 21">Secure Emoxy</p>
+      <p
+        v-if="step === 9 || (step >= 10 && step <= 14)"
+        class="text-2xl font-bold"
+      >
+        Temperament
+      </p>
+      <p v-if="step === 15" class="text-2xl font-bold">Analyzing</p>
+      <p v-if="step === 16" class="text-2xl font-bold">You are a {{ isGiver ? 'Giver' : 'Taker' }}</p>
+      <p v-if="step === 17" class="text-2xl font-bold">Meet your Emoxy</p>
+      <p v-if="step === 18" class="text-2xl font-bold">Secure Emoxy</p>
       <p v-if="step === -1">the game</p>
-      <p v-if="step === 17 || step === 18">your temperament</p>
-      <p v-if="step === 19">your future in drops</p>
-      <p v-if="step === 10 || step === 11">and your future</p>
+      <p v-if="step >= 1 && step <= 7">the game</p>
+      <p v-if="step === 8">the pledge</p>
+      <p v-if="step === 9 || (step >= 10 && step <= 14)">the quiz</p>
+      <p v-if="step === 15 || step === 16" :class="step === 16 ? 'opacity-0' : ''">your answers</p>
+      <p v-if="step === 17 || step === 18" :class="step === 17 ? 'opacity-0' : ''">and your future</p>
     </div>
     <div v-if="step === -1" class="w-full">
       <p>Thank you for confirming your email address and securing your Emoxy</p>
@@ -201,87 +209,137 @@
     <div v-if="step === 7" class="grow flex flex-col items-center mt-10">
       <Icon type="heart" />
       <p class="mt-5 font-bold">
-        Emoxies embody each human's Emotional Future, their liquid emotional proxy.
+        Emoxies embody each human's Emotional Future, their liquid emotional
+        proxy.
       </p>
       <p class="mt-5">
-        The Drops of Emotional Currencies in your account transform and feed your unique Emoxy.
+        The Drops of Emotional Currencies in your account transform and feed
+        your unique Emoxy.
       </p>
-      <p class="mt-5">Remember: an Emotional Future is not just something to be believed in, but something that must be practiced.</p>
+      <p class="mt-5">
+        Remember: an Emotional Future is not just something to be believed in,
+        but something that must be practiced.
+      </p>
     </div>
     <div v-if="step === 7" class="w-full mt-5">
       <Btn @click="step = 8">I Am Ready to Practice</Btn>
     </div>
-    <div v-if="step === 10" class="grow flex flex-col mt-5">
-      <p>You are about to charge this app with your current self</p>
-      <p class="mt-5">Take a deep breath in</p>
-      <p class="mt-5">Take a deep breath out</p>
-      <p class="mt-5">
-        Do it as many times as you need to feel present and relaxed
-      </p>
-      <p class="mt-5">Whenever you are ready click to answer the questions</p>
+    <div v-if="step === 8" class="grow flex flex-col items-center mt-10">
+      <div class="p-5 bg-dark-90 backdrop-blur-md border-2 border-white-20">
+        <p>
+          Humans must find their temperament to fully realize their Emotional
+          Future.
+        </p>
+        <p class="mt-5">
+          Humans must trust their first instincts making choices.
+        </p>
+        <p class="mt-5">Humas must be undisturbed to be fully instinctive.</p>
+      </div>
     </div>
-    <div v-if="step === 10" class="w-full">
-      <Btn @click="step = 2">I am ready</Btn>
+    <div v-if="step === 8" class="w-full mt-5">
+      <Btn @click="step = 9">I Am Human</Btn>
     </div>
     <div
-      v-if="step >= 12 && step <= questions.length + 2"
-      class="w-full text-lg flex flex-col gap-8"
+      v-if="step === 9"
+      class="grow flex flex-col items-center mt-10 text-center"
+    >
+      <div class="flex gap-2">
+        <Icon v-for="d in ['drop-empty', 'drop-half', 'drop-full']" :type="d" />
+      </div>
+      <p class="mt-5">
+        You are about to charge this device with your current emotions.
+      </p>
+      <p class="mt-5 font-bold">Take a deep breath in</p>
+      <p class="mt-5 font-bold">Take a deep breath out</p>
+      <p class="mt-5">
+        Do it as many times as you need to feel present and relaxed.
+      </p>
+    </div>
+    <div v-if="step === 9" class="w-full">
+      <Btn @click="step = 10">I am ready</Btn>
+    </div>
+    <div
+      v-if="step >= 10 && step <= 14"
+      class="w-full grow flex flex-col gap-2 justify-center items-center"
     >
       <div
-        v-for="(question, index) in questions[step - 2]"
-        class="w-full p-5 flex justify-center items-center bg-slate-400 text-center rounded-2xl"
+        v-for="(question, index) in questions[step - 10]"
+        class="w-full p-5 flex justify-center items-center bg-dark-80 backdrop-blur-md border-2 border-white-20 text-center"
         v-html="question.text"
         @click="handleQuestionClick(index)"
       ></div>
     </div>
-    <div v-if="step === 17" class="w-full text-lg">
-      <p>
-        Shake your device to allow for those answers to set in and generate your
+    <div v-if="step >= 10 && step <= 14" class="w-full">
+      <div class="flex gap-2 justify-center items-center">
+        <div v-for="(q, i) in questions">
+          <div
+            v-if="i >= step - 10"
+            class="w-[18px] h-[18px] flex justify-center items-center"
+          >
+            <div class="w-1.5 h-1.5 bg-white-100"></div>
+          </div>
+          <Icon v-else type="check" />
+        </div>
+      </div>
+      <p class="text-xs text-center px-5 mt-5">
+        Choose one of the options above to proceed to the next question
+      </p>
+    </div>
+    <div
+      v-if="step === 15"
+      class="grow flex flex-col items-center mt-10 text-center"
+    >
+      <div class="flex flex-col items-center">
+        <div class="flex gap-2">
+          <Icon v-for="q in questions" type="check" />
+        </div>
+        <p class="text-xs mt-2">You have submitted all your answers</p>
+      </div>
+      <p class="mt-5">
+        Shake your device to allow those answers to sink in and generate your
         unique Emoxy.
       </p>
     </div>
-    <div v-if="step === 18" class="w-full text-lg">
-      {{ isGiver ? 'Giver' : 'Taker' }}
+    <div v-if="step === 15" class="w-full">
+      <Btn @click="step = 16" type="dark">I Shook My Device</Btn>
     </div>
-    <div v-if="step === 19" class="w-full h-full text-lg">
-      <Emoxy></Emoxy>
-    </div>
-    <div v-if="step === 20" class="w-full text-lg">
-      <InputTxt v-model="name" placeholder="name your emoxy"></InputTxt>
-      <InputTxt v-model="email" placeholder="type your email"></InputTxt>
-    </div>
-    <div v-if="step === 21" class="w-full text-lg">
-      <p>confirm e-mail address</p>
-    </div>
-    <div v-if="step >= 22 && step <= 26">
-      <div class="w-full flex flex-col justify-between items-center">
-        <div class="flex items-center gap-1">
-          <div
-            v-for="n in questions.length"
-            :class="step - 1 >= n ? 'w-2 h-2' : 'w-1.5 h-1.5 opacity-20'"
-            class="bg-white rounded-full"
-          ></div>
-        </div>
-        <p class="mt-5">
-          Choose one of the options above <br />
-          to proceed to the next question
-        </p>
+    <div
+      v-if="step === 16"
+      class="grow flex flex-col items-center mt-10"
+    >
+      <div v-if="isGiver">
+        <p>You are high in Sweat, an emotional liquid that reflects for how much time and attention you give to others.</p>
+        <p class="mt-5">To balance your Sweat supply with more Tears, you will need to give less, and receive more attention from others.</p>
+        <p class="mt-5">To gain more Blood, you will need to balance your Sweat and Tears. This means becoming more aware of what you give and what other people think of you.</p>
+        <p class="mt-5">By doing so, you will find your own path to fully realize your Emotional Future alongside your Emoxy.</p>
+      </div>
+      <div v-else>
+        <p>You are high in Tears, an emotional liquid that reflects for how much time and attention you take from others.</p>
+        <p class="mt-5">To increase your Sweat, you will need to give more to others. You will also need to limit what they give to you.</p>
+        <p class="mt-5">To gain more Blood, you will need to balance your Sweat and Tears. This means becoming more aware of what you give and what other people think of you.</p>
+        <p class="mt-5">By doing so, you will find your own path to fully realize your Emotional Future alongside your Emoxy.</p>
       </div>
     </div>
-    <div v-if="step === 17" class="w-full">
-      <Btn @click="step = 8">I shook my device</Btn>
+    <div v-if="step === 16" class="w-full">
+      <Btn @click="step = 17">Meet My Emoxy</Btn>
     </div>
-    <div v-if="step === 18" class="w-full">
-      <Btn @click="step = 9">Meet my Emoxy</Btn>
+    <div
+      v-if="step === 17 || step === 18"
+      class="grow flex flex-col items-center mt-10"
+    >
+      <Emoxy />
     </div>
-    <div v-if="step === 19" class="w-full">
-      <Btn @click="step = 10">Secure Emoxy</Btn>
-    </div>
-    <div v-if="step === 20" class="w-full">
-      <p @click="popUp = true" class="underline">
-        Why do I need to share my email?
+    <div v-if="step === 17 || step === 18" class="w-full flex flex-col gap-2">
+      <div class="p-2 bg-dark-90" :class="error ? 'opacity-100' : 'opacity-0'">
+        <p class="text-xs">Another human has already given their Emoxy this name</p>
+      </div>
+      <InputText v-if="step === 18" v-model="name" placeholder="name your emoxy" />
+      <InputText v-model="email" placeholder="type your e-mail" :class="step === 17 ? 'opacity-0' : ''"/>
+      <Btn v-if="step === 17" @click="" type="dark">Hear</Btn>
+      <Btn @click="step === 17 ? step = 18 : handleSignUp()" :disabled="step === 17 ? false : !validEmail || name.length < 4">Secure Emoxy</Btn>
+      <p class="text-xs text-center px-5">
+        By securing your Emoxy you agree with <span class="underline">Emotional Futures Terms and Conditions</span>
       </p>
-      <Btn class="mt-5" @click="handleSignUp">Sign up Emoxy</Btn>
     </div>
   </div>
   <div class="absolute top-0 left-0 h-full w-full z-[-10]">
@@ -290,16 +348,22 @@
       class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-6.png')] bg-cover"
     ></div>
     <div
-      v-if="step === 1 || step === 2"
+      v-if="
+        step === 1 || step === 2 || step === 9 || (step >= 10 && step <= 16)
+      "
       class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-5.png')] bg-cover"
     ></div>
     <div
-      v-if="step === 3 || step === 4"
-      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-5.png')] bg-cover"
+      v-if="step === 3 || step === 4 || step === 8"
+      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-4.png')] bg-cover"
     ></div>
     <div
       v-if="step === 5 || step === 6"
       class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-6.png')] bg-cover"
+    ></div>
+    <div
+      v-if="step === 17 || step === 18"
+      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover"
     ></div>
   </div>
 </template>
@@ -329,70 +393,82 @@ const selectedRelationshape = ref({
   accounting: <any>[]
 })
 
+const validEmail = computed(() => {
+  return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email.value)
+})
 const isGiver = computed(() => bst.value[1] > bst.value[2])
 const questions = [
   [
     {
-      text: 'Most of my relationships <br> are toxic',
+      text: 'Most of my relationships are toxic',
       values: [3, 0]
     },
     {
-      text: 'Most of my relationships <br> are not toxic',
+      text: 'Most of my relationships are not toxic',
       values: [0, 3]
     }
   ],
   [
     {
-      text: 'I care for what <br> others think of me',
+      text: 'I care about what others think of me',
       values: [1, 2]
     },
     {
-      text: 'I am sensitive to other <br> peoples’ feelings',
+      text: "I care about other peoples' feelings",
       values: [2, 1]
     }
   ],
   [
     {
-      text: 'I spend more time doing <br> things for my friends',
+      text: 'I spend more time doing things for my friends',
       values: [0, 3]
     },
     {
-      text: 'I spend more time doing <br> things for myself',
+      text: 'I spend more time doing things for myself',
       values: [3, 0]
     }
   ],
   [
     {
-      text: 'I generally talk more about <br> my friends’ problems',
+      text: "I generally talk more about my friend's problems",
       values: [1, 2]
     },
     {
-      text: 'I try to focus on <br> my own problems',
+      text: 'I try to focus on my own problems',
       values: [2, 1]
     }
   ],
   [
     {
-      text: 'I feel supported <br> in my relationships',
+      text: 'I feel supported in my relationships',
       values: [0, 4]
     },
     {
-      text: 'I feel depleted when it comes <br> to my relationships',
+      text: 'I feel depleted by my relationships',
       values: [4, 0]
     }
   ]
 ]
 
-const popUp = ref(false)
+const error = ref('')
 
-function handleSignUp() {
-  signUpWithMagic(email.value, name.value, bst.value)
-  step.value = 11
+async function handleSignUp() {
+  const r = await signUpWithMagic(email.value, name.value, bst.value)
+  console.log(r)
+
+  if (r instanceof Error) {
+    if (r.message.includes('emoxies_name_key')) {
+      error.value = 'Another human has already given their Emoxy this name'
+    }
+  } else {
+    console.log('top')
+    step.value = 19
+  }
 }
 
 function handleQuestionClick(index: number) {
-  bst.value[1] += questions[step.value - 2][index].values[0]
-  bst.value[2] += questions[step.value - 2][index].values[1]
+  bst.value[1] += questions[step.value - 10][index].values[0]
+  bst.value[2] += questions[step.value - 10][index].values[1]
   console.log(bst.value)
 
   step.value++

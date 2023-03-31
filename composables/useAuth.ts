@@ -1,4 +1,8 @@
-export async function signUpWithMagic (email: string, name: string, bst: Array<Number>) {
+export async function signUpWithMagic (
+  email: string,
+  name: string,
+  bst: Array<Number>
+) {
   const client = useSupabaseClient()
 
   const { data, error } = await client.auth.signInWithOtp({
@@ -8,11 +12,13 @@ export async function signUpWithMagic (email: string, name: string, bst: Array<N
         name,
         bst
       }
-    },
+    }
   })
 
   if (error) {
-    console.log(error.message)
+    return error
+  } else {
+    return data
   }
 }
 
@@ -20,16 +26,42 @@ export async function signInWithMagic (email: string) {
   const client = useSupabaseClient()
 
   const { data, error } = await client.auth.signInWithOtp({
-    email: email
+    email: email,
+    options: {
+      shouldCreateUser: false
+    }
   })
 
   if (error) {
     console.log(error.message)
+    return error
+  } else {
+    console.log(data)
+    return data
+  }
+}
+
+export async function verifyOtp (email: string, token: string) {
+  const client = useSupabaseClient()
+
+  const { data, error } = await client.auth.verifyOtp({
+    email,
+    token,
+    type: 'magiclink'
+  })
+
+  if (error) {
+    console.log(error.message)
+    return error
+  } else {
+    console.log(data)
+    return data
   }
 }
 
 export async function logout () {
   const client = useSupabaseClient()
+  console.log('logout')
 
   const { error } = await client.auth.signOut()
 

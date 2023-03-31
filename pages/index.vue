@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex flex-col">
     <div
-      v-if="step === 0 || step === 5"
+      v-if="step === 0 || step === 5 || step === 6"
       class="flex flex-col justify-center items-center px-5"
     >
       <img src="/imgs/logos/ef.png" />
@@ -15,14 +15,26 @@
       "
     >
       <div v-if="step === 0" class="w-full">
-        <Btn @click="navigateTo('/generate')">Generate New Emoxy</Btn>
+        <div class="p-2 bg-dark-90 opacity-0">
+          <p class="text-xs">
+            {{ error || 'Error' }}
+          </p>
+        </div>
+        <Btn @click="navigateTo('/generate')" class="mt-2"
+          >Generate New Emoxy</Btn
+        >
         <Btn @click="step = 5" type="dark" class="mt-2">
           Keep Feeding My Emoxy</Btn
         >
-        <p @click="step = 0" class="text-md underline mt-5 font-bold opacity-0">Back</p>
+        <p @click="step = 0" class="text-md underline mt-5 font-bold opacity-0">
+          Back
+        </p>
         <Btn class="mt-4" v-if="user" @click="logout">Logout</Btn>
       </div>
-      <div v-if="step === 1 || step === 2 || step === 3 || step === 4" class="w-full text-lg">
+      <div
+        v-if="step === 1 || step === 2 || step === 3 || step === 4"
+        class="w-full text-lg"
+      >
         <p class="text-2xl font-bold">Emotional Futures</p>
         <p class="">the game</p>
       </div>
@@ -62,32 +74,63 @@
         <Icon type="flip" />
         <p class="mt-2 font-bold">Activations</p>
         <p class="mt-5">
-          Activations are unique tasks asking players to recall memories, discuss feelings, and produce new emotional experiences.
+          Activations are unique tasks asking players to recall memories,
+          discuss feelings, and produce new emotional experiences.
         </p>
         <p class="mt-5">
-          Grow your Emoxy by feeding it with the virtual currencies Blood, Sweat and Tears. Extract them from your body through playing Activations with your chosen Accounterpart.
+          Grow your Emoxy by feeding it with the virtual currencies Blood, Sweat
+          and Tears. Extract them from your body through playing Activations
+          with your chosen Accounterpart.
         </p>
         <p class="mt-5">
-          Complete Activations from eight core emotions to realize your Emoxy's full potential.
+          Complete Activations from eight core emotions to realize your Emoxy's
+          full potential.
         </p>
       </div>
       <div v-if="step === 4" class="flex flex-col items-center">
         <Icon type="drop-half" />
         <p class="mt-2 font-bold">Accounting</p>
         <p class="mt-5">
-          Once you complete an Activation, you will be directed to the Accounting phase where you collect Drops of Blood, Sweat and Tears. These fluids account for the emotional energy you give and receive from your Accounterpart.
+          Once you complete an Activation, you will be directed to the
+          Accounting phase where you collect Drops of Blood, Sweat and Tears.
+          These fluids account for the emotional energy you give and receive
+          from your Accounterpart.
         </p>
         <p class="mt-5">
-          Accounting allows you to extract your mutual emotional investment as Drops that feed your Emoxy’s growth.
+          Accounting allows you to extract your mutual emotional investment as
+          Drops that feed your Emoxy’s growth.
         </p>
-        <p class="mt-5 font-bold underline">
-          Learn More
-        </p>
+        <p class="mt-5 font-bold underline">Learn More</p>
       </div>
-      <div v-if="step === 5" class="w-full">
-        <InputText v-model="email" placeholder="Type your e-mail"/>
-        <Btn @click="handleSignIn" type="dark" :disabled="!validEmail" class="mt-2">
-          Send me a Login Link</Btn
+      <div v-if="step === 5 || step === 6" class="w-full">
+        <div
+          class="p-2 bg-dark-90"
+          :class="error ? 'opacity-100' : 'opacity-0'"
+        >
+          <p class="text-xs">
+            {{ error || 'Error' }}
+          </p>
+        </div>
+        <InputText
+          v-if="step === 5"
+          v-model="email"
+          placeholder="Type your e-mail"
+          class="mt-2"
+        />
+        <InputText
+          v-if="step === 6"
+          v-model="token"
+          placeholder="Type your token"
+          password
+          class="mt-2"
+        />
+        <Btn
+          @click="step === 5 ? handleSignInWithMagic() : handleVerifyOtp()"
+          type="dark"
+          :disabled="step === 5 ? !validEmail : false"
+          class="mt-2"
+        >
+          {{ loading ? 'Fetching...' : step === 5 ? 'Send Me a Token' : 'Sign In' }}</Btn
         >
         <p @click="step = 0" class="text-md underline mt-5 font-bold">Back</p>
         <Btn class="mt-4" v-if="user" @click="logout">Logout</Btn>
@@ -116,7 +159,7 @@
       </div>
     </div>
     <div class="flex flex-col justify-center text-center font-bold p-5">
-      <div v-if="step === 0 || step === 5">
+      <div v-if="step === 0 || step === 5 || step === 6">
         <p @click="step = 1" class="underline">What is this game about?</p>
         <div class="flex gap-5 justify-center items-center mt-5">
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
@@ -126,7 +169,9 @@
       </div>
       <div v-if="step === 1 || step === 2 || step === 3 || step === 4">
         <Btn @click="navigateTo('/generate')">Generate New Emoxy</Btn>
-        <Btn @click="step = 5" type="dark" class="mt-2">Keep Feeding My Emoxy</Btn>
+        <Btn @click="step = 5" type="dark" class="mt-2"
+          >Keep Feeding My Emoxy</Btn
+        >
         <p @click="step = 1" class="text-xs underline mt-5">Data Privacy</p>
       </div>
     </div>
@@ -147,14 +192,46 @@ const user = useSupabaseUser()
 
 const step = ref(0)
 const email = ref('')
+const token = ref('')
+const loading = ref(false)
+const error = ref('')
 
 const validEmail = computed(() => {
   return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email.value)
 })
 
-function handleSignIn() {
+async function handleSignInWithMagic () {
   if (!validEmail.value) return
-  signInWithMagic(email.value)
+  error.value = ''
+  loading.value = true
+  const r = await signInWithMagic(email.value)
+  loading.value = false
+
+  if (r instanceof Error) {
+    if (r.message === 'Signups not allowed for otp') {
+      error.value = 'Please create an Emoxy first.'
+    } else {
+      error.value = 'Please try again in a minute.'
+    }
+  } else {
+    step.value = 6
+  }
+}
+
+async function handleVerifyOtp () {
+  error.value = ''
+  loading.value = true
+  const r = await verifyOtp(email.value, token.value)
+
+  if (r instanceof Error) {
+    loading.value = false
+    error.value = 'Invalid token, please try again.'
+  } else {
+    setTimeout(() => {
+      loading.value = false
+      navigateTo('/emoxy')
+    }, 1000)
+  }
 }
 </script>
 

@@ -34,14 +34,14 @@
             <Btn
               @click="navigateTo('/feed')"
               type="dark"
-              padding="1"
+              padding="0.5"
               class="rounded-lg"
               >Feed</Btn
             >
             <Btn
               @click="audio.paused ? play() : pause()"
               type="dark"
-              padding="1"
+              padding="0.5"
               class="rounded-lg"
             >
               <span v-if="paused">Hear</span>
@@ -52,7 +52,7 @@
             <Btn
               @click="navigateTo(`/activation/${busy.id}`)"
               type="dark"
-              padding="1"
+              padding="0.5"
               class="rounded-lg border-2 border-white-80"
               >Ongoing Activation</Btn
             >
@@ -61,13 +61,13 @@
       </div>
     </div>
     <div class="flex justify-center items-end gap-2 mt-5">
-      <Btn @click="navigateTo('/accounterparts')" type="dark" padding="1.5">
+      <Btn @click="navigateTo('/accounterparts')" type="dark" padding="1">
         <Icon type="accounterparts" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/emoxy')" padding="1.5">
+      <Btn @click="navigateTo('/emoxy')" padding="1">
         <Icon type="heart" size="m" invert />
       </Btn>
-      <Btn @click="navigateTo('/emotions')" type="dark" padding="1.5">
+      <Btn @click="navigateTo('/emotions')" type="dark" padding="1">
         <Icon type="emotions" size="m" />
       </Btn>
     </div>
