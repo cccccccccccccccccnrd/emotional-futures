@@ -1,6 +1,9 @@
 <template>
   <NuxtLayout>
-    <div v-if="loading" class="absolute w-full h-full backdrop-blur-md z-10"></div>
+    <div
+      v-if="loading"
+      class="absolute w-full h-full backdrop-blur-md z-10"
+    ></div>
     <NuxtPage />
   </NuxtLayout>
 </template>
@@ -73,17 +76,13 @@ input[type='range'] {
   appearance: none;
 }
 
-input[type='range']::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb,
+input[type='range']::-moz-range-thumb {
   appearance: none;
   width: 0.9em;
   height: 0.9em;
-  background: var(--color-text);
-  cursor: pointer;
+  background: white;
   border-radius: 100px;
   outline: none;
-}
-
-input[type='range']::-webkit-slider-thumb:hover {
-  box-shadow: 0 0 1em rgba(0, 0, 0, 0.3);
 }
 </style>

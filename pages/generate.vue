@@ -1,36 +1,95 @@
 <template>
   <div
     class="absolute h-full w-full p-5 flex flex-col items-center bg-dark-50 backdrop-blur-md z-[10]"
-    v-if="step === 2"
+    v-if="step === 2 || step === 4 || step === 6"
   >
     <div class="flex w-full justify-between items-center">
       <div></div>
       <div>
-        <Icon @click="step = 1" type="close" />
+        <Icon @click="step = step - 1" type="close" />
       </div>
     </div>
     <div v-if="step === 2" class="grow flex flex-col mt-5">
       <p class="text-lg font-bold text-center">Emotions Wheel</p>
-      <p class="text-lg text-center capitalize mt-5">{{ selectedEmotion.id ? selectedEmotion.name : 'Choose Emotion' }}</p>
-      <Emotions v-model="selectedEmotion" :availableEmotions="emotions" class="mt-5" />
+      <p class="text-lg text-center capitalize mt-5">
+        {{ selectedEmotion.id ? selectedEmotion.name : 'Choose Emotion' }}
+      </p>
+      <Emotions
+        v-model="selectedEmotion"
+        :availableEmotions="emotions"
+        class="mt-5"
+      />
+    </div>
+    <div v-if="step === 4" class="grow flex flex-col mt-5">
+      <p class="text-lg font-bold text-center">Emotionan Currencies</p>
+      <div class="grow flex flex-col justify-center items-center">
+        <div
+          v-for="d in ['blood', 'sweat', 'tears']"
+          class="relative flex flex-col items-center mt-10"
+        >
+          <img
+            :src="`/imgs/drop-${d}.png`"
+            class="w-12"
+            :style="`transform: scale(${Number(currencyAmount) / 10});`"
+          />
+          <img
+            :src="`/imgs/drop-${d}.png`"
+            class="absolute z-[-10] w-12 grayscale"
+          />
+          <p class="mt-1 capitalize">{{ d }}</p>
+        </div>
+        <input
+          v-model="currencyAmount"
+          class="mt-10"
+          type="range"
+          min="1"
+          max="10"
+        />
+      </div>
+    </div>
+    <div v-if="step === 6" class="grow flex flex-col w-full mt-5">
+      <p class="text-lg font-bold text-center">Relationshapes</p>
+      <p class="text-lg text-center capitalize mt-5">
+        {{
+          selectedRelationshape.id
+            ? selectedRelationshape.name
+            : 'Select to reveal name'
+        }}
+      </p>
+      <div class="w-full h-full grid grid-cols-2 gap-2 mt-5">
+        <LiRelationshape
+          v-for="relationshape in relationshapes"
+          @click="selectedRelationshape = relationshape"
+          :relationshape="relationshape"
+          :selected="selectedRelationshape?.id === relationshape.id"
+        />
+      </div>
     </div>
   </div>
   <div class="h-full w-full flex flex-col p-5">
     <div class="flex flex-col justify-center items-center">
       <p
-        v-if="step === 1 || step === 2 || step === -1"
+        v-if="
+          step === -1 ||
+          step === 1 ||
+          step === 2 ||
+          step === 3 ||
+          step === 4 ||
+          step === 5 ||
+          step === 7
+        "
         class="text-2xl font-bold"
       >
         Emotional Futures
       </p>
-      <p v-if="step === 7">Analising</p>
-      <p v-if="step === 8">You are a {{ isGiver ? 'Giver' : 'Taker' }}</p>
-      <p v-if="step === 9">Meet your Emoxy</p>
-      <p v-if="step === 10 || step === 11">Secure Emoxy</p>
-      <p v-if="step === -1">the game</p>
       <p v-if="step >= 1 && step <= 7">the game</p>
-      <p v-if="step === 7 || step === 8">your temperament</p>
-      <p v-if="step === 9">your future in drops</p>
+      <p v-if="step === 17">Analising</p>
+      <p v-if="step === 18">You are a {{ isGiver ? 'Giver' : 'Taker' }}</p>
+      <p v-if="step === 19">Meet your Emoxy</p>
+      <p v-if="step === 20 || step === 21">Secure Emoxy</p>
+      <p v-if="step === -1">the game</p>
+      <p v-if="step === 17 || step === 18">your temperament</p>
+      <p v-if="step === 19">your future in drops</p>
       <p v-if="step === 10 || step === 11">and your future</p>
     </div>
     <div v-if="step === -1" class="w-full">
@@ -72,9 +131,9 @@
     </div>
     <div
       v-if="step === 1 || step === 2"
-      class="grow flex flex-col items-center mt-5"
+      class="grow flex flex-col items-center mt-10"
     >
-      <div @click="step = 2" class="flex gap-2 py-1 px-3 bg-dark-50 rounded-sm">
+      <div @click="step = 2" class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm">
         <Icon type="eye" />
         <p class="font-bold">Emotions Wheel</p>
       </div>
@@ -92,7 +151,65 @@
       </p>
     </div>
     <div v-if="step === 1 || step === 2" class="w-full mt-5">
-      <Btn @click="step = 1">I Want to Realize my Potential</Btn>
+      <Btn @click="step = 3">I Want to Realize my Potential</Btn>
+    </div>
+    <div
+      v-if="step === 3 || step === 4"
+      class="grow flex flex-col items-center mt-10"
+    >
+      <div @click="step = 4" class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm">
+        <Icon type="eye" />
+        <p class="font-bold">Emotional Currencies</p>
+      </div>
+      <p class="mt-5">
+        In these complex times, measuring emotional labor can lead to greater
+        care.
+      </p>
+      <p class="mt-5">
+        Emotional Futures offers a way to convert your emotional outflows into
+        profit.
+      </p>
+      <p class="mt-5">
+        While playing Emotional Futures, the degree to which you give and take
+        from interactions will be measured in three emotional currencies:
+      </p>
+      <p class="w-full font-bold mt-5">Blood, Sweat and Tears.</p>
+    </div>
+    <div v-if="step === 3 || step === 4" class="w-full mt-5">
+      <Btn @click="step = 5">I Want to Be Accountable</Btn>
+    </div>
+    <div
+      v-if="step === 5 || step === 6"
+      class="grow flex flex-col items-center mt-10"
+    >
+      <div @click="step = 6" class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm">
+        <Icon type="eye" />
+        <p class="font-bold">Relationshapes</p>
+      </div>
+      <p class="mt-5">
+        Relationshapes are emotional programs that operate in different parts of
+        the human EOS (Emotional Operating System).
+      </p>
+      <p class="mt-5">
+        Based on eight models of the human EOS, they are tools which activate
+        the production of emotional currencies.
+      </p>
+    </div>
+    <div v-if="step === 5 || step === 6" class="w-full mt-5">
+      <Btn @click="step = 7">I Am Open to Test New Tools</Btn>
+    </div>
+    <div v-if="step === 7" class="grow flex flex-col items-center mt-10">
+      <Icon type="heart" />
+      <p class="mt-5 font-bold">
+        Emoxies embody each human's Emotional Future, their liquid emotional proxy.
+      </p>
+      <p class="mt-5">
+        The Drops of Emotional Currencies in your account transform and feed your unique Emoxy.
+      </p>
+      <p class="mt-5">Remember: an Emotional Future is not just something to be believed in, but something that must be practiced.</p>
+    </div>
+    <div v-if="step === 7" class="w-full mt-5">
+      <Btn @click="step = 8">I Am Ready to Practice</Btn>
     </div>
     <div v-if="step === 10" class="grow flex flex-col mt-5">
       <p>You are about to charge this app with your current self</p>
@@ -169,12 +286,20 @@
   </div>
   <div class="absolute top-0 left-0 h-full w-full z-[-10]">
     <div
-      v-if="step === 0"
+      v-if="step === 0 || step === 7"
       class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-6.png')] bg-cover"
     ></div>
     <div
-      v-if="step === 1"
+      v-if="step === 1 || step === 2"
       class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-5.png')] bg-cover"
+    ></div>
+    <div
+      v-if="step === 3 || step === 4"
+      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-5.png')] bg-cover"
+    ></div>
+    <div
+      v-if="step === 5 || step === 6"
+      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-6.png')] bg-cover"
     ></div>
   </div>
 </template>
@@ -186,14 +311,22 @@ const step = ref(user.value ? -1 : 0)
 const email = ref('')
 const name = ref('')
 const bst = ref([0, 0, 0])
+const currencyAmount = ref('10')
 
 const emotions = await useEmotions()
+const relationshapes: any = await useRelationshapes()
 
 const selectedEmotion = ref({
   id: null,
   name: null,
   color: null,
   prompts: []
+})
+const selectedRelationshape = ref({
+  id: null,
+  name: null,
+  shape: null,
+  accounting: <any>[]
 })
 
 const isGiver = computed(() => bst.value[1] > bst.value[2])
