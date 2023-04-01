@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'emotional-futures',
+      name: 'ef',
       port: '3000',
       exec_mode: 'cluster',
       instances: 'max',
