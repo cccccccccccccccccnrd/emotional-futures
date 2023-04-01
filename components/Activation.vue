@@ -60,7 +60,7 @@
         <Btn class="text-sm font-bold">Confirm Emotion</Btn>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full flex justify-center items-center z-[-10]"
+        class="absolute left-0 top-0 w-full h-full flex justify-center items-center"
       >
         <img
           v-if="relationshape?.id"
@@ -76,7 +76,7 @@
         </p>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full bg-dark-100 backdrop-blur-md bg-cover z-[-20]"
+        class="absolute left-0 top-0 w-full h-full bg-dark-50 backdrop-blur-md bg-cover z-[-5]"
         :style="
           emotion?.id && bg
             ? `background-image: url('/imgs/emotions/bg-${emotion.id}.png')`
@@ -139,7 +139,7 @@
         </div>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full bg-dark-100 backdrop-blur-md z-[-10]"
+        class="absolute left-0 top-0 w-full h-full bg-dark-50 backdrop-blur-md z-[-10]"
       ></div>
       <img
         v-if="relationshape?.id"
@@ -192,7 +192,7 @@ const isRevealed = ref(false)
 <style scoped>
 .card {
   transition: transform 0.8s;
-  /* transform-style: preserve-3d; */
-  /* backface-visibility: hidden; */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 </style>
