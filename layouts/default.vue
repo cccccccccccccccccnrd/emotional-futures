@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen flex flex-col justify-center items-center">
     <div
-      class="h-full w-full max-h-[676px] max-w-[311px] relative"
-      :class="isMobile ? '' : 'rounded-lg drop-shadow-xl'"
+      class="h-full w-full max-h-[676px] max-w-[311px] relative overflow-hidden"
+      :class="isMobile ? '' : 'rounded-xl drop-shadow-xl'"
     >
       <slot />
     </div>
@@ -16,4 +16,5 @@
 const isMobile = navigator.userAgent.match(
   /(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i
 )
+console.log(isMobile)
 </script>
