@@ -29,7 +29,8 @@
         <p @click="step = 0" class="text-md underline mt-5 font-bold opacity-0">
           Back
         </p>
-        <Btn class="mt-4" v-if="user" @click="logout">Logout</Btn>
+        <Btn class="mt-2" v-if="user" @click="logout" type="dark">Logout</Btn>
+        <Btn class="mt-2" v-if="user" @click="handleInstallClick" type="dark">Install</Btn>
       </div>
       <div
         v-if="step === 1 || step === 2 || step === 3 || step === 4"
@@ -184,6 +185,7 @@
 </template>
 
 <script setup lang="ts">
+const nuxtApp = useNuxtApp()
 const user = useSupabaseUser()
 
 /* if (user.value) {
@@ -232,6 +234,10 @@ async function handleVerifyOtp () {
       navigateTo('/emoxy')
     }, 1000)
   }
+}
+
+async function handleInstallClick() {
+  await nuxtApp.$pwa.install()
 }
 </script>
 
