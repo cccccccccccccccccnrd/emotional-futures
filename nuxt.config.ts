@@ -29,7 +29,18 @@ export default defineNuxtConfig({
             'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
         },
         { hid: 'description', name: 'description', content: '' },
-        { name: 'format-detection', content: 'telephone=no' }
+        { name: 'format-detection', content: 'telephone=no' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+        { property: 'og:title', content: 'Emotional Futures' },
+        { property: 'og:description', content: 'How does the message of an emotion change over time?' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:image', content: 'https://x.emotionalfutures.com/imgs/app/share.png' },
+        { property: 'og:image:width', content: '932' },
+        { property: 'og:image:height', content: '431' },
+        { property: 'og:site_name', content: 'Emotional Futures' },
+        { property: 'twitter:site', content: '@emotionalfutures' },
+        { property: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [{ rel: 'icon', type: 'image/png', href: 'imgs/app/app-192.png' }]
     }
@@ -38,7 +49,7 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     manifest: {
       name: 'Emotional Futures',
-      short_name: 'EF',
+      short_name: 'Emotional Futures',
       theme_color: 'black',
       icons: [
         {

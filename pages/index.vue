@@ -30,7 +30,6 @@
           Back
         </p>
         <Btn class="mt-2" v-if="user" @click="logout" type="dark">Logout</Btn>
-        <Btn class="mt-2" @click="handleInstallClick" type="dark">Install</Btn>
       </div>
       <div
         v-if="step === 1 || step === 2 || step === 3 || step === 4"
