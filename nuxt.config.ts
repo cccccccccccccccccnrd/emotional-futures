@@ -50,7 +50,7 @@ export default defineNuxtConfig({
     manifest: {
       display: 'standalone',
       name: 'Emotional Futures',
-      short_name: 'Emotional Futures',
+      short_name: 'EF',
       theme_color: 'black',
       icons: [
         {
