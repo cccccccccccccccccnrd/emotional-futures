@@ -84,6 +84,7 @@ definePageMeta({
   middleware: 'auth'
 })
 
+const user = useSupabaseUser()
 const emoxy: any = await useEmoxy()
 const activations: any = await useActivations()
 const emotions = await useEmotions()
@@ -91,7 +92,7 @@ const audio = ref(new Audio('/audios/0.mp3'))
 const paused = ref(true)
 
 const busy = computed(() => {
-  return activations.find((a: any) => a.status === 'accepted' || a.status === 'created')
+  return activations.find((a: any) => a.status === 'accepted' || a.status === 'created' && a.user_id === user.value?.id)
 })
 
 const say = computed(() => {

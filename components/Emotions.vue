@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[11.5rem] w-[11.5rem] flex flex-col items-center ease-in-out duration-300" :style="`transform: rotate(-${ (emotionsValue.id - 1) * 45 }deg)`">
+  <div class="h-[11.5rem] w-[11.5rem] flex flex-col items-center ease-in-out duration-700" :style="`transform: rotate(-${ (emotionsValue.id - 1) * 45 }deg)`">
     <div class="circle-container">
       <img
         v-for="(emotion, index) in emotions"

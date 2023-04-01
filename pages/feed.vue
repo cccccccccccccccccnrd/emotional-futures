@@ -109,6 +109,7 @@
           :emotion="selectedEmotion"
           :relationshape="selectedRelationshape"
           locked
+          bg
         />
       </div>
     </div>

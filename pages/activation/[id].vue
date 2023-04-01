@@ -297,7 +297,8 @@
   </div>
   <div class="absolute top-0 left-0 h-full w-full z-[-10]">
     <div
-      class="h-full w-full flex flex-col justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover p-5"
+      class="h-full w-full flex flex-col justify-center items-center bg-cover p-5"
+      :style="`background-image: url('/imgs/emotions/bg-${selectedEmotion.id}.png')`"
     ></div>
   </div>
 </template>
@@ -540,7 +541,7 @@ function handleShareClick(isReminder: Boolean) {
       alert(
         `Hey, our Emotional Future is waiting for your investment. Follow the link to complete the Accounting of our Activation. ${
           useRuntimeConfig().baseURL
-        }/activation/${activation.id}`
+        }/activation/${activation.value.id}`
       )
     } else {
       alert(
@@ -550,7 +551,7 @@ function handleShareClick(isReminder: Boolean) {
           selectedRelationshape.value.name
         } Activation. Follow the link to initiate the activation. ${
           useRuntimeConfig().baseURL
-        }/api/activation/${activation.id}`
+        }/api/activation/${activation.value.id}`
       )
     }
   }

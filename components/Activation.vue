@@ -76,9 +76,9 @@
         </p>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full bg-dark-50 bg-cover z-[-20]"
+        class="absolute left-0 top-0 w-full h-full bg-dark-30 backdrop-blur-md bg-cover z-[-20]"
         :style="
-          emotion?.id
+          emotion?.id && bg
             ? `background-image: url('/imgs/emotions/bg-${emotion.id}.png')`
             : ''
         "
@@ -139,21 +139,13 @@
         </div>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full bg-dark-50 backdrop-blur-md z-[-10]"
+        class="absolute left-0 top-0 w-full h-full bg-dark-30 backdrop-blur-md z-[-10]"
       ></div>
       <img
         v-if="relationshape?.id"
         class="absolute z-[-15]"
         :src="`/imgs/relationshapes/bg-${relationshape?.id}.png`"
       />
-      <div
-        class="absolute left-0 top-0 w-full h-full bg-cover z-[-20]"
-        :style="
-          emotion?.id
-            ? `background-image: url('/imgs/emotions/bg-${emotion.id}.png')`
-            : ''
-        "
-      ></div>
     </div>
   </div>
 </template>
@@ -173,6 +165,10 @@ const props = defineProps({
     required: false
   },
   locked: {
+    type: Boolean,
+    required: false
+  },
+  bg: {
     type: Boolean,
     required: false
   },

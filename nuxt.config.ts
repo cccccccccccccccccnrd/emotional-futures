@@ -65,6 +65,10 @@ export default defineNuxtConfig({
     devOptions: {
       enabled: true,
       type: 'module'
+    },
+    workbox: {
+      navigateFallback: '/emoxy',
+      navigateFallbackDenylist: [/\/api\/.*/],
     }
   }
 })

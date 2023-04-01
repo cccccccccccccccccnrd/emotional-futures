@@ -7,7 +7,7 @@
       <p class="capitalize">{{ relationshapes[activation.type[1] - 1].name }}</p>
     </div>
     <div class="flex gap-2 justify-center items-center">
-      <Icon v-if="activation.status === 'created' && !invitation" type="book" />
+      <Icon v-if="activation.status === 'created' && !invitation" type="time" />
       <Icon v-if="activation.status === 'created' && invitation" type="drop-empty" />
       <Icon v-if="activation.status === 'accepted'" type="drop-half" />
       <Icon v-if="activation.status === 'completed'" type="drop-full" />
