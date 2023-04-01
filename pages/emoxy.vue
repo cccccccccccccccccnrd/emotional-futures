@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full p-5 flex flex-col">
+  <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center">
       <p class="text-xl font-bold">{{ emoxy.name }}</p>
       <Icon type="menu" />

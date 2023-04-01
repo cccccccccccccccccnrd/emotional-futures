@@ -7,7 +7,7 @@
       <img src="/imgs/logos/ef.png" />
     </div>
     <div
-      class="grow flex flex-col items-center text-center p-5"
+      class="grow flex flex-col items-center text-center p-safe"
       :class="
         step === 1 || step === 2 || step === 3 || step === 4
           ? 'justify-between bg-dark-70 backdrop-blur-md'
@@ -158,7 +158,7 @@
         />
       </div>
     </div>
-    <div class="flex flex-col justify-center text-center font-bold p-5">
+    <div class="flex flex-col justify-center text-center font-bold p-safe">
       <div v-if="step === 0 || step === 5 || step === 6">
         <p @click="step = 1" class="underline">What is this game about?</p>
         <div class="flex gap-5 justify-center items-center mt-5">

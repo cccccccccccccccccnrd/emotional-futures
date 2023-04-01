@@ -21,3 +21,9 @@ const isMobile = navigator.userAgent.match(
 const h = window.innerHeight
 const sa = ((navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches) ? true : false
 </script>
+
+<style lang="postcss">
+.p-safe {
+  padding: max(env(safe-area-inset-top), 1.25rem) max(env(safe-area-inset-right), 1.25rem) max(env(safe-area-inset-bottom), 1.25rem) max(env(safe-area-inset-left), 1.25rem);
+}
+</style>

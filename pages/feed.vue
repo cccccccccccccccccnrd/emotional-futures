@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute h-full w-full p-5 flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
+    class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
   >
     <div class="flex justify-between items-center">
       <div>

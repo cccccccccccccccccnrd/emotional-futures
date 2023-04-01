@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute h-full w-full p-5 flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
+    class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
     v-if="step === 1 || step === 2"
   >
     <div class="flex justify-between items-center shrink">
@@ -55,7 +55,7 @@
       <Btn @click="step = 0"> I shared the invitation </Btn>
     </div>
   </div>
-  <div class="h-full p-5 flex flex-col">
+  <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center shrink">
       <p class="text-xl font-bold">Accounterparts</p>
       <Icon type="menu" />

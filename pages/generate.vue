@@ -1,7 +1,6 @@
 <template>
   <div
-    class="absolute h-full w-full flex flex-col items-center bg-dark-50 backdrop-blur-md z-[10]"
-    style="padding: max(env(safe-area-inset-top), 1.25rem) max(env(safe-area-inset-right), 1.25rem) max(env(safe-area-inset-bottom), 1.25rem) max(env(safe-area-inset-left), 1.25rem);"
+    class="absolute h-full w-full p-safe flex flex-col items-center bg-dark-50 backdrop-blur-md z-[10]"
     v-if="step === 2 || step === 4 || step === 6"
   >
     <div class="flex w-full justify-between items-center">
@@ -67,7 +66,7 @@
       </div>
     </div>
   </div>
-  <div class="h-full w-full flex flex-col" style="padding: max(env(safe-area-inset-top), 1.25rem) max(env(safe-area-inset-right), 1.25rem) max(env(safe-area-inset-bottom), 1.25rem) max(env(safe-area-inset-left), 1.25rem);">
+  <div class="h-full w-full flex flex-col p-safe">
     <div class="flex flex-col justify-center items-center">
       <p
         v-if="

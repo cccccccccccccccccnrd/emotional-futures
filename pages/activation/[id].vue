@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute h-full w-full p-5 flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
+    class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
     v-if="
       step === 1 ||
       step === 3 ||
@@ -148,7 +148,7 @@
       <div class="grow flex flex-col gap-2 justify-center items-center mt-5">
         <div
           v-for="(r, i) in [results[1], results[2], results[0]]"
-          class="w-full flex justify-between items-center font-bold p-5 bg-dark-50 backdrop-blur-md border-2 border-white-50"
+          class="w-full flex justify-between items-center font-bold p-safe bg-dark-50 backdrop-blur-md border-2 border-white-50"
         >
           <p v-if="i === 0">You gave Sweat</p>
           <p v-if="i === 1">You received Tears</p>
@@ -171,7 +171,7 @@
       </div>
     </div>
   </div>
-  <div class="h-full w-full p-5 flex flex-col">
+  <div class="h-full w-full p-safe flex flex-col">
     <div class="flex justify-between items-center">
       <div>
         <Icon @click="navigateTo('/emoxy')" type="arrow-l" />
@@ -297,7 +297,7 @@
   </div>
   <div class="absolute top-0 left-0 h-full w-full z-[-10]">
     <div
-      class="h-full w-full flex flex-col justify-center items-center bg-cover p-5"
+      class="h-full w-full flex flex-col justify-center items-center bg-cover"
       :style="`background-image: url('/imgs/emotions/bg-${selectedEmotion.id}.png')`"
     ></div>
   </div>
