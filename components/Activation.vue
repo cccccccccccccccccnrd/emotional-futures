@@ -88,7 +88,7 @@
       v-if="!locked"
       class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20"
       style="transform: rotateY(180deg)"
-      :style="isRevealed ? 'transform: rotateY(360deg) !important;' : ''"
+      :style="isRevealed ? 'transform: rotateY(360deg);' : ''"
     >
       <div @click="isRevealed = !isRevealed">
         <p class="text-md text-center font-bold drop-shadow-md capitalize">
@@ -194,8 +194,5 @@ const isRevealed = ref(false)
   transition: transform 0.8s;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  -webkit-perspective: 0;
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translate3d(0,0,0);
 }
 </style>
