@@ -194,5 +194,8 @@ const isRevealed = ref(false)
   transition: transform 0.8s;
   transform-style: preserve-3d;
   backface-visibility: hidden;
+  -webkit-perspective: 0;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0,0,0);
 }
 </style>
