@@ -92,13 +92,13 @@
       <p v-if="step === 15" class="text-2xl font-bold">Analyzing</p>
       <p v-if="step === 16" class="text-2xl font-bold">You are a {{ isGiver ? 'Giver' : 'Taker' }}</p>
       <p v-if="step === 17" class="text-2xl font-bold">Meet your Emoxy</p>
-      <p v-if="step === 18" class="text-2xl font-bold">Secure Emoxy</p>
+      <p v-if="step === 18 || step === 19" class="text-2xl font-bold">Secure Emoxy</p>
       <p v-if="step === -1">the game</p>
       <p v-if="step >= 1 && step <= 7">the game</p>
       <p v-if="step === 8">the pledge</p>
       <p v-if="step === 9 || (step >= 10 && step <= 14)">the quiz</p>
       <p v-if="step === 15 || step === 16" :class="step === 16 ? 'opacity-0' : ''">your answers</p>
-      <p v-if="step === 17 || step === 18" :class="step === 17 ? 'opacity-0' : ''">and your future</p>
+      <p v-if="step === 17 || step === 18 || step === 19" :class="step === 17 ? 'opacity-0' : ''">and your future</p>
     </div>
     <div v-if="step === -1" class="w-full">
       <p>Thank you for confirming your email address and securing your Emoxy</p>
@@ -264,7 +264,7 @@
     >
       <div
         v-for="(question, index) in questions[step - 10]"
-        class="w-full p-5 flex justify-center items-center bg-dark-80 backdrop-blur-md border-2 border-white-20 text-center"
+        class="w-full p-5 flex justify-center items-center bg-dark-80 backdrop-blur-md border-2 border-white-20 text-center rounded-sm"
         v-html="question.text"
         @click="handleQuestionClick(index)"
       ></div>
@@ -324,19 +324,20 @@
       <Btn @click="step = 17">Meet My Emoxy</Btn>
     </div>
     <div
-      v-if="step === 17 || step === 18"
+      v-if="step === 17 || step === 18 || step === 19"
       class="grow flex flex-col items-center mt-10"
     >
       <Emoxy />
     </div>
-    <div v-if="step === 17 || step === 18" class="w-full flex flex-col gap-2">
+    <div v-if="step === 17 || step === 18 || step === 19" class="w-full flex flex-col gap-2">
       <div class="p-2 bg-dark-90" :class="error ? 'opacity-100' : 'opacity-0'">
         <p class="text-xs">Another human has already given their Emoxy this name</p>
       </div>
       <InputText v-if="step === 18" v-model="name" placeholder="name your emoxy" />
-      <InputText v-model="email" placeholder="type your e-mail" :class="step === 17 ? 'opacity-0' : ''"/>
+      <InputText v-if="step === 17 || step === 18" v-model="email" placeholder="type your e-mail" :class="step === 17 ? 'opacity-0' : ''"/>
+      <InputText v-if="step === 19" v-model="token" placeholder="type your token"/>
       <Btn v-if="step === 17" @click="" type="dark">Hear</Btn>
-      <Btn @click="step === 17 ? step = 18 : handleSignUp()" :disabled="step === 17 ? false : !validEmail || name.length < 4">Secure Emoxy</Btn>
+      <Btn @click="step === 17 ? step = 18 : step === 18 ? handleSignInWithMagic() : handleVerifyOtp()" :disabled="step === 17 ? false : !validEmail || name.length < 4" type="dark">{{ loading ? 'Fetching...' : 'Secure Emoxy' }}</Btn>
       <p class="text-xs text-center px-5">
         By securing your Emoxy you agree with <span class="underline">Emotional Futures Terms and Conditions</span>
       </p>
@@ -362,7 +363,7 @@
       class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-6.png')] bg-cover"
     ></div>
     <div
-      v-if="step === 17 || step === 18"
+      v-if="step === 17 || step === 18 || step === 19"
       class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover"
     ></div>
   </div>
@@ -374,8 +375,12 @@ const user = useSupabaseUser()
 const step = ref(user.value ? -1 : 0)
 const email = ref('')
 const name = ref('')
+const token = ref('')
 const bst = ref([0, 0, 0])
 const currencyAmount = ref('10')
+
+const error = ref('')
+const loading = ref(false)
 
 const emotions = await useEmotions()
 const relationshapes: any = await useRelationshapes()
@@ -450,11 +455,12 @@ const questions = [
   ]
 ]
 
-const error = ref('')
-
-async function handleSignUp() {
+async function handleSignInWithMagic() {
+  error.value = ''
+  loading.value = true
   const r = await signUpWithMagic(email.value, name.value, bst.value)
   console.log(r)
+  loading.value = false
 
   if (r instanceof Error) {
     if (r.message.includes('emoxies_name_key')) {
@@ -463,6 +469,22 @@ async function handleSignUp() {
   } else {
     console.log('top')
     step.value = 19
+  }
+}
+
+async function handleVerifyOtp () {
+  error.value = ''
+  loading.value = true
+  const r = await verifyOtp(email.value, token.value, 'signup')
+
+  if (r instanceof Error) {
+    loading.value = false
+    error.value = 'Invalid token, please try again.'
+  } else {
+    setTimeout(() => {
+      loading.value = false
+      navigateTo('/accounterparts')
+    }, 1000)
   }
 }
 

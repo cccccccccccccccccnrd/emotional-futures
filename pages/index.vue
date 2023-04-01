@@ -221,7 +221,7 @@ async function handleSignInWithMagic () {
 async function handleVerifyOtp () {
   error.value = ''
   loading.value = true
-  const r = await verifyOtp(email.value, token.value)
+  const r = await verifyOtp(email.value, token.value, 'magiclink')
 
   if (r instanceof Error) {
     loading.value = false

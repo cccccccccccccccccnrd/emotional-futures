@@ -41,13 +41,13 @@ export async function signInWithMagic (email: string) {
   }
 }
 
-export async function verifyOtp (email: string, token: string) {
+export async function verifyOtp (email: string, token: string, type: 'signup' | 'magiclink') {
   const client = useSupabaseClient()
 
   const { data, error } = await client.auth.verifyOtp({
     email,
     token,
-    type: 'magiclink'
+    type
   })
 
   if (error) {

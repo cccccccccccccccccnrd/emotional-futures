@@ -47,7 +47,7 @@
         share the activation invite. You can also share it with the link below.
       </p>
       <Qr
-        :value="`http://localhost:3000/api/activation/${activation.id}`"
+        :value="`${useRuntimeConfig().baseURL}/api/activation/${activation.id}`"
         class="w-3/5 mt-5"
       />
       <p class="text-sm text-center mt-5">Share invite link</p>
