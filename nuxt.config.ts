@@ -48,6 +48,7 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
+      display: 'standalone',
       name: 'Emotional Futures',
       short_name: 'Emotional Futures',
       theme_color: 'black',
