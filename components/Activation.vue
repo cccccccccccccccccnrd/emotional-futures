@@ -189,10 +189,10 @@ const props = defineProps({
 const isRevealed = ref(false)
 </script>
 
-<style>
+<style scoped>
 .card {
   transition: transform 0.8s;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
+  /* transform-style: preserve-3d; */
+  /* backface-visibility: hidden; */
 }
 </style>
