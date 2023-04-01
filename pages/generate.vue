@@ -21,7 +21,7 @@
       />
     </div>
     <div v-if="step === 4" class="grow flex flex-col mt-5">
-      <p class="text-lg font-bold text-center">Emotionan Currencies</p>
+      <p class="text-lg font-bold text-center">Emotional Currencies</p>
       <div class="grow flex flex-col justify-center items-center">
         <div
           v-for="d in ['blood', 'sweat', 'tears']"
@@ -225,7 +225,7 @@
       <Btn @click="step = 8">I Am Ready to Practice</Btn>
     </div>
     <div v-if="step === 8" class="grow flex flex-col items-center mt-10">
-      <div class="p-5 bg-dark-90 backdrop-blur-md border-2 border-white-20">
+      <div class="p-5 rounded-sm bg-dark-90 backdrop-blur-md border-2 border-white-20">
         <p>
           Humans must find their temperament to fully realize their Emotional
           Future.

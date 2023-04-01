@@ -6,6 +6,7 @@
     :placeholder="placeholder"
     :value="modelValue"
     @input="updateValue"
+    spellcheck="false"
   />
 </template>
 

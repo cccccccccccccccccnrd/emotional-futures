@@ -63,6 +63,10 @@ p {
   line-height: 1.1 !important;
 }
 
+::-webkit-scrollbar {
+  width: 0 !important;
+}
+
 input:focus {
   outline: none;
 }
@@ -80,8 +84,8 @@ input[type='range'] {
 input[type='range']::-webkit-slider-thumb,
 input[type='range']::-moz-range-thumb {
   appearance: none;
-  width: 0.9em;
-  height: 0.9em;
+  width: 0.9rem;
+  height: 0.9rem;
   background: white;
   border-radius: 100px;
   outline: none;

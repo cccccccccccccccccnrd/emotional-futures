@@ -20,9 +20,12 @@
             v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
             @click="
               a.status === 'created' && a.user_id === selectedFriend?.user_id
-                ? navigateTo(`${useRuntimeConfig().baseURL}/api/activation/${a.id}`, {
-                    external: true
-                  })
+                ? navigateTo(
+                    `${useRuntimeConfig().baseURL}/api/activation/${a.id}`,
+                    {
+                      external: true
+                    }
+                  )
                 : navigateTo(`/activation/${a.id}`)
             "
             :activation="a"
@@ -44,7 +47,9 @@
         :value="`${useRuntimeConfig().baseURL}/api/connect/${emoxy.id}`"
         class="w-3/5 mt-5"
       />
-      <p class="text-sm text-center mt-5 underline">Share invite link</p>
+      <p class="text-sm text-center mt-5 underline" @click="handleShareClick">
+        Share invite link
+      </p>
     </div>
     <div v-if="step === 2">
       <Btn @click="step = 0"> I shared the invitation </Btn>
@@ -158,5 +163,17 @@ function hasInvitation(userId: string) {
   return a.find((a: any) => a.status === 'created' && a.user_id === userId)
     ? true
     : false
+}
+
+function handleShareClick() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Emotional Futures Invitation',
+      text: "Hey, I'm playing the Emotional Futures game and would like to invite you to join me in growing my Emoxy. Follow the link to learn more and accept this invitation.",
+      url: `${useRuntimeConfig().baseURL}/api/connect/${emoxy.id}`
+    })
+  } else {
+    alert(`Hey, I'm playing the Emotional Futures game and would like to invite you to join me in growing my Emoxy. Follow the link to learn more and accept this invitation. ${useRuntimeConfig().baseURL}/api/connect/${emoxy.id}`)
+  }
 }
 </script>

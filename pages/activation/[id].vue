@@ -50,7 +50,9 @@
         :value="`${useRuntimeConfig().baseURL}/api/activation/${activation.id}`"
         class="w-3/5 mt-5"
       />
-      <p class="text-sm text-center mt-5">Share invite link</p>
+      <p class="text-sm text-center mt-5" @click="handleShareClick(false)">
+        Share invite link
+      </p>
     </div>
     <div v-if="step === 1" class="flex flex-col justify-center items-center">
       <Btn @click="step = 0">I shared the invitation</Btn>
@@ -58,11 +60,14 @@
     <div v-if="step === 3" class="grow flex flex-col items-center">
       <p class="text-lg font-bold mt-5">Get ready to invest in your future.</p>
       <p class="mt-5">
-        Measuring the value of an emotional interaction is not easy for
-        humans.<br /><br />
+        Measuring the value of an emotional interaction is not easy for humans.
+      </p>
+      <p class="mt-5">
         Humans may find the accounting process uncomfortable, and at times even
-        upsetting.<br /><br />
-        This is an essential step on your path to your Emotional Future.<br />
+        upsetting.
+      </p>
+      <p class="mt-5">
+        This is an essential step on your path to your Emotional Future.
       </p>
     </div>
     <div v-if="step === 3" class="flex flex-col justify-center items-center">
@@ -226,7 +231,7 @@
     </div>
     <div v-if="step === 8" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-5">
-        <Btn type="dark">Send Reminder</Btn>
+        <Btn type="dark" @click="handleShareClick(true)">Send Reminder</Btn>
       </div>
     </div>
     <div
@@ -267,7 +272,7 @@
     </div>
     <div v-if="step === 11" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-5">
-        <Btn type="dark">Send Reminder</Btn>
+        <Btn type="dark" @click="handleShareClick(true)">Send Reminder</Btn>
       </div>
     </div>
     <div
@@ -298,8 +303,6 @@
 </template>
 
 <script setup lang="ts">
-import { checkCompatEnabled } from '@vue/compiler-core'
-
 definePageMeta({
   middleware: 'auth'
 })
@@ -514,6 +517,42 @@ async function handleTerminateClick() {
   if (y) {
     await deleteActivation(activation.value.id)
     navigateTo('/emoxy')
+  }
+}
+
+function handleShareClick(isReminder: Boolean) {
+  if (navigator.share) {
+    if (isReminder) {
+      navigator.share({
+        title: 'Emotional Futures Invitation',
+        text: `Hey, our Emotional Future is waiting for your investment. Follow the link to complete the Accounting of our Activation.`,
+        url: `${useRuntimeConfig().baseURL}/activation/${activation.id}`
+      })
+    } else {
+      navigator.share({
+        title: 'Emotional Futures Invitation',
+        text: `Hey, let\'s feed our Emoxys! Join me in a ${selectedEmotion.value.name} ${selectedRelationshape.value.name} Activation. Follow the link to initiate the activation.`,
+        url: `${useRuntimeConfig().baseURL}/api/activation/${activation.id}`
+      })
+    }
+  } else {
+    if (isReminder) {
+      alert(
+        `Hey, our Emotional Future is waiting for your investment. Follow the link to complete the Accounting of our Activation. ${
+          useRuntimeConfig().baseURL
+        }/activation/${activation.id}`
+      )
+    } else {
+      alert(
+        `Hey, let\'s feed our Emoxys! Join me in a ${
+          selectedEmotion.value.name
+        } ${
+          selectedRelationshape.value.name
+        } Activation. Follow the link to initiate the activation. ${
+          useRuntimeConfig().baseURL
+        }/api/activation/${activation.id}`
+      )
+    }
   }
 }
 </script>
