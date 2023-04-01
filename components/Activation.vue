@@ -76,7 +76,7 @@
         </p>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full bg-dark-30 backdrop-blur-md bg-cover z-[-20]"
+        class="absolute left-0 top-0 w-full h-full bg-dark-100 backdrop-blur-md bg-cover z-[-20]"
         :style="
           emotion?.id && bg
             ? `background-image: url('/imgs/emotions/bg-${emotion.id}.png')`
@@ -139,7 +139,7 @@
         </div>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full bg-dark-30 backdrop-blur-md z-[-10]"
+        class="absolute left-0 top-0 w-full h-full bg-dark-100 backdrop-blur-md z-[-10]"
       ></div>
       <img
         v-if="relationshape?.id"

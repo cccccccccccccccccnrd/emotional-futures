@@ -2,7 +2,7 @@
   <VitePwaManifest />
   <div
     v-if="loading"
-    class="absolute w-full h-full backdrop-blur-md z-10"
+    class="absolute w-full h-screen backdrop-blur-md z-10"
   ></div>
   <NuxtLayout>
     <NuxtPage />
