@@ -30,6 +30,7 @@
           Back
         </p>
         <Btn class="mt-2" v-if="user" @click="logout" type="dark">Logout</Btn>
+        <Btn class="mt-2" v-if="user" @click="navigateTo('/emoxy')" type="dark">Emoxy</Btn>
       </div>
       <div
         v-if="step === 1 || step === 2 || step === 3 || step === 4"
