@@ -3,7 +3,7 @@
     <div
       @click="locked ? null : (isRevealed = !isRevealed)"
       class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20"
-      :style="isRevealed ? 'transform: rotateY(180deg)' : ''"
+      :style="isRevealed ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
     >
       <div
         v-if="waiting === 'accounting'"
