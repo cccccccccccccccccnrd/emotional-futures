@@ -1,10 +1,10 @@
 <template>
   <VitePwaManifest />
+  <div
+    v-if="loading"
+    class="absolute w-full h-full backdrop-blur-md z-10"
+  ></div>
   <NuxtLayout>
-    <div
-      v-if="loading"
-      class="absolute w-full h-full backdrop-blur-md z-10"
-    ></div>
     <NuxtPage />
   </NuxtLayout>
 </template>
