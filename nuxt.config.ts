@@ -83,10 +83,6 @@ export default defineNuxtConfig({
     client: {
       installPrompt: true
     },
-    devOptions: {
-      enabled: true,
-      type: 'module'
-    },
     workbox: {
       navigateFallback: '/emoxy',
       navigateFallbackDenylist: [/\/api\/.*/]
