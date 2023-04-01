@@ -3,7 +3,7 @@
     <div
       class="h-full w-full relative overflow-hidden"
       :class="isMobile ? '' : 'max-h-[676px] max-w-[311px] rounded-2xl border-2 border-white-20'"
-      :style="`${isMobile ? sa ? 'height: 100vh;' : `height: ${h}px;` : 'filter: drop-shadow(0 1rem 1rem rgba(0, 0, 0, 0.3));'}`"
+      :style="`${isMobile ? `height: ${h}px;` : 'filter: drop-shadow(0 1rem 1rem rgba(0, 0, 0, 0.3));'}`"
     >
       <slot />
     </div>
@@ -19,5 +19,4 @@ const isMobile = navigator.userAgent.match(
 )
 
 const h = window.innerHeight
-const sa = ((navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches) ? true : false
 </script>

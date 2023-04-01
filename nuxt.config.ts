@@ -26,16 +26,25 @@ export default defineNuxtConfig({
         {
           name: 'viewport',
           content:
-            'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+            'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover'
         },
         { hid: 'description', name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
-        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+        {
+          name: 'apple-mobile-web-app-status-bar-style',
+          content: 'black-translucent'
+        },
         { property: 'og:title', content: 'Emotional Futures' },
-        { property: 'og:description', content: 'How does the message of an emotion change over time?' },
+        {
+          property: 'og:description',
+          content: 'How does the message of an emotion change over time?'
+        },
         { property: 'og:type', content: 'website' },
-        { property: 'og:image', content: 'https://x.emotionalfutures.com/imgs/app/share.png' },
+        {
+          property: 'og:image',
+          content: 'https://x.emotionalfutures.com/imgs/app/share.png'
+        },
         { property: 'og:image:width', content: '932' },
         { property: 'og:image:height', content: '431' },
         { property: 'og:site_name', content: 'Emotional Futures' },
@@ -80,7 +89,7 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: '/emoxy',
-      navigateFallbackDenylist: [/\/api\/.*/],
+      navigateFallbackDenylist: [/\/api\/.*/]
     }
   }
 })
