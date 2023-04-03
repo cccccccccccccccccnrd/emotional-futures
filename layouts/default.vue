@@ -5,6 +5,7 @@
       :class="isMobile ? '' : 'max-h-[676px] max-w-[311px] rounded-2xl border-2 border-white-20'"
       :style="`${isMobile ? sa ? 'height: 100vh;' : `height: ${h}px;` : 'filter: drop-shadow(0 1rem 1rem rgba(0, 0, 0, 0.3));'}`"
     >
+      <Overlay v-if="overlay.isOpen" :type="overlay.type" :page="overlay.page"/>
       <slot />
     </div>
     <div
@@ -14,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+const overlay = useOverlay()
+
 const isMobile = navigator.userAgent.match(
   /(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i
 )

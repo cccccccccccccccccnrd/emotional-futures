@@ -88,7 +88,7 @@
     <div
       v-if="!locked"
       class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20"
-      :style="isRevealed ? 'opacity: 1; transform: translateY(0)' : 'opacity: 0; transform: translateY(300px)'"
+      :style="isRevealed ? 'opacity: 1; transform: translateY(0);' : 'opacity: 0; transform: translateY(300px);'"
     >
       <div @click="isRevealed = !isRevealed">
         <p class="text-md text-center font-bold drop-shadow-md capitalize">

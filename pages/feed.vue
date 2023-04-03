@@ -4,7 +4,7 @@
   >
     <div class="flex justify-between items-center">
       <div>
-        <Icon type="files" />
+        <Icon type="files" @click="handleHelpClick"/>
       </div>
       <div>
         <p class="text-lg text-white-50">Feed Emoxy</p>
@@ -63,6 +63,7 @@
           :accounterpart="selectedFriend"
           :emotion="selectedEmotion"
           locked
+          bg
         />
       </div>
     </div>
@@ -136,6 +137,7 @@ definePageMeta({
   middleware: 'auth'
 })
 
+const overlay = useOverlay()
 const user = useSupabaseUser()
 const emoxy: any = await useEmoxy()
 const friends: any = await useFriends()
@@ -209,6 +211,12 @@ async function handleConfirmClick() {
   } else {
     console.log('no selected emotion or relationshape')
   }
+}
+
+function handleHelpClick() {
+  overlay.value.isOpen = true
+  overlay.value.type = 'help'
+  overlay.value.page = `feed-${step.value}`
 }
 </script>
 

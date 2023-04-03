@@ -1,3 +1,11 @@
+export const useOverlay = () => useState('overlay', () => {
+  return {
+    isOpen: false,
+    type: '',
+    page: ''
+  }
+})
+
 export function useEmotions () {
   return [
     {
