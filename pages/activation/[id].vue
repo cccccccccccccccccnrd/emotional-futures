@@ -200,7 +200,7 @@
       <Btn @click="step = 1">Invitation</Btn>
     </div>
     <div v-if="step === 2 || step === 3" class="grow flex flex-col">
-      <p class="text-lg font-bold text-center mt-5">Ongoing confirmation</p>
+      <p class="text-lg font-bold text-center mt-5">Ongoing activation</p>
       <Activation
         class="mt-5"
         :emotion="selectedEmotion"
