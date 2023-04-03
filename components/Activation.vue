@@ -3,7 +3,7 @@
     <div
       @click="locked ? null : (isRevealed = !isRevealed)"
       class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20"
-      :style="isRevealed ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
+      :style="isRevealed ? 'opacity: 0; transform: translateY(-300px)' : 'opacity: 1; transform: translateY(0)'"
     >
       <div
         v-if="waiting === 'accounting'"
@@ -60,9 +60,10 @@
         <Btn class="text-sm font-bold">Confirm Emotion</Btn>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full flex justify-center items-center"
+        class="absolute left-0 top-0 w-full h-full flex justify-center items-center overflow-hidden z-[-1]"
       >
         <img
+          class="max-h-full"
           v-if="relationshape?.id"
           :src="`/imgs/relationshapes/bg-${relationshape?.id}.png`"
         />
@@ -76,7 +77,7 @@
         </p>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full bg-dark-50 backdrop-blur-md bg-cover z-[-5]"
+        class="absolute left-0 top-0 w-full h-full bg-dark-50 bg-cover z-[-5]"
         :style="
           emotion?.id && bg
             ? `background-image: url('/imgs/emotions/bg-${emotion.id}.png')`
@@ -87,8 +88,7 @@
     <div
       v-if="!locked"
       class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20"
-      style="transform: rotateY(180deg)"
-      :style="isRevealed ? 'transform: rotateY(360deg);' : ''"
+      :style="isRevealed ? 'opacity: 1; transform: translateY(0)' : 'opacity: 0; transform: translateY(300px)'"
     >
       <div @click="isRevealed = !isRevealed">
         <p class="text-md text-center font-bold drop-shadow-md capitalize">
@@ -119,10 +119,7 @@
       </div>
       <div v-if="results">
         <div class="px-5 mt-5 flex justify-between items-center">
-          <div
-            v-for="(r, i) in results"
-            class="flex flex-col"
-          >
+          <div v-for="(r, i) in results" class="flex flex-col">
             <div class="flex justify-center items-center gap-1">
               <p class="font-bold">{{ r }}</p>
               <img
@@ -139,13 +136,17 @@
         </div>
       </div>
       <div
-        class="absolute left-0 top-0 w-full h-full bg-dark-50 backdrop-blur-md z-[-10]"
+        class="absolute left-0 top-0 w-full h-full bg-dark-50 z-[-10]"
       ></div>
-      <img
-        v-if="relationshape?.id"
-        class="absolute z-[-15]"
-        :src="`/imgs/relationshapes/bg-${relationshape?.id}.png`"
-      />
+      <div
+        class="absolute left-0 top-0 w-full h-full flex justify-center items-center blur-md overflow-hidden z-[-15]"
+      >
+        <img
+          v-if="relationshape?.id"
+          class="absolute z-[-15] max-h-full"
+          :src="`/imgs/relationshapes/bg-${relationshape?.id}.png`"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -191,7 +192,7 @@ const isRevealed = ref(false)
 
 <style scoped>
 .card {
-  transition: transform 0.8s;
+  transition: all 0.8s;
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
