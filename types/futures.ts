@@ -4,7 +4,7 @@ export interface Emoxy {
   updated_at: string
   user_id: string
   name: string
-  bst: [number, number, number]
+  bst: Array<number>
   friends: Array<string>
   r: number
 }

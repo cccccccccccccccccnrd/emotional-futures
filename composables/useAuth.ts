@@ -1,7 +1,8 @@
 export async function signUpWithMagic (
   email: string,
   name: string,
-  bst: Array<Number>
+  bst: Array<Number>,
+  r: Number
 ) {
   const client = useSupabaseClient()
 
@@ -10,7 +11,8 @@ export async function signUpWithMagic (
     options: {
       data: {
         name,
-        bst
+        bst,
+        r
       }
     }
   })

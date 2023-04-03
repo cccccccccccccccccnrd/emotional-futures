@@ -22,6 +22,3 @@ const props = defineProps({
   padding: String
 })
 </script>
-
-<style scoped>
-</style>

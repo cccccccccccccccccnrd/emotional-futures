@@ -173,3 +173,15 @@ export async function deleteActivation (id: string) {
     console.log(error)
   }
 }
+
+export async function connectAccounterpart (
+  name: string
+) {
+  try {
+    const response = await $fetch(`/api/connect/${name}`)
+    console.log(response)
+    return response
+  } catch (error) {
+    return error
+  }
+}

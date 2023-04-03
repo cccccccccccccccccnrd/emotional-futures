@@ -39,38 +39,36 @@
     <div v-if="step === 2" class="grow flex flex-col items-center mt-5">
       <p class="text-lg font-bold text-center">Connect Accounterpart</p>
       <p class="text-sm text-center mt-5">
-        If you and your Accounterpart are in the same location, scan the
-        qr-code, and you will be instantly connected. You can also share an
-        invite link below.
+        To connect with an Accounterpart, type their Emoxy name below
       </p>
-      <Qr
-        :value="`${useRuntimeConfig().baseURL}/api/connect/${emoxy.id}`"
-        class="w-3/5 mt-5"
-      />
-      <p class="text-sm text-center mt-5 underline" @click="handleShareClick">
-        Share invite link
-      </p>
-    </div>
-    <div v-if="step === 2">
-      <Btn @click="step = 0"> I shared the invitation </Btn>
+      <div class="w-full flex flex-col gap-2 mt-5">
+        <div
+          class="p-2 bg-dark-90"
+          :class="error ? 'opacity-100' : 'opacity-0'"
+        >
+          <p class="text-xs">
+            Emoxy not found or already connected.
+          </p>
+        </div>
+        <InputText
+          v-model="connectInput"
+          placeholder="Type Emoxy Name"
+          @enter="handleConnectClick"
+          @keydown.space="(event: any) => event.preventDefault()"
+        />
+        <Btn @click="handleConnectClick" :disabled="validEmoxyName ? false : true">{{ loading ? 'Connecting...' : 'Connect' }}</Btn>
+      </div>
     </div>
   </div>
   <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center shrink">
       <p class="text-xl font-bold">Accounterparts</p>
-      <Icon type="menu" />
+      <Icon type="plus" @click="step = 2" />
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
-      <Btn
-        @click="step = 2"
-        type="dark"
-        padding="0.5"
-        class="rounded-sm text-sm"
-        >New Connection Invite</Btn
-      >
       <div class="grow w-full flex flex-col overflow-hidden">
         <p v-if="emoxy.friends.length === 0">No connections yet</p>
-        <div v-if="friends.length > 0" class="w-full mt-5 overflow-scroll">
+        <div v-if="friends.length > 0" class="w-full overflow-scroll">
           <div class="flex flex-col gap-2">
             <LiAccounterpart
               v-for="friend in friends"
@@ -84,10 +82,6 @@
           </div>
         </div>
       </div>
-      <p class="text-xs text-center mt-5">
-        Accounterparts appear here only when they have accepted your invitation
-        to connect
-      </p>
     </div>
     <div class="flex justify-center items-end gap-2 mt-5">
       <Btn @click="navigateTo('/accounterparts')" padding="1">
@@ -127,6 +121,12 @@ const selectedFriend = ref({
 })
 
 const step = ref(0)
+
+const connectInput = ref('')
+const error = ref(false)
+const loading = ref(false)
+
+const validEmoxyName = computed(() => connectInput.value.trim().length >= 4)
 
 function handleFriendClick(friend: any) {
   selectedFriend.value = friend
@@ -173,7 +173,26 @@ function handleShareClick() {
       url: `${useRuntimeConfig().baseURL}/api/connect/${emoxy.id}`
     })
   } else {
-    alert(`Hey, I'm playing the Emotional Futures game and would like to invite you to join me in growing my Emoxy. Follow the link to learn more and accept this invitation. ${useRuntimeConfig().baseURL}/api/connect/${emoxy.id}`)
+    alert(
+      `Hey, I'm playing the Emotional Futures game and would like to invite you to join me in growing my Emoxy. Follow the link to learn more and accept this invitation. ${
+        useRuntimeConfig().baseURL
+      }/api/connect/${emoxy.id}`
+    )
+  }
+}
+
+async function handleConnectClick() {
+  error.value = false
+  loading.value = true
+  const r = await connectAccounterpart(connectInput.value.trim())
+  loading.value = false
+
+  if (r instanceof Error) {
+    error.value = true
+    connectInput.value = ''
+  } else {
+    console.log('top')
+    navigateTo('/accounterparts')
   }
 }
 </script>

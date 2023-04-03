@@ -327,13 +327,22 @@
       v-if="step === 17 || step === 18 || step === 19"
       class="grow flex flex-col items-center mt-10"
     >
-      <!-- <Emoxy /> -->
+      <Emoxy :emoxy="{
+        id: '',
+        created_at: '' ,
+        updated_at: '',
+        name: '',
+        user_id: '',
+        friends: [],
+        bst,
+        r: rando
+      }" />
     </div>
     <div v-if="step === 17 || step === 18 || step === 19" class="w-full flex flex-col gap-2">
       <div class="p-2 bg-dark-90" :class="error ? 'opacity-100' : 'opacity-0'">
         <p class="text-xs">Another human has already given their Emoxy this name</p>
       </div>
-      <InputText v-if="step === 18" v-model="name" placeholder="name your emoxy" />
+      <InputText v-if="step === 18" v-model="name" @keydown.space="(event: any) => event.preventDefault()" placeholder="name your emoxy" />
       <InputText v-if="step === 17 || step === 18" v-model="email" placeholder="type your e-mail" :class="step === 17 ? 'opacity-0' : ''"/>
       <InputText v-if="step === 19" v-model="token" placeholder="type your token"/>
       <Btn v-if="step === 17" @click="" type="dark">Hear</Btn>
@@ -378,6 +387,7 @@ const name = ref('')
 const token = ref('')
 const bst = ref([0, 0, 0])
 const currencyAmount = ref('10')
+const rando = Math.floor(Math.random() * (8 - 0 + 1) + 0)
 
 const error = ref('')
 const loading = ref(false)
@@ -458,7 +468,7 @@ const questions = [
 async function handleSignInWithMagic() {
   error.value = ''
   loading.value = true
-  const r = await signUpWithMagic(email.value, name.value, bst.value)
+  const r = await signUpWithMagic(email.value, name.value.trim(), bst.value, rando)
   console.log(r)
   loading.value = false
 

@@ -6,8 +6,8 @@
     :orbit-ctrl="{
       enableDamping: true,
       dampingFactor: 0.07,
-      minDistance: 2,
-      maxDistance: 3,
+      minDistance: 4,
+      maxDistance: 4,
       enablePan: false
     }"
     resize
@@ -107,7 +107,7 @@ const sceneC = ref()
 const bg = ref()
 
 const props = defineProps<{
-  activations: Array<Activation>
+  activations?: Array<Activation>
   emoxy: Emoxy
 }>()
 
@@ -120,14 +120,21 @@ let activations: any
 activations = props.activations
 
 let emotions_played: Set<number> = new Set()
-for (let i = 0; i < activations.length; i++) {
-  emotions_played.add(activations[i].type[0])
+
+if (activations === undefined || activations.length === 0) {
+  level = 0
+  last_emotion = 0
+} else {
+  for (let i = 0; i < activations.length; i++) {
+    emotions_played.add(activations[i].type[0])
+  }
+
+  level = emotions_played.size
+  last_emotion = activations[0].type[0]
 }
 
-level = emotions_played.size
-last_emotion = activations[0].type[0]
-
-r = props.emoxy.r || 4
+r = props.emoxy.r
+console.log(r)
 bst_init = props.emoxy.bst
 
 /// DEBUG ////

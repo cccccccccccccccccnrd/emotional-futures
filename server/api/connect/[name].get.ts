@@ -17,9 +17,10 @@ export default defineEventHandler(async event => {
     })
   }
 
-  const id = event.context.params.id
+  const name = event.context.params.name
+  console.log(name, 'hallo')
 
-  const emoxy = await getEmoxy(event, id)
+  const emoxy = await getEmoxy(event, name)
   return await handleConnection(event, emoxy)
 })
 
@@ -71,8 +72,6 @@ export async function updateEmoxy (
 ) {
   const client = serverSupabaseServiceRole(event)
 
-  console.log(id, metadata)
-
   const { data, error } = await client
     .from('emoxies')
     // @ts-ignore
@@ -114,13 +113,13 @@ export async function getEmoxyByUserId (event: H3Event, id: string) {
   }
 }
 
-export async function getEmoxy (event: H3Event, id: string) {
+export async function getEmoxy (event: H3Event, name: string) {
   const client: any = await serverSupabaseClient(event)
 
   const { data, error } = await client
     .from('emoxies')
     .select()
-    .eq('id', id)
+    .eq('name', name)
     .single()
 
   if (error) {
