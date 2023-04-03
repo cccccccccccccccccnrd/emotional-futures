@@ -13,8 +13,8 @@
           </div>
         </div>
       </div>
-      <div class="h-1/2">
-        <Emoxy />
+      <div class="w-full grow" style="width: calc(100% + 2.5rem);">
+        <Emoxy :activations="activations" :emoxy="emoxy" />
       </div>
       <div class="w-full">
         <div
@@ -73,7 +73,7 @@
     </div>
     <div class="absolute top-0 left-0 h-full w-full z-[-10]">
       <div
-        class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover"
+        class="absolute h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover"
       ></div>
     </div>
   </div>

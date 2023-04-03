@@ -1,0 +1,759 @@
+[
+  {
+    "id" : 1,
+    "material" : "Abstract_010",
+    "weight" : {
+        "b": 0.335,
+        "s": 0.49,
+        "t": 0.175
+    }
+  },
+
+  {
+    "id" : 2,
+    "material" : "Abstract_Organic_003",
+    "weight" : {
+        "b": 0.17,
+        "s": 0.63,
+        "t": 0.20
+    }
+  },
+  
+  {
+    "id" : 3,
+    "material" : "Blue_Ice_001",
+    "weight" : {
+        "b": 0.165,
+        "s": 0.165,
+        "t": 0.67
+    }
+  },
+
+  {
+    "id" : 4,
+    "material" : "Bone_Structure_001",
+    "weight" : {
+        "b": 0.25,
+        "s": 0.5,
+        "t": 0.25
+    }
+  },
+ 
+  {
+    "id" : 5,
+    "material" : "Bronze_003",
+    "weight" : {
+        "b": 0.7,
+        "s": 0.3,
+        "t": 0
+    }
+  },
+
+  {
+    "id" : 6,
+    "material" : "Chocolate_001",
+    "weight" : {
+        "b": 0.5,
+        "s": 0.3,
+        "t": 0.2
+    }
+  },
+
+  {
+    "id" : 7,
+    "material" : "Concrete_016",
+    "weight" : {
+        "b": 0.1,
+        "s": 0.06,
+        "t": 0.84
+    }
+  },
+
+
+  {
+    "id" : 8,
+    "material" : "Concrete_Blocks_001",
+    "weight" : {
+        "b": 0.245,
+        "s": 0.1875,
+        "t": 0.5675
+    }
+  },
+
+
+  {
+    "id" : 9,
+    "material" : "Concrete_Tiles_001",
+    "weight" : {
+        "b": 0.32,
+        "s": 0.25,
+        "t": 0.43
+    }
+  },
+
+  {
+    "id" : 10,
+    "material" : "Crystal_001",
+    "weight" : {
+        "b": 0.62,
+        "s": 0.18,
+        "t": 0.2
+    }
+  },
+
+  {
+    "id" : 11,
+    "material" : "Crystal_002",
+    "weight" : {
+        "b": 0.17,
+        "s": 0.26,
+        "t": 0.57
+    }
+  },
+
+  {
+    "id" : 12,
+    "material" : "Crystal_003",
+    "weight" : {
+        "b": 0.13,
+        "s": 0.13,
+        "t": 0.74
+    }
+  },
+
+  {
+    "id" : 13,
+    "material" : "Crystal_Metal_001",
+    "weight" : {
+        "b": 0.63,
+        "s": 0.07,
+        "t": 0.3
+    }
+  },
+
+  {
+    "id" : 14,
+    "material" : "Dried_Soil_001",
+    "weight" : {
+        "b": 0.22,
+        "s": 0.655,
+        "t": 0.125
+    }
+  },
+
+  {
+    "id" : 15,
+    "material" : "Encrusted_Gems_002",
+    "weight" : {
+        "b": 0,
+        "s": 0,
+        "t": 1
+    }
+  },
+
+
+
+  {
+    "id" : 16,
+    "material" : "Glass_Vintage_001",
+    "weight" : {
+        "b": 0.32,
+        "s": 0.09,
+        "t": 0.59
+    }
+  },
+
+  {
+    "id" : 17,
+    "material" : "Ground_Dirt_005",
+    "weight" : {
+        "b": 0.53,
+        "s": 0.16,
+        "t": 0.31
+    }
+  },
+
+  {
+    "id" : 18,
+    "material" : "Ground_Wet_003",
+    "weight" : {
+        "b": 0.875,
+        "s": 0.0625,
+        "t": 0.0625
+    }
+  },
+
+  {
+    "id" : 19,
+    "material" : "Ground_Wet_Rocks_001",
+    "weight" : {
+        "b": 0.375,
+        "s": 0.4375,
+        "t": 0.1875
+    }
+  },
+
+  {
+    "id" : 20,
+    "material" : "Ice_001",
+    "weight" : {
+        "b": 0.4375,
+        "s": 0.1875,
+        "t": 0.375
+    }
+  },
+
+  {
+    "id" : 21,
+    "material" : "Ice_002",
+    "weight" : {
+        "b": 0.375,
+        "s": 0.1875,
+        "t": 0.4375
+    }
+  },
+
+
+  {
+    "id" : 22,
+    "material" : "Incrusted_Gems_001",
+    "weight" : {
+        "b": 0.125,
+        "s": 0.625,
+        "t": 0.25
+    }
+  },
+
+  {
+    "id" : 23,
+    "material" : "Metal_Abstract_001",
+    "weight" : {
+        "b": 0.49,
+        "s": 0.49,
+        "t": 0.02
+    }
+  },
+
+  {
+    "id" : 24,
+    "material" : "Metal_Alien_001",
+    "weight" : {
+        "b": 0.33,
+        "s": 0.33,
+        "t": 0.33
+    }
+  },
+
+  {
+    "id" : 25,
+    "material" : "Metal_Damaged_001",
+    "weight" : {
+        "b": 0.85,
+        "s": 0.1,
+        "t": 0.05
+    }
+  },
+
+  {
+    "id" : 26,
+    "material" : "Metal_Gate_002",
+    "weight" : {
+        "b": 0.425,
+        "s": 0.2875,
+        "t": 0.2875
+    }
+  },
+
+  {
+    "id" : 27,
+    "material" : "Metal_Grill_008",
+    "weight" : {
+        "b": 0.53,
+        "s": 0.06,
+        "t": 0.41
+    }
+  },
+
+
+  {
+    "id" : 28,
+    "material" : "Metal_Grill_021",
+    "weight" : {
+        "b": 0.625,
+        "s": 0.063,
+        "t": 0.312
+    }
+  },
+
+  {
+    "id" : 29,
+    "material" : "Metal_Grill_Rusted_001",
+    "weight" : {
+        "b": 0.82,
+        "s": 0.09,
+        "t": 0.09
+    }
+  },
+
+  {
+    "id" : 30,
+    "material" : "Metal_Hammered_002",
+    "weight" : {
+        "b": 0.2875,
+        "s": 0.425,
+        "t": 0.2875
+    }
+  },
+
+  {
+    "id" : 31,
+    "material" : "Metal_Iron_Guard_003",
+    "weight" : {
+        "b": 0.4,
+        "s": 0.2,
+        "t": 0.4
+    }
+  },
+
+
+  {
+    "id" : 32,
+    "material" : "Metal_Mesh_004",
+    "weight" : {
+        "b": 0.47,
+        "s": 0.06,
+        "t": 0.47
+    }
+  },
+
+
+  {
+    "id" : 33,
+    "material" : "Metal_Mesh_005",
+    "weight" : {
+        "b": 0.28,
+        "s": 0.3425,
+        "t": 0.3775
+    }
+  },
+
+
+  {
+    "id" : 34,
+    "material" : "Metal_Mesh_006",
+    "weight" : {
+        "b": 0.625,
+        "s": 0.155,
+        "t": 0.22
+    }
+  },
+
+  {
+    "id" : 35,
+    "material" : "Metal_Pattern_004",
+    "weight" : {
+        "b": 0.3,
+        "s": 0.24,
+        "t": 0.46
+    }
+  },
+
+  {
+    "id" : 36,
+    "material" : "Metal_Rusted_006",
+    "weight" : {
+        "b": 0.7,
+        "s": 0.15,
+        "t": 0.15
+    }
+  },
+
+  {
+    "id" : 37,
+    "material" : "Metal_Rusted_007",
+    "weight" : {
+        "b": 0.63,
+        "s": 0.19,
+        "t": 0.18
+    }
+  },
+
+  {
+    "id" : 38,
+    "material" : "Metal_Tiles_001",
+    "weight" : {
+        "b": 0.2825,
+        "s": 0.3125,
+        "t": 0.405
+    }
+  },
+
+  {
+    "id" : 39,
+    "material" : "Metal_Weave_006",
+    "weight" : {
+        "b": 0.34,
+        "s": 0.5,
+        "t": 0.16
+    }
+  },
+
+  {
+    "id" : 40,
+    "material" : "Plastic_Mesh_001",
+    "weight" : {
+        "b": 0.385,
+        "s": 0.25,
+        "t": 0.365
+    }
+  },
+
+  {
+    "id" : 41,
+    "material" : "Rock_031",
+    "weight" : {
+        "b": 0.47,
+        "s": 0.0925,
+        "t": 0.4375
+    }
+  },
+
+  {
+    "id" : 42,
+    "material" : "Rock_036",
+    "weight" : {
+        "b": 0.155,
+        "s": 0.47,
+        "t": 0.375
+    }
+  },
+
+  {
+    "id" : 43,
+    "material" : "Rock_038",
+    "weight" : {
+        "b": 0.24,
+        "s": 0.63,
+        "t": 0.13
+    }
+  },
+
+  {
+    "id" : 44,
+    "material" : "Rock_039",
+    "weight" : {
+      "b": 0.11,
+      "s": 0.313,
+      "t": 0.577
+    }
+  },
+
+  {
+    "id" : 45,
+    "material" : "Rock_041",
+    "weight" : {
+        "b": 0.155,
+        "s": 0.57,
+        "t": 0.275
+    }
+  },
+
+  {
+    "id" : 46,
+    "material" : "Rock_043",
+    "weight" : {
+        "b": 0.53,
+        "s": 0.2075,
+        "t": 0.2625
+    }
+  },
+
+
+  {
+    "id" : 47,
+    "material" : "Rock_044",
+    "weight" : {
+        "b": 0.2175,
+        "s": 0.43,
+        "t": 0.3525
+    }
+  },
+
+  {
+    "id" : 48,
+    "material" : "Rock_045",
+    "weight" : {
+        "b": 0.8,
+        "s": 0.05,
+        "t": 0.15
+    }
+  },
+
+
+  {
+    "id" : 49,
+    "material" : "Rock_Ore_002",
+    "weight" : {
+        "b": 0.045,
+        "s": 0.825,
+        "t": 0.13
+    }
+  },
+
+
+  {
+    "id" : 50,
+    "material" : "Rough_rock_011",
+    "weight" : {
+        "b": 0.1875,
+        "s": 0.3425,
+        "t": 0.47
+    }
+  },
+
+  {
+    "id" : 51,
+    "material" : "Rough_rock_012",
+    "weight" : {
+        "b": 0.0625,
+        "s": 0.6375,
+        "t": 0.3
+    }
+  },
+
+  {
+    "id" : 52,
+    "material" : "Rubber_Sole_002",
+    "weight" : {
+        "b": 0.36,
+        "s": 0.37,
+        "t": 0.27
+    }
+  },
+
+  {
+    "id" : 53,
+    "material" : "Sand_001",
+    "weight" : {
+        "b": 0.05,
+        "s": 0.124,
+        "t": 0.826
+    }
+  },
+
+  {
+    "id" : 54,
+    "material" : "Sapphire_001",
+    "weight" : {
+        "b": 0.76,
+        "s": 0.06,
+        "t": 0.18
+    }
+  },
+
+  {
+    "id" : 55,
+    "material" : "Skin_Lizard_002",
+    "weight" : {
+        "b": 0.13,
+        "s": 0.84,
+        "t": 0.03
+    }
+  },
+
+  {
+    "id" : 56,
+    "material" : "Snow_001",
+    "weight" : {
+        "b": 0.26,
+        "s": 0.06,
+        "t": 0.68
+    }
+  },
+
+  {
+    "id" : 57,
+    "material" : "Stone_Wall_011",
+    "weight" : {
+        "b": 0.3,
+        "s": 0.46,
+        "t": 0.24
+    }
+  },
+
+  {
+    "id" : 58,
+    "material" : "Strawberry_milkshake_foam_001",
+    "weight" : {
+        "b": 0.6675,
+        "s": 0.07,
+        "t": 0.2625
+    }
+  },
+
+  {
+    "id" : 59,
+    "material" : "Stylized_Cliff_Rock_003",
+    "weight" : {
+        "b": 0.44,
+        "s": 0.24,
+        "t": 0.32
+    }
+  },
+
+  {
+    "id" : 60,
+    "material" : "Stylized_Crystal_002",
+    "weight" : {
+        "b": 0,
+        "s": 1,
+        "t": 0
+    }
+  },
+
+  {
+    "id" : 61,
+    "material" : "Stylized_Lava_Rocks_001",
+    "weight" : {
+        "b": 0.13,
+        "s": 0.76,
+        "t": 0.11
+    }
+  },
+
+  {
+    "id" : 62,
+    "material" : "Water_002",
+    "weight" : {
+        "b": 0.125,
+        "s": 0.195,
+        "t": 0.68
+    }
+  },
+
+
+  {
+    "id" : 63,
+    "material" : "Alien_Flesh_001",
+    "weight" : {
+        "b": 0.03,
+        "s": 0.81,
+        "t": 0.16
+    }
+  },
+
+
+  {
+    "id" : 64,
+    "material" : "Flesh_001",
+    "weight" : {
+        "b": 0.8,
+        "s": 0.07,
+        "t": 0.13
+    }
+  },
+
+  {
+    "id" : 65,
+    "material" : "Stylized_Cliff_Rock_001",
+    "weight" : {
+        "b": 0.2,
+        "s": 0.4,
+        "t": 0.4
+    }
+  },
+
+  {
+    "id" : 66,
+    "material" : "Stylized_Crystal_002",
+    "weight" : {
+        "b": 0.0,
+        "s": 1,
+        "t": 0
+    }
+  },
+
+
+  {
+    "id" : 67,
+    "material" : "Flesh_004",
+    "weight" : {
+        "b": 0.81,
+        "s": 0.1275,
+        "t": 0.0625
+    }
+  },
+
+  {
+    "id" : 68,
+    "material" : "Gold",
+    "weight" : {
+        "b": 0.5,
+        "s": 0.5,
+        "t": 0
+    }
+  },
+
+  {
+    "id" : 69,
+    "material" : "Crystal_004",
+    "weight" : {
+        "b": 0.05,
+        "s": 0.56,
+        "t": 0.39
+    }
+  },
+
+  {
+    "id" : 70,
+    "material" : "Brain_Surface",
+    "weight" : {
+        "b": 0.84,
+        "s": 0.08,
+        "t": 0.08
+    }
+  },
+
+  {
+    "id" : 71,
+    "material" : "Slime",
+    "weight" : {
+        "b": 0,
+        "s": 0.5,
+        "t": 0.5
+    }
+  },
+
+  {
+    "id" : 72,
+    "material" : "Flesh_005",
+    "weight" : {
+        "b": 0.73,
+        "s": 0.03,
+        "t": 0.24
+    }
+  },
+
+  {
+    "id" : 73,
+    "material" : "Flesh_006",
+    "weight" : {
+        "b": 0.73,
+        "s": 0.21,
+        "t": 0.06
+    }
+  },
+
+  {
+    "id" : 73,
+    "material" : "Flesh_007",
+    "weight" : {
+        "b": 0.725,
+        "s": 0.12,
+        "t": 0.155
+    }
+  }
+
+
+
+]

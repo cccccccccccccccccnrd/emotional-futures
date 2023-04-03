@@ -327,7 +327,7 @@
       v-if="step === 17 || step === 18 || step === 19"
       class="grow flex flex-col items-center mt-10"
     >
-      <Emoxy />
+      <!-- <Emoxy /> -->
     </div>
     <div v-if="step === 17 || step === 18 || step === 19" class="w-full flex flex-col gap-2">
       <div class="p-2 bg-dark-90" :class="error ? 'opacity-100' : 'opacity-0'">
@@ -483,7 +483,7 @@ async function handleVerifyOtp () {
   } else {
     setTimeout(() => {
       loading.value = false
-      navigateTo('/accounterparts')
+      navigateTo('/emoxy')
     }, 1000)
   }
 }

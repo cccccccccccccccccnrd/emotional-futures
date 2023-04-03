@@ -127,7 +127,7 @@
     class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover p-10"
   >
     <div class="h-1/2">
-      <Emoxy />
+      <!-- <Emoxy /> -->
     </div>
   </div>
 </template>
