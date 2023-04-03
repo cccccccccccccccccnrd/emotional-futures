@@ -527,13 +527,13 @@ function handleShareClick(isReminder: Boolean) {
       navigator.share({
         title: 'Emotional Futures Invitation',
         text: `Hey, our Emotional Future is waiting for your investment. Follow the link to complete the Accounting of our Activation.`,
-        url: `${useRuntimeConfig().baseURL}/activation/${activation.id}`
+        url: `${useRuntimeConfig().baseURL}/activation/${activation.value.id}`
       })
     } else {
       navigator.share({
         title: 'Emotional Futures Invitation',
         text: `Hey, let\'s feed our Emoxys! Join me in a ${selectedEmotion.value.name} ${selectedRelationshape.value.name} Activation. Follow the link to initiate the activation.`,
-        url: `${useRuntimeConfig().baseURL}/api/activation/${activation.id}`
+        url: `${useRuntimeConfig().baseURL}/api/activation/${activation.value.id}`
       })
     }
   } else {
