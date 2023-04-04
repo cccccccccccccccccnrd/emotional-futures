@@ -67,8 +67,8 @@
       <Icon type="plus" @click="step = 2" />
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
-      <div class="grow w-full flex flex-col overflow-hidden">
-        <p v-if="emoxy.friends.length === 0">No connections yet</p>
+      <div class="grow w-full flex flex-col overflow-hidden" :class="friends.length === 0 ? 'justify-center items-center' : ''">
+        <p v-if="friends.length === 0" class="font-bold">No connections yet</p>
         <div v-if="friends.length > 0" class="w-full overflow-scroll">
           <div class="flex flex-col gap-2">
             <LiAccounterpart

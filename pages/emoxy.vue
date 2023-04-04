@@ -121,7 +121,6 @@ const user = useSupabaseUser()
 const emoxy: any = await useEmoxy()
 const activations: any = await useActivations()
 const emotions = await useEmotions()
-const audio = ref(new Audio('/audios/0.mp3'))
 const paused = ref(true)
 
 const busy = computed(() => {
@@ -132,14 +131,18 @@ const busy = computed(() => {
   )
 })
 
-const say = computed(() => {
+const emoxyLevel = computed(() => {
   const completed = activations.filter((a: any) => a.status === 'completed')
-  if (completed.length === 0) return 'No activations yet'
-
-  return emotions[completed[0].type[0] - 1].say[
-    new Set(activations.map((a: any) => a.type[0])).size
-  ]
+  return new Set(completed.map((a: any) => a.type[0])).size
 })
+
+const say = computed(() => {
+  const s = emotions[emoxyLevel.value].say
+  return s[Math.floor(Math.random() * s.length)]
+})
+
+const audio = ref(new Audio(`/audios/emoxy/${emoxyLevel.value}/${Math.floor(Math.random() * emotions[emoxyLevel.value].hear) + 1}.mp3`))
+console.log(audio.value)
 
 function play() {
   paused.value = false

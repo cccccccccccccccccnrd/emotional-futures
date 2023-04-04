@@ -287,7 +287,7 @@
       v-if="step === 12"
       class="grow relative flex flex-col justify-center items-center"
     >
-      <p class="text-lg font-bold text-center mt-5">Activation complete</p>
+      <p class="text-lg font-bold text-center mt-5">Activation Complete</p>
       <Activation
         class="mt-5"
         :emotion="selectedEmotion"

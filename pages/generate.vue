@@ -552,7 +552,7 @@ async function handleSignInWithMagic() {
 
   if (r instanceof Error) {
     if (r.message.includes('emoxies_name_key')) {
-      error.value = 'Another human has already given their Emoxy this name'
+      error.value = 'Another human has already given their Emoxy this name.'
     }
   } else {
     console.log('top')

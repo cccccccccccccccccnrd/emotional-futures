@@ -1,25 +1,15 @@
 <template>
   <VitePwaManifest />
-  <div
-    v-if="loading"
-    class="absolute w-full h-screen backdrop-blur-md z-10"
-  ></div>
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <div
+    class="absolute top-0 left-0 w-full h-full bg-white-10 bg-cover bg-center z-[-50]"
+    :style="`background-image: url('/imgs/bg-bg-${
+      Math.floor(Math.random() * 4) + 1
+    }.png')`"
+  ></div>
 </template>
-
-<script setup lang="ts">
-const nuxtApp = useNuxtApp()
-const loading = ref(false)
-
-nuxtApp.hook('page:start', () => {
-  loading.value = true
-})
-nuxtApp.hook('page:finish', () => {
-  loading.value = false
-})
-</script>
 
 <style>
 @font-face {

@@ -23,15 +23,15 @@ export function useEmotions () {
         '<p>Think of social situations in which you have to display JOY. Are you always expected to return a smile?</p><p class="mt-5">Pick a situation to rehearse smiling. Can you even produce real joy on demand?</p><p class="mt-5">While you perform JOY for your Accounterpart, consider the emotional labor you are investing in the exchange.</p>'
       ],
       say: [
-        'Think of a situation that  produces joy in you.',
-        'How do you pursue it? Do you feel in balance?',
-        'Talk about a character you played in your life to make someone feel happy.',
-        'A fake smile only moves the mouth.',
-        'Recount the context of the situation and give each other feedback.',
-        'When you run out of words look at the list of your partner.',
-        'Seduce to produce joy in each other.',
-        'An authentic smile should be accompanied by wrinkles around the eyes.'
-      ]
+        'gurgl',
+        'mhmhh',
+        'brrbrblllooo',
+        'swttt',
+        'trrrrrr',
+        'mmmm ftttttt',
+        'mmmhhh hmmmmm'
+      ],
+      hear: 4
     },
     {
       id: 2,
@@ -54,7 +54,8 @@ export function useEmotions () {
         'When you run out of words look at the list of your partner.',
         'Seduce to produce joy in each other.',
         'An authentic smile should be accompanied by wrinkles around the eyes.'
-      ]
+      ],
+      hear: 4
     },
     {
       id: 3,
@@ -78,7 +79,8 @@ export function useEmotions () {
         'When you run out of words look at the list of your partner.',
         'Seduce to produce joy in each other.',
         'An authentic smile should be accompanied by wrinkles around the eyes.'
-      ]
+      ],
+      hear: 8
     },
     {
       id: 4,
@@ -102,7 +104,8 @@ export function useEmotions () {
         'When you run out of words look at the list of your partner.',
         'Seduce to produce joy in each other.',
         'An authentic smile should be accompanied by wrinkles around the eyes.'
-      ]
+      ],
+      hear: 7
     },
     {
       id: 5,
@@ -126,7 +129,8 @@ export function useEmotions () {
         'When you run out of words look at the list of your partner.',
         'Seduce to produce joy in each other.',
         'An authentic smile should be accompanied by wrinkles around the eyes.'
-      ]
+      ],
+      hear: 12
     },
     {
       id: 6,
@@ -150,7 +154,8 @@ export function useEmotions () {
         'When you run out of words look at the list of your partner.',
         'Seduce to produce joy in each other.',
         'An authentic smile should be accompanied by wrinkles around the eyes.'
-      ]
+      ],
+      hear: 14
     },
     {
       id: 7,
@@ -174,7 +179,8 @@ export function useEmotions () {
         'When you run out of words look at the list of your partner.',
         'Seduce to produce joy in each other.',
         'An authentic smile should be accompanied by wrinkles around the eyes.'
-      ]
+      ],
+      hear: 5
     },
     {
       id: 8,
@@ -198,7 +204,8 @@ export function useEmotions () {
         'When you run out of words look at the list of your partner.',
         'Seduce to produce joy in each other.',
         'An authentic smile should be accompanied by wrinkles around the eyes.'
-      ]
+      ],
+      hear: 12
     }
   ]
 }
