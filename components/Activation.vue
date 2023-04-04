@@ -184,10 +184,14 @@ const props = defineProps({
   results: {
     type: Array,
     required: false
+  },
+  isRevealed: {
+    type: Boolean,
+    required: false
   }
 })
 
-const isRevealed = ref(false)
+const isRevealed = ref(props.isRevealed)
 </script>
 
 <style scoped>
