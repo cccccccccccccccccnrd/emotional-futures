@@ -87,7 +87,7 @@
     </div>
     <div
       v-if="!locked"
-      class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20"
+      class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20 overflow-hidden"
       :style="isRevealed ? 'opacity: 1; transform: translateX(0);' : 'opacity: 0; transform: translateX(700px);'"
     >
       <div @click="isRevealed = !isRevealed">
@@ -103,12 +103,12 @@
       </div>
       <div
         @click="isRevealed = !isRevealed"
-        class="grow flex justify-center items-center text-center font-bold"
+        class="grow flex flex-col text-center font-bold mt-5 overflow-scroll"
       >
-        {{ relationshape?.id ? emotion?.prompts[relationshape.id - 1] : '' }}
+        <div v-html="relationshape?.id ? emotion?.prompts[relationshape.id - 1] : ''" class="my-auto"></div>
       </div>
       <div v-if="!results">
-        <div class="px-10 flex justify-center items-center">
+        <div class="px-10 flex justify-center items-center mt-5">
           <Icon v-for="d in relationshape?.id" type="drop-full" />
         </div>
         <div class="px-10 mt-5 flex justify-between items-center">

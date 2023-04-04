@@ -28,7 +28,7 @@
       v-if="invitation"
       class="flex justify-center items-center h-6 px-2 border-2 border-red font-bold"
     >
-      Invitation
+      New Invite
     </div>
     <div v-if="selected">
       <Icon type="check" />
