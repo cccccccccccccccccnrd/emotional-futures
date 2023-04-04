@@ -101,7 +101,6 @@ const planeC = ref()
 const BM = ref()
 const emoxy_src = ref()
 const face_src = ref()
-const imesh = ref()
 const gltfLoader = new GLTFLoader()
 const sceneC = ref()
 const bg = ref()
@@ -134,26 +133,8 @@ if (activations === undefined || activations.length === 0) {
 }
 
 r = props.emoxy.r
-console.log(r)
 bst_init = props.emoxy.bst
 
-/// DEBUG ////
-
-// r = 0;
-// level = 2;
-// last_emotion = 4;
-// bst_init = [100,0,70]
-
-console.log('level: ' + level)
-console.log('last emotion: ' + last_emotion)
-console.log('emoxy style: ' + r)
-console.log('BST: ' + bst_init)
-
-// rendererC.value.alpha = true;
-
-/// level and style
-
-let style = r
 let emoxy_level
 
 level > 4 ? (emoxy_level = 4) : (emoxy_level = level)
@@ -173,14 +154,10 @@ const b = bst_init[0]
 const s = bst_init[1]
 const t = bst_init[2]
 
-console.log(b, s, t)
 let bst_all = b + s + t
 
 if (bst_all <= 0) {
   bst_all = 1
-  console.log(
-    'Alert: The sum of BST is 0 so it was set to 1 to avoid divided by 0 Errors'
-  )
 }
 
 let bst_rel = [b / bst_all, s / bst_all, t / bst_all]
@@ -210,8 +187,6 @@ const closestColor = colors.reduce(
 m = closestColor[1]
 phong_color = colors[m].hex
 
-console.log('color ID: ' + phong_color)
-
 /// PBR-Material selection
 let n = 0
 let selected_material = pbr_materials[n].material
@@ -234,13 +209,11 @@ const closestMaterial = pbr_materials.reduce(
   [9999999, 0]
 )
 
-console.log('material ID: ' + closestMaterial[1])
 n = closestMaterial[1] - 1 //I started the ID count of the materials at 1 instead of 0 so i have to subtract 1 here
 selected_material = pbr_materials[n].material
 
 ///load textures
 
-console.log(selected_material)
 const selected_material_src = '/emoxy/materials/' + selected_material + '/'
 
 let repeat = 3
@@ -281,20 +254,13 @@ material.value = selected_material_src
 const easeOutCubic = function (t: number) {
   return --t * t * t + 1
 }
-const scaleCurve = function (t: number) {
-  return Math.abs(easeOutCubic((t > 0.5 ? 1 - t : t) * 2))
-}
 
 ///  Load BG
 bg.value = '/emoxy/textures/water.png'
 ///// determine Shaders, Animation once GltF has loaded
 /////// READY //////
 function onReady(gltf: any) {
-  console.log('Scene: ' + Scene)
-
   const renderer = rendererC.value as RendererPublicInterface
-  console.log(renderer)
-
   const mesh = gltf.scene.children[0]
 
   // face selection
@@ -321,14 +287,6 @@ function onReady(gltf: any) {
   //// PBR //////
 
   if (level > 4) {
-    console.log('Selceted Material' + selected_material)
-
-    // mesh.material = new MeshPhongMaterial({
-    // color: phong_color,
-    // emissive: 0x000000,
-    // specular: 0x111111,
-    // shininess: 70.9,
-
     // check if has opacity map and set transparent true if defined
     opacity.image == undefined
       ? (mesh.material.transparent = false)
@@ -347,15 +305,11 @@ function onReady(gltf: any) {
 
   /// Phong /////
   else {
-    console.log('selcted color: ' + phong_color)
-
     mesh.material = new MeshPhongMaterial({
       color: phong_color,
       emissive: 0x000000,
       specular: 0x111111,
       shininess: 70.9
-
-      // // envMap: hdr,
     })
   }
 
@@ -370,7 +324,6 @@ function onReady(gltf: any) {
     const scatter_material = new MeshPhysicalMaterial({
       color: phong_color,
       opacity: 0.8,
-      // emissive: 0x000000,
       metalness: 0.42,
       reflectivity: 0.8,
       roughness: 0.5,
@@ -378,16 +331,10 @@ function onReady(gltf: any) {
     })
 
     const surface_mesh = mesh.clone()
-    console.log(surface_mesh)
-
-    // const cube_geo= new SphereGeometry (1, 32, 16);
-    // const cube_mesh= new Mesh(cube_geo, scatter_material)
 
     gltfLoader.load('/emoxy/meshes/stone1.glb', function (gltf) {
-      console.log('GLTF: Type ' + r)
       const finetune_scale = [0.7, 0.7, 1.4, 1.2, 0.7, 1.4, 2, 0.7, 0.7]
       const test_mesh = gltf.scene.children[0]
-      const scale = 100
       resample(
         surface_mesh,
         test_mesh,
@@ -412,8 +359,6 @@ function onReady(gltf: any) {
 
     // Set-up Material
 
-    console.log(morphMesh.material)
-
     morphMesh.material = new MeshPhongMaterial({
       color: phong_color,
       emissive: 0x000000,
@@ -421,15 +366,10 @@ function onReady(gltf: any) {
       shininess: 70.9
     })
 
-    console.log(morphMesh)
-
     // Set-up Animation
 
     const clip = gltf.animations[0]
-    console.log(clip)
-
     let mixer = new AnimationMixer(morphMesh)
-
     let morphAction = mixer.clipAction(clip)
 
     morphAction.setLoop(LoopPingPong, Infinity)
@@ -454,7 +394,6 @@ function resample(
   const finetune_y = [0.1, -0.1, 0, 0, 0.1, 0, 0.05, 0, 0.4]
   const finetune_z = [0, 0, 0, 0.3, 0, 0, 0, 0, 0]
 
-  console.log('finetune_y ' + finetune_y[type])
   const scatter_scale = scale
 
   const scatter_geo = scatterMesh.geometry.clone()
@@ -465,9 +404,6 @@ function resample(
   scatter_geo.scale(scatter_scale, scatter_scale, scatter_scale)
 
   const scatter = new InstancedMesh(scatter_geo, Material, count)
-
-  console.log('resampling')
-
   const dummy = new Object3D()
 
   const ages = new Float32Array(count)
@@ -485,7 +421,6 @@ function resample(
 
   const vertexCount = surface.geometry.getAttribute('position').count
 
-  const _scale = new Vector3()
 
   console.info(
     'Sampling ' +

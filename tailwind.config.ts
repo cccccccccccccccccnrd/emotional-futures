@@ -30,6 +30,7 @@ export default <Partial<Config>>{
         90: 'rgba(255, 255, 255, 0.9)',
         100: 'rgba(255, 255, 255, 1)'
       },
+      red: 'rgba(255, 91, 91, 1)'
     }
   }
 }

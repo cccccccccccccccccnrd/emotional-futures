@@ -18,7 +18,6 @@ export default defineEventHandler(async event => {
   }
 
   const name = event.context.params.name
-  console.log(name, 'hallo')
 
   const emoxy = await getEmoxy(event, name)
   return await handleConnection(event, emoxy)

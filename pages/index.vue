@@ -115,15 +115,19 @@
         <InputText
           v-if="step === 5"
           v-model="email"
-          placeholder="Type your e-mail"
+          @keyup.enter.native="step === 5 ? handleSignInWithMagic() : handleVerifyOtp()"
           class="mt-2"
+          placeholder="Type your e-mail"
+          focus
         />
         <InputText
           v-if="step === 6"
           v-model="token"
+          @keyup.enter.native="step === 5 ? handleSignInWithMagic() : handleVerifyOtp()"
+          class="mt-2"
           placeholder="Type your token"
           password
-          class="mt-2"
+          focus
         />
         <Btn
           @click="step === 5 ? handleSignInWithMagic() : handleVerifyOtp()"

@@ -1,5 +1,12 @@
 <template>
   <div
+    v-if="connected"
+    class="absolute h-full w-full p-safe flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[15]"
+  >
+    <Icon type="check" size="l" />
+    <p class="font-bold mt-5">You and {{ connectInput }} are now connected</p>
+  </div>
+  <div
     class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
     v-if="step === 1 || step === 2"
   >
@@ -18,16 +25,7 @@
         <div class="flex flex-col gap-2">
           <LiActivation
             v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
-            @click="
-              a.status === 'created' && a.user_id === selectedFriend?.user_id
-                ? navigateTo(
-                    `${useRuntimeConfig().baseURL}/api/activation/${a.id}`,
-                    {
-                      external: true
-                    }
-                  )
-                : navigateTo(`/activation/${a.id}`)
-            "
+            @click="navigateTo(`/activation/${a.id}`)"
             :activation="a"
             :invitation="
               a.status === 'created' && a.user_id === selectedFriend?.user_id
@@ -46,17 +44,20 @@
           class="p-2 bg-dark-90"
           :class="error ? 'opacity-100' : 'opacity-0'"
         >
-          <p class="text-xs">
-            Emoxy not found or already connected.
-          </p>
+          <p class="text-xs">Emoxy not found or already connected.</p>
         </div>
         <InputText
           v-model="connectInput"
           placeholder="Type Emoxy Name"
-          @enter="handleConnectClick"
+          @keyup.enter.native="handleConnectClick"
           @keydown.space="(event: any) => event.preventDefault()"
+          focus
         />
-        <Btn @click="handleConnectClick" :disabled="validEmoxyName ? false : true">{{ loading ? 'Connecting...' : 'Connect' }}</Btn>
+        <Btn
+          @click="handleConnectClick"
+          :disabled="validEmoxyName ? false : true"
+          >{{ loading ? 'Connecting...' : 'Connect' }}</Btn
+        >
       </div>
     </div>
   </div>
@@ -77,6 +78,7 @@
               :activations="getActivationsWithFriend(friend.user_id)"
               :selected="selectedFriend?.id === friend.id"
               :unavailable="isFriendUnavailable(friend.user_id)"
+              :busy="isFriendBusy(friend.user_id)"
               :invitation="hasInvitation(friend.user_id)"
             />
           </div>
@@ -107,8 +109,9 @@ definePageMeta({
   middleware: 'auth'
 })
 
+const user = useSupabaseUser()
 const emoxy: any = await useEmoxy()
-const friends: any = await useFriends()
+let friends: any = await useFriends()
 const activations: any = await useActivations()
 const friendsActivations: any = await useFriendsActivations(
   friends.map((f: any) => f.user_id)
@@ -125,6 +128,7 @@ const step = ref(0)
 const connectInput = ref('')
 const error = ref(false)
 const loading = ref(false)
+const connected = ref(false)
 
 const validEmoxyName = computed(() => connectInput.value.trim().length >= 4)
 
@@ -153,6 +157,17 @@ function isFriendUnavailable(userId: string) {
     (a: any) =>
       (a.user_id === userId || a.friend_id === userId) &&
       a.status === 'accepted'
+  )
+    ? true
+    : false
+}
+
+function isFriendBusy(userId: string) {
+  return friendsActivations.find(
+    (a: any) =>
+      (a.user_id === userId || a.friend_id === userId) &&
+      a.status === 'accepted' &&
+      (a.user_id === user.value?.id || a.friend_id === user.value?.id)
   )
     ? true
     : false
@@ -191,8 +206,12 @@ async function handleConnectClick() {
     error.value = true
     connectInput.value = ''
   } else {
-    console.log('top')
-    navigateTo('/accounterparts')
+    friends = await useFriends()
+    connected.value = true
+    setTimeout(() => {
+      step.value = 0
+      connected.value = false
+    }, 2500)
   }
 }
 </script>

@@ -179,7 +179,17 @@ export async function connectAccounterpart (
 ) {
   try {
     const response = await $fetch(`/api/connect/${name}`)
-    console.log(response)
+    return response
+  } catch (error) {
+    return error
+  }
+}
+
+export async function acceptActivation (
+  id: string
+) {
+  try {
+    const response = await $fetch(`/api/activation/${id}`)
     return response
   } catch (error) {
     return error

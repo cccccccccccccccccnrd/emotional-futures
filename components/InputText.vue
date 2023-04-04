@@ -28,6 +28,8 @@ function updateValue(event: any) {
 }
 
 onMounted(() => {
-  inputText.value.focus()
+  if (props.focus) {
+    inputText.value.focus()
+  }
 })
 </script>

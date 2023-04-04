@@ -90,15 +90,29 @@
         Temperament
       </p>
       <p v-if="step === 15" class="text-2xl font-bold">Analyzing</p>
-      <p v-if="step === 16" class="text-2xl font-bold">You are a {{ isGiver ? 'Giver' : 'Taker' }}</p>
+      <p v-if="step === 16" class="text-2xl font-bold">
+        You are a {{ isGiver ? 'Giver' : 'Taker' }}
+      </p>
       <p v-if="step === 17" class="text-2xl font-bold">Meet your Emoxy</p>
-      <p v-if="step === 18 || step === 19" class="text-2xl font-bold">Secure Emoxy</p>
+      <p v-if="step === 18 || step === 19" class="text-2xl font-bold">
+        Secure Emoxy
+      </p>
       <p v-if="step === -1">the game</p>
       <p v-if="step >= 1 && step <= 7">the game</p>
       <p v-if="step === 8">the pledge</p>
       <p v-if="step === 9 || (step >= 10 && step <= 14)">the quiz</p>
-      <p v-if="step === 15 || step === 16" :class="step === 16 ? 'opacity-0' : ''">your answers</p>
-      <p v-if="step === 17 || step === 18 || step === 19" :class="step === 17 ? 'opacity-0' : ''">and your future</p>
+      <p
+        v-if="step === 15 || step === 16"
+        :class="step === 16 ? 'opacity-0' : ''"
+      >
+        your answers
+      </p>
+      <p
+        v-if="step === 17 || step === 18 || step === 19"
+        :class="step === 17 ? 'opacity-0' : ''"
+      >
+        and your future
+      </p>
     </div>
     <div v-if="step === -1" class="w-full">
       <p>Thank you for confirming your email address and securing your Emoxy</p>
@@ -225,7 +239,9 @@
       <Btn @click="step = 8">I Am Ready to Practice</Btn>
     </div>
     <div v-if="step === 8" class="grow flex flex-col items-center mt-10">
-      <div class="p-5 rounded-sm bg-dark-90 backdrop-blur-md border-2 border-white-20">
+      <div
+        class="p-5 rounded-sm bg-dark-90 backdrop-blur-md border-2 border-white-20"
+      >
         <p>
           Humans must find their temperament to fully realize their Emotional
           Future.
@@ -303,21 +319,44 @@
     <div v-if="step === 15" class="w-full">
       <Btn @click="step = 16" type="dark">I Shook My Device</Btn>
     </div>
-    <div
-      v-if="step === 16"
-      class="grow flex flex-col items-center mt-10"
-    >
+    <div v-if="step === 16" class="grow flex flex-col items-center mt-10">
       <div v-if="isGiver">
-        <p>You are high in Sweat, an emotional liquid that reflects for how much time and attention you give to others.</p>
-        <p class="mt-5">To balance your Sweat supply with more Tears, you will need to give less, and receive more attention from others.</p>
-        <p class="mt-5">To gain more Blood, you will need to balance your Sweat and Tears. This means becoming more aware of what you give and what other people think of you.</p>
-        <p class="mt-5">By doing so, you will find your own path to fully realize your Emotional Future alongside your Emoxy.</p>
+        <p>
+          You are high in Sweat, an emotional liquid that reflects for how much
+          time and attention you give to others.
+        </p>
+        <p class="mt-5">
+          To balance your Sweat supply with more Tears, you will need to give
+          less, and receive more attention from others.
+        </p>
+        <p class="mt-5">
+          To gain more Blood, you will need to balance your Sweat and Tears.
+          This means becoming more aware of what you give and what other people
+          think of you.
+        </p>
+        <p class="mt-5">
+          By doing so, you will find your own path to fully realize your
+          Emotional Future alongside your Emoxy.
+        </p>
       </div>
       <div v-else>
-        <p>You are high in Tears, an emotional liquid that reflects for how much time and attention you take from others.</p>
-        <p class="mt-5">To increase your Sweat, you will need to give more to others. You will also need to limit what they give to you.</p>
-        <p class="mt-5">To gain more Blood, you will need to balance your Sweat and Tears. This means becoming more aware of what you give and what other people think of you.</p>
-        <p class="mt-5">By doing so, you will find your own path to fully realize your Emotional Future alongside your Emoxy.</p>
+        <p>
+          You are high in Tears, an emotional liquid that reflects for how much
+          time and attention you take from others.
+        </p>
+        <p class="mt-5">
+          To increase your Sweat, you will need to give more to others. You will
+          also need to limit what they give to you.
+        </p>
+        <p class="mt-5">
+          To gain more Blood, you will need to balance your Sweat and Tears.
+          This means becoming more aware of what you give and what other people
+          think of you.
+        </p>
+        <p class="mt-5">
+          By doing so, you will find your own path to fully realize your
+          Emotional Future alongside your Emoxy.
+        </p>
       </div>
     </div>
     <div v-if="step === 16" class="w-full">
@@ -327,28 +366,62 @@
       v-if="step === 17 || step === 18 || step === 19"
       class="grow flex flex-col items-center mt-10"
     >
-      <Emoxy :emoxy="{
-        id: '',
-        created_at: '' ,
-        updated_at: '',
-        name: '',
-        user_id: '',
-        friends: [],
-        bst,
-        r: rando
-      }" />
+      <Emoxy
+        :emoxy="{
+          id: '',
+          created_at: '',
+          updated_at: '',
+          name: '',
+          user_id: '',
+          friends: [],
+          bst,
+          r: rando
+        }"
+      />
     </div>
-    <div v-if="step === 17 || step === 18 || step === 19" class="w-full flex flex-col gap-2">
+    <div
+      v-if="step === 17 || step === 18 || step === 19"
+      class="w-full flex flex-col gap-2"
+    >
       <div class="p-2 bg-dark-90" :class="error ? 'opacity-100' : 'opacity-0'">
-        <p class="text-xs">Another human has already given their Emoxy this name</p>
+        <p class="text-xs">
+          Another human has already given their Emoxy this name
+        </p>
       </div>
-      <InputText v-if="step === 18" v-model="name" @keydown.space="(event: any) => event.preventDefault()" placeholder="name your emoxy" />
-      <InputText v-if="step === 17 || step === 18" v-model="email" placeholder="type your e-mail" :class="step === 17 ? 'opacity-0' : ''"/>
-      <InputText v-if="step === 19" v-model="token" placeholder="type your token"/>
+      <InputText
+        v-if="step === 18"
+        v-model="name"
+        @keydown.space="(event: any) => event.preventDefault()"
+        placeholder="name your emoxy"
+        focus
+      />
+      <InputText
+        v-if="step === 17 || step === 18"
+        v-model="email"
+        :class="step === 17 ? 'opacity-0' : ''"
+        placeholder="type your e-mail"
+      />
+      <InputText
+        v-if="step === 19"
+        v-model="token"
+        placeholder="type your token"
+      />
       <Btn v-if="step === 17" @click="" type="dark">Hear</Btn>
-      <Btn @click="step === 17 ? step = 18 : step === 18 ? handleSignInWithMagic() : handleVerifyOtp()" :disabled="step === 17 ? false : !validEmail || name.length < 4" type="dark">{{ loading ? 'Fetching...' : 'Secure Emoxy' }}</Btn>
+      <Btn
+        @click="
+          step === 17
+            ? (step = 18)
+            : step === 18
+            ? handleSignInWithMagic()
+            : handleVerifyOtp()
+        "
+        :disabled="step === 17 ? false : !validEmail || name.length < 4"
+        type="dark"
+        >{{ loading ? 'Fetching...' : 'Secure Emoxy' }}</Btn
+      >
       <p class="text-xs text-center px-5">
-        By securing your Emoxy you agree with <span class="underline">Emotional Futures Terms and Conditions</span>
+        By securing your Emoxy you agree with
+        <span class="underline">Emotional Futures Terms and Conditions</span>
       </p>
     </div>
   </div>
@@ -468,7 +541,12 @@ const questions = [
 async function handleSignInWithMagic() {
   error.value = ''
   loading.value = true
-  const r = await signUpWithMagic(email.value, name.value.trim(), bst.value, rando)
+  const r = await signUpWithMagic(
+    email.value,
+    name.value.trim(),
+    bst.value,
+    rando
+  )
   console.log(r)
   loading.value = false
 
@@ -482,7 +560,7 @@ async function handleSignInWithMagic() {
   }
 }
 
-async function handleVerifyOtp () {
+async function handleVerifyOtp() {
   error.value = ''
   loading.value = true
   const r = await verifyOtp(email.value, token.value, 'signup')

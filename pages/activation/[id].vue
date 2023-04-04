@@ -1,5 +1,12 @@
 <template>
   <div
+    v-if="accepted"
+    class="absolute h-full w-full p-safe flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[15]"
+  >
+    <Icon type="check" size="l" />
+    <p class="font-bold mt-5">Accepted Activation</p>
+  </div>
+  <div
     class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
     v-if="
       step === 1 ||
@@ -122,7 +129,7 @@
       </div>
     </div>
     <div v-if="step === 6" class="grow flex flex-col">
-      <p class="text-lg text-center font-bold mt-5">The Sweat you gave</p>
+      <p class="text-lg text-center font-bold mt-5">The Sweat You Gave</p>
       <div class="grow flex justify-center items-center mt-5 px-10">
         <InputDrop v-model="sweat" type="sweat" />
       </div>
@@ -133,7 +140,7 @@
       </div>
     </div>
     <div v-if="step === 7" class="grow flex flex-col">
-      <p class="text-lg text-center font-bold mt-5">The Tears you received</p>
+      <p class="text-lg text-center font-bold mt-5">The Tears You Received</p>
       <div class="grow flex justify-center items-center mt-5 px-10">
         <InputDrop v-model="tears" type="tears" />
       </div>
@@ -186,7 +193,7 @@
       </div>
     </div>
     <div v-if="step === 0 || step === 1" class="grow flex flex-col mt-5">
-      <p class="text-lg font-bold text-center">Awaiting confirmation</p>
+      <p class="text-lg font-bold text-center">Awaiting Confirmation</p>
       <Activation
         class="mt-5"
         :emotion="selectedEmotion"
@@ -196,11 +203,11 @@
       />
     </div>
     <div v-if="step === 0 || step === 1" class="flex gap-2 items-center mt-5">
-      <Btn @click="handleTerminateClick" type="dark">Terminate</Btn>
-      <Btn @click="step = 1">Invitation</Btn>
+      <Btn @click="handleTerminateClick" type="dark">{{ activation?.friend_id === user?.id ? 'Decline' : 'Terminate' }}</Btn>
+      <Btn v-if="activation?.friend_id === user?.id" @click="handleAcceptClick">Accept</Btn>
     </div>
     <div v-if="step === 2 || step === 3" class="grow flex flex-col">
-      <p class="text-lg font-bold text-center mt-5">Ongoing activation</p>
+      <p class="text-lg font-bold text-center mt-5">Ongoing Activation</p>
       <Activation
         class="mt-5"
         :emotion="selectedEmotion"
@@ -317,6 +324,7 @@ const relationshapes: any = await useRelationshapes()
 const activation: any = ref(null)
 
 const step = ref(0)
+const accepted = ref(false)
 
 const selectedFriend = ref({
   id: null,
@@ -448,7 +456,6 @@ function check(status: any) {
 }
 
 function setActivation(a: any) {
-  console.log(a)
   activation.value = a
   selectedFriend.value = friends.find(
     (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
@@ -503,13 +510,21 @@ async function handleFeedClick() {
   if (!a) return
 
   setActivation(a)
-  /* if (a.status === 'completed') {
-    step.value = 12
-  } else {
-    step.value = 11
-    check('feeding')
-  } */
   navigateTo('/emoxy?animation=true')
+}
+
+async function handleAcceptClick() {
+  const r = await acceptActivation(activation.value.id)
+
+  if (r instanceof Error) {
+    console.log('ups')
+  } else {
+    accepted.value = true
+    setTimeout(() => {
+      step.value = 2
+      accepted.value = false
+    }, 2500)
+  }
 }
 
 async function handleTerminateClick() {
