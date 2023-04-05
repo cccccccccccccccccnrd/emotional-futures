@@ -7,7 +7,7 @@
         <Icon type="files" @click="handleHelpClick"/>
       </div>
       <div>
-        <p class="text-lg text-white-50">Feed Emoxy</p>
+        <p class="text-sm text-white-50">Feed Emoxy</p>
       </div>
       <div @click="navigateTo('/emoxy')">
         <Icon type="close" />

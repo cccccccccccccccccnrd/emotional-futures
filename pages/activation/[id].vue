@@ -251,7 +251,7 @@
       />
     </div>
     <div v-if="step === 8" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-5">
+      <div class="w-full flex gap-4 mt-5 opacity-0">
         <Btn type="dark" @click="handleShareClick(true)">Send Reminder</Btn>
       </div>
     </div>
@@ -292,7 +292,7 @@
       />
     </div>
     <div v-if="step === 11" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-5">
+      <div class="w-full flex gap-4 mt-5 opacity-0">
         <Btn type="dark" @click="handleShareClick(true)">Send Reminder</Btn>
       </div>
     </div>

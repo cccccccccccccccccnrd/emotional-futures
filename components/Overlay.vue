@@ -34,7 +34,7 @@
           </div>
         </div>
         <div v-if="step === 0">
-          <p class="text-lg text-white-50">Manual</p>
+          <p class="text-sm text-white-50">Manual</p>
         </div>
         <div>
           <Icon type="close" @click="overlay.isOpen = false" />
