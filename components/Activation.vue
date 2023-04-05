@@ -111,7 +111,7 @@
       </div>
       <div
         @click="isRevealed = !isRevealed"
-        class="grow flex flex-col text-center font-bold mt-5 overflow-scroll"
+        class="grow flex flex-col text-center font-bold mt-5 overflow-y-scroll"
       >
         <div
           v-html="

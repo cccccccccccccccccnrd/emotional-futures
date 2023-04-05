@@ -13,10 +13,10 @@
         <Icon type="close" />
       </div>
     </div>
-    <div v-if="step === 0" class="grow flex flex-col mt-5">
+    <div v-if="step === 0" class="grow flex flex-col mt-5 overflow-hidden">
       <p class="text-lg font-bold text-center">Who will help you?</p>
       <div
-        class="flex flex-col items-center justify-start mt-5 overflow-x-scroll"
+        class="flex flex-col items-center justify-start mt-5 overflow-y-scroll"
       >
         <p v-if="emoxy.friends.length === 0">No connections yet</p>
         <div v-if="friends.length > 0" class="w-full flex flex-col gap-2">
@@ -35,13 +35,8 @@
         </div>
       </div>
     </div>
-    <div v-if="step === 0" class="flex flex-col justify-center items-center">
-      <p class="text-xs text-center">
-        Accounterparts appear here only when they have accepted your invitation
-        to connect
-      </p>
+    <div v-if="step === 0" class="flex flex-col justify-center items-center mt-5">
       <Btn
-        class="mt-2"
         @click="step = 1"
         :disabled="selectedFriend.id ? false : true"
         >Confirm Accounterpart</Btn
@@ -170,6 +165,18 @@ const selectedRelationshape = ref({
 })
 
 onMounted(async () => {
+  const route = useRoute()
+  if (route.query.accounterpart) {
+    const f = friends.find(
+      (f: any) => f.id === route.query.accounterpart
+    )
+
+    if (f) {
+      selectedFriend.value = f
+      step.value = 1
+    }
+  }
+
   if (activations.length === 0) return
 
   const latest = activations[0]

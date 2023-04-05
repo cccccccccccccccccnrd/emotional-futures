@@ -4,7 +4,7 @@
     class="absolute h-full w-full p-safe flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[15]"
   >
     <Icon type="check" size="l" />
-    <p class="font-bold mt-5">You and {{ connectInput }} are now connected</p>
+    <p class="font-bold mt-5 text-center">You and {{ connectInput }} are now connected</p>
   </div>
   <div
     class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
@@ -18,20 +18,25 @@
     </div>
     <div
       v-if="step === 1"
-      class="flex flex-col grow items-center mt-5 overflow-hidden"
+      class="flex flex-col grow items-center justify-between mt-5 overflow-hidden"
     >
-      <p class="text-xl font-bold">{{ selectedFriend.name }}</p>
-      <div class="w-full mt-5 overflow-scroll">
-        <div class="flex flex-col gap-2">
-          <LiActivation
-            v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
-            @click="navigateTo(`/activation/${a.id}`)"
-            :activation="a"
-            :invitation="
-              a.status === 'created' && a.user_id === selectedFriend?.user_id
-            "
-          />
+        <p class="text-xl font-bold text-center">{{ selectedFriend.name }}</p>
+        <div class="grow w-full mt-5 overflow-y-scroll">
+          <div class="flex flex-col gap-2">
+            <LiActivation
+              v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
+              @click="navigateTo(`/activation/${a.id}`)"
+              :activation="a"
+              :invitation="
+                a.status === 'created' && a.user_id === selectedFriend?.user_id
+              "
+            />
+          </div>
         </div>
+      <div class="w-full mt-5">
+        <Btn @click="navigateTo(`/feed?accounterpart=${selectedFriend.id}`)" :disabled="busy || isFriendUnavailable(String(selectedFriend.user_id))"
+          >Initiate New Activation</Btn
+        >
       </div>
     </div>
     <div v-if="step === 2" class="grow flex flex-col items-center mt-5">
@@ -67,9 +72,12 @@
       <Icon type="plus" @click="step = 2" />
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
-      <div class="grow w-full flex flex-col overflow-hidden" :class="friends.length === 0 ? 'justify-center items-center' : ''">
+      <div
+        class="grow w-full flex flex-col overflow-hidden"
+        :class="friends.length === 0 ? 'justify-center items-center' : ''"
+      >
         <p v-if="friends.length === 0" class="font-bold">No connections yet</p>
-        <div v-if="friends.length > 0" class="w-full overflow-scroll">
+        <div v-if="friends.length > 0" class="w-full overflow-y-scroll">
           <div class="flex flex-col gap-2">
             <LiAccounterpart
               v-for="friend in friends"
@@ -131,6 +139,13 @@ const loading = ref(false)
 const connected = ref(false)
 
 const validEmoxyName = computed(() => connectInput.value.trim().length >= 4)
+const busy = computed(() => {
+  return activations.find(
+    (a: any) =>
+      a.status === 'accepted' ||
+      (a.status === 'created' && a.user_id === user.value?.id)
+  )
+})
 
 function handleFriendClick(friend: any) {
   selectedFriend.value = friend

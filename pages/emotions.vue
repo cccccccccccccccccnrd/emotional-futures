@@ -12,7 +12,7 @@
       <div class="w-full flex flex-col items-center mt-5">
         <Emotions v-model="selectedEmotion" :availableEmotions="availableEmotions" />
       </div>
-      <div class="w-full mt-5 overflow-scroll" :class="activationsByEmotion.length <= 0 ? 'flex grow items-center justify-center' : ''">
+      <div class="w-full mt-5 overflow-y-scroll" :class="activationsByEmotion.length <= 0 ? 'flex grow items-center justify-center' : ''">
         <div v-if="completedActivations.length > 0" class="flex flex-col gap-2">
           <LiActivation
             v-for="a in activationsByEmotion"

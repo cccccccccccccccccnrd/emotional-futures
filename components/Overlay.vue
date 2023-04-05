@@ -64,7 +64,7 @@
       v-if="step === 2 || step === 3"
       class="grow flex flex-col justify-between overflow-hidden mt-5"
     >
-      <div v-if="step === 2" class="overflow-scroll">
+      <div v-if="step === 2" class="overflow-y-scroll">
         <p class="text-lg font-bold">Accounterparts</p>
         <Icon type="accounterparts" class="mt-5" />
         <p class="mt-5">
@@ -85,7 +85,7 @@
           through game play, Accounterparts grow their Emoxys.
         </p>
       </div>
-      <div v-if="step === 3" class="overflow-scroll">
+      <div v-if="step === 3" class="overflow-y-scroll">
         <p class="text-lg font-bold">Connecting Accounterpart</p>
         <p class="mt-5">
           To connect with a new Accounterpart, go to your Accounterparts tab and
@@ -132,7 +132,7 @@
       v-if="step === 4 || step === 5 || step === 6"
       class="grow flex flex-col justify-between overflow-hidden mt-5"
     >
-      <div v-if="step === 4" class="overflow-scroll">
+      <div v-if="step === 4" class="overflow-y-scroll">
         <p class="text-lg font-bold">Activations</p>
         <Icon type="flip" class="mt-5" />
         <p class="mt-5">
@@ -145,7 +145,7 @@
           your Accounterpart need to commit to the task in play.
         </p>
       </div>
-      <div v-if="step === 5" class="overflow-scroll">
+      <div v-if="step === 5" class="overflow-y-scroll">
         <p class="text-lg font-bold">How To Play an Activation?</p>
         <p class="mt-5">
           To play an Activation and feed your Emoxy you need to create an
@@ -168,7 +168,7 @@
           Blood, Sweat and Tears gained through the Activation.
         </p>
       </div>
-      <div v-if="step === 6" class="overflow-scroll">
+      <div v-if="step === 6" class="overflow-y-scroll">
         <p class="text-lg font-bold">Activation Invite</p>
         <p class="mt-5">
           To complete an Activation a player must invite an Accounterpart.
@@ -218,7 +218,7 @@
       v-if="step === 7 || step === 8"
       class="grow flex flex-col justify-between overflow-hidden mt-5"
     >
-      <div v-if="step === 7" class="flex flex-col items-center overflow-scroll">
+      <div v-if="step === 7" class="flex flex-col items-center overflow-y-scroll">
         <p class="text-lg font-bold w-full">Emotions</p>
         <p class="mt-5">
           Emotional Futures allow players and their Accounterparts to activate
@@ -237,7 +237,7 @@
           <p class="font-bold">Emotions Wheel</p>
         </div>
       </div>
-      <div v-if="step === 8" class="overflow-scroll">
+      <div v-if="step === 8" class="overflow-y-scroll">
         <p class="text-lg font-bold text-center">Emotions Wheel</p>
         <p class="text-lg text-center capitalize mt-5">
           {{ selectedEmotion.id ? selectedEmotion.name : 'Choose Emotion' }}

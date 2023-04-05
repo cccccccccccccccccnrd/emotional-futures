@@ -89,7 +89,7 @@
           selectedRelationshape.accounting.length > 1 ? 's' : ''
         }}:
       </p>
-      <div class="mt-5 overflow-scroll">
+      <div class="mt-5 overflow-y-scroll">
         <div class="flex flex-col gap-2">
           <LiAccounting
             v-for="(account, index) in selectedRelationshape.accounting"
@@ -419,7 +419,6 @@ function loadActivation(a: any) {
     a.fed.length === 1
   ) {
     const f = a.fed.find((f: any) => f === user.value?.id)
-    console.log(f)
     if (f) {
       step.value = 11
       check('feeding')
@@ -522,7 +521,7 @@ async function handleAcceptClick() {
   const r = await acceptActivation(activation.value.id)
 
   if (r instanceof Error) {
-    console.log('ups')
+    console.log(r)
   } else {
     accepted.value = true
     setTimeout(() => {

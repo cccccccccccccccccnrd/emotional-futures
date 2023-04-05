@@ -626,7 +626,6 @@ async function handleVerifyOtp() {
 function handleQuestionClick(index: number) {
   bst.value[1] += questions[step.value - 10][index].values[0]
   bst.value[2] += questions[step.value - 10][index].values[1]
-  console.log(bst.value)
 
   step.value++
 }
