@@ -3,7 +3,11 @@
     <div
       @click="locked ? null : (isRevealed = !isRevealed)"
       class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20"
-      :style="isRevealed ? 'opacity: 0; transform: translateX(-700px)' : 'opacity: 1; transform: translateX(0)'"
+      :style="
+        isRevealed
+          ? 'opacity: 0; transform: translateX(-700px)'
+          : 'opacity: 1; transform: translateX(0)'
+      "
     >
       <div
         v-if="waiting === 'accounting'"
@@ -88,7 +92,11 @@
     <div
       v-if="!locked"
       class="card absolute w-full h-full flex flex-col justify-between p-5 border-2 border-white-20 overflow-hidden"
-      :style="isRevealed ? 'opacity: 1; transform: translateX(0);' : 'opacity: 0; transform: translateX(700px);'"
+      :style="
+        isRevealed
+          ? 'opacity: 1; transform: translateX(0);'
+          : 'opacity: 0; transform: translateX(700px);'
+      "
     >
       <div @click="isRevealed = !isRevealed">
         <p class="text-md text-center font-bold drop-shadow-md capitalize">
@@ -105,7 +113,12 @@
         @click="isRevealed = !isRevealed"
         class="grow flex flex-col text-center font-bold mt-5 overflow-scroll"
       >
-        <div v-html="relationshape?.id ? emotion?.prompts[relationshape.id - 1] : ''" class="my-auto"></div>
+        <div
+          v-html="
+            relationshape?.id ? emotion?.prompts[relationshape.id - 1] : ''
+          "
+          class="my-auto"
+        ></div>
       </div>
       <div v-if="!results">
         <div class="px-10 flex justify-center items-center mt-5">
@@ -113,7 +126,10 @@
         </div>
         <div class="px-10 mt-5 flex justify-between items-center">
           <Icon type="book" />
-          <Icon type="audio" />
+          <div>
+            <Icon v-if="paused" @click="play()" type="audio" />
+            <Icon v-else @click="pause()" type="pause" />
+          </div>
           <Icon @click="isRevealed = !isRevealed" type="flip" />
         </div>
       </div>
@@ -135,9 +151,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="absolute left-0 top-0 w-full h-full bg-dark-50 z-[-10]"
-      ></div>
+      <div class="absolute left-0 top-0 w-full h-full bg-dark-50 z-[-10]"></div>
       <div
         class="absolute left-0 top-0 w-full h-full flex justify-center items-center blur-md overflow-hidden z-[-15]"
       >
@@ -191,7 +205,41 @@ const props = defineProps({
   }
 })
 
+onUnmounted(() => {
+  audio.value.pause()
+})
+
 const isRevealed = ref(props.isRevealed)
+
+const audio = ref(
+  new Audio(
+    `/audios/emotions/${props.emotion?.id}/${props.relationshape?.id}.mp3`
+  )
+)
+const paused = ref(true)
+
+function play () {
+  paused.value = false
+  audio.value.play()
+  audio.value.loop = true
+
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: props.relationshape?.name,
+      artist: props.emotion?.name,
+      album: 'Emotional Futures',
+      artwork: [
+        { src: '/imgs/app/app-192.png', sizes: '192x192', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '512x512', type: 'image/png' }
+      ]
+    })
+  }
+}
+
+function pause () {
+  paused.value = true
+  audio.value.pause()
+}
 </script>
 
 <style scoped>

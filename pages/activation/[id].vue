@@ -203,8 +203,12 @@
       />
     </div>
     <div v-if="step === 0 || step === 1" class="flex gap-2 items-center mt-5">
-      <Btn @click="handleTerminateClick" type="dark">{{ activation?.friend_id === user?.id ? 'Decline' : 'Terminate' }}</Btn>
-      <Btn v-if="activation?.friend_id === user?.id" @click="handleAcceptClick">Accept</Btn>
+      <Btn @click="handleTerminateClick" type="dark">{{
+        activation?.friend_id === user?.id ? 'Decline' : 'Terminate'
+      }}</Btn>
+      <Btn v-if="activation?.friend_id === user?.id" @click="handleAcceptClick"
+        >Accept</Btn
+      >
     </div>
     <div v-if="step === 2 || step === 3" class="grow flex flex-col">
       <p class="text-lg font-bold text-center mt-5">Ongoing Activation</p>
@@ -353,16 +357,6 @@ const completedAccounts = ref(<any>[])
 const sweat = ref('5')
 const tears = ref('5')
 
-const paused = ref(true)
-const audio = ref(
-  new Audio(
-    `/audios/emoxy/${emoxyLevel.value}/${
-      Math.floor(Math.random() * emotions[emoxyLevel.value].hear) + 1
-    }.mp3`
-  )
-)
-console.log(audio.value)
-
 const results = computed(() => {
   const f = activation.value.results.find(
     (a: any) => a.userId === user.value?.id
@@ -390,7 +384,6 @@ onMounted(async () => {
 
 onUnmounted(async () => {
   if (interval) clearInterval(interval)
-  audio.value.pause()
 })
 
 function loadActivation(a: any) {
@@ -560,7 +553,9 @@ function handleShareClick(isReminder: Boolean) {
       navigator.share({
         title: 'Emotional Futures Invitation',
         text: `Hey, let\'s feed our Emoxys! Join me in a ${selectedEmotion.value.name} ${selectedRelationshape.value.name} Activation. Follow the link to initiate the activation.`,
-        url: `${useRuntimeConfig().baseURL}/api/activation/${activation.value.id}`
+        url: `${useRuntimeConfig().baseURL}/api/activation/${
+          activation.value.id
+        }`
       })
     }
   } else {
@@ -582,28 +577,5 @@ function handleShareClick(isReminder: Boolean) {
       )
     }
   }
-}
-
-function play() {
-  paused.value = false
-  audio.value.play()
-  audio.value.loop = true
-
-  if ('mediaSession' in navigator) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: say.value,
-      artist: emoxy.value.name,
-      album: 'Emotional Futures',
-      artwork: [
-        { src: '/imgs/app/app-192.png', sizes: '192x192', type: 'image/png' },
-        { src: '/imgs/app/app-512.png', sizes: '512x512', type: 'image/png' }
-      ]
-    })
-  }
-}
-
-function pause() {
-  paused.value = true
-  audio.value.pause()
 }
 </script>
