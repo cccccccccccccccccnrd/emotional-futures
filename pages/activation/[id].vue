@@ -353,6 +353,16 @@ const completedAccounts = ref(<any>[])
 const sweat = ref('5')
 const tears = ref('5')
 
+const paused = ref(true)
+const audio = ref(
+  new Audio(
+    `/audios/emoxy/${emoxyLevel.value}/${
+      Math.floor(Math.random() * emotions[emoxyLevel.value].hear) + 1
+    }.mp3`
+  )
+)
+console.log(audio.value)
+
 const results = computed(() => {
   const f = activation.value.results.find(
     (a: any) => a.userId === user.value?.id
@@ -380,6 +390,7 @@ onMounted(async () => {
 
 onUnmounted(async () => {
   if (interval) clearInterval(interval)
+  audio.value.pause()
 })
 
 function loadActivation(a: any) {
@@ -571,5 +582,28 @@ function handleShareClick(isReminder: Boolean) {
       )
     }
   }
+}
+
+function play() {
+  paused.value = false
+  audio.value.play()
+  audio.value.loop = true
+
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: say.value,
+      artist: emoxy.value.name,
+      album: 'Emotional Futures',
+      artwork: [
+        { src: '/imgs/app/app-192.png', sizes: '192x192', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '512x512', type: 'image/png' }
+      ]
+    })
+  }
+}
+
+function pause() {
+  paused.value = true
+  audio.value.pause()
 }
 </script>

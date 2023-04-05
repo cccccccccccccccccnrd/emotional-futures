@@ -158,13 +158,14 @@ function play() {
   if ('mediaSession' in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
       title: say.value,
-      artist: emoxy.value.name,
+      artist: emoxy.name,
       album: 'Emotional Futures',
       artwork: [
         { src: '/imgs/app/app-192.png', sizes: '192x192', type: 'image/png' },
         { src: '/imgs/app/app-512.png', sizes: '512x512', type: 'image/png' }
       ]
     })
+    console.log(navigator.mediaSession.metadata)
   }
 }
 
