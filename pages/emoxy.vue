@@ -148,7 +148,6 @@ const audio = ref(
     }.mp3`
   )
 )
-console.log(audio.value)
 
 function play() {
   paused.value = false
@@ -161,11 +160,13 @@ function play() {
       artist: emoxy.name,
       album: 'Emotional Futures',
       artwork: [
+        { src: '/imgs/app/app-192.png', sizes: '128x128', type: 'image/png' },
         { src: '/imgs/app/app-192.png', sizes: '192x192', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '256x256', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '384x384', type: 'image/png' },
         { src: '/imgs/app/app-512.png', sizes: '512x512', type: 'image/png' }
       ]
     })
-    console.log(navigator.mediaSession.metadata)
   }
 }
 
