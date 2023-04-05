@@ -31,6 +31,7 @@
             :activations="getActivationsWithFriend(friend.user_id)"
             :selected="selectedFriend?.id === friend.id"
             :unavailable="isFriendUnavailable(friend.user_id)"
+            :disabled="isFriendUnavailable(friend.user_id)"
           />
         </div>
       </div>

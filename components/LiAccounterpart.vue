@@ -2,6 +2,7 @@
   <div
     class="flex justify-between items-center h-[55px] px-5 bg-dark-50 backdrop-blur-md border-2 border-white-20"
     :class="selected ? '!border-2 !border-white-80' : ''"
+    :style="disabled ? 'opacity: 0.5;' : ''"
   >
     <div class="flex flex-col">
       <div>
@@ -61,6 +62,10 @@ const props = defineProps({
     required: true
   },
   invitation: {
+    type: Boolean,
+    required: false
+  },
+  disabled: {
     type: Boolean,
     required: false
   }
