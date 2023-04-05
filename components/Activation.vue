@@ -225,8 +225,8 @@ function play () {
 
   if ('mediaSession' in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
-      title: props.relationshape?.name,
-      artist: props.emotion?.name,
+      title: cap(props.relationshape?.name),
+      artist: cap(props.emotion?.name),
       album: 'Emotional Futures',
       artwork: [
         { src: '/imgs/app/app-192.png', sizes: '192x192', type: 'image/png' },
@@ -239,6 +239,10 @@ function play () {
 function pause () {
   paused.value = true
   audio.value.pause()
+}
+
+function cap(s: string) {
+    return s.charAt(0).toUpperCase() + s.slice(1)
 }
 </script>
 
