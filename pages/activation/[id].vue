@@ -22,16 +22,24 @@
       <div>
         <Icon
           v-if="
-            step === 3 || step === 4 || step === 5 || step === 6 || step === 7
+            step === 3 || step === 4
           "
           type="files"
         />
+
+        <Icon
+          v-if="
+            step === 5 || step === 6 || step === 7
+          "
+          type="arrow-l"
+          @click="step = step - 1"
+        />
       </div>
-      <div v-if="step === 3 || step === 4">
-        <p class="text-lg text-white-50">Accounting</p>
+      <div v-if="step === 3 || step === 4 || step === 5">
+        <p class="text-sm text-white-50">Accounting</p>
       </div>
-      <div v-if="step === 5 || step === 6 || step === 7">
-        <p class="text-lg text-white-50 capitalize">
+      <div v-if="step === 6 || step === 7">
+        <p class="text-sm text-white-50 capitalize">
           {{ selectedAccount.name }}
         </p>
       </div>
@@ -120,8 +128,9 @@
         >
       </div>
     </div>
-    <div v-if="step === 5" class="grow flex justify-center items-center">
-      <p class="mt-5 text-center">{{ selectedAccount.text }}</p>
+    <div v-if="step === 5" class="grow flex flex-col items-center">
+      <p class="mt-5 font-bold w-full">{{ selectedAccount.name }}</p>
+      <div class="mt-5" v-html="selectedAccount.text"></div>
     </div>
     <div v-if="step === 5" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-4">
