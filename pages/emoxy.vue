@@ -2,10 +2,10 @@
   <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center">
       <p class="text-xl font-bold">{{ emoxy.name }}</p>
-      <Icon type="menu" />
+      <Icon type="menu" @click="handleMenuClick" class="pointer-events-auto"/>
     </div>
     <div
-      class="flex flex-col grow items-center justify-between pointer-events-none"
+      class="flex flex-col grow items-center justify-between"
     >
       <div class="flex justify-between w-full">
         <div
@@ -117,6 +117,11 @@ useHead({
   style: [{ children: '* { pointer-events: none; }' }]
 })
 
+onUnmounted(() => {
+  audio.value.pause()
+})
+
+const overlay = useOverlay()
 const user = useSupabaseUser()
 const emoxy: any = await useEmoxy()
 const activations: any = await useActivations()
@@ -175,7 +180,9 @@ function pause() {
   audio.value.pause()
 }
 
-onUnmounted(() => {
-  audio.value.pause()
-})
+function handleMenuClick() {
+  overlay.value.isOpen = true
+  overlay.value.type = 'menu'
+  overlay.value.page = `emoxy-0`
+}
 </script>

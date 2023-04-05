@@ -222,7 +222,7 @@ async function handleConfirmClick() {
 
 function handleHelpClick() {
   overlay.value.isOpen = true
-  overlay.value.type = 'help'
+  overlay.value.type = 'manual'
   overlay.value.page = `feed-${step.value}`
 }
 </script>

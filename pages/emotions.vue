@@ -2,7 +2,7 @@
   <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center shrink">
       <p class="text-xl font-bold">Emotions</p>
-      <Icon type="menu" />
+      <Icon type="menu" @click="handleMenuClick"/>
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
       <p v-if="selectedEmotion.id" class="text-lg font-bold text-center capitalize">
@@ -47,6 +47,7 @@ definePageMeta({
   middleware: 'auth'
 })
 
+const overlay = useOverlay()
 const activations: any = await useActivations()
 const emotions = await useEmotions()
 
@@ -70,4 +71,10 @@ const availableEmotions = computed(() =>
 const activationsByEmotion = computed(() =>
   completedActivations.value.filter((a: any) => a.type[0] === selectedEmotion.value.id)
 )
+
+function handleMenuClick() {
+  overlay.value.isOpen = true
+  overlay.value.type = 'menu'
+  overlay.value.page = `emotions-0`
+}
 </script>

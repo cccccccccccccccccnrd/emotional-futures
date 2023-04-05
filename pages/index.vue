@@ -29,8 +29,6 @@
         <p @click="step = 0" class="text-md underline mt-5 font-bold opacity-0">
           Back
         </p>
-        <Btn class="mt-2" v-if="user" @click="logout" type="dark">Logout</Btn>
-        <Btn class="mt-2" v-if="user" @click="navigateTo('/emoxy')" type="dark">Emoxy</Btn>
       </div>
       <div
         v-if="step === 1 || step === 2 || step === 3 || step === 4"
@@ -138,7 +136,6 @@
           {{ loading ? 'Fetching...' : step === 5 ? 'Send Me a Token' : 'Sign In' }}</Btn
         >
         <p @click="step = 0" class="text-md underline mt-5 font-bold">Back</p>
-        <Btn class="mt-4" v-if="user" @click="logout">Logout</Btn>
       </div>
       <div
         v-if="step === 1 || step === 2 || step === 3 || step === 4"
@@ -192,9 +189,9 @@
 const nuxtApp = useNuxtApp()
 const user = useSupabaseUser()
 
-/* if (user.value) {
+if (user.value) {
   navigateTo('/emoxy')
-} */
+}
 
 const step = ref(0)
 const email = ref('')
