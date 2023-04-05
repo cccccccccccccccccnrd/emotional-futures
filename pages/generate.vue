@@ -1,7 +1,7 @@
 <template>
   <div
     class="absolute h-full w-full p-safe flex flex-col items-center bg-dark-50 backdrop-blur-md z-[10]"
-    v-if="step === 2 || step === 4 || step === 6"
+    v-if="step === 2 || step === 4 || step === 6 || step === 20"
   >
     <div class="flex w-full justify-between items-center">
       <div></div>
@@ -63,6 +63,37 @@
           :relationshape="relationshape"
           :selected="selectedRelationshape?.id === relationshape.id"
         />
+      </div>
+    </div>
+    <div v-if="step === 20" class="grow flex flex-col justify-between mt-5">
+      <div v-if="mobileOs === 'Android'">
+        <p class="text-lg font-bold text-center">Add Emoxy to Homescreen</p>
+        <div>
+          <p class="mt-5">To add your Emoxy to an Android home screen,</p>
+          <p class="mt-5">
+            1. Open the Emotional Futures webapp with Google Chrome on your
+            smartphone
+          </p>
+          <p class="mt-5">
+            2. Tap on the screen’s three-dot icon at the top right-hand corner
+          </p>
+          <p class="mt-5">3. Select Add to Home screen</p>
+          <p class="mt-5">4. Confirm EF Bookmark</p>
+        </div>
+      </div>
+      <div v-else>
+        <p class="mt-5">To add your Emoxy to an iPhone home screen,</p>
+          <p class="mt-5">
+            1. Open the Emotional Futures webapp with Safari on your smartphone
+          </p>
+          <p class="mt-5">
+            2. Tap on the share icon at the center on the bottom of the screen
+          </p>
+          <p class="mt-5">3. Select Add to Home screen</p>
+          <p class="mt-5">4. Confirm EF Bookmark</p>
+      </div>
+      <div>
+        <Btn @click="navigateTo('/emoxy')">I Added My Emoxy</Btn>
       </div>
     </div>
   </div>
@@ -363,7 +394,7 @@
       <Btn @click="step = 17">Meet My Emoxy</Btn>
     </div>
     <div
-      v-if="step === 17 || step === 18 || step === 19"
+      v-if="step === 17 || step === 18 || step === 19 || step === 20"
       class="grow flex flex-col items-center mt-10"
     >
       <Emoxy
@@ -380,7 +411,7 @@
       />
     </div>
     <div
-      v-if="step === 17 || step === 18 || step === 19"
+      v-if="step === 17 || step === 18 || step === 19 || step === 20"
       class="w-full flex flex-col gap-2"
     >
       <div class="p-2 bg-dark-90" :class="error ? 'opacity-100' : 'opacity-0'">
@@ -445,7 +476,7 @@
       class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-6.png')] bg-cover"
     ></div>
     <div
-      v-if="step === 17 || step === 18 || step === 19"
+      v-if="step === 17 || step === 18 || step === 19 || step === 20"
       class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover"
     ></div>
   </div>
@@ -538,6 +569,26 @@ const questions = [
   ]
 ]
 
+const mobileOs = computed(() => {
+  // @ts-ignore
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera
+
+  if (/windows phone/i.test(userAgent)) {
+    return 'Windows Phone'
+  }
+
+  if (/android/i.test(userAgent)) {
+    return 'Android'
+  }
+
+  // @ts-ignore
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    return 'iOS'
+  }
+
+  return 'unknown'
+})
+
 async function handleSignInWithMagic() {
   error.value = ''
   loading.value = true
@@ -547,7 +598,6 @@ async function handleSignInWithMagic() {
     bst.value,
     rando
   )
-  console.log(r)
   loading.value = false
 
   if (r instanceof Error) {
@@ -555,7 +605,6 @@ async function handleSignInWithMagic() {
       error.value = 'Another human has already given their Emoxy this name.'
     }
   } else {
-    console.log('top')
     step.value = 19
   }
 }
@@ -569,10 +618,8 @@ async function handleVerifyOtp() {
     loading.value = false
     error.value = 'Invalid token, please try again.'
   } else {
-    setTimeout(() => {
-      loading.value = false
-      navigateTo('/emoxy')
-    }, 1000)
+    loading.value = false
+    step.value = 20
   }
 }
 

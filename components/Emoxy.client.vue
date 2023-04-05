@@ -27,6 +27,7 @@
 
       <Plane
         ref="planeC"
+        :visible="showPlane"
         :position="{ x: 0, y: 0.1, z: 1 }"
         :scale="{ x: 1.5, y: 1.5, z: 0 }"
       >
@@ -49,6 +50,7 @@
         :rotation="{ x: 0, y: 0, z: 0 }"
         ref="gltfC"
         @load="onReady"
+        @before-load="whileLoading"
       >
       </GltfModel>
     </Scene>
@@ -251,17 +253,30 @@ opacity.repeat.set(repeat, repeat)
 
 material.value = selected_material_src
 
-const easeOutCubic = function (t: number) {
-  return --t * t * t + 1
-}
+//pre-load face
+
+let showPlane: any = ref(false)
+
+let selected_face = last_emotion + 'A'
+face_src.value = '/emoxy/faces/' + selected_face + '.png'
 
 ///  Load BG
 bg.value = '/emoxy/textures/water.png'
+
+// while loading
+
+function whileLoading() {
+  showPlane.value = false
+}
+
 ///// determine Shaders, Animation once GltF has loaded
 /////// READY //////
 function onReady(gltf: any) {
   const renderer = rendererC.value as RendererPublicInterface
   const mesh = gltf.scene.children[0]
+
+  // face selection
+  showPlane.value = true
 
   // face selection
 
@@ -420,7 +435,6 @@ function resample(
   }
 
   const vertexCount = surface.geometry.getAttribute('position').count
-
 
   console.info(
     'Sampling ' +
