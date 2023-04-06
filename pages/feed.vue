@@ -118,7 +118,7 @@
       class="flex flex-col justify-center items-center mt-5"
     >
       <Btn v-if="selectedRelationshape.name" @click="handleConfirmClick"
-        >Confirm</Btn
+        >{{ loading ? 'Confirming...' : 'Confirm'}}</Btn
       >
     </div>
   </div>
@@ -167,6 +167,7 @@ const selectedRelationshape = ref({
   shape: null,
   accounting: <any>[]
 })
+const loading = ref(false)
 
 onMounted(async () => {
   const route = useRoute()
@@ -214,10 +215,12 @@ async function handleConfirmClick() {
     selectedEmotion.value.id &&
     selectedRelationshape.value.id
   ) {
+    loading.value = true
     activation.value = await createActivation(
       [selectedEmotion.value.id, selectedRelationshape.value.id],
       selectedFriend.value.user_id
     )
+    loading.value = false
     navigateTo(`/activation/${activation.value.id}`)
   } else {
     console.log('no selected emotion or relationshape')

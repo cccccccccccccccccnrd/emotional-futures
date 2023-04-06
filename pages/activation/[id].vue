@@ -1,10 +1,16 @@
 <template>
   <div
-    v-if="accepted"
+    v-if="accepted || terminated"
     class="absolute h-full w-full p-safe flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[15]"
   >
-    <Icon type="check" size="l" />
-    <p class="font-bold mt-5">Accepted Activation</p>
+    <div v-if="accepted" class="flex flex-col justify-center items-center">
+      <Icon type="check" size="l" />
+      <p class="font-bold mt-5">Activation Accepted</p>
+    </div>
+    <div v-if="terminated" class="flex flex-col justify-center items-center">
+      <Icon type="close" size="l" />
+      <p class="font-bold mt-5">Activation Terminated</p>
+    </div>
   </div>
   <div
     class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
@@ -20,17 +26,10 @@
   >
     <div class="flex justify-between items-center">
       <div>
-        <Icon
-          v-if="
-            step === 3 || step === 4
-          "
-          type="files"
-        />
+        <Icon v-if="step === 3 || step === 4" type="files" />
 
         <Icon
-          v-if="
-            step === 5 || step === 6 || step === 7
-          "
+          v-if="step === 5 || step === 6 || step === 7"
           type="arrow-l"
           @click="step = step - 1"
         />
@@ -215,8 +214,11 @@
       <Btn @click="handleTerminateClick" type="dark">{{
         activation?.friend_id === user?.id ? 'Decline' : 'Terminate'
       }}</Btn>
-      <Btn v-if="activation?.friend_id === user?.id" @click="handleAcceptClick"
-        style="filter: drop-shadow(black 0 0 0);">Accept</Btn
+      <Btn
+        v-if="activation?.friend_id === user?.id"
+        @click="handleAcceptClick"
+        style="filter: drop-shadow(black 0 0 0)"
+        >{{ loading ? 'Accepting...' : 'Accept' }}</Btn
       >
     </div>
     <div v-if="step === 2 || step === 3" class="grow flex flex-col">
@@ -339,6 +341,8 @@ const activation: any = ref(null)
 
 const step = ref(0)
 const accepted = ref(false)
+const terminated = ref(false)
+const loading = ref(false)
 
 const selectedFriend = ref({
   id: null,
@@ -378,6 +382,7 @@ const results = computed(() => {
 })
 
 let interval: any = null
+let terminateInterval: any = null
 
 onMounted(async () => {
   const id = String(route.params.id)
@@ -389,10 +394,26 @@ onMounted(async () => {
   }
 
   loadActivation(a)
+
+  terminateInterval = setInterval(async () => {
+    const id = String(route.params.id)
+    const a = await useActivation(id)
+
+    if (!a) {
+      terminated.value = true
+      setTimeout(() => {
+        terminated.value = false
+        navigateTo('/emoxy')
+      }, 2500)
+    }
+
+    console.log('check', a)
+  }, 3000)
 })
 
 onUnmounted(async () => {
   if (interval) clearInterval(interval)
+  if (terminateInterval) clearInterval(terminateInterval)
 })
 
 function loadActivation(a: any) {
@@ -446,6 +467,8 @@ function check(status: any) {
   interval = setInterval(async () => {
     const id = String(route.params.id)
     const a = await useActivation(id)
+
+    console.log('check', a)
 
     if (status === 'accepted') {
       if (a.status === 'accepted') {
@@ -527,8 +550,10 @@ async function handleFeedClick() {
 }
 
 async function handleAcceptClick() {
+  loading.value = true
   const r = await acceptActivation(activation.value.id)
-
+  loading.value = false
+  
   if (r instanceof Error) {
     console.log(r)
   } else {
