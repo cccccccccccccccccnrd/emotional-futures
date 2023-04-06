@@ -43,7 +43,58 @@ export async function signInWithMagic (email: string) {
   }
 }
 
-export async function verifyOtp (email: string, token: string, type: 'signup' | 'magiclink') {
+export async function signUpWithPassword (
+  email: string,
+  password: string,
+  name: string,
+  bst: Array<Number>,
+  r: Number
+) {
+  const client = useSupabaseClient()
+
+  const { data, error } = await client.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        name,
+        bst,
+        r
+      }
+    }
+  })
+
+  if (error) {
+    console.log(error.message)
+    return error
+  } else {
+    console.log(data)
+    return data
+  }
+}
+
+export async function signInWithPassword (email: string, password: string) {
+  const client = useSupabaseClient()
+
+  const { data, error } = await client.auth.signInWithPassword({
+    email,
+    password
+  })
+
+  if (error) {
+    console.log(error.message)
+    return error
+  } else {
+    console.log(data)
+    return data
+  }
+}
+
+export async function verifyOtp (
+  email: string,
+  token: string,
+  type: 'signup' | 'magiclink'
+) {
   const client = useSupabaseClient()
 
   const { data, error } = await client.auth.verifyOtp({

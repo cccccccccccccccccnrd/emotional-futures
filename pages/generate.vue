@@ -1,7 +1,7 @@
 <template>
   <div
     class="absolute h-full w-full p-safe flex flex-col items-center bg-dark-50 backdrop-blur-md z-[10]"
-    v-if="step === 2 || step === 4 || step === 6 || step === 20"
+    v-if="step === 2 || step === 4 || step === 6 || step === 18"
   >
     <div class="flex w-full justify-between items-center">
       <div></div>
@@ -65,36 +65,32 @@
         />
       </div>
     </div>
-    <div v-if="step === 20" class="grow flex flex-col justify-between mt-5">
-      <div v-if="mobileOs === 'Android'">
-        <p class="text-lg font-bold text-center">Add Emoxy to Homescreen</p>
-        <div>
-          <p class="mt-5">To add your Emoxy to an Android home screen,</p>
-          <p class="mt-5">
-            1. Open the Emotional Futures webapp with Google Chrome on your
-            smartphone
+    <div v-if="step === 18" class="grow flex flex-col justify-between mt-5">
+      <p class="text-lg font-bold text-center">Secure Emoxy</p>
+      <div class="flex flex-col gap-2 mt-[-3rem]">
+        <div
+          class="p-2 bg-dark-90"
+          :class="error ? 'opacity-100' : 'opacity-0'"
+        >
+          <p class="text-xs">
+            {{ error || 'Another human has already given their Emoxy this name.' }}
           </p>
-          <p class="mt-5">
-            2. Tap on the screen’s three-dot icon at the top right-hand corner
-          </p>
-          <p class="mt-5">3. Select Add to Home screen</p>
-          <p class="mt-5">4. Confirm EF Bookmark</p>
         </div>
+        <InputText
+          v-model="name"
+          @keydown.space="(event: any) => event.preventDefault()"
+          placeholder="Name your Emoxy"
+          focus
+        />
+        <InputText v-model="email" placeholder="Type your E-mail" />
+        <InputText v-model="password" placeholder="Type your Password" password />
+        <Btn @click="(!validEmail || !validName || !validPassword) ? null : handleSignUpClick" :disabled="!validEmail || !validName || !validPassword">{{ loading ? 'Securing...' : 'Secure My Emoxy' }}</Btn>
+        <p class="text-xs text-center px-5">
+          By securing your Emoxy you agree with
+          <span class="underline">Emotional Futures Terms and Conditions</span>
+        </p>
       </div>
-      <div v-else>
-        <p class="mt-5">To add your Emoxy to an iPhone home screen,</p>
-          <p class="mt-5">
-            1. Open the Emotional Futures webapp with Safari on your smartphone
-          </p>
-          <p class="mt-5">
-            2. Tap on the share icon at the center on the bottom of the screen
-          </p>
-          <p class="mt-5">3. Select Add to Home screen</p>
-          <p class="mt-5">4. Confirm EF Bookmark</p>
-      </div>
-      <div>
-        <Btn @click="navigateTo('/emoxy')">I Added My Emoxy</Btn>
-      </div>
+      <div></div>
     </div>
   </div>
   <div class="h-full w-full flex flex-col p-safe">
@@ -144,27 +140,6 @@
       >
         and your future
       </p>
-    </div>
-    <div v-if="step === -1" class="w-full">
-      <p>Thank you for confirming your email address and securing your Emoxy</p>
-      <p class="mt-5">
-        It is time to grow your Emoxy and fully realize your Emotional Future
-      </p>
-      <p class="mt-5">
-        Start by inviting those in your life you want to bond deeper and
-        activate levels of consciousness of your relationship not felt before
-      </p>
-      <p class="mt-5">
-        Create your activation cards to grow your Emoxy and link them to a
-        friend you think would benefit the most
-      </p>
-      <p class="mt-5">
-        Go through our unique evaluation system and grow together with Emoxys
-        and friends
-      </p>
-    </div>
-    <div v-if="step === -1" class="w-full">
-      <Btn @click="navigateTo('/accounterparts')">Connect with Friends</Btn>
     </div>
     <div v-if="step === 0" class="grow flex flex-col">
       <p class="font-bold">The year is 2023.</p>
@@ -410,50 +385,9 @@
         }"
       />
     </div>
-    <div
-      v-if="step === 17 || step === 18 || step === 19 || step === 20"
-      class="w-full flex flex-col gap-2"
-    >
-      <div class="p-2 bg-dark-90" :class="error ? 'opacity-100' : 'opacity-0'">
-        <p class="text-xs">
-          Another human has already given their Emoxy this name
-        </p>
-      </div>
-      <InputText
-        v-if="step === 18"
-        v-model="name"
-        @keydown.space="(event: any) => event.preventDefault()"
-        placeholder="name your emoxy"
-        focus
-      />
-      <InputText
-        v-if="step === 17 || step === 18"
-        v-model="email"
-        :class="step === 17 ? 'opacity-0' : ''"
-        placeholder="type your e-mail"
-      />
-      <InputText
-        v-if="step === 19"
-        v-model="token"
-        placeholder="type your token"
-      />
-      <Btn v-if="step === 17" @click="" type="dark">Hear</Btn>
-      <Btn
-        @click="
-          step === 17
-            ? (step = 18)
-            : step === 18
-            ? handleSignInWithMagic()
-            : handleVerifyOtp()
-        "
-        :disabled="step === 17 ? false : !validEmail || name.length < 4"
-        type="dark"
-        >{{ loading ? 'Fetching...' : 'Secure Emoxy' }}</Btn
-      >
-      <p class="text-xs text-center px-5">
-        By securing your Emoxy you agree with
-        <span class="underline">Emotional Futures Terms and Conditions</span>
-      </p>
+    <div v-if="step === 17 || step === 18" class="w-full flex flex-col gap-2">
+      <Btn @click="" type="dark">Hear</Btn>
+      <Btn @click="step = 18">Secure Emoxy</Btn>
     </div>
   </div>
   <div class="absolute top-0 left-0 h-full w-full z-[-10]">
@@ -485,10 +419,16 @@
 <script setup lang="ts">
 const user = useSupabaseUser()
 
-const step = ref(user.value ? -1 : 0)
+watch(user, () => {
+  if (user.value) {
+    navigateTo('/emoxy')
+  }
+})
+
+const step = ref(0)
 const email = ref('')
 const name = ref('')
-const token = ref('')
+const password = ref('')
 const bst = ref([0, 0, 0])
 const currencyAmount = ref('10')
 const rando = Math.floor(Math.random() * (8 - 0 + 1) + 0)
@@ -512,10 +452,17 @@ const selectedRelationshape = ref({
   accounting: <any>[]
 })
 
+const validPassword = computed(() => {
+  return password.value.length >= 8
+})
+const validName = computed(() => {
+  return name.value.length >= 4
+})
 const validEmail = computed(() => {
   return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email.value)
 })
 const isGiver = computed(() => bst.value[1] > bst.value[2])
+
 const questions = [
   [
     {
@@ -569,57 +516,27 @@ const questions = [
   ]
 ]
 
-const mobileOs = computed(() => {
-  // @ts-ignore
-  var userAgent = navigator.userAgent || navigator.vendor || window.opera
-
-  if (/windows phone/i.test(userAgent)) {
-    return 'Windows Phone'
-  }
-
-  if (/android/i.test(userAgent)) {
-    return 'Android'
-  }
-
-  // @ts-ignore
-  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-    return 'iOS'
-  }
-
-  return 'unknown'
-})
-
-async function handleSignInWithMagic() {
+async function handleSignUpClick() {
   error.value = ''
   loading.value = true
-  const r = await signUpWithMagic(
+
+  const r = await signUpWithPassword(
     email.value,
+    password.value,
     name.value.trim(),
     bst.value,
     rando
   )
-  loading.value = false
 
   if (r instanceof Error) {
+    loading.value = false
     if (r.message.includes('emoxies_name_key')) {
       error.value = 'Another human has already given their Emoxy this name.'
+    } else if (r.message.includes('User already registered')) {
+      error.value = 'Another human has already given their Emoxy this email.'
     }
   } else {
-    step.value = 19
-  }
-}
-
-async function handleVerifyOtp() {
-  error.value = ''
-  loading.value = true
-  const r = await verifyOtp(email.value, token.value, 'signup')
-
-  if (r instanceof Error) {
     loading.value = false
-    error.value = 'Invalid token, please try again.'
-  } else {
-    loading.value = false
-    step.value = 20
   }
 }
 

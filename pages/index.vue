@@ -1,4 +1,51 @@
 <template>
+  <div
+    class="absolute h-full w-full p-safe flex flex-col items-center bg-dark-50 backdrop-blur-md z-[10]"
+    v-if="step === 5"
+  >
+    <div class="flex w-full justify-between items-center">
+      <div>
+        <Icon @click="step = step = 0" type="arrow-l" />
+      </div>
+      <div>
+      </div>
+    </div>
+    <div v-if="step === 5" class="grow flex flex-col justify-between mt-5">
+      <p class="text-lg font-bold text-center">Keep Feeding My Emoxy</p>
+      <div class="flex flex-col gap-2">
+        <div
+          class="p-2 bg-dark-90"
+          :class="error ? 'opacity-100' : 'opacity-0'"
+        >
+          <p class="text-xs">
+            {{ error || 'Error' }}
+          </p>
+        </div>
+        <InputText v-model="email" placeholder="Type your E-mail" />
+        <InputText
+          v-model="password"
+          placeholder="Type your Password"
+          password
+        />
+        <Btn
+          @click="handleSignInClick"
+          :disabled="!validEmail || !validPassword"
+          >{{ loading ? 'Fetching...' : 'Login' }}</Btn
+        >
+        <p class="text-xs text-center px-5">
+          By keep feeding your Emoxy you agree with
+          <span class="underline">Emotional Futures Terms and Conditions</span>
+        </p>
+      </div>
+      <div>
+      <div class="flex gap-5 justify-center items-center mt-5">
+          <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
+          <img src="/imgs/logos/las.png" class="h-5 w-auto" />
+        </div>
+        <p @click="step = 1" class="text-xs text-center underline mt-5">Data Privacy</p>
+      </div>
+    </div>
+  </div>
   <div class="h-full flex flex-col">
     <div
       v-if="step === 0 || step === 5 || step === 6"
@@ -14,7 +61,7 @@
           : 'justify-center'
       "
     >
-      <div v-if="step === 0" class="w-full">
+      <div v-if="step === 0 || step === 5" class="w-full">
         <div class="p-2 bg-dark-90 opacity-0">
           <p class="text-xs">
             {{ error || 'Error' }}
@@ -101,42 +148,6 @@
         </p>
         <p class="mt-5 font-bold underline">Learn More</p>
       </div>
-      <div v-if="step === 5 || step === 6" class="w-full">
-        <div
-          class="p-2 bg-dark-90"
-          :class="error ? 'opacity-100' : 'opacity-0'"
-        >
-          <p class="text-xs">
-            {{ error || 'Error' }}
-          </p>
-        </div>
-        <InputText
-          v-if="step === 5"
-          v-model="email"
-          @keyup.enter.native="step === 5 ? handleSignInWithMagic() : handleVerifyOtp()"
-          class="mt-2"
-          placeholder="Type your e-mail"
-          focus
-        />
-        <InputText
-          v-if="step === 6"
-          v-model="token"
-          @keyup.enter.native="step === 5 ? handleSignInWithMagic() : handleVerifyOtp()"
-          class="mt-2"
-          placeholder="Type your token"
-          password
-          focus
-        />
-        <Btn
-          @click="step === 5 ? handleSignInWithMagic() : handleVerifyOtp()"
-          type="dark"
-          :disabled="step === 5 ? !validEmail : false"
-          class="mt-2"
-        >
-          {{ loading ? 'Fetching...' : step === 5 ? 'Send Me a Token' : 'Sign In' }}</Btn
-        >
-        <p @click="step = 0" class="text-md underline mt-5 font-bold">Back</p>
-      </div>
       <div
         v-if="step === 1 || step === 2 || step === 3 || step === 4"
         class="w-full px-5 flex justify-between items-center justify-self-end"
@@ -161,7 +172,7 @@
       </div>
     </div>
     <div class="flex flex-col justify-center text-center font-bold p-safe">
-      <div v-if="step === 0 || step === 5 || step === 6">
+      <div v-if="step === 0 || step === 5">
         <p @click="step = 1" class="underline">What is this game about?</p>
         <div class="flex gap-5 justify-center items-center mt-5">
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
@@ -189,19 +200,41 @@
 const nuxtApp = useNuxtApp()
 const user = useSupabaseUser()
 
-if (user.value) {
-  navigateTo('/emoxy')
-}
+watch(user, () => {
+  if (user.value) {
+    navigateTo('/emoxy')
+  }
+})
 
 const step = ref(0)
 const email = ref('')
-const token = ref('')
+const password = ref('')
 const loading = ref(false)
 const error = ref('')
 
+const validPassword = computed(() => {
+  return password.value.length >= 8
+})
 const validEmail = computed(() => {
   return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email.value)
 })
+
+async function handleSignInClick() {
+  error.value = ''
+  loading.value = true
+
+  const r = await signInWithPassword(
+    email.value,
+    password.value
+  )
+
+  if (r instanceof Error) {
+    loading.value = false
+    error.value = 'Invalid login credentials.'
+  } else {
+    loading.value = false
+  }
+}
 
 async function handleSignInWithMagic () {
   if (!validEmail.value) return
@@ -221,25 +254,7 @@ async function handleSignInWithMagic () {
   }
 }
 
-async function handleVerifyOtp () {
-  error.value = ''
-  loading.value = true
-  const r = await verifyOtp(email.value, token.value, 'magiclink')
-
-  if (r instanceof Error) {
-    loading.value = false
-    error.value = 'Invalid token, please try again.'
-  } else {
-    setTimeout(() => {
-      loading.value = false
-      navigateTo('/emoxy')
-    }, 1000)
-  }
-}
-
-async function handleInstallClick() {
+async function handleInstallClick () {
   await nuxtApp.$pwa.install()
 }
 </script>
-
-<style scoped></style>
