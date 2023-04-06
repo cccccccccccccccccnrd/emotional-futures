@@ -84,9 +84,9 @@
         />
         <InputText v-model="email" placeholder="Type your E-mail" />
         <InputText v-model="password" placeholder="Type your Password" password />
-        <Btn @click="(!validEmail || !validName || !validPassword) ? null : handleSignUpClick" :disabled="!validEmail || !validName || !validPassword">{{ loading ? 'Securing...' : 'Secure My Emoxy' }}</Btn>
+        <Btn @click="handleSignUpClick" :disabled="!validEmail || !validName || !validPassword">{{ loading ? 'Securing...' : 'Secure My Emoxy' }}</Btn>
         <p class="text-xs text-center px-5">
-          By securing your Emoxy you agree with
+          By securing your Emoxy you agree withS
           <span class="underline">Emotional Futures Terms and Conditions</span>
         </p>
       </div>
@@ -517,6 +517,7 @@ const questions = [
 ]
 
 async function handleSignUpClick() {
+  if (!validEmail.value || !validName.value || !validPassword.value) return
   error.value = ''
   loading.value = true
 
