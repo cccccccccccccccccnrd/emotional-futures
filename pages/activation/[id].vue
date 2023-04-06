@@ -406,8 +406,6 @@ onMounted(async () => {
         navigateTo('/emoxy')
       }, 2500)
     }
-
-    console.log('check', a)
   }, 3000)
 })
 
@@ -467,8 +465,6 @@ function check(status: any) {
   interval = setInterval(async () => {
     const id = String(route.params.id)
     const a = await useActivation(id)
-
-    console.log('check', a)
 
     if (status === 'accepted') {
       if (a.status === 'accepted') {
@@ -553,7 +549,7 @@ async function handleAcceptClick() {
   loading.value = true
   const r = await acceptActivation(activation.value.id)
   loading.value = false
-  
+
   if (r instanceof Error) {
     console.log(r)
   } else {
