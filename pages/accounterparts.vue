@@ -74,7 +74,7 @@
   </div>
   <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center shrink">
-      <p class="text-xl font-bold">Accounterparts</p>
+      <p class="text-xl font-bold">Accounterparts {{ friends.length > 0 ? `[${friends.length}]` : '' }}</p>
       <Icon type="plus" @click="step = 2" />
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
@@ -82,7 +82,10 @@
         class="grow w-full flex flex-col overflow-hidden"
         :class="friends.length === 0 ? 'justify-center items-center' : ''"
       >
-        <p v-if="friends.length === 0" class="font-bold">No connections yet</p>
+      <div v-if="friends.length === 0">
+          <p class="text-center">You have no Accounterparts in your Emotional Futures Network yet. Please Connect with an Accounterpart to proceed.</p>
+          <Btn @click="step = 2" class="mt-5">Connect Accounterpart</Btn>
+        </div>
         <div v-if="friends.length > 0" class="w-full overflow-y-scroll">
           <div class="flex flex-col gap-2">
             <LiAccounterpart
@@ -121,6 +124,13 @@
 <script setup lang="ts">
 definePageMeta({
   middleware: 'auth'
+})
+
+onMounted(async () => {
+  const route = useRoute()
+  if (route.query.connect) {
+    step.value = 2
+  }
 })
 
 const user = useSupabaseUser()

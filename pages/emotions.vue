@@ -2,25 +2,52 @@
   <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center shrink">
       <p class="text-xl font-bold">Emotions</p>
-      <Icon type="menu" @click="handleMenuClick"/>
+      <Icon type="menu" @click="handleMenuClick" />
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
-      <p v-if="selectedEmotion.id" class="text-lg font-bold text-center capitalize">
+      <p
+        v-if="selectedEmotion.id"
+        class="text-lg font-bold text-center capitalize"
+      >
         {{ selectedEmotion.name }}
       </p>
       <p v-else class="text-lg font-bold text-center">Select Emotion</p>
       <div class="w-full flex flex-col items-center mt-5">
-        <Emotions v-model="selectedEmotion" :availableEmotions="availableEmotions" />
+        <Emotions
+          v-model="selectedEmotion"
+          :availableEmotions="availableEmotions"
+        />
       </div>
-      <div class="w-full mt-5 overflow-y-scroll" :class="activationsByEmotion.length <= 0 ? 'flex grow items-center justify-center' : ''">
-        <div v-if="completedActivations.length > 0" class="flex flex-col gap-2">
+      <div
+        class="w-full mt-5 overflow-y-scroll"
+        :class="
+          activationsByEmotion.length <= 0
+            ? 'flex grow items-center justify-center'
+            : ''
+        "
+      >
+        <p v-if="activationsByEmotion.length > 0" class="text-xs text-center">
+          You have played {{ activationsByEmotion.length }} Activation{{
+            activationsByEmotion.length > 1 ? 's' : ''
+          }}
+        </p>
+        <div
+          v-if="activationsByEmotion.length > 0"
+          class="mt-5 flex flex-col gap-2"
+        >
           <LiActivation
             v-for="a in activationsByEmotion"
             @click="navigateTo(`/activation/${a.id}`)"
             :activation="a"
+            :accounterpart="getAccounterpartFromActivation(a)"
           />
         </div>
-        <p v-if="activationsByEmotion.length <= 0" class="text-base font-bold text-center">No Activations</p>
+        <p
+          v-if="activationsByEmotion.length <= 0"
+          class="text-base font-bold text-center"
+        >
+          No Activations
+        </p>
       </div>
     </div>
     <div class="flex justify-center items-end shrink gap-2 mt-5">
@@ -50,6 +77,7 @@ definePageMeta({
 const overlay = useOverlay()
 const activations: any = await useActivations()
 const emotions = await useEmotions()
+const friends = await useFriends()
 
 const selectedEmotion = ref({
   id: null,
@@ -69,8 +97,16 @@ const availableEmotions = computed(() =>
 )
 
 const activationsByEmotion = computed(() =>
-  completedActivations.value.filter((a: any) => a.type[0] === selectedEmotion.value.id)
+  completedActivations.value.filter(
+    (a: any) => a.type[0] === selectedEmotion.value.id
+  )
 )
+
+function getAccounterpartFromActivation(a: any) {
+  return friends.find(
+    (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
+  )
+}
 
 function handleMenuClick() {
   overlay.value.isOpen = true

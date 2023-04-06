@@ -73,7 +73,9 @@
           :class="error ? 'opacity-100' : 'opacity-0'"
         >
           <p class="text-xs">
-            {{ error || 'Another human has already given their Emoxy this name.' }}
+            {{
+              error || 'Another human has already given their Emoxy this name.'
+            }}
           </p>
         </div>
         <InputText
@@ -82,9 +84,22 @@
           placeholder="Name your Emoxy"
           focus
         />
-        <InputText v-model="email" placeholder="Type your E-mail" />
-        <InputText @keyup.enter.native="handleSignUpClick" v-model="password" placeholder="Type your Password" password />
-        <Btn @click="handleSignUpClick" :disabled="!validEmail || !validName || !validPassword">{{ loading ? 'Securing...' : 'Secure My Emoxy' }}</Btn>
+        <InputText
+          v-model="email"
+          placeholder="Type your E-mail"
+          type="email"
+        />
+        <InputText
+          @keyup.enter.native="handleSignUpClick"
+          v-model="password"
+          placeholder="Type your Password"
+          password
+        />
+        <Btn
+          @click="handleSignUpClick"
+          :disabled="!validEmail || !validName || !validPassword"
+          >{{ loading ? 'Securing...' : 'Secure My Emoxy' }}</Btn
+        >
         <p class="text-xs text-center px-5">
           By securing your Emoxy you agree withS
           <span class="underline">Emotional Futures Terms and Conditions</span>
@@ -386,7 +401,13 @@
       />
     </div>
     <div v-if="step === 17 || step === 18" class="w-full flex flex-col gap-2">
-      <Btn @click="" type="dark">Hear</Btn>
+      <Btn
+        @click="audio.paused ? play() : pause()"
+        type="dark"
+      >
+        <span v-if="paused">Hear</span>
+        <Icon v-else type="pause" size="s/m" />
+      </Btn>
       <Btn @click="step = 18">Secure Emoxy</Btn>
     </div>
   </div>
@@ -546,6 +567,48 @@ function handleQuestionClick(index: number) {
   bst.value[2] += questions[step.value - 10][index].values[1]
 
   step.value++
+}
+
+const paused = ref(true)
+const emoxyLevel = ref(0)
+
+const say = computed(() => {
+  const s = emotions[emoxyLevel.value].say
+  return s[Math.floor(Math.random() * s.length)]
+})
+
+const audio = ref(
+  new Audio(
+    `/audios/emoxy/${emoxyLevel.value}/${
+      Math.floor(Math.random() * emotions[emoxyLevel.value].hear) + 1
+    }.mp3`
+  )
+)
+
+function play() {
+  paused.value = false
+  audio.value.play()
+  audio.value.loop = true
+
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: say.value,
+      artist: 'Future Emoxy',
+      album: 'Emotional Futures',
+      artwork: [
+        { src: '/imgs/app/app-192.png', sizes: '128x128', type: 'image/png' },
+        { src: '/imgs/app/app-192.png', sizes: '192x192', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '256x256', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '384x384', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '512x512', type: 'image/png' }
+      ]
+    })
+  }
+}
+
+function pause() {
+  paused.value = true
+  audio.value.pause()
 }
 </script>
 

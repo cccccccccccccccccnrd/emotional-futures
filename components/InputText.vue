@@ -2,7 +2,7 @@
   <input
     class="w-full flex justify-center items-center font-bold leading-3 text-white-100 bg-dark-50 border-2 border-white-20 backdrop-blur-md p-1.5 focus:bg-white-100 focus:text-dark-80"
     ref="inputText"
-    :type="password ? 'password' : 'text'"
+    :type="type ? type : 'text'"
     :placeholder="placeholder"
     :value="modelValue"
     @input="updateValue"
@@ -15,7 +15,6 @@ const props = defineProps({
   modelValue: String,
   type: String,
   placeholder: String,
-  password: Boolean,
   focus: Boolean
 })
 

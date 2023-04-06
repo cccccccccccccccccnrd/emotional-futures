@@ -251,8 +251,8 @@
       />
     </div>
     <div v-if="step === 8" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-5 opacity-0">
-        <Btn type="dark" @click="handleShareClick(true)">Send Reminder</Btn>
+      <div class="w-full flex gap-4 mt-5">
+        <Btn type="dark" @click="handleTerminateClick">Terminate</Btn>
       </div>
     </div>
     <div

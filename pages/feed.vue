@@ -4,13 +4,13 @@
   >
     <div class="flex justify-between items-center">
       <div>
-        <Icon type="files" @click="handleHelpClick"/>
+        <Icon type="arrow-l" @click="step === 0 ? navigateTo('/emoxy') : step--" />
       </div>
       <div>
         <p class="text-sm text-white-50">Feed Emoxy</p>
       </div>
-      <div @click="navigateTo('/emoxy')">
-        <Icon type="close" />
+      <div>
+        <Icon type="files" @click="handleHelpClick"/>
       </div>
     </div>
     <div v-if="step === 0" class="grow flex flex-col mt-5 overflow-hidden">
@@ -18,7 +18,10 @@
       <div
         class="flex flex-col items-center justify-start mt-5 overflow-y-scroll"
       >
-        <p v-if="emoxy.friends.length === 0">No connections yet</p>
+        <div v-if="friends.length === 0">
+          <p class="text-center">You have no Accounterparts in your Emotional Futures Network yet. Please Connect with an Accounterpart to proceed.</p>
+          <Btn @click="navigateTo('/accounterparts?connect=true')" class="mt-5">Connect Accounterpart</Btn>
+        </div>
         <div v-if="friends.length > 0" class="w-full flex flex-col gap-2">
           <LiAccounterpart
             v-for="friend in friends"
@@ -38,7 +41,7 @@
     </div>
     <div v-if="step === 0" class="flex flex-col justify-center items-center mt-5">
       <Btn
-        @click="step = 1"
+        @click="selectedFriend.id ? step = 1 : null"
         :disabled="selectedFriend.id ? false : true"
         >Confirm Accounterpart</Btn
       >

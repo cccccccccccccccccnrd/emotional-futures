@@ -7,8 +7,7 @@
       <div>
         <Icon @click="step = step = 0" type="arrow-l" />
       </div>
-      <div>
-      </div>
+      <div></div>
     </div>
     <div v-if="step === 5" class="grow flex flex-col justify-between mt-5">
       <p class="text-lg font-bold text-center">Keep Feeding My Emoxy</p>
@@ -21,12 +20,17 @@
             {{ error || 'Error' }}
           </p>
         </div>
-        <InputText v-model="email" placeholder="Type your E-mail" />
+        <InputText
+          v-model="email"
+          placeholder="Type your E-mail"
+          type="email"
+          focus
+        />
         <InputText
           @keyup.enter.native="handleSignInClick"
           v-model="password"
           placeholder="Type your Password"
-          password
+          type="password"
         />
         <Btn
           @click="handleSignInClick"
@@ -39,11 +43,13 @@
         </p>
       </div>
       <div>
-      <div class="flex gap-5 justify-center items-center mt-5">
+        <div class="flex gap-5 justify-center items-center mt-5">
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
           <img src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
-        <p @click="step = 1" class="text-xs text-center underline mt-5">Data Privacy</p>
+        <p @click="step = 1" class="text-xs text-center underline mt-5">
+          Data Privacy
+        </p>
       </div>
     </div>
   </div>
@@ -220,16 +226,13 @@ const validEmail = computed(() => {
   return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email.value)
 })
 
-async function handleSignInClick() {
+async function handleSignInClick () {
   if (!validEmail.value || !validPassword.value) return
-  
+
   error.value = ''
   loading.value = true
 
-  const r = await signInWithPassword(
-    email.value,
-    password.value
-  )
+  const r = await signInWithPassword(email.value, password.value)
 
   if (r instanceof Error) {
     loading.value = false

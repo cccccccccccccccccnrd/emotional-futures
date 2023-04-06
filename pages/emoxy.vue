@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="w-full grow" style="width: calc(100% + 2.5rem)"></div>
+      <div class="w-full grow"></div>
       <div class="w-full">
         <div
           class="flex justify-center items-center"
