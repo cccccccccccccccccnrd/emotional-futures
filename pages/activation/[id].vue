@@ -216,7 +216,7 @@
         activation?.friend_id === user?.id ? 'Decline' : 'Terminate'
       }}</Btn>
       <Btn v-if="activation?.friend_id === user?.id" @click="handleAcceptClick"
-        >Accept</Btn
+        style="filter: drop-shadow(black 0 0 0);">Accept</Btn
       >
     </div>
     <div v-if="step === 2 || step === 3" class="grow flex flex-col">
