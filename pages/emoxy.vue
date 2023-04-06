@@ -42,14 +42,14 @@
             <Btn
               @click="navigateTo('/feed')"
               type="dark"
-              padding="0.5"
+              padding="1"
               class="rounded-lg pointer-events-auto"
               >Feed</Btn
             >
             <Btn
               @click="audio.paused ? play() : pause()"
               type="dark"
-              padding="0.5"
+              padding="1"
               class="rounded-lg pointer-events-auto"
             >
               <span v-if="paused">Hear</span>
@@ -60,7 +60,7 @@
             <Btn
               @click="navigateTo(`/activation/${busy.id}`)"
               type="dark"
-              padding="0.5"
+              padding="1"
               class="rounded-lg border-2 border-white-80 pointer-events-auto"
               >Ongoing Activation</Btn
             >
