@@ -401,10 +401,14 @@
       />
     </div>
     <div v-if="step === 17 || step === 18" class="w-full flex flex-col gap-2">
-      <Btn
-        @click="audio.paused ? play() : pause()"
-        type="dark"
+      <div
+        class="flex justify-center items-center"
+        :class="paused ? 'opacity-0' : 'opacity-1'"
       >
+        <Icon type="audio" size="s" />
+        <p class="text-xs ml-1.5">Sound playing</p>
+      </div>
+      <Btn @click="audio.paused ? play() : pause()" type="dark">
         <span v-if="paused">Hear</span>
         <Icon v-else type="pause" size="s/m" />
       </Btn>
