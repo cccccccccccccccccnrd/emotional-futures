@@ -83,7 +83,7 @@
           focus
         />
         <InputText v-model="email" placeholder="Type your E-mail" />
-        <InputText v-model="password" placeholder="Type your Password" password />
+        <InputText @keyup.enter.native="handleSignUpClick" v-model="password" placeholder="Type your Password" password />
         <Btn @click="handleSignUpClick" :disabled="!validEmail || !validName || !validPassword">{{ loading ? 'Securing...' : 'Secure My Emoxy' }}</Btn>
         <p class="text-xs text-center px-5">
           By securing your Emoxy you agree withS

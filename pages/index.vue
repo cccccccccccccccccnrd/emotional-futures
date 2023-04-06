@@ -23,6 +23,7 @@
         </div>
         <InputText v-model="email" placeholder="Type your E-mail" />
         <InputText
+          @keyup.enter.native="handleSignInClick"
           v-model="password"
           placeholder="Type your Password"
           password
