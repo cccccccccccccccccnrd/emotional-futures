@@ -220,6 +220,8 @@ const validEmail = computed(() => {
 })
 
 async function handleSignInClick() {
+  if (!validEmail.value || !validPassword.value) return
+  
   error.value = ''
   loading.value = true
 

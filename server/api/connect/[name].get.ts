@@ -118,7 +118,7 @@ export async function getEmoxy (event: H3Event, name: string) {
   const { data, error } = await client
     .from('emoxies')
     .select()
-    .eq('name', name)
+    .ilike('name', name)
     .single()
 
   if (error) {
