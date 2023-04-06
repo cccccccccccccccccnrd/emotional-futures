@@ -435,18 +435,7 @@ function resample(
   }
 
   const vertexCount = surface.geometry.getAttribute('position').count
-
-  console.info(
-    'Sampling ' +
-      count +
-      ' points from a surface with ' +
-      vertexCount +
-      ' vertices...'
-  )
-  console.time('.build()')
   const sampler = new MeshSurfaceSampler(surface).build()
-  console.timeEnd('.build()')
-  console.time('.sample()')
 
   for (let i = 0; i < count; i++) {
     ages[i] = Math.random()
@@ -475,8 +464,6 @@ function resample(
     scatter.quaternion.y = surfaceMesh.quaternion.y
     scatter.quaternion.z = surfaceMesh.quaternion.z
   }
-
-  console.timeEnd('.sample()')
 
   sceneC.value.scene.add(scatter)
 }

@@ -141,6 +141,12 @@ const emoxyLevel = computed(() => {
   return new Set(completed.map((a: any) => a.type[0])).size
 })
 
+console.log(`%c𝓔𝓶𝓸𝔁𝔂 __𝓹𝓻𝓸𝓽𝓸__ ${emoxy.name}`, 'font-size: 20px; color: blue;')
+console.table({
+  level: emoxyLevel.value,
+  activations: activations.length
+})
+
 const say = computed(() => {
   const s = emotions[emoxyLevel.value].say
   return s[Math.floor(Math.random() * s.length)]
