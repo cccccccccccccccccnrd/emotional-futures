@@ -230,7 +230,7 @@
         >{{ loading ? 'Accepting...' : 'Accept' }}</Btn
       >
     </div>
-    <div v-if="step === 2 || step === 3" class="grow flex flex-col">
+    <div v-if="step === 2 || step === 3 || step === 4 || step === 5 || step === 6 || step === 7" class="grow flex flex-col">
       <p class="text-lg font-bold text-center mt-5">Ongoing Activation</p>
       <Activation
         class="mt-5"
@@ -241,7 +241,7 @@
       />
     </div>
     <div
-      v-if="step === 2 || step === 3"
+      v-if="step === 2 || step === 3 || step === 4 || step === 5 || step === 6 || step === 7"
       class="flex gap-2 justify-center items-center mt-5"
     >
       <Btn @click="handleTerminateClick" type="dark">Terminate</Btn>
