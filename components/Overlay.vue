@@ -12,10 +12,10 @@
         </div>
       </div>
       <div class="grow flex flex-col justify-center gap-2 mt-5">
-        <Btn type="dark">How to Play?</Btn>
+        <Btn type="dark" @click="handleOverlayClick('manual')">How to Play?</Btn>
         <Btn type="dark">Add Emoxy to Homescreen</Btn>
         <Btn type="dark">Export Emoxy</Btn>
-        <Btn type="dark">Emotional Help Resources</Btn>
+        <Btn type="dark" @click="handleOverlayClick('manual')">Emotional Help Resources</Btn>
         <Btn type="dark">About</Btn>
         <Btn @click="handleLogoutClick" type="dark">Logout</Btn>
       </div>
@@ -478,6 +478,7 @@ const selectedRelationshape = ref({
 
 onMounted(() => {
   if (overlay.value.type === 'menu') return
+  if (overlay.value.page[0] === 'emoxy') step.value = 1
   if (overlay.value.page[0] === 'accounterparts') step.value = 2
   if (overlay.value.page[0] === 'activations') step.value = 4
   if (overlay.value.page[0] === 'emotions') {
@@ -504,6 +505,12 @@ onMounted(() => {
 function handleRelationshapeClick(r: any) {
   selectedRelationshape.value = r
   step.value = 10
+}
+
+function handleOverlayClick(type: string, page?: [string, number]) {
+  overlay.value.isOpen = true
+  overlay.value.type = type
+  overlay.value.page = page || []
 }
 
 function handleLogoutClick() {
