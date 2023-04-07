@@ -197,7 +197,7 @@
             step === 0 || step === 1 || step === 2 || step === 8 || step === 12
           "
           type="files"
-          @click="handleOverlayClick('manual', ['activation', 0])"
+          @click="handleOverlayClick('manual', ['activations', 0])"
         />
       </div>
     </div>
