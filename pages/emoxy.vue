@@ -138,7 +138,8 @@ const busy = computed(() => {
 
 const emoxyLevel = computed(() => {
   const completed = activations.filter((a: any) => a.status === 'completed')
-  return new Set(completed.map((a: any) => a.type[0])).size
+  const s = new Set(completed.map((a: any) => a.type[0])).size
+  return s > 7 ? 7 : s
 })
 
 console.log(`%c𝓔𝓶𝓸𝔁𝔂 __𝓹𝓻𝓸𝓽𝓸__ ${emoxy.name}`, 'font-size: 20px; color: blue;')
@@ -189,6 +190,6 @@ function pause() {
 function handleMenuClick() {
   overlay.value.isOpen = true
   overlay.value.type = 'menu'
-  overlay.value.page = `emoxy-0`
+  overlay.value.page = ['emoxy', 0]
 }
 </script>

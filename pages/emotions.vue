@@ -111,6 +111,5 @@ function getAccounterpartFromActivation(a: any) {
 function handleMenuClick() {
   overlay.value.isOpen = true
   overlay.value.type = 'menu'
-  overlay.value.page = `emotions-0`
 }
 </script>

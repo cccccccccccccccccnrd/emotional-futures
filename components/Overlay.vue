@@ -25,12 +25,40 @@
         <div>
           <Icon v-if="step === 0" type="files" @click="" />
           <div
-            v-if="step !== 0"
+            v-if="
+              (step >= 1 && step <= 9 && step != 8) ||
+              step === 11 ||
+              step === 12
+            "
             class="flex justify-center items-center gap-3"
             @click="step = 0"
           >
             <Icon type="arrow-l" />
             <p class="text-xs opacity-50">Back to Manual</p>
+          </div>
+          <div
+            v-if="step === 8"
+            class="flex justify-center items-center gap-3"
+            @click="step = 7"
+          >
+            <Icon type="arrow-l" />
+            <p class="text-xs opacity-50">Back to Emotions</p>
+          </div>
+          <div
+            v-if="step === 10"
+            class="flex justify-center items-center gap-3"
+            @click="step = 9"
+          >
+            <Icon type="arrow-l" />
+            <p class="text-xs opacity-50">See All Relationshapes</p>
+          </div>
+          <div
+            v-if="step === 13"
+            class="flex justify-center items-center gap-3"
+            @click="step = 11"
+          >
+            <Icon type="arrow-l" />
+            <p class="text-xs opacity-50">Back to Accounting</p>
           </div>
         </div>
         <div v-if="step === 0">
@@ -172,10 +200,10 @@
             Activation Card which you:
           </p>
           <p class="mt-5">
-            1 Choose an Accounterpart<br />
-            2 Choose an Emotion<br />
-            3 Choose a Relationshape<br />
-            4 Send Activation Invite<br />
+            1. Choose an Accounterpart<br />
+            2. Choose an Emotion<br />
+            3. Choose a Relationshape<br />
+            4. Send Activation Invite<br />
           </p>
           <p class="mt-5">
             Once your Accounterpart has accepted the invitation, you will be
@@ -261,7 +289,10 @@
             <p class="font-bold">Emotions Wheel</p>
           </div>
         </div>
-        <div v-if="step === 8" class="overflow-y-scroll">
+        <div
+          v-if="step === 8"
+          class="grow flex flex-col items-center overflow-hidden mt-5"
+        >
           <p class="text-lg font-bold text-center">Emotions Wheel</p>
           <p class="text-lg text-center capitalize mt-5">
             {{ selectedEmotion.id ? selectedEmotion.name : 'Choose Emotion' }}
@@ -271,6 +302,140 @@
             :availableEmotions="emotions"
             class="mt-5"
           />
+          <div class="mt-5">
+            <p>
+              {{ selectedEmotion.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        v-if="step === 9"
+        class="grow flex flex-col items-center overflow-hidden mt-5"
+      >
+        <p class="text-lg font-bold text-center">Relationshapes</p>
+        <div class="w-full h-full grid grid-cols-2 gap-2 mt-5">
+          <LiRelationshape
+            v-for="(relationshape, index) in relationshapes"
+            @click="handleRelationshapeClick(relationshape)"
+            :relationshape="relationshape"
+          />
+        </div>
+      </div>
+      <div
+        v-if="step === 10"
+        class="grow flex flex-col items-center overflow-hidden mt-5"
+      >
+        <p class="text-lg font-bold text-center capitalize">
+          {{ selectedRelationshape.name }} Relationshape
+        </p>
+        <LiRelationshape
+          class="max-w-[50%] max-h-[20%] mt-5"
+          :relationshape="selectedRelationshape"
+        />
+        <div class="mt-5 overflow-y-scroll">
+          <div v-html="selectedRelationshape.description"></div>
+        </div>
+      </div>
+      <div
+        v-if="step === 11 || step === 12 || step === 13"
+        class="grow flex flex-col justify-between overflow-hidden mt-5"
+      >
+        <div v-if="step === 11" class="overflow-y-scroll">
+          <p class="text-lg font-bold">Accounting</p>
+          <Icon type="drop-half" class="mt-5" />
+          <p class="mt-5">
+            After completing each Activation, you must proceed to the Accounting
+            phase. There you extract Drops of Blood, Sweat and Tears. These
+            fluids reflect the emotional energy you give to and receive from
+            your Accounterpart.
+          </p>
+          <p class="mt-5">
+            Accounting will synthesise your experiences and guide you through a
+            series of extracting questions to pour yourself into your Emoxy.
+          </p>
+          <p class="mt-5">
+            Each Relationshape has a specific set of Accounting steps that must
+            be completed before you can collect your Drops and feed your Emoxy.
+          </p>
+        </div>
+        <div
+          v-if="step === 12"
+          class="flex flex-col items-center overflow-y-scroll"
+        >
+          <p class="text-lg font-bold">Accounting in Drops</p>
+          <p class="mt-5">
+            For each Activation you earn Blood, Sweat and Tears.
+          </p>
+          <p class="mt-5">
+            The Accounting will prompt you with elements of your Activation that
+            will be measured by you:
+          </p>
+          <p class="mt-5">
+            1. Account for your emotional outpour to earn Sweat Drops. <br />
+            2. Account for your Accounterpart's emotional outpour to give them
+            Tear Drops.
+          </p>
+          <p class="mt-5">
+            After both Accounterparts have completed their Accounting they will
+            be awarded Blood based on the balance of their emotional exchange.
+          </p>
+          <div
+            @click="step = 13"
+            class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm mt-5"
+          >
+            <Icon type="eye" />
+            <p class="font-bold">Emotional Currencies</p>
+          </div>
+        </div>
+        <div v-if="step === 13" class="flex flex-col items-center">
+          <p class="text-lg font-bold text-center">Emotional Currencies</p>
+          <div class="grow flex flex-col justify-center items-center">
+            <div
+              v-for="d in ['blood', 'sweat', 'tears']"
+              class="relative flex flex-col items-center mt-10"
+            >
+              <img
+                :src="`/imgs/drop-${d}.png`"
+                class="w-12"
+                :style="`transform: scale(${Number(currencyAmount) / 10});`"
+              />
+              <img
+                :src="`/imgs/drop-${d}.png`"
+                class="absolute z-[-10] w-12 grayscale"
+              />
+              <p class="mt-1 capitalize">{{ d }}</p>
+            </div>
+            <input
+              v-model="currencyAmount"
+              class="mt-10"
+              type="range"
+              min="1"
+              max="10"
+            />
+          </div>
+        </div>
+        <div
+          class="w-full px-5 flex justify-between items-center justify-self-end"
+          v-if="step === 11 || step === 12"
+        >
+          <Icon
+            type="arrow-l"
+            @click="step <= 11 ? null : step--"
+            :class="step <= 11 ? 'opacity-20' : ''"
+          />
+          <div class="flex justify-center items-center gap-1">
+            <div
+              v-for="n in 2"
+              :class="step - 10 === n ? 'w-2 h-2' : 'w-1 h-1'"
+              class="bg-white-100"
+            ></div>
+          </div>
+          <Icon
+            type="arrow-r"
+            @click="step >= 12 ? null : step++"
+            :class="step >= 12 ? 'opacity-20' : ''"
+          />
         </div>
       </div>
     </div>
@@ -279,18 +444,19 @@
 
 <script setup lang="ts">
 const props = defineProps({
-  page: {
-    type: String,
-    required: false
-  },
   type: {
     type: String,
+    required: true
+  },
+  page: {
+    type: Array,
     required: false
   }
 })
 
 const overlay = useOverlay()
 const step = ref(0)
+const currencyAmount = ref('10')
 
 const emotions = await useEmotions()
 const relationshapes: any = await useRelationshapes()
@@ -298,15 +464,47 @@ const relationshapes: any = await useRelationshapes()
 const selectedEmotion = ref({
   id: null,
   name: null,
-  color: null,
-  prompts: []
+  description: null,
+  prompts: <any>[],
+  say: <any>[],
+  hear: 0
 })
 const selectedRelationshape = ref({
   id: null,
   name: null,
-  shape: null,
+  description: null,
   accounting: <any>[]
 })
+
+onMounted(() => {
+  if (overlay.value.type === 'menu') return
+  if (overlay.value.page[0] === 'accounterparts') step.value = 2
+  if (overlay.value.page[0] === 'activations') step.value = 4
+  if (overlay.value.page[0] === 'emotions') {
+    if (overlay.value.page[1] === 0) {
+      step.value = 7
+    } else {
+      step.value = 8
+      const f: any = emotions.find((e: any) => e.id === overlay.value.page[1])
+      if (f) selectedEmotion.value = f
+    }
+  }
+  if (overlay.value.page[0] === 'relationshapes') {
+    if (overlay.value.page[1] === 0) {
+      step.value = 9
+    } else {
+      step.value = 10
+      const f: any = relationshapes.find((r: any) => r.id === overlay.value.page[1])
+      if (f) selectedRelationshape.value = f
+    }
+  }
+  if (overlay.value.page[0] === 'accounting') step.value = 11
+})
+
+function handleRelationshapeClick(r: any) {
+  selectedRelationshape.value = r
+  step.value = 10
+}
 
 function handleLogoutClick() {
   logout()

@@ -197,6 +197,7 @@
             step === 0 || step === 1 || step === 2 || step === 8 || step === 12
           "
           type="files"
+          @click="handleOverlayClick('manual', ['activation', 0])"
         />
       </div>
     </div>
@@ -333,6 +334,7 @@ definePageMeta({
 
 const route = useRoute()
 
+const overlay = useOverlay()
 const user = useSupabaseUser()
 const friends: any = await useFriends()
 const emotions: any = await useEmotions()
@@ -568,6 +570,12 @@ async function handleTerminateClick() {
     await deleteActivation(activation.value.id)
     navigateTo('/emoxy')
   }
+}
+
+function handleOverlayClick(type: string, page: [string, number]) {
+  overlay.value.isOpen = true
+  overlay.value.type = type
+  overlay.value.page = page
 }
 
 function handleShareClick(isReminder: Boolean) {

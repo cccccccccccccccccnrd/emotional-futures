@@ -10,7 +10,10 @@
         <p class="text-sm text-white-50">Feed Emoxy</p>
       </div>
       <div>
-        <Icon type="files" @click="handleHelpClick"/>
+        <Icon v-if="step === 0" type="files" @click="handleOverlayClick('manual', ['accounterparts', 0])"/>
+        <Icon v-if="step === 1" type="files" @click="handleOverlayClick('manual', ['emotions', selectedEmotion.id ? selectedEmotion.id : 0])"/>
+        <Icon v-if="step === 2" type="files" @click="handleOverlayClick('manual', ['relationshapes', selectedRelationshape.id ? selectedRelationshape.id : 0])"/>
+        <Icon v-if="step === 3" type="files" @click="handleOverlayClick('manual', ['accounting', 0])"/>
       </div>
     </div>
     <div v-if="step === 0" class="grow flex flex-col mt-5 overflow-hidden">
@@ -117,7 +120,7 @@
       v-if="step === 3"
       class="flex flex-col justify-center items-center mt-5"
     >
-      <Btn v-if="selectedRelationshape.name" @click="handleConfirmClick"
+      <Btn @click="handleConfirmClick"
         >{{ loading ? 'Confirming...' : 'Confirm'}}</Btn
       >
     </div>
@@ -138,7 +141,6 @@ definePageMeta({
 
 const overlay = useOverlay()
 const user = useSupabaseUser()
-const emoxy: any = await useEmoxy()
 const friends: any = await useFriends()
 const emotions: any = await useEmotions()
 const relationshapes: any = await useRelationshapes()
@@ -149,6 +151,7 @@ const friendsActivations: any = await useFriendsActivations(
 )
 
 const step = ref(0)
+const confirmed = ref(false)
 
 const selectedFriend = ref({
   id: null,
@@ -213,24 +216,25 @@ async function handleConfirmClick() {
   if (
     selectedFriend.value.user_id &&
     selectedEmotion.value.id &&
-    selectedRelationshape.value.id
+    selectedRelationshape.value.id &&
+    !confirmed.value
   ) {
+    confirmed.value = true
     loading.value = true
     activation.value = await createActivation(
       [selectedEmotion.value.id, selectedRelationshape.value.id],
       selectedFriend.value.user_id
     )
     loading.value = false
+    confirmed.value = false
     navigateTo(`/activation/${activation.value.id}`)
-  } else {
-    console.log('no selected emotion or relationshape')
   }
 }
 
-function handleHelpClick() {
+function handleOverlayClick(type: string, page: [string, number]) {
   overlay.value.isOpen = true
-  overlay.value.type = 'manual'
-  overlay.value.page = `feed-${step.value}`
+  overlay.value.type = type
+  overlay.value.page = page
 }
 </script>
 
