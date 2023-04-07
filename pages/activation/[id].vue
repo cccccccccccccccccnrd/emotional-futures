@@ -27,11 +27,15 @@
     <div class="flex justify-between items-center">
       <div>
         <Icon
-          v-if="step === 3 || step === 4"
+          v-if="step === 3"
           type="files"
           @click="handleOverlayClick('manual', ['accounting', 0])"
         />
-
+        <Icon
+          v-if="step === 4"
+          type="files"
+          @click="handleOverlayClick('manual', ['relationshapes', Number(selectedRelationshape?.id)])"
+        />
         <Icon
           v-if="step === 5 || step === 6 || step === 7"
           type="arrow-l"
