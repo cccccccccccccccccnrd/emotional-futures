@@ -220,9 +220,11 @@ async function handleConfirmClick() {
       [selectedEmotion.value.id, selectedRelationshape.value.id],
       selectedFriend.value.user_id
     )
-    loading.value = false
-    confirmed.value = false
-    navigateTo(`/activation/${activation.value.id}`)
+    setTimeout(() => {
+      loading.value = false
+      confirmed.value = false
+      navigateTo(`/activation/${activation.value.id}`)
+    }, 300)
   }
 }
 
