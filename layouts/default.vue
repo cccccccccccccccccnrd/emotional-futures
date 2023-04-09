@@ -36,6 +36,8 @@ nuxtApp.hook('page:finish', () => {
   loading.value = false
 })
 
+await initDb()
+
 const overlay = useOverlay()
 
 const isMobile = navigator.userAgent.match(
@@ -49,7 +51,7 @@ const sa =
     ? true
     : false
 
-onMounted(() => {
+onMounted(async () => {
   if (isMobile) {
     window.addEventListener('resize', () => {
       h.value = window.innerHeight

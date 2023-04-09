@@ -25,7 +25,7 @@
       >
         <Icon type="time" size="l" />
         <p class="text-center mt-5">
-          Your Accounterpart {{ accounterpart.name }} still needs to feed their
+          Your Accounterpart {{ accounterpart?.name }} still needs to feed their
           Emoxy.
         </p>
         <p class="text-center mt-5">
@@ -42,7 +42,7 @@
           <Icon type="drop-full" size="l" />
         </div>
         <p class="text-center mt-5">
-          Your activation with {{ accounterpart.name }} comes to an end.
+          Your activation with {{ accounterpart?.name }} comes to an end.
         </p>
         <p class="text-center mt-5">
           Your Accounting results are ready. Soon you will feed your Emoxy with
@@ -54,7 +54,7 @@
           Accounterpart
         </p>
         <p class="text-xs text-white-100 text-center font-bold drop-shadow-md">
-          {{ accounterpart.name }}
+          {{ accounterpart?.name }}
         </p>
       </div>
       <div
@@ -106,7 +106,7 @@
           Accounterpart
         </p>
         <p class="text-xs text-white-100 text-center font-bold drop-shadow-md">
-          {{ accounterpart.name }}
+          {{ accounterpart?.name }}
         </p>
       </div>
       <div
@@ -166,10 +166,13 @@
 </template>
 
 <script setup lang="ts">
+import { PropType } from 'vue'
+import { Emoxy } from '~/types/futures'
+
 const props = defineProps({
   accounterpart: {
-    type: Object,
-    required: true
+    type: Object as PropType<Emoxy>,
+    required: false
   },
   emotion: {
     type: Object,

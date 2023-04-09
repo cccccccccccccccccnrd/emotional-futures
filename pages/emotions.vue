@@ -74,10 +74,10 @@ definePageMeta({
   middleware: 'auth'
 })
 
+const db = useDb()
+
 const overlay = useOverlay()
-const activations: any = await useActivations()
 const emotions = await useEmotions()
-const friends = await useFriends()
 
 const selectedEmotion = ref({
   id: null,
@@ -86,7 +86,7 @@ const selectedEmotion = ref({
   prompts: []
 })
 const completedActivations = computed(() =>
-  activations.filter((a: any) => a.status === 'completed')
+  db.value.activations.filter((a: any) => a.status === 'completed')
 )
 const availableEmotions = computed(() =>
   emotions.filter((e: any) =>
@@ -103,7 +103,7 @@ const activationsByEmotion = computed(() =>
 )
 
 function getAccounterpartFromActivation(a: any) {
-  return friends.find(
+  return db.value.friends.find(
     (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
   )
 }

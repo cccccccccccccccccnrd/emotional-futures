@@ -336,15 +336,18 @@
 </template>
 
 <script setup lang="ts">
+import { Emoxy } from '~/types/futures'
+
 definePageMeta({
   middleware: 'auth'
 })
 
 const route = useRoute()
 
-const overlay = useOverlay()
 const user = useSupabaseUser()
-const friends: any = await useFriends()
+const db = useDb()
+
+const overlay = useOverlay()
 const emotions: any = await useEmotions()
 const relationshapes: any = await useRelationshapes()
 const activation: any = ref(null)
@@ -354,11 +357,7 @@ const accepted = ref(false)
 const terminated = ref(false)
 const loading = ref(false)
 
-const selectedFriend = ref({
-  id: null,
-  name: null,
-  user_id: null
-})
+const selectedFriend = ref<Emoxy>()
 const selectedEmotion = ref({
   id: null,
   name: null,
@@ -396,7 +395,7 @@ let terminateInterval: any = null
 
 onMounted(async () => {
   const id = String(route.params.id)
-  const a = await useActivation(id)
+  const a = db.value.activations.find((a: any) => a.id === id)
 
   if (!a) {
     navigateTo('/emoxy')
@@ -407,7 +406,7 @@ onMounted(async () => {
 
   terminateInterval = setInterval(async () => {
     const id = String(route.params.id)
-    const a = await useActivation(id)
+    const a = db.value.activations.find((a: any) => a.id === id)
 
     if (!a) {
       terminated.value = true
@@ -474,7 +473,9 @@ function loadActivation(a: any) {
 function check(status: any) {
   interval = setInterval(async () => {
     const id = String(route.params.id)
-    const a = await useActivation(id)
+    const a = db.value.activations.find((a: any) => a.id === id)
+
+    if (!a) return navigateTo('/emoxy')
 
     if (status === 'accepted') {
       if (a.status === 'accepted') {
@@ -482,7 +483,7 @@ function check(status: any) {
         clearInterval(interval)
       }
     } else if (status === 'accounting') {
-      const f = a.accounts.find((a: any) => a.userId !== user.value?.id)
+      const f = a.accounts?.find((a: any) => a.userId !== user.value?.id)
       if (f) {
         loadActivation(a)
         clearInterval(interval)
@@ -499,7 +500,7 @@ function check(status: any) {
 
 function setActivation(a: any) {
   activation.value = a
-  selectedFriend.value = friends.find(
+  selectedFriend.value = db.value.friends.find(
     (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
   )
   selectedEmotion.value = emotions.find((e: any) => e.id === a.type[0])
@@ -561,7 +562,7 @@ async function handleAcceptClick() {
   loading.value = false
 
   if (r instanceof Error) {
-    console.log(r)
+    return
   } else {
     accepted.value = true
     setTimeout(() => {

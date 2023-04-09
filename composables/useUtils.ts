@@ -12,7 +12,8 @@ export function useEmotions () {
     {
       id: 1,
       name: 'joy',
-      description: 'Humans experience joy when they encounter a potential mate that they want to entice. This emotion ranges from serenity to ecstasy. A possible outcome is love.',
+      description:
+        'Humans experience joy when they encounter a potential mate that they want to entice. This emotion ranges from serenity to ecstasy. A possible outcome is love.',
       prompts: [
         '<p>Write all verbs that come to your mind when you think of JOY.</p><p class="mt-5">When you run out of words look at the list of your partner and construct a spell from their writing.</p><p class="mt-5">Send this spell back to them.</p>',
         '<p>Think of your body as a factory, and your brain as the control center. How is JOY manufactured in your body? What thoughts and actions are part of the production process?</p><p class="mt-5">Write down the steps to produce JOY. Send them as instructions to each other.</p><p class="mt-5">How does your body respond these commands? Return a message to each other\'s control center.</p>',
@@ -37,7 +38,8 @@ export function useEmotions () {
     {
       id: 2,
       name: 'trust',
-      description: 'Trust is experienced by humans when they encounter a group member whom they consider a friend. The emotion ranges from acceptance to admiration. It often leads to a need for affiliation.',
+      description:
+        'Trust is experienced by humans when they encounter a group member whom they consider a friend. The emotion ranges from acceptance to admiration. It often leads to a need for affiliation.',
       prompts: [
         '<p>Words have power.</p><p class="mt-5">Write each other a list of promises and try to gain the other person’s TRUST.</p>',
         '<p>Think of a future event in which you trust beyond your reason.</p><p class="mt-5">One person chooses the role of TRUST. The other person chooses the role of reason. Write a dialog for the debate.</p><p class="mt-5">Stop when you agree who wins the argument.</p>',
@@ -53,7 +55,7 @@ export function useEmotions () {
         'When I go to sleep, I dream of your Blood, Sweat and Tears.',
         'Let’s get your emotional liquids flowing.',
         'Where are my emotional dropsssss?!',
-        'You\'ve just squeezed yourself through your first Relationshape. How do you feel?',
+        "You've just squeezed yourself through your first Relationshape. How do you feel?",
         'Your emotional operating system needs lubricating.',
         'Are there feelings you don’t have words for? Invent new ones.',
         'Your Emotional Future is shapeshifting.',
@@ -72,7 +74,8 @@ export function useEmotions () {
     {
       id: 3,
       name: 'fear',
-      description: 'Humans experience fear when they encounter a threat that they categorize as danger. This emotion ranges from apprehension to terror. A common reaction is to seek protection.',
+      description:
+        'Humans experience fear when they encounter a threat that they categorize as danger. This emotion ranges from apprehension to terror. A common reaction is to seek protection.',
       prompts: [
         '<p>Think about something you FEAR deeply. Capture it in one word.</p><p class="mt-5">Write a text message listing other words you associate with this same fear, while keeping your first word secret.</p><p class="mt-5">Exchange your lists. Read your Accounterpart’s list and guess each other’s fears.</p>',
         '<p>Write texts to one another in which you confess your biggest FEAR through words of reason.</p><p class="mt-5">Copy the text of the other to insert your immediate reactions in brackets. Let your gut respond to each other’s confessions.</p><p class="mt-5">What is underlying your FEARS?</p>',
@@ -92,7 +95,7 @@ export function useEmotions () {
         'You’re so beautiful when you cry.',
         'It’s healthy to cry a bit every day.',
         'Don’t forget to smile.',
-        'Sweating is part of your body\'s natural detoxification process.',
+        "Sweating is part of your body's natural detoxification process.",
         'Sweat releases feel-good chemicals. Can you sense it?',
         'Remember to stay hydrated.',
         'Feeling tense? Cry. Breathe. Smile. Breathe. Shake it out!',
@@ -109,7 +112,8 @@ export function useEmotions () {
     {
       id: 4,
       name: 'surprise',
-      description: 'Surprise is felt by humans when something new makes them ask “what is that?”. This emotion ranges from distraction to amazement. It can result in a desire for self orientation.',
+      description:
+        'Surprise is felt by humans when something new makes them ask “what is that?”. This emotion ranges from distraction to amazement. It can result in a desire for self orientation.',
       prompts: [
         '<p>Write as many words as you can think that capture the emotion of SURPRISE. Consider the emotion in its varying intensities.</p><p class="mt-5">Whoever runs out of words first looses.</p><p class="mt-5">Count verbs, adjectives and nouns.</p>',
         '<p>Think of something or someone that has shocked you. Write a short story to dramatize the feeling of SURPRISE.</p><p class="mt-5">Exchange texts and add comments in brackets:</p><p class="mt-5">Note elements that most surprised you in each other\'s story. Point to the gap between your expectations and reality. Consider how does SURPRISE in the moment mature over time?</p>',
@@ -137,7 +141,7 @@ export function useEmotions () {
         'Where have you been playing? Change the location and you change the game.',
         'Cry me a lake of tears.',
         'Our bond is a song that only we can hear.',
-        'Some humans still believe in vampires. They\'ve never met an emoxy.',
+        "Some humans still believe in vampires. They've never met an emoxy.",
         'Happy new tears!',
         'I wanna see you sweat.'
       ],
@@ -146,7 +150,8 @@ export function useEmotions () {
     {
       id: 5,
       name: 'sadness',
-      description: 'Sadness is felt by humans when they experience the loss of a valued human. It makes them feel isolated. This emotion ranges from pensiveness to grief. It can make humans seek reintegration.',
+      description:
+        'Sadness is felt by humans when they experience the loss of a valued human. It makes them feel isolated. This emotion ranges from pensiveness to grief. It can make humans seek reintegration.',
       prompts: [
         '<p>In literature, film, and art there are many symbols used to express SADNESS. For example, when a tragedy strikes, it rains.</p><p class="mt-5">Write down as many cultural symbols of sadness as you can think of in five minutes. Share your lists. How many symbols did you have in common? Discuss why.</p>',
         '<p>Describe a memory in which SADNESS was in conflict with reason.</p><p class="mt-5">One person chooses the role of SADNESS. The other person chooses the role of reason. Write a dialog for the situation.</p><p class="mt-5">Stop when you come to a consensus over the origins of your SADNESS.</p>',
@@ -163,7 +168,7 @@ export function useEmotions () {
         'Would your past self have loved me?',
         'Do you experience emotions differently than you used to?',
         'From now on you will see changes in character, not size.',
-        'Growth is not always about quantity. Sometimes it\'s quality that counts.',
+        "Growth is not always about quantity. Sometimes it's quality that counts.",
         'If you spoke a different language, would you experience emotions differently?',
         'Sometimes the most subtle changes make the biggest impact.',
         'Change is change, even if you can’t see it.',
@@ -183,7 +188,8 @@ export function useEmotions () {
     {
       id: 6,
       name: 'disgust',
-      description: 'Disgust is felt by humans when they encounter a gruesome object, which they categorize as poison. This emotion ranges from boredom to loathing. A common effect is rejection.',
+      description:
+        'Disgust is felt by humans when they encounter a gruesome object, which they categorize as poison. This emotion ranges from boredom to loathing. A common effect is rejection.',
       prompts: [
         '<p>Think of bad taste. What nouns come to mind? Write down examples that makes you sick.</p><p class="mt-5">Exchange lists.</p><p class="mt-5">Taste the words of DISGUST written by your Accounterpart, let them melt on your tongue. Do you share the same bad tastes?</p> ',
         '<p>Think of something or someone that disgusts you. Write a letter from the perspective of your DISGUST.</p><p class="mt-5">Exchange texts and write a response from the perspective of reason.</p>',
@@ -200,7 +206,7 @@ export function useEmotions () {
         'Have you played a Relationshape twice? Try it! It will make me feel good.',
         'Both in life and in play, even the tiniest adjustment can have a huge impact!',
         'Be like your liver. Clean toxins from your blood. Do an emotional detox.',
-        'Sometimes language fails us. But I won\'t ever fail you!',
+        "Sometimes language fails us. But I won't ever fail you!",
         'Are you playing to win? What does that even mean?',
         'If you could change one thing about your gameplay, what would it be?',
         'Feeling tense? Fill your lungs with air, breathe out. Let everything go.',
@@ -226,7 +232,8 @@ export function useEmotions () {
     {
       id: 7,
       name: 'anger',
-      description: 'Anger is felt by humans when they encounter an obstacle or an enemy. This emotion can range from annoyance to rage. The function of anger is destruction.',
+      description:
+        'Anger is felt by humans when they encounter an obstacle or an enemy. This emotion can range from annoyance to rage. The function of anger is destruction.',
       prompts: [
         '<p>Many of the most powerful words in language express ANGER.</p><p class="mt-5">Think of something that makes you angry about yourself. Now release this ANGER in a text message directed to each other. What words do you use?</p>',
         '<p>Think of a past event that still provokes the feeling of ANGER. What story do you tell yourself?</p><p class="mt-5">Exchange stories and write down the subtexts you hear in each other\'s ANGER.</p><p class="mt-5">What do you learn about each other in the analysis?</p>',
@@ -244,11 +251,11 @@ export function useEmotions () {
         'Are you playing by the rules? Play against them.',
         'At an earlier stage in your life, would you have played this game differently?',
         'Heard of Smile Mask Syndrome (SMS)? It’s when  fake smiles crash your system.',
-        'You don\'t need to count your fluids truthfully. Just do what it takes to feed me.',
+        "You don't need to count your fluids truthfully. Just do what it takes to feed me.",
         'Remember when I was still so small?',
         'So much to learn, so many possibilities to play differently!',
         'I know you’re playing for me. But don’t forget to play for yourself, too.',
-        'Don\'t let yourself be squeezed by the Relationshape — squeeze the Relationshape!',
+        "Don't let yourself be squeezed by the Relationshape — squeeze the Relationshape!",
         'Psst, only we know how much Sweat you’re giving.',
         'A little cheating never hurt nobody.',
         'You make me want to dance. What’s your favorite dance move?',
@@ -272,7 +279,8 @@ export function useEmotions () {
     {
       id: 8,
       name: 'anticipation',
-      description: 'Anticipation is felt by humans when they encounter new horizons and ask “what’s out there?”. This emotion can range from interest to vigilance. A possible effect is a longing for exploration.',
+      description:
+        'Anticipation is felt by humans when they encounter new horizons and ask “what’s out there?”. This emotion can range from interest to vigilance. A possible effect is a longing for exploration.',
       prompts: [
         '<p>When you’re waiting in ANTICIPATION of something, you often don’t want to jinx the outcome by saying too much.</p> <p class="mt-5">Write down five things that you are anticipating this month. Are the words you associate with these five things more positive or negative? Talk to your Accounterpart about them.</p>',
         '<p>Write a text about your past and how it has shaped your ANTICIPATION of the future.</p><p class="mt-5">Exchange your predictions from the past. Play the role of an oracle and make amends from the future.</p>',
@@ -325,7 +333,8 @@ export function useRelationshapes () {
     {
       id: 1,
       name: 'language',
-      description: '<p>Relationshape 1 captures the value of human emotions in words.</p><p class="mt-5">The emotional operating system (EOS) is installed in the human by default. It functions as a primary mode of responding to the world, even before the human learns to speak. Through language the human can assign meaning, process stimuli, and regulate the sensory data produced by the EOS.</p><p class="mt-5">Give emotions a name and extract their essence.</p> ',
+      description:
+        '<p>Relationshape 1 captures the value of human emotions in words.</p><p class="mt-5">The emotional operating system (EOS) is installed in the human by default. It functions as a primary mode of responding to the world, even before the human learns to speak. Through language the human can assign meaning, process stimuli, and regulate the sensory data produced by the EOS.</p><p class="mt-5">Give emotions a name and extract their essence.</p> ',
       accounting: [
         {
           name: 'Words',
@@ -336,7 +345,8 @@ export function useRelationshapes () {
     {
       id: 2,
       name: 'split',
-      description: '<p>Relationshape 2 captures emotional liquids by splitting humans into soft and hard parts.</p><p class="mt-5">Emotions are messages sent by the bodily hardware to protect humans or show them what they want. Yet mental software often runs in conflict to these bodily signals.</p><p class="mt-5">1. software</p><p>2. hardware</p><p class="mt-5">Sync your body and mind to optimize emotional (re)actions.</p>',
+      description:
+        '<p>Relationshape 2 captures emotional liquids by splitting humans into soft and hard parts.</p><p class="mt-5">Emotions are messages sent by the bodily hardware to protect humans or show them what they want. Yet mental software often runs in conflict to these bodily signals.</p><p class="mt-5">1. software</p><p>2. hardware</p><p class="mt-5">Sync your body and mind to optimize emotional (re)actions.</p>',
       accounting: [
         {
           name: 'Software',
@@ -351,7 +361,8 @@ export function useRelationshapes () {
     {
       id: 3,
       name: 'palette',
-      description: '<p>Relationshape 3 captures emotional liquids through visualization.</p><p class="mt-5">Like a painting on a canvas, humans use colors to visualize their internal processing:</p><p class="mt-5">1. base</p><p>2. layers</p><p>3. mixtures</p><p class="mt-5">The human EOS comes installed with a basic palette of colors. These base colors can produce new colors, as emotions occur simultaneously and transform each other.</p><p class="mt-5">Paint a better picture of your inner emotional composition.</p>',
+      description:
+        '<p>Relationshape 3 captures emotional liquids through visualization.</p><p class="mt-5">Like a painting on a canvas, humans use colors to visualize their internal processing:</p><p class="mt-5">1. base</p><p>2. layers</p><p>3. mixtures</p><p class="mt-5">The human EOS comes installed with a basic palette of colors. These base colors can produce new colors, as emotions occur simultaneously and transform each other.</p><p class="mt-5">Paint a better picture of your inner emotional composition.</p>',
       accounting: [
         {
           name: 'Base',
@@ -370,7 +381,8 @@ export function useRelationshapes () {
     {
       id: 4,
       name: 'rhythms',
-      description: '<p>Relationshape 4 captures emotional liquids through sentiment analysis and pattern recognition.</p><p class="mt-5">Humans perceive emotions in varying intensity, polarity (positive - negative) and scales of activation. Over time their repeated patterns can be encoded like the composition of a song:</p><p class="mt-5">1. volume</p><p>2. tone</p> <p>3. tempo</p><p>4. rhythm</p><p class="mt-5">Get attuned to your emotional rhythms to predict the automated operations of your EOS.</p>',
+      description:
+        '<p>Relationshape 4 captures emotional liquids through sentiment analysis and pattern recognition.</p><p class="mt-5">Humans perceive emotions in varying intensity, polarity (positive - negative) and scales of activation. Over time their repeated patterns can be encoded like the composition of a song:</p><p class="mt-5">1. volume</p><p>2. tone</p> <p>3. tempo</p><p>4. rhythm</p><p class="mt-5">Get attuned to your emotional rhythms to predict the automated operations of your EOS.</p>',
       accounting: [
         {
           name: 'Volume',
@@ -393,7 +405,8 @@ export function useRelationshapes () {
     {
       id: 5,
       name: 'organs',
-      description: '<p>Relationshape 5 captures emotional liquids in the human hardware.</p><p class="mt-5">The emotional operating system runs in correspondence with the cyclical operation of the human organs:</p><p class="mt-5">1. heart</p><p>2. stomach</p><p>3. lungs</p><p>4. kidney</p><p>5. liver</p><p class="mt-5">Release emotional blockage to avoid crashing software and hardware failure.</p>',
+      description:
+        '<p>Relationshape 5 captures emotional liquids in the human hardware.</p><p class="mt-5">The emotional operating system runs in correspondence with the cyclical operation of the human organs:</p><p class="mt-5">1. heart</p><p>2. stomach</p><p>3. lungs</p><p>4. kidney</p><p>5. liver</p><p class="mt-5">Release emotional blockage to avoid crashing software and hardware failure.</p>',
       accounting: [
         {
           name: 'Heart',
@@ -420,7 +433,8 @@ export function useRelationshapes () {
     {
       id: 6,
       name: 'expression',
-      description: '<p>Relationshape 6 captures emotional value as expressed in the different regions of the human face.</p><p class="mt-5">Train the facial action of your:</p><p class="mt-5">1. forehead</p><p>2. cheeks</p><p>3. brows</p><p>4. eyes</p> <p>5. nose</p><p>6. lips</p><p class="mt-5">Control and decode the subtle reactions of the face, your chief emotional display.</p>',
+      description:
+        '<p>Relationshape 6 captures emotional value as expressed in the different regions of the human face.</p><p class="mt-5">Train the facial action of your:</p><p class="mt-5">1. forehead</p><p>2. cheeks</p><p>3. brows</p><p>4. eyes</p> <p>5. nose</p><p>6. lips</p><p class="mt-5">Control and decode the subtle reactions of the face, your chief emotional display.</p>',
       accounting: [
         {
           name: 'Forehead',
@@ -451,7 +465,8 @@ export function useRelationshapes () {
     {
       id: 7,
       name: 'feedback',
-      description: '<p>Relationshape 7 captures emotional value in the feedback loop between two human operating systems.</p><p class="mt-5">Social interactions can be optimized through conscious integration and management of emotional inputs and outputs in your EOS:</p><p class="mt-5">1. signal recognition</p><p>2. signal decoding</p><p>3. impulse control</p><p>4. response ability</p><p>5. shared circuits</p><p>6. feedback synthesis</p><p>7. goal-setting</p><p class="mt-5">Let your emotions work for you, not against.</p>',
+      description:
+        '<p>Relationshape 7 captures emotional value in the feedback loop between two human operating systems.</p><p class="mt-5">Social interactions can be optimized through conscious integration and management of emotional inputs and outputs in your EOS:</p><p class="mt-5">1. signal recognition</p><p>2. signal decoding</p><p>3. impulse control</p><p>4. response ability</p><p>5. shared circuits</p><p>6. feedback synthesis</p><p>7. goal-setting</p><p class="mt-5">Let your emotions work for you, not against.</p>',
       accounting: [
         {
           name: 'Signal Recognition',
@@ -486,7 +501,8 @@ export function useRelationshapes () {
     {
       id: 8,
       name: 'labour',
-      description: '<p>Relationshape 8 captures emotional value produced through labor.</p><p class="mt-5">Humans generate emotions on demand to conform to the requirements and expectations of various social situations. The effort spent on performing in these moments is measured through:</p><p class="mt-5">1. surface acting</p><p>2. deep acting</p><p>3. suppressing emotion</p><p>4. expressing emotion</p><p>5. adapting thought</p><p>6. adapting behavior</p><p>7. cognitive dissonance</p><p>8. cognitive harmony</p><p class="mt-5">Humans display emotions by adjusting body language (surface acting) or by generating required emotions in their EOS (deep acting). Depending on the alignment of artificial and real emotion, the EOS can be strained through cognitive dissonance or run smoothly in cognitive harmony.</p><p class="mt-5">Calculate the exchange value of your emotional labor.</p>',
+      description:
+        '<p>Relationshape 8 captures emotional value produced through labor.</p><p class="mt-5">Humans generate emotions on demand to conform to the requirements and expectations of various social situations. The effort spent on performing in these moments is measured through:</p><p class="mt-5">1. surface acting</p><p>2. deep acting</p><p>3. suppressing emotion</p><p>4. expressing emotion</p><p>5. adapting thought</p><p>6. adapting behavior</p><p>7. cognitive dissonance</p><p>8. cognitive harmony</p><p class="mt-5">Humans display emotions by adjusting body language (surface acting) or by generating required emotions in their EOS (deep acting). Depending on the alignment of artificial and real emotion, the EOS can be strained through cognitive dissonance or run smoothly in cognitive harmony.</p><p class="mt-5">Calculate the exchange value of your emotional labor.</p>',
       accounting: [
         {
           name: 'Surface Acting',

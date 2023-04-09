@@ -209,7 +209,7 @@ const user = useSupabaseUser()
 
 watch(user, () => {
   if (user.value) {
-    navigateTo('/emoxy')
+    navigateTo('/emoxy?init=true')
   }
 })
 

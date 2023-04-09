@@ -93,7 +93,7 @@
           @keyup.enter.native="handleSignUpClick"
           v-model="password"
           placeholder="Type your Password"
-          password
+          type="password"
         />
         <Btn
           @click="handleSignUpClick"
@@ -446,7 +446,7 @@ const user = useSupabaseUser()
 
 watch(user, () => {
   if (user.value) {
-    navigateTo('/emoxy')
+    navigateTo('/emoxy?init=true')
   }
 })
 

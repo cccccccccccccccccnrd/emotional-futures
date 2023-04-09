@@ -48,7 +48,6 @@ export async function updateActivation (
   const activation: any = await getActivation(event, activationId)
 
   if (!accounts) {
-    console.log('goin in')
     const emoxy = await getEmoxyByUserId(event, userId)
     const results = activation.results.find((r: any) => r.userId === userId)
 
@@ -63,15 +62,12 @@ export async function updateActivation (
       emoxy.bst[1] + results.results[1],
       emoxy.bst[2] + results.results[2]
     ]
-
-    console.log('bst', bst)
     
     await updateEmoxy(event, emoxy.id, {
       bst
     })
 
     const fed = activation.fed.length === 0 ? [emoxy.user_id] : [...activation.fed, emoxy.user_id]
-    console.log('fed', fed)
 
     return await client
       .from('activations')
@@ -95,7 +91,6 @@ export async function updateActivation (
     })
   } else {
     const i = newAccounts.indexOf(a)
-    console.log('wat', i)
     newAccounts[i] = {
       userId,
       accounts

@@ -74,22 +74,22 @@
   </div>
   <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center shrink">
-      <p class="text-xl font-bold">Accounterparts {{ friends.length > 0 ? `[${friends.length}]` : '' }}</p>
+      <p class="text-xl font-bold">Accounterparts {{ db.friends.length > 0 ? `[${db.friends.length}]` : '' }}</p>
       <Icon type="plus" @click="step = 2" />
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
       <div
         class="grow w-full flex flex-col overflow-hidden"
-        :class="friends.length === 0 ? 'justify-center items-center' : ''"
+        :class="db.friends.length === 0 ? 'justify-center items-center' : ''"
       >
-      <div v-if="friends.length === 0">
+      <div v-if="db.friends.length === 0">
           <p class="text-center">You have no Accounterparts in your Emotional Futures Network yet. Please Connect with an Accounterpart to proceed.</p>
           <Btn @click="step = 2" class="mt-5">Connect Accounterpart</Btn>
         </div>
-        <div v-if="friends.length > 0" class="w-full overflow-y-scroll">
+        <div v-if="db.friends.length > 0" class="w-full overflow-y-scroll">
           <div class="flex flex-col gap-2">
             <LiAccounterpart
-              v-for="friend in friends"
+              v-for="friend in db.friends"
               @click="handleFriendClick(friend)"
               :name="friend.name"
               :activations="getActivationsWithFriend(friend.user_id)"
@@ -134,12 +134,7 @@ onMounted(async () => {
 })
 
 const user = useSupabaseUser()
-const emoxy: any = await useEmoxy()
-let friends: any = await useFriends()
-const activations: any = await useActivations()
-const friendsActivations: any = await useFriendsActivations(
-  friends.map((f: any) => f.user_id)
-)
+const db = useDb()
 
 const selectedFriend = ref({
   id: null,
@@ -156,7 +151,7 @@ const connected = ref(false)
 
 const validEmoxyName = computed(() => connectInput.value.trim().length >= 4)
 const busy = computed(() => {
-  return activations.find(
+  return db.value.activations.find(
     (a: any) =>
       a.status === 'accepted' ||
       (a.status === 'created' && a.user_id === user.value?.id)
@@ -180,13 +175,13 @@ function handleBackClick() {
 }
 
 function getActivationsWithFriend(userId: string) {
-  return activations.filter(
+  return db.value.activations.filter(
     (a: any) => a.user_id === userId || a.friend_id === userId
   )
 }
 
 function isFriendUnavailable(userId: string) {
-  return friendsActivations.find(
+  return db.value.friendsActivations.find(
     (a: any) =>
       (a.user_id === userId || a.friend_id === userId) &&
       a.status === 'accepted'
@@ -196,7 +191,7 @@ function isFriendUnavailable(userId: string) {
 }
 
 function isFriendBusy(userId: string) {
-  return friendsActivations.find(
+  return db.value.friendsActivations.find(
     (a: any) =>
       (a.user_id === userId || a.friend_id === userId) &&
       a.status === 'accepted' &&
@@ -218,13 +213,13 @@ function handleShareClick() {
     navigator.share({
       title: 'Emotional Futures Invitation',
       text: "Hey, I'm playing the Emotional Futures game and would like to invite you to join me in growing my Emoxy. Follow the link to learn more and accept this invitation.",
-      url: `${useRuntimeConfig().baseURL}/api/connect/${emoxy.id}`
+      url: `${useRuntimeConfig().baseURL}/api/connect/${db.value.emoxy.id}`
     })
   } else {
     alert(
       `Hey, I'm playing the Emotional Futures game and would like to invite you to join me in growing my Emoxy. Follow the link to learn more and accept this invitation. ${
         useRuntimeConfig().baseURL
-      }/api/connect/${emoxy.id}`
+      }/api/connect/${db.value.emoxy.id}`
     )
   }
 }
@@ -239,7 +234,6 @@ async function handleConnectClick() {
     error.value = true
     connectInput.value = ''
   } else {
-    friends = await useFriends()
     connected.value = true
     setTimeout(() => {
       step.value = 0

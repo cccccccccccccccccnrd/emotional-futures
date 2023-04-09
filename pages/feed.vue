@@ -21,13 +21,13 @@
       <div
         class="flex flex-col items-center justify-start mt-5 overflow-y-scroll"
       >
-        <div v-if="friends.length === 0">
+        <div v-if="db.friends.length === 0">
           <p class="text-center">You have no Accounterparts in your Emotional Futures Network yet. Please Connect with an Accounterpart to proceed.</p>
           <Btn @click="navigateTo('/accounterparts?connect=true')" class="mt-5">Connect Accounterpart</Btn>
         </div>
-        <div v-if="friends.length > 0" class="w-full flex flex-col gap-2">
+        <div v-if="db.friends.length > 0" class="w-full flex flex-col gap-2">
           <LiAccounterpart
-            v-for="friend in friends"
+            v-for="friend in db.friends"
             @click="
               isFriendUnavailable(friend.user_id)
                 ? null
@@ -44,8 +44,8 @@
     </div>
     <div v-if="step === 0" class="flex flex-col justify-center items-center mt-5">
       <Btn
-        @click="selectedFriend.id ? step = 1 : null"
-        :disabled="selectedFriend.id ? false : true"
+        @click="selectedFriend ? step = 1 : null"
+        :disabled="selectedFriend ? false : true"
         >Confirm Accounterpart</Btn
       >
     </div>
@@ -135,29 +135,24 @@
 </template>
 
 <script setup lang="ts">
+import { Emoxy } from '~/types/futures'
+
 definePageMeta({
   middleware: 'auth'
 })
 
-const overlay = useOverlay()
 const user = useSupabaseUser()
-const friends: any = await useFriends()
+const db = useDb()
+
+const overlay = useOverlay()
 const emotions: any = await useEmotions()
 const relationshapes: any = await useRelationshapes()
-const activations: any = await useActivations()
 const activation: any = ref(null)
-const friendsActivations: any = await useFriendsActivations(
-  friends.map((f: any) => f.user_id)
-)
 
 const step = ref(0)
 const confirmed = ref(false)
 
-const selectedFriend = ref({
-  id: null,
-  name: null,
-  user_id: null
-})
+const selectedFriend = ref<Emoxy>()
 const selectedEmotion = ref({
   id: null,
   name: null,
@@ -175,7 +170,7 @@ const loading = ref(false)
 onMounted(async () => {
   const route = useRoute()
   if (route.query.accounterpart) {
-    const f = friends.find(
+    const f = db.value.friends.find(
       (f: any) => f.id === route.query.accounterpart
     )
 
@@ -185,9 +180,9 @@ onMounted(async () => {
     }
   }
 
-  if (activations.length === 0) return
+  if (db.value.activations.length === 0) return
 
-  const latest = activations[0]
+  const latest = db.value.activations[0]
   if (
     (latest.status === 'created' && latest.user_id === user.value?.id) ||
     latest.status === 'accepted'
@@ -197,7 +192,7 @@ onMounted(async () => {
 })
 
 function isFriendUnavailable(userId: string) {
-  return friendsActivations.find(
+  return db.value.friendsActivations.find(
     (a: any) =>
       (a.user_id === userId || a.friend_id === userId) &&
       a.status === 'accepted'
@@ -207,14 +202,14 @@ function isFriendUnavailable(userId: string) {
 }
 
 function getActivationsWithFriend(userId: string) {
-  return activations.filter(
+  return db.value.activations.filter(
     (a: any) => a.user_id === userId || a.friend_id === userId
   )
 }
 
 async function handleConfirmClick() {
   if (
-    selectedFriend.value.user_id &&
+    selectedFriend.value?.user_id &&
     selectedEmotion.value.id &&
     selectedRelationshape.value.id &&
     !confirmed.value
