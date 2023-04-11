@@ -18,13 +18,13 @@ export default defineEventHandler(async event => {
 
   const body = await readBody(event)
 
-  if (await hasAcceptedActivation(event)) {
+  /* if (await hasAcceptedActivation(event)) {
     throw createError({
       statusCode: 403,
       name: 'Forbidden',
       message: 'nah, ur playin'
     })
-  }
+  } */
 
   const { data, error } = await createActivation(
     event,

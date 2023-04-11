@@ -85,12 +85,12 @@
         <Icon type="heart" size="m" invert />
       </Btn>
       <Btn
-        @click="navigateTo('/emotions')"
+        @click="navigateTo('/activations')"
         type="dark"
         padding="1"
         class="pointer-events-auto"
       >
-        <Icon type="emotions" size="m" />
+        <Icon type="activation" size="m" />
       </Btn>
     </div>
     <div class="absolute top-0 left-0 h-full w-full z-[-5]">

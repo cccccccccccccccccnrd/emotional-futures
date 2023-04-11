@@ -6,7 +6,7 @@
       <div>
         <Icon
           type="arrow-l"
-          @click="step === 0 ? navigateTo('/emoxy') : step--"
+          @click="step === 0 ? router.back() : step--"
         />
       </div>
       <div>
@@ -177,6 +177,7 @@ definePageMeta({
 
 const db = useDb()
 
+const router = useRouter()
 const overlay = useOverlay()
 const emotions: any = await useEmotions()
 const relationshapes: any = await useRelationshapes()

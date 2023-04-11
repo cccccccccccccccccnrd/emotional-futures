@@ -197,7 +197,7 @@
   <div class="h-full w-full p-safe flex flex-col">
     <div class="flex justify-between items-center">
       <div>
-        <Icon @click="navigateTo('/emoxy')" type="arrow-l" />
+        <Icon @click="router.back()" type="arrow-l" />
       </div>
       <div>
         <Icon
@@ -344,6 +344,7 @@ definePageMeta({
 })
 
 const route = useRoute()
+const router = useRouter()
 
 const user = useSupabaseUser()
 const db = useDb()

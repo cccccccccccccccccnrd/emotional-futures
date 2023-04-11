@@ -38,9 +38,6 @@
       <div class="w-full mt-5">
         <Btn
           @click="navigateTo(`/feed?accounterpart=${selectedFriend.id}`)"
-          :disabled="
-            busy || isFriendUnavailable(String(selectedFriend.user_id))
-          "
           >Initiate New Activation</Btn
         >
       </div>
@@ -110,8 +107,8 @@
       <Btn @click="navigateTo('/emoxy')" type="dark" padding="1">
         <Icon type="heart" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/emotions')" type="dark" padding="1">
-        <Icon type="emotions" size="m" />
+      <Btn @click="navigateTo('/activations')" type="dark" padding="1">
+        <Icon type="activation" size="m" />
       </Btn>
     </div>
   </div>

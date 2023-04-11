@@ -9,12 +9,13 @@
         {{ name }}
       </div>
         <small v-if="busy">is playing with you</small>
-        <small v-if="invited">awaiting confirmation</small>
+        <small v-if="invited && !unavailable">awaiting confirmation</small>
         <small v-if="unavailable && !busy">is in another activation</small>
     </div>
     <div
-      v-if="activations.length > 0 && !selected && !invitation"
+      v-if="activations.length > 0 && !selected"
       class="flex justify-center items-center h-6 w-6 border-2 border-white-20 font-bold"
+      :class="invitation ? 'border-red' : ''"
     >
       {{ activations?.length }}
     </div>
@@ -23,12 +24,6 @@
       class="flex justify-center items-center h-6 px-2 border-2 border-white-20 font-bold"
     >
       New
-    </div>
-    <div
-      v-if="invitation"
-      class="flex justify-center items-center h-6 px-2 border-2 border-red font-bold"
-    >
-      New Invite
     </div>
     <div v-if="selected">
       <Icon type="check" />
