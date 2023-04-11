@@ -97,6 +97,7 @@
               :unavailable="isFriendUnavailable(friend.user_id)"
               :busy="isFriendBusy(friend.user_id)"
               :invitation="hasInvitation(friend.user_id)"
+              :invited="isFriendInvited(friend.user_id)"
             />
           </div>
         </div>
@@ -178,6 +179,16 @@ function getActivationsWithFriend(userId: string) {
   return db.value.activations.filter(
     (a: any) => a.user_id === userId || a.friend_id === userId
   )
+}
+
+function isFriendInvited(userId: string) {
+  return db.value.activations.find(
+    (a: any) =>
+      (a.friend_id === userId) &&
+      a.status === 'created'
+  )
+    ? true
+    : false
 }
 
 function isFriendUnavailable(userId: string) {

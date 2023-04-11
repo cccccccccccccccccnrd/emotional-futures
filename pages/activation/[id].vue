@@ -227,6 +227,7 @@
         v-if="activation?.friend_id === user?.id"
         @click="handleAcceptClick"
         style="filter: drop-shadow(black 0 0 0)"
+        :disabled="isFriendUnavailable(activation.user_id)"
         >{{ loading ? 'Accepting...' : 'Accept' }}</Btn
       >
     </div>
@@ -509,6 +510,16 @@ function setActivation(a: any) {
   )
 }
 
+function isFriendUnavailable(userId: string) {
+  return db.value.friendsActivations.find(
+    (a: any) =>
+      (a.user_id === userId || a.friend_id === userId) &&
+      a.status === 'accepted'
+  )
+    ? true
+    : false
+}
+
 async function handleAccountClick(a: any) {
   selectedAccount.value = a
   step.value = 5
@@ -557,6 +568,8 @@ async function handleFeedClick() {
 }
 
 async function handleAcceptClick() {
+  if (isFriendUnavailable(activation.value.user_id)) return
+
   loading.value = true
   const r = await acceptActivation(activation.value.id)
   loading.value = false

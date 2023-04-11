@@ -8,10 +8,9 @@
       <div>
         {{ name }}
       </div>
-      <div v-if="unavailable || busy">
         <small v-if="busy">is playing with you</small>
-        <small v-else>is in another activation</small>
-      </div>
+        <small v-if="invited">awaiting confirmation</small>
+        <small v-if="unavailable && !busy">is in another activation</small>
     </div>
     <div
       v-if="activations.length > 0 && !selected && !invitation"
@@ -62,6 +61,10 @@ const props = defineProps({
     required: true
   },
   invitation: {
+    type: Boolean,
+    required: false
+  },
+  invited: {
     type: Boolean,
     required: false
   },

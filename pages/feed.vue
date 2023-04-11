@@ -4,16 +4,45 @@
   >
     <div class="flex justify-between items-center">
       <div>
-        <Icon type="arrow-l" @click="step === 0 ? navigateTo('/emoxy') : step--" />
+        <Icon
+          type="arrow-l"
+          @click="step === 0 ? navigateTo('/emoxy') : step--"
+        />
       </div>
       <div>
         <p class="text-sm text-white-50">Feed Emoxy</p>
       </div>
       <div>
-        <Icon v-if="step === 0" type="files" @click="handleOverlayClick('manual', ['accounterparts', 0])"/>
-        <Icon v-if="step === 1" type="files" @click="handleOverlayClick('manual', ['emotions', selectedEmotion.id ? selectedEmotion.id : 0])"/>
-        <Icon v-if="step === 2" type="files" @click="handleOverlayClick('manual', ['relationshapes', selectedRelationshape.id ? selectedRelationshape.id : 0])"/>
-        <Icon v-if="step === 3" type="files" @click="handleOverlayClick('manual', ['accounting', 0])"/>
+        <Icon
+          v-if="step === 0"
+          type="files"
+          @click="handleOverlayClick('manual', ['accounterparts', 0])"
+        />
+        <Icon
+          v-if="step === 1"
+          type="files"
+          @click="
+            handleOverlayClick('manual', [
+              'emotions',
+              selectedEmotion.id ? selectedEmotion.id : 0
+            ])
+          "
+        />
+        <Icon
+          v-if="step === 2"
+          type="files"
+          @click="
+            handleOverlayClick('manual', [
+              'relationshapes',
+              selectedRelationshape.id ? selectedRelationshape.id : 0
+            ])
+          "
+        />
+        <Icon
+          v-if="step === 3"
+          type="files"
+          @click="handleOverlayClick('manual', ['accounting', 0])"
+        />
       </div>
     </div>
     <div v-if="step === 0" class="grow flex flex-col mt-5 overflow-hidden">
@@ -22,29 +51,34 @@
         class="flex flex-col items-center justify-start mt-5 overflow-y-scroll"
       >
         <div v-if="db.friends.length === 0">
-          <p class="text-center">You have no Accounterparts in your Emotional Futures Network yet. Please Connect with an Accounterpart to proceed.</p>
-          <Btn @click="navigateTo('/accounterparts?connect=true')" class="mt-5">Connect Accounterpart</Btn>
+          <p class="text-center">
+            You have no Accounterparts in your Emotional Futures Network yet.
+            Please Connect with an Accounterpart to proceed.
+          </p>
+          <Btn @click="navigateTo('/accounterparts?connect=true')" class="mt-5"
+            >Connect Accounterpart</Btn
+          >
         </div>
         <div v-if="db.friends.length > 0" class="w-full flex flex-col gap-2">
           <LiAccounterpart
             v-for="friend in db.friends"
-            @click="
-              isFriendUnavailable(friend.user_id)
-                ? null
-                : (selectedFriend = friend)
-            "
+            @click="handleFriendClick(friend)"
             :name="friend.name"
             :activations="getActivationsWithFriend(friend.user_id)"
             :selected="selectedFriend?.id === friend.id"
             :unavailable="isFriendUnavailable(friend.user_id)"
-            :disabled="isFriendUnavailable(friend.user_id)"
+            :invited="isFriendInvited(friend.user_id)"
+            :disabled="isFriendUnavailable(friend.user_id) || isFriendInvited(friend.user_id)"
           />
         </div>
       </div>
     </div>
-    <div v-if="step === 0" class="flex flex-col justify-center items-center mt-5">
+    <div
+      v-if="step === 0"
+      class="flex flex-col justify-center items-center mt-5"
+    >
       <Btn
-        @click="selectedFriend ? step = 1 : null"
+        @click="selectedFriend ? (step = 1) : null"
         :disabled="selectedFriend ? false : true"
         >Confirm Accounterpart</Btn
       >
@@ -120,9 +154,9 @@
       v-if="step === 3"
       class="flex flex-col justify-center items-center mt-5"
     >
-      <Btn @click="handleConfirmClick"
-        >{{ loading ? 'Confirming...' : 'Confirm'}}</Btn
-      >
+      <Btn @click="handleConfirmClick">{{
+        loading ? 'Confirming...' : 'Confirm'
+      }}</Btn>
     </div>
   </div>
   <div
@@ -141,7 +175,6 @@ definePageMeta({
   middleware: 'auth'
 })
 
-const user = useSupabaseUser()
 const db = useDb()
 
 const overlay = useOverlay()
@@ -179,17 +212,17 @@ onMounted(async () => {
       step.value = 1
     }
   }
-
-  if (db.value.activations.length === 0) return
-
-  const latest = db.value.activations[0]
-  if (
-    (latest.status === 'created' && latest.user_id === user.value?.id) ||
-    latest.status === 'accepted'
-  ) {
-    navigateTo(`/activation/${latest.id}`)
-  }
 })
+
+function isFriendInvited(userId: string) {
+  return db.value.activations.find(
+    (a: any) =>
+      (a.friend_id === userId) &&
+      a.status === 'created'
+  )
+    ? true
+    : false
+}
 
 function isFriendUnavailable(userId: string) {
   return db.value.friendsActivations.find(
@@ -205,6 +238,11 @@ function getActivationsWithFriend(userId: string) {
   return db.value.activations.filter(
     (a: any) => a.user_id === userId || a.friend_id === userId
   )
+}
+
+function handleFriendClick(friend: Emoxy) {
+  if (isFriendUnavailable(friend.user_id) || isFriendInvited(friend.user_id)) return
+  selectedFriend.value = friend
 }
 
 async function handleConfirmClick() {

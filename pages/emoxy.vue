@@ -95,7 +95,7 @@
     </div>
     <div class="absolute top-0 left-0 h-full w-full z-[-5]">
       <Emoxy
-        :activations="db.activations"
+        :activations="db.activations.filter((a: any) => a.status === 'completed')"
         :emoxy="db.emoxy"
         class="!pointer-events-auto"
       />
@@ -136,8 +136,8 @@ const paused = ref(true)
 const busy = computed(() => {
   return db.value.activations.find(
     (a: any) =>
-      a.status === 'accepted' ||
-      (a.status === 'created' && a.user_id === user.value?.id)
+      a.status === 'accepted' /* ||
+      (a.status === 'created' && a.user_id === user.value?.id) */
   )
 })
 
