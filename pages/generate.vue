@@ -398,6 +398,7 @@
           bst,
           r: rando
         }"
+        :activations="[]"
       />
     </div>
     <div v-if="step === 17 || step === 18" class="w-full flex flex-col gap-2">

@@ -6,8 +6,8 @@
     :orbit-ctrl="{
       enableDamping: true,
       dampingFactor: 0.07,
-      minDistance: 4,
-      maxDistance: 4,
+      minDistance: 2,
+      maxDistance: 10,
       enablePan: false
     }"
     resize
@@ -35,14 +35,7 @@
           <Texture :src="face_src" />
         </BasicMaterial>
       </Plane>
-      <Plane
-        :position="{ x: 0, y: 0, z: -2 }"
-        :scale="{ x: 3.5, y: 3.5, z: 0 }"
-      >
-        <BasicMaterial>
-          <Texture :src="bg" />
-        </BasicMaterial>
-      </Plane>
+
       <GltfModel
         :src="emoxy_src"
         :position="{ x: 0, y: 0, z: 0 }"
@@ -54,6 +47,7 @@
       >
       </GltfModel>
     </Scene>
+
     <EffectComposer>
       <RenderPass />
     </EffectComposer>
@@ -83,9 +77,12 @@ import {
   Vector3,
   AnimationMixer,
   Clock,
-  MeshPhongMaterial,
+  EquirectangularReflectionMapping,
+  EquirectangularRefractionMapping,
   MeshPhysicalMaterial,
-  Mesh
+  Mesh,
+  MeshBasicMaterial,
+  AdditiveBlending
 } from 'three'
 import { ref } from 'vue'
 
@@ -105,10 +102,9 @@ const emoxy_src = ref()
 const face_src = ref()
 const gltfLoader = new GLTFLoader()
 const sceneC = ref()
-const bg = ref()
 
 const props = defineProps<{
-  activations?: Array<Activation>
+  activations: Array<Activation>
   emoxy: Emoxy
 }>()
 
@@ -121,17 +117,16 @@ let activations: any
 activations = props.activations
 
 let emotions_played: Set<number> = new Set()
-
-if (activations === undefined || activations.length === 0) {
+if (activations.length == 0) {
   level = 0
-  last_emotion = 0
+  last_emotion = 1
 } else {
   for (let i = 0; i < activations.length; i++) {
     emotions_played.add(activations[i].type[0])
   }
 
   level = emotions_played.size
-  last_emotion = activations[0].type[0]
+  last_emotion = Number(activations[0].type[0]) - 1 /* 👿👿👿 */
 }
 
 r = props.emoxy.r
@@ -141,17 +136,14 @@ let emoxy_level
 
 level > 4 ? (emoxy_level = 4) : (emoxy_level = level)
 
-// emoxy type selection
 let i = r
 const types = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 let emoxy_type = types[i]
 level <= 1 ? (emoxy_type = 'X') : (emoxy_type = types[i])
 
-/// determine emoxy src path to src prop of the GLTF Comopnent
 const emoxy_src_path = '/emoxy/meshes/' + emoxy_level + emoxy_type + '.glb'
 emoxy_src.value = emoxy_src_path
 
-/// calculate relative BST value
 const b = bst_init[0]
 const s = bst_init[1]
 const t = bst_init[2]
@@ -164,13 +156,8 @@ if (bst_all <= 0) {
 
 let bst_rel = [b / bst_all, s / bst_all, t / bst_all]
 
-/////// color selection
-let m = 2
-let phong_color = colors[m].hex
-
-//calculate shortest distance between relative BST and weight of color
 const closestColor = colors.reduce(
-  (acc: any, color: any) => {
+  (acc, color) => {
     const color_weight = new Vector3(
       color.weight.b,
       color.weight.s,
@@ -186,16 +173,11 @@ const closestColor = colors.reduce(
   [9999999, 0]
 )
 
-m = closestColor[1]
-phong_color = colors[m].hex
+const m = closestColor[1]
+const phong_color = colors[m - 1].hex
 
-/// PBR-Material selection
-let n = 0
-let selected_material = pbr_materials[n].material
-
-//calculate shortest distance between relative BST and weight of material
 const closestMaterial = pbr_materials.reduce(
-  (acc: any, material: any) => {
+  (acc, material) => {
     const material_weight = new Vector3(
       material.weight.b,
       material.weight.s,
@@ -211,10 +193,8 @@ const closestMaterial = pbr_materials.reduce(
   [9999999, 0]
 )
 
-n = closestMaterial[1] - 1 //I started the ID count of the materials at 1 instead of 0 so i have to subtract 1 here
-selected_material = pbr_materials[n].material
-
-///load textures
+const n = closestMaterial[1] - 1
+const selected_material = pbr_materials[n].material
 
 const selected_material_src = '/emoxy/materials/' + selected_material + '/'
 
@@ -251,34 +231,30 @@ let opacity = new TextureLoader().load(
 opacity.wrapS = opacity.wrapT = RepeatWrapping
 opacity.repeat.set(repeat, repeat)
 
+const envTexture = new TextureLoader().load('/emoxy/textures/enviroment.jpg')
+envTexture.mapping = EquirectangularReflectionMapping
+const refractionTexture = envTexture
+refractionTexture.mapping = EquirectangularRefractionMapping
+
 material.value = selected_material_src
 
-//pre-load face
-
-let showPlane: any = ref(false)
+const showPlane: any = ref(false)
 
 let selected_face = last_emotion + 'A'
 face_src.value = '/emoxy/faces/' + selected_face + '.png'
-
-///  Load BG
-bg.value = '/emoxy/textures/water.png'
-
-// while loading
 
 function whileLoading() {
   showPlane.value = false
 }
 
-///// determine Shaders, Animation once GltF has loaded
-/////// READY //////
 function onReady(gltf: any) {
+  Scene.environment = envTexture
+
   const renderer = rendererC.value as RendererPublicInterface
+
   const mesh = gltf.scene.children[0]
 
-  // face selection
   showPlane.value = true
-
-  // face selection
 
   const finetuningSpeed = [
     0.0025, 0.0022, 0.0052, 0.0025, 0.0015, 0.0035, 0.0045, 0.0045
@@ -289,20 +265,14 @@ function onReady(gltf: any) {
     const time = Date.now() * finetuningSpeed[last_emotion]
     let io = Math.cos(time)
     io > 0 ? (face_f = 'A') : (face_f = 'B')
-    const selected_face = last_emotion + face_f
+    selected_face = last_emotion + face_f
     face_src.value = '/emoxy/faces/' + selected_face + '.png'
   })
 
-  /// make plane transparent
   const plane = planeC.value.mesh
   plane.material.transparent = true
 
-  ///// Materials
-
-  //// PBR //////
-
   if (level > 4) {
-    // check if has opacity map and set transparent true if defined
     opacity.image == undefined
       ? (mesh.material.transparent = false)
       : (mesh.material.transparent = true)
@@ -313,22 +283,41 @@ function onReady(gltf: any) {
       metalnessMap: metallic,
       roughnessMap: roughness,
       normalMap: normal
-      // alphaMap: opacity,
-      // envMap: hdr,
     })
-  }
-
-  /// Phong /////
-  else {
-    mesh.material = new MeshPhongMaterial({
+  } else {
+    mesh.material = new MeshBasicMaterial({
       color: phong_color,
-      emissive: 0x000000,
-      specular: 0x111111,
-      shininess: 70.9
+      reflectivity: 1,
+      envMap: refractionTexture,
+      refractionRatio: 0.98
+    })
+
+    const scaleMesh = 1
+
+    const reflectionmesh = mesh.clone()
+    reflectionmesh.scale.set(
+      mesh.scale.x * gltfC.value.scale.x * scaleMesh,
+      mesh.scale.y * gltfC.value.scale.y * scaleMesh,
+      mesh.scale.z * gltfC.value.scale.z * scaleMesh
+    )
+    reflectionmesh.position.set(
+      mesh.position.x * 0.7,
+      mesh.position.y * 0.7,
+      mesh.position.z * 0.7
+    )
+    sceneC.value.scene.add(reflectionmesh)
+
+    reflectionmesh.material = new MeshPhysicalMaterial({
+      color: 0x000000,
+      envMap: envTexture,
+      envMapIntensity: 1,
+      metalness: 0,
+      reflectivity: 0.8,
+      roughness: 0.4,
+      blending: AdditiveBlending,
+      opacity: 1
     })
   }
-
-  ////  SCATTER ///
 
   if (level >= 6) {
     let scatter_amount = bst_all
@@ -339,6 +328,7 @@ function onReady(gltf: any) {
     const scatter_material = new MeshPhysicalMaterial({
       color: phong_color,
       opacity: 0.8,
+
       metalness: 0.42,
       reflectivity: 0.8,
       roughness: 0.5,
@@ -361,37 +351,63 @@ function onReady(gltf: any) {
     })
   }
 
-  // Handling Animation for  Emoxy Level 1
-
   if (level == 1) {
-    gltfC.value.position.y = 0.45
-    gltfC.value.position.x = -0.1
-    gltfC.value.rotation.x = 0.95
-    gltfC.value.rotation.y = 1.3
-    gltfC.value.rotation.z = 3
-
     let morphMesh = gltf.scene.getObjectByName('blob1001')
+    morphMesh.rotation.set(-0.9, 1.3, 1.3)
 
-    // Set-up Material
-
-    morphMesh.material = new MeshPhongMaterial({
+    morphMesh.material = new MeshBasicMaterial({
       color: phong_color,
-      emissive: 0x000000,
-      specular: 0x111111,
-      shininess: 70.9
+      reflectivity: 1,
+      envMap: refractionTexture,
+      refractionRatio: 0.98
     })
 
-    // Set-up Animation
+    const scaleMesh = 1
+
+    const reflectionmesh = morphMesh.clone()
+    reflectionmesh.scale.set(
+      morphMesh.scale.x * gltfC.value.scale.x * scaleMesh,
+      morphMesh.scale.y * gltfC.value.scale.y * scaleMesh,
+      morphMesh.scale.z * gltfC.value.scale.z * scaleMesh
+    )
+    reflectionmesh.position.set(
+      morphMesh.position.x * 0.7,
+      morphMesh.position.y * 0.7,
+      morphMesh.position.z * 0.7
+    )
+
+    sceneC.value.scene.add(reflectionmesh)
+
+    reflectionmesh.material = new MeshPhysicalMaterial({
+      color: 0x000000,
+      envMap: envTexture,
+      envMapIntensity: 1,
+      metalness: 0,
+      reflectivity: 0.8,
+      roughness: 0.4,
+      blending: AdditiveBlending,
+      opacity: 1
+    })
 
     const clip = gltf.animations[0]
-    let mixer = new AnimationMixer(morphMesh)
+
+    let mixer = new AnimationMixer(reflectionmesh)
+    let mixer2 = new AnimationMixer(morphMesh)
+
     let morphAction = mixer.clipAction(clip)
+    let morphAction2 = mixer2.clipAction(clip)
 
     morphAction.setLoop(LoopPingPong, Infinity)
     morphAction.play()
+    morphAction2.setLoop(LoopPingPong, Infinity)
+    morphAction2.play()
+
+    let mixers: any = []
+    mixers.push(mixer, mixer2)
 
     renderer.onBeforeRender(() => {
-      if (mixer) mixer.update(clock.getDelta() * 2.3)
+      const delta = clock.getDelta() * 2.3
+      for (const mixer of mixers) mixer.update(delta)
     })
   }
 
@@ -419,6 +435,7 @@ function resample(
   scatter_geo.scale(scatter_scale, scatter_scale, scatter_scale)
 
   const scatter = new InstancedMesh(scatter_geo, Material, count)
+
   const dummy = new Object3D()
 
   const ages = new Float32Array(count)
@@ -434,7 +451,6 @@ function resample(
     return Math.abs(easeOutCubic((t > 0.5 ? 1 - t : t) * 2))
   }
 
-  const vertexCount = surface.geometry.getAttribute('position').count
   const sampler = new MeshSurfaceSampler(surface).build()
 
   for (let i = 0; i < count; i++) {
