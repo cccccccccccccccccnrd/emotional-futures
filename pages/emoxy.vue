@@ -117,16 +117,15 @@ useHead({
   style: [{ children: '* { pointer-events: none; }' }]
 })
 
-const route = useRoute()
-if (route.query.init) {
-  await initDb()
-}
-
 onUnmounted(() => {
   audio.value.pause()
 })
 
 const db = useDb()
+
+if (!db.value.init) {
+  await initDb()
+}
 
 const user = useSupabaseUser()
 const overlay = useOverlay()

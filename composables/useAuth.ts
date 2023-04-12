@@ -120,7 +120,38 @@ export async function logout () {
 
   if (error) {
     console.log(error.message)
+    return error
   } else {
     navigateTo('/')
+  }
+}
+
+export async function resetPassword (email: string) {
+  const client = useSupabaseClient()
+
+  const { data, error } = await client.auth.resetPasswordForEmail(email, {
+    redirectTo: `${useRuntimeConfig().baseURL}/reset`
+  })
+
+  if (error) {
+    console.log(error.message)
+    return error
+  } else {
+    return data
+  }
+}
+
+export async function updatePassword (password: string) {
+  const client = useSupabaseClient()
+
+  const { data, error } = await client.auth.updateUser({
+    password
+  })
+
+  if (error) {
+    console.log(error.message)
+    return error
+  } else {
+    return data
   }
 }

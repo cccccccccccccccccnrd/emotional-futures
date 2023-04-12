@@ -7,6 +7,7 @@
         :src="`/imgs/emotions/drop-${emotion.id}.png`"
         :class="!availableEmotions.find((e: any) => e.id === emotion.id) ? '!grayscale' : ''"
         :style="emotionsValue.id === emotion.id ? 'filter: drop-shadow(0 -0.2rem 0.5rem rgba(255, 255, 255, 1)' : 'filter: brightness(0.6)'"
+        class="pointer-events-auto"
       />
     </div>
   </div>

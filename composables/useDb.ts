@@ -6,7 +6,8 @@ export const useDb = () =>
       emoxy: {} as Emoxy,
       friends: [] as Array<Emoxy>,
       activations: [] as Array<Activation>,
-      friendsActivations: [] as Array<Activation>
+      friendsActivations: [] as Array<Activation>,
+      init: false
     }
   })
 
@@ -16,6 +17,7 @@ const client: any = useSupabaseClient()
 
 export async function initDb () {
   if (!user?.value?.id) return
+  if (db.value.init) return
 
   db.value.emoxy = await fetchEmoxy()
   db.value.activations = await fetchActivations()
@@ -75,6 +77,8 @@ export async function initDb () {
       handlefriendsActivationsChanges
     )
     .subscribe()
+
+    db.value.init = true
 }
 
 async function handlefriendsActivationsChanges (payload: any) {
@@ -90,6 +94,7 @@ async function handlefriendsActivationsChanges (payload: any) {
 }
 
 async function handleActivationsChanges (payload: any) {
+  console.log('activations change')
   if (payload.eventType === 'INSERT') {
     db.value.activations = [payload.new, ...db.value.activations]
   } else if (payload.eventType === 'UPDATE') {

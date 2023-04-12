@@ -1,15 +1,18 @@
 <template>
   <div
     class="absolute h-full w-full p-safe flex flex-col items-center bg-dark-50 backdrop-blur-md z-[10]"
-    v-if="step === 5"
+    v-if="step === 5 || step === 6"
   >
     <div class="flex w-full justify-between items-center">
       <div>
-        <Icon @click="step = step = 0" type="arrow-l" />
+        <Icon @click="step === 5 ? (step = 0) : step--" type="arrow-l" />
       </div>
       <div></div>
     </div>
-    <div v-if="step === 5" class="grow flex flex-col justify-between mt-5">
+    <div
+      v-if="step === 5"
+      class="grow w-full flex flex-col justify-between mt-5"
+    >
       <p class="text-lg font-bold text-center">Keep Feeding My Emoxy</p>
       <div class="flex flex-col gap-2">
         <div
@@ -37,10 +40,55 @@
           :disabled="!validEmail || !validPassword"
           >{{ loading ? 'Fetching...' : 'Login' }}</Btn
         >
-        <p class="text-xs text-center px-5">
-          By keep feeding your Emoxy you agree with
-          <span class="underline">Emotional Futures Terms and Conditions</span>
+        <p
+          @click="step = 6"
+          class="text-sm text-center underline font-bold mt-3"
+        >
+          Forgot Password?
         </p>
+      </div>
+      <div>
+        <div class="flex gap-5 justify-center items-center mt-5">
+          <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
+          <img src="/imgs/logos/las.png" class="h-5 w-auto" />
+        </div>
+        <p @click="step = 1" class="text-xs text-center underline mt-5">
+          Data Privacy
+        </p>
+      </div>
+    </div>
+    <div
+      v-if="step === 6"
+      class="grow w-full flex flex-col justify-between mt-5"
+    >
+      <p class="text-lg font-bold text-center">Reset Password</p>
+      <div class="flex flex-col gap-2">
+        <div
+          class="p-2 bg-dark-90"
+          :class="error ? 'opacity-100' : 'opacity-0'"
+        >
+          <p class="text-xs">
+            {{ error || 'Error' }}
+          </p>
+        </div>
+        <div v-if="sent">
+          <p class="text-center">
+            If the e-mail you typed is registered with Emotional Futures you
+            will receive a link to reset your password shortly.
+          </p>
+        </div>
+        <div v-else class="flex flex-col gap-2">
+          <InputText
+            v-model="email"
+            @keyup.enter.native="handleResetClick"
+            placeholder="Type your E-mail"
+            type="email"
+            focus
+          />
+          <Btn @click="handleResetClick" :disabled="!validEmail"
+            >Get Link to Reset Password</Btn
+          >
+        </div>
       </div>
       <div>
         <div class="flex gap-5 justify-center items-center mt-5">
@@ -68,7 +116,7 @@
           : 'justify-center'
       "
     >
-      <div v-if="step === 0 || step === 5" class="w-full">
+      <div v-if="step === 0 || step === 5 || step === 6" class="w-full">
         <div class="p-2 bg-dark-90 opacity-0">
           <p class="text-xs">
             {{ error || 'Error' }}
@@ -179,7 +227,7 @@
       </div>
     </div>
     <div class="flex flex-col justify-center text-center font-bold p-safe">
-      <div v-if="step === 0 || step === 5">
+      <div v-if="step === 0 || step === 5 || step === 6">
         <p @click="step = 1" class="underline">What is this game about?</p>
         <div class="flex gap-5 justify-center items-center mt-5">
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
@@ -209,7 +257,7 @@ const user = useSupabaseUser()
 
 watch(user, () => {
   if (user.value) {
-    navigateTo('/emoxy?init=true')
+    navigateTo('/emoxy')
   }
 })
 
@@ -217,11 +265,13 @@ const step = ref(0)
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
+const sent = ref(false)
 const error = ref('')
 
 const validPassword = computed(() => {
   return password.value.length >= 8
 })
+
 const validEmail = computed(() => {
   return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email.value)
 })
@@ -240,6 +290,12 @@ async function handleSignInClick () {
   } else {
     loading.value = false
   }
+}
+
+async function handleResetClick () {
+  sent.value = true
+  await resetPassword(email.value)
+  email.value = ''
 }
 
 async function handleSignInWithMagic () {
