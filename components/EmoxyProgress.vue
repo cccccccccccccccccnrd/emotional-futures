@@ -13,8 +13,7 @@
         </div>
       </div>
     </div>
-    <p v-if="level === 0" class="text-sm mt-3">Collect 100 Drops to grow your Emoxy by playing Activations.</p>
-    <p v-if="level !== 0" class="text-sm mt-3">Collect {{ left }} Drops to grow your Emoxy by playing Activations.</p>
+    <p class="text-sm mt-3">Collect {{ left }} Drops to grow your Emoxy by playing Activations.</p>
     <div class="w-full h-2 bg-white-20 rounded-full mt-3 overflow-hidden">
       <div class="h-full bg-white-100 rounded-full" :style="`width: ${percent}%;`"></div>
     </div>
