@@ -145,7 +145,10 @@
       </div>
     </div>
     <div v-if="step === 6" class="grow flex flex-col">
-      <p class="text-lg text-center font-bold mt-5">The Sweat You Gave</p>
+      <p class="text-lg text-center font-bold mt-5">Sweat</p>
+      <p class="text-sm text-center mt-2">
+        Measure your emotional input<br /><span class="opacity-0">o</span>
+      </p>
       <div class="grow flex justify-center items-center mt-5 px-10">
         <InputDrop v-model="sweat" type="sweat" />
       </div>
@@ -156,7 +159,11 @@
       </div>
     </div>
     <div v-if="step === 7" class="grow flex flex-col">
-      <p class="text-lg text-center font-bold mt-5">The Tears You Received</p>
+      <p class="text-lg text-center font-bold mt-5">Tears</p>
+      <p class="text-sm text-center mt-2">
+        Measure your Accounterpart's<br />
+        emotional input
+      </p>
       <div class="grow flex justify-center items-center mt-5 px-10">
         <InputDrop v-model="tears" type="tears" />
       </div>
@@ -167,15 +174,19 @@
       </div>
     </div>
     <div v-if="step === 10" class="grow flex flex-col">
-      <p class="text-lg text-center font-bold mt-5">Accounting Results</p>
-      <div class="grow flex flex-col gap-2 justify-center items-center mt-5">
+      <p class="text-lg text-center font-bold mt-5">New Account Balance</p>
+      <EmoxyProgress :results="results" class="mt-5" />
+      <div class="grow flex flex-col gap-2 justify-center items-center">
+        <p class="font-bold capitalize">
+          {{ selectedEmotion.name }} {{ selectedRelationshape.name }} Activation
+        </p>
         <div
           v-for="(r, i) in [results[1], results[2], results[0]]"
-          class="w-full flex justify-between items-center font-bold p-safe bg-dark-50 backdrop-blur-md border-2 border-white-50"
+          class="w-full flex justify-between items-center font-bold p-5 bg-dark-50 backdrop-blur-md border-2 border-white-50"
         >
-          <p v-if="i === 0">You gave Sweat</p>
-          <p v-if="i === 1">You received Tears</p>
-          <p v-if="i === 2">You gained Blood</p>
+          <p v-if="i === 0" class="text-sm">You gave Sweat</p>
+          <p v-if="i === 1" class="text-sm">You received Tears</p>
+          <p v-if="i === 2" class="text-sm">You gained Blood</p>
           <div class="flex gap-2 items-center">
             {{ r }}
             <img

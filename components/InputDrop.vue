@@ -1,7 +1,6 @@
 <template>
-  <div class="h-full w-full max-h-[250px]">
+  <div class="h-full w-full max-h-[270px]">
     <div class="relative h-full max-h-[200px] flex justify-center items-center">
-      <p class="absolute text-xl z-[10]">{{ amount }}</p>
       <img
         :src="`/imgs/drop-${type}.png`"
         :style="`transform: scale(${Number(amount) / 10})`"
@@ -12,7 +11,7 @@
         class="absolute z-[-10] h-full"
         style="
           filter: drop-shadow(2px 1px 0 white) drop-shadow(-1px -1px 0 white)
-            grayscale(1);
+            grayscale(1); mix-blend-mode: multiply;
         "
       />
     </div>
@@ -24,6 +23,10 @@
       min="1"
       max="10"
     />
+    <div class="flex justify-between mt-1">
+      <p class="text-xs font-bold">Nothing</p>
+      <p class="text-xs font-bold">Everything</p>
+    </div>
   </div>
 </template>
 

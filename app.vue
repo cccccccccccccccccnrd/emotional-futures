@@ -63,7 +63,7 @@ input:focus {
 
 input[type='range'] {
   width: 100%;
-  height: 0.4em;
+  height: 0.5rem;
   background: rgba(255, 255, 255, 0.2);
   border: none;
   border-radius: 100px;
@@ -74,8 +74,8 @@ input[type='range'] {
 input[type='range']::-webkit-slider-thumb,
 input[type='range']::-moz-range-thumb {
   appearance: none;
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 1.2rem;
+  height: 1.2rem;
   background: white;
   border-radius: 100px;
   outline: none;
