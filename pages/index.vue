@@ -123,7 +123,7 @@
           </p>
         </div>
         <Btn @click="navigateTo('/generate')" class="mt-2"
-          >Generate New Emoxy</Btn
+          >Start New Game</Btn
         >
         <Btn @click="step = 5" type="dark" class="mt-2">
           Keep Feeding My Emoxy</Btn
@@ -236,7 +236,7 @@
         <p @click="step = 1" class="text-xs underline mt-5">Data Privacy</p>
       </div>
       <div v-if="step === 1 || step === 2 || step === 3 || step === 4">
-        <Btn @click="navigateTo('/generate')">Generate New Emoxy</Btn>
+        <Btn @click="navigateTo('/generate')">Start New Game</Btn>
         <Btn @click="step = 5" type="dark" class="mt-2"
           >Keep Feeding My Emoxy</Btn
         >

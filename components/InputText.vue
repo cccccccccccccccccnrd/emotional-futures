@@ -1,6 +1,6 @@
 <template>
   <input
-    class="w-full flex justify-center items-center font-bold leading-3 text-white-100 bg-dark-50 border-2 border-white-20 backdrop-blur-md p-1.5 !select-auto focus:bg-white-100 focus:text-dark-80"
+    class="w-full flex justify-center items-center font-bold leading-3 text-white-100 bg-dark-50 border-2 border-white-50 backdrop-blur-md p-2 !select-auto focus:bg-white-100 focus:text-dark-80"
     ref="inputText"
     :type="type ? type : 'text'"
     :placeholder="placeholder"

@@ -101,13 +101,13 @@
       </div>
     </div>
     <div class="flex justify-center items-end gap-2 mt-5">
-      <Btn @click="navigateTo('/accounterparts')" padding="1">
+      <Btn @click="navigateTo('/accounterparts')" padding="1.5">
         <Icon type="accounterparts" size="m" invert />
       </Btn>
-      <Btn @click="navigateTo('/emoxy')" type="dark" padding="1">
+      <Btn @click="navigateTo('/emoxy')" type="dark" padding="1.5">
         <Icon type="heart" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/activations')" type="dark" padding="1">
+      <Btn @click="navigateTo('/activations')" type="dark" padding="1.5">
         <Icon type="activation" size="m" />
       </Btn>
     </div>

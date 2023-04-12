@@ -72,14 +72,14 @@
       <Btn
         @click="navigateTo('/accounterparts')"
         type="dark"
-        padding="1"
+        padding="1.5"
         class="pointer-events-auto"
       >
         <Icon type="accounterparts" size="m" />
       </Btn>
       <Btn
         @click="navigateTo('/emoxy')"
-        padding="1"
+        padding="1.5"
         class="pointer-events-auto"
       >
         <Icon type="heart" size="m" invert />
@@ -87,7 +87,7 @@
       <Btn
         @click="navigateTo('/activations')"
         type="dark"
-        padding="1"
+        padding="1.5"
         class="pointer-events-auto"
       >
         <Icon type="activation" size="m" />

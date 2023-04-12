@@ -6,10 +6,20 @@
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
       <div class="flex w-full gap-2">
-        <Btn :type="completedTab ? '' : 'dark'" :class="completedTab ? '' : '!font-normal'" @click="completedTab = true"
+        <Btn
+          @click="completedTab = true"
+          :type="completedTab ? '' : 'dark'"
+          padding="1"
+          :class="completedTab ? '' : '!font-normal'"
+          class="text-sm"
           >Completed [{{ all.length }}]</Btn
         >
-        <Btn :type="!completedTab ? '' : 'dark'" :class="!completedTab ? '' : '!font-normal'" @click="completedTab = false"
+        <Btn
+          @click="completedTab = false"
+          :type="!completedTab ? '' : 'dark'"
+          padding="1"
+          :class="!completedTab ? '' : '!font-normal'"
+          class="text-sm"
           >Invites [{{ invites.length }}]</Btn
         >
       </div>
@@ -34,17 +44,20 @@
         </div>
       </div>
       <div v-if="!completedTab" class="mt-5">
-        <p class="text-xs text-center">Sometimes you need to wait for your Accounterparts to finish another Activation</p>
+        <p class="text-xs text-center">
+          Sometimes you need to wait for your Accounterparts to finish another
+          Activation
+        </p>
       </div>
     </div>
     <div class="flex justify-center items-end shrink gap-2 mt-5">
-      <Btn @click="navigateTo('/accounterparts')" type="dark" padding="1">
+      <Btn @click="navigateTo('/accounterparts')" type="dark" padding="1.5">
         <Icon type="accounterparts" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/emoxy')" type="dark" padding="1">
+      <Btn @click="navigateTo('/emoxy')" type="dark" padding="1.5">
         <Icon type="heart" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/activations')" padding="1">
+      <Btn @click="navigateTo('/activations')" padding="1.5">
         <Icon type="activation" size="m" invert />
       </Btn>
     </div>
