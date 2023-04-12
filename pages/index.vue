@@ -86,7 +86,7 @@
             focus
           />
           <Btn @click="handleResetClick" :disabled="!validEmail"
-            >Get Link to Reset Password</Btn
+            >{{ loading ? 'Getting Link...' : 'Get Link to Reset Password' }}</Btn
           >
         </div>
       </div>
@@ -293,9 +293,17 @@ async function handleSignInClick () {
 }
 
 async function handleResetClick () {
-  sent.value = true
-  await resetPassword(email.value)
-  email.value = ''
+  error.value = ''
+  loading.value = true
+  const r = await resetPassword(email.value)
+  loading.value = false
+
+  if (r instanceof Error) {
+    error.value = 'Please try again in a minute.'
+  } else {
+    sent.value = true
+    email.value = ''
+  }
 }
 
 async function handleSignInWithMagic () {
