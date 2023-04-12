@@ -15,7 +15,7 @@ const user = useSupabaseUser()
 const client: any = useSupabaseClient()
 
 export async function initDb () {
-  if (!user?.value?.id) return
+  if (!user.value?.id) return
   if (client.getChannels().length > 0) return
   
   db.value.emoxy = await fetchEmoxy()
@@ -38,7 +38,7 @@ export async function initDb () {
         event: '*',
         schema: 'public',
         table: 'emoxies',
-        filter: `user_id=eq.${user?.value?.id}`
+        filter: `user_id=eq.${user.value?.id}`
       },
       handleEmoxiesChanges
     )
@@ -48,7 +48,7 @@ export async function initDb () {
         event: '*',
         schema: 'public',
         table: 'activations',
-        filter: `user_id=eq.${user?.value?.id}`
+        filter: `user_id=eq.${user.value?.id}`
       },
       handleActivationsChanges
     )
@@ -58,7 +58,7 @@ export async function initDb () {
         event: '*',
         schema: 'public',
         table: 'activations',
-        filter: `friend_id=eq.${user?.value?.id}`
+        filter: `friend_id=eq.${user.value?.id}`
       },
       handleActivationsChanges
     )
@@ -70,7 +70,7 @@ export async function initDb () {
         table: 'activations',
         filter: `user_id=in.(${db.value.friends.map((f: any) => f.user_id)})`
       },
-      handlefriendsActivationsChanges
+      handleFriendsActivationsChanges
     )
     .on(
       'postgres_changes',
@@ -80,12 +80,12 @@ export async function initDb () {
         table: 'activations',
         filter: `friend_id=in.(${db.value.friends.map((f: any) => f.user_id)})`
       },
-      handlefriendsActivationsChanges
+      handleFriendsActivationsChanges
     )
     .subscribe()
 }
 
-async function handlefriendsActivationsChanges (payload: any) {
+async function handleFriendsActivationsChanges (payload: any) {
   if (payload.eventType === 'INSERT') {
     db.value.friendsActivations = [payload.new, ...db.value.friendsActivations]
   } else if (payload.eventType === 'UPDATE') {
@@ -98,7 +98,7 @@ async function handlefriendsActivationsChanges (payload: any) {
 }
 
 async function handleActivationsChanges (payload: any) {
-  console.log('activations change')
+  console.log('activations change', payload)
   if (payload.eventType === 'INSERT') {
     db.value.activations = [payload.new, ...db.value.activations]
   } else if (payload.eventType === 'UPDATE') {
@@ -114,7 +114,6 @@ async function handleEmoxiesChanges (payload: any) {
   if (payload.eventType === 'UPDATE') {
     if (db.value.emoxy.friends !== payload.new.friends) {
       db.value.emoxy = payload.new
-      console.log(db.value.emoxy)
       db.value.friends = await fetchFriends()
     } else {
       db.value.emoxy = payload.new

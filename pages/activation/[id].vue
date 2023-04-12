@@ -146,7 +146,7 @@
     </div>
     <div v-if="step === 6" class="grow flex flex-col">
       <p class="text-lg text-center font-bold mt-5">Sweat</p>
-      <p class="text-sm text-center mt-2">
+      <p class="text-center mt-2">
         Measure your emotional input<br /><span class="opacity-0">o</span>
       </p>
       <div class="grow flex justify-center items-center mt-5 px-10">
@@ -160,7 +160,7 @@
     </div>
     <div v-if="step === 7" class="grow flex flex-col">
       <p class="text-lg text-center font-bold mt-5">Tears</p>
-      <p class="text-sm text-center mt-2">
+      <p class="text-center mt-2">
         Measure your Accounterpart's<br />
         emotional input
       </p>

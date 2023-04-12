@@ -1,5 +1,16 @@
 <template>
   <div
+    v-if="created"
+    class="absolute h-full w-full p-safe flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[15]"
+  >
+    <Icon type="check" size="l" />
+    <p class="text-center font-bold mt-5">Activation Created</p>
+    <p class="text-center mt-5">
+      The invite has been <br />
+      sent to {{ selectedFriend?.name }}
+    </p>
+  </div>
+  <div
     class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
   >
     <div class="flex justify-between items-center">
@@ -175,7 +186,8 @@
     </div>
   </div>
   <div
-    class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover p-10"
+    class="h-full w-full flex justify-center items-center bg-cover p-10"
+    :style="created ? `background-image: url('/imgs/emotions/bg-${selectedEmotion.id}.png')` : `background-image: url('/imgs/bg-1.png')`"
   >
     <div class="h-1/2">
       <!-- <Emoxy /> -->
@@ -201,6 +213,7 @@ const activation: any = ref(null)
 
 const step = ref(-1)
 const confirmed = ref(false)
+const created = ref(false)
 
 const selectedFriend = ref<Emoxy>()
 const selectedEmotion = ref({
@@ -294,15 +307,19 @@ async function handleConfirmClick() {
   ) {
     confirmed.value = true
     loading.value = true
+
     activation.value = await createActivation(
       [selectedEmotion.value.id, selectedRelationshape.value.id],
       selectedFriend.value.user_id
     )
+
+    created.value = true
+    loading.value = false
+    confirmed.value = false
+
     setTimeout(() => {
-      loading.value = false
-      confirmed.value = false
       navigateTo(`/activation/${activation.value.id}`)
-    }, 300)
+    }, 3000)
   }
 }
 
@@ -312,5 +329,3 @@ function handleOverlayClick(type: string, page: [string, number]) {
   overlay.value.page = page
 }
 </script>
-
-<style scoped></style>

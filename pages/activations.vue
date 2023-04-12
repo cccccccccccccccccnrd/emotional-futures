@@ -6,10 +6,10 @@
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
       <div class="flex w-full gap-2">
-        <Btn :type="completedTab ? '' : 'dark'" @click="completedTab = true"
+        <Btn :type="completedTab ? '' : 'dark'" :class="completedTab ? '' : '!font-normal'" @click="completedTab = true"
           >Completed [{{ all.length }}]</Btn
         >
-        <Btn :type="!completedTab ? '' : 'dark'" @click="completedTab = false"
+        <Btn :type="!completedTab ? '' : 'dark'" :class="!completedTab ? '' : '!font-normal'" @click="completedTab = false"
           >Invites [{{ invites.length }}]</Btn
         >
       </div>
@@ -28,7 +28,8 @@
             @click="handleInviteClick(a)"
             :activation="a"
             :accounterpart="getAccounterpartFromActivation(a)"
-            :disabled="isFriendUnavailable(a.user_id)"
+            :invitation="a.user_id === user?.id"
+            :disabled="isFriendUnavailable(a)"
           />
         </div>
       </div>
@@ -69,11 +70,11 @@ const all = computed(() =>
   db.value.activations.filter((a: any) => a.status !== 'created')
 )
 const invites = computed(() =>
-  db.value.activations.filter((a: any) => a.status === 'created' && a.friend_id === user.value?.id)
+  db.value.activations.filter((a: any) => a.status === 'created')
 )
 
 function handleInviteClick(a: any) {
-  if (isFriendUnavailable(a.user_id)) return
+  if (isFriendUnavailable(a) && a.user_id !== user.value?.id) return
   navigateTo(`/activation/${a.id}`)
 }
 
@@ -83,7 +84,8 @@ function getAccounterpartFromActivation(a: any) {
   )
 }
 
-function isFriendUnavailable(userId: string) {
+function isFriendUnavailable(a: any) {
+  const userId = a.user_id === user.value?.id ? a.friend_id : a.user_id
   return db.value.friendsActivations.find(
     (a: any) =>
       (a.user_id === userId || a.friend_id === userId) &&

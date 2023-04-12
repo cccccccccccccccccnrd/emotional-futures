@@ -43,7 +43,7 @@ const bst = computed(() => {
 })
 
 const total = computed(() => {
-  return bst.value[0] + bst.value[1] + bst.value[2] + 2000
+  return bst.value[0] + bst.value[1] + bst.value[2]
 })
 
 const level = computed(() => {
