@@ -79,7 +79,7 @@ export async function initDb () {
 
 async function handlefriendsActivationsChanges (payload: any) {
   if (payload.eventType === 'INSERT') {
-    db.value.friendsActivations = [payload.new, ...db.value.activations]
+    db.value.friendsActivations = [payload.new, ...db.value.friendsActivations]
   } else if (payload.eventType === 'UPDATE') {
     const i = db.value.friendsActivations.findIndex((a) => a.id === payload.old.id)
     db.value.friendsActivations[i] = payload.new
