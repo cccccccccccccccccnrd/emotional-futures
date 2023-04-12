@@ -2,7 +2,7 @@
   <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center shrink">
       <p class="text-xl font-bold">Activations</p>
-      <Icon type="plus" @click="navigateTo('/feed')" />
+      <Icon type="plus" @click="navigateTo('/feed?init=true')" />
     </div>
     <div class="flex flex-col grow items-center mt-5 overflow-hidden">
       <div class="flex w-full gap-2">

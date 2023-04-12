@@ -125,7 +125,15 @@
           <Icon v-for="d in relationshape?.id" type="drop-full" />
         </div>
         <div class="px-10 mt-5 flex justify-between items-center">
-          <Icon type="book" />
+          <Icon
+            @click="
+              handleOverlayClick('manual', [
+                'relationshapes',
+                Number(relationshape?.id)
+              ])
+            "
+            type="book"
+          />
           <div>
             <Icon v-if="paused" @click="play()" type="audio" />
             <Icon v-else @click="pause()" type="pause" />
@@ -212,6 +220,7 @@ onUnmounted(() => {
   audio.value.pause()
 })
 
+const overlay = useOverlay()
 const isRevealed = ref(props.isRevealed)
 
 const audio = ref(
@@ -221,7 +230,7 @@ const audio = ref(
 )
 const paused = ref(true)
 
-function play () {
+function play() {
   paused.value = false
   audio.value.play()
   audio.value.loop = true
@@ -239,13 +248,19 @@ function play () {
   }
 }
 
-function pause () {
+function pause() {
   paused.value = true
   audio.value.pause()
 }
 
 function cap(s: string) {
-    return s.charAt(0).toUpperCase() + s.slice(1)
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
+function handleOverlayClick(type: string, page: [string, number]) {
+  overlay.value.isOpen = true
+  overlay.value.type = type
+  overlay.value.page = page
 }
 </script>
 

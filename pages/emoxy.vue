@@ -10,7 +10,7 @@
       <div class="flex justify-between w-full">
         <div
           v-for="(v, i) in db.emoxy.bst"
-          class="flex justify-center flex-grow mt-5"
+          class="flex justify-center flex-grow mt-4"
         >
           <div class="flex gap-1 justify-center items-center">
             <p class="text-lg">{{ v }}</p>

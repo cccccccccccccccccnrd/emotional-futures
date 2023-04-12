@@ -5,45 +5,53 @@
     <div class="flex justify-between items-center">
       <div>
         <Icon
+          v-if="step === -1"
+          @click="handleOverlayClick('manual', ['', 0])"
+          type="files"
+        />
+        <Icon
+          v-if="step !== -1"
+          @click="step--"
           type="arrow-l"
-          @click="step === 0 ? router.back() : step--"
         />
       </div>
       <div>
-        <p class="text-sm text-white-50">Feed Emoxy</p>
+        <p v-if="step === -1" class="text-sm text-white-50">Feed Emoxy</p>
+        <p v-if="step !== -1" class="text-sm text-white-50">
+          Initiate Activation
+        </p>
       </div>
       <div>
+        <Icon v-if="step === -1" @click="router.back()" type="close" />
         <Icon
-          v-if="step === 0"
+          v-if="step !== -1"
           type="files"
-          @click="handleOverlayClick('manual', ['accounterparts', 0])"
-        />
-        <Icon
-          v-if="step === 1"
-          type="files"
-          @click="
-            handleOverlayClick('manual', [
-              'emotions',
-              selectedEmotion.id ? selectedEmotion.id : 0
-            ])
-          "
-        />
-        <Icon
-          v-if="step === 2"
-          type="files"
-          @click="
-            handleOverlayClick('manual', [
-              'relationshapes',
-              selectedRelationshape.id ? selectedRelationshape.id : 0
-            ])
-          "
-        />
-        <Icon
-          v-if="step === 3"
-          type="files"
-          @click="handleOverlayClick('manual', ['accounting', 0])"
+          @click="handleOverlayClick('manual', ['', 0])"
         />
       </div>
+    </div>
+    <div v-if="step === -1" class="grow flex flex-col mt-5 overflow-hidden">
+      <EmoxyProgress />
+      <p class="font-bold mt-5">Activations Invites [{{ invites.length }}]</p>
+      <div class="grow flex flex-col w-full mt-2 overflow-y-scroll">
+        <div class="flex flex-col w-full gap-2">
+          <LiActivation
+            v-for="a in invites"
+            @click="handleInviteClick(a)"
+            :activation="a"
+            :accounterpart="getAccounterpartFromActivation(a)"
+            :disabled="isFriendUnavailable(a.user_id)"
+          />
+        </div>
+      </div>
+      <div class="mt-5">
+        <p class="text-xs text-center">Sometimes you need to wait for your Accounterparts to finish another Activation</p>
+      </div>
+      <Btn
+          @click="step = 0"
+          class="mt-5"
+          >Initiate New Activation</Btn
+        >
     </div>
     <div v-if="step === 0" class="grow flex flex-col mt-5 overflow-hidden">
       <p class="text-lg font-bold text-center">Who will help you?</p>
@@ -68,7 +76,10 @@
             :selected="selectedFriend?.id === friend.id"
             :unavailable="isFriendUnavailable(friend.user_id)"
             :invited="isFriendInvited(friend.user_id)"
-            :disabled="isFriendUnavailable(friend.user_id) || isFriendInvited(friend.user_id)"
+            :disabled="
+              isFriendUnavailable(friend.user_id) ||
+              isFriendInvited(friend.user_id)
+            "
           />
         </div>
       </div>
@@ -175,6 +186,7 @@ definePageMeta({
   middleware: 'auth'
 })
 
+const user = useSupabaseUser()
 const db = useDb()
 
 const router = useRouter()
@@ -183,7 +195,7 @@ const emotions: any = await useEmotions()
 const relationshapes: any = await useRelationshapes()
 const activation: any = ref(null)
 
-const step = ref(0)
+const step = ref(-1)
 const confirmed = ref(false)
 
 const selectedFriend = ref<Emoxy>()
@@ -212,14 +224,20 @@ onMounted(async () => {
       selectedFriend.value = f
       step.value = 1
     }
+  } else if (route.query.init) {
+    step.value = 0
   }
 })
 
+const invites = computed(() =>
+  db.value.activations.filter(
+    (a: any) => a.status === 'created' && a.friend_id === user.value?.id
+  )
+)
+
 function isFriendInvited(userId: string) {
   return db.value.activations.find(
-    (a: any) =>
-      (a.friend_id === userId) &&
-      a.status === 'created'
+    (a: any) => a.friend_id === userId && a.status === 'created'
   )
     ? true
     : false
@@ -241,9 +259,21 @@ function getActivationsWithFriend(userId: string) {
   )
 }
 
+function getAccounterpartFromActivation(a: any) {
+  return db.value.friends.find(
+    (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
+  )
+}
+
 function handleFriendClick(friend: Emoxy) {
-  if (isFriendUnavailable(friend.user_id) || isFriendInvited(friend.user_id)) return
+  if (isFriendUnavailable(friend.user_id) || isFriendInvited(friend.user_id))
+    return
   selectedFriend.value = friend
+}
+
+function handleInviteClick(a: any) {
+  if (isFriendUnavailable(a.user_id)) return
+  navigateTo(`/activation/${a.id}`)
 }
 
 async function handleConfirmClick() {

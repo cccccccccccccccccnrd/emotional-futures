@@ -29,12 +29,12 @@
         <Icon
           v-if="step === 3"
           type="files"
-          @click="handleOverlayClick('manual', ['accounting', 0])"
+          @click="handleOverlayClick('manual', ['', 0])"
         />
         <Icon
           v-if="step === 4"
           type="files"
-          @click="handleOverlayClick('manual', ['relationshapes', Number(selectedRelationshape?.id)])"
+          @click="handleOverlayClick('manual', ['', 0])"
         />
         <Icon
           v-if="step === 5 || step === 6 || step === 7"
@@ -205,7 +205,7 @@
             step === 0 || step === 1 || step === 2 || step === 8 || step === 12
           "
           type="files"
-          @click="handleOverlayClick('manual', ['activations', 0])"
+          @click="handleOverlayClick('manual', ['', 0])"
         />
       </div>
     </div>
@@ -231,7 +231,17 @@
         >{{ loading ? 'Accepting...' : 'Accept' }}</Btn
       >
     </div>
-    <div v-if="step === 2 || step === 3 || step === 4 || step === 5 || step === 6 || step === 7" class="grow flex flex-col">
+    <div
+      v-if="
+        step === 2 ||
+        step === 3 ||
+        step === 4 ||
+        step === 5 ||
+        step === 6 ||
+        step === 7
+      "
+      class="grow flex flex-col"
+    >
       <p class="text-lg font-bold text-center mt-5">Ongoing Activation</p>
       <Activation
         class="mt-5"
@@ -242,7 +252,14 @@
       />
     </div>
     <div
-      v-if="step === 2 || step === 3 || step === 4 || step === 5 || step === 6 || step === 7"
+      v-if="
+        step === 2 ||
+        step === 3 ||
+        step === 4 ||
+        step === 5 ||
+        step === 6 ||
+        step === 7
+      "
       class="flex gap-2 justify-center items-center mt-5"
     >
       <Btn @click="handleTerminateClick" type="dark">Terminate</Btn>
@@ -350,8 +367,8 @@ const user = useSupabaseUser()
 const db = useDb()
 
 const overlay = useOverlay()
-const emotions: any = await useEmotions()
-const relationshapes: any = await useRelationshapes()
+const emotions: any = useEmotions()
+const relationshapes: any = useRelationshapes()
 const activation: any = ref(null)
 
 const step = ref(0)
