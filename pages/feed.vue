@@ -7,7 +7,7 @@
     <p class="text-center font-bold mt-5">Activation Created</p>
     <p class="text-center mt-5">
       The invite has been <br />
-      sent to {{ selectedFriend?.name }}
+      sent to <span class="font-bold">{{ selectedFriend?.name }}</span>
     </p>
   </div>
   <div
