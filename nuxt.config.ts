@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxtjs/supabase',
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/device',
     '@vite-pwa/nuxt'
   ],
   build: {

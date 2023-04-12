@@ -121,13 +121,9 @@ onUnmounted(() => {
   audio.value.pause()
 })
 
+const user = useSupabaseUser()
 const db = useDb()
 
-if (!db.value.init) {
-  await initDb()
-}
-
-const user = useSupabaseUser()
 const overlay = useOverlay()
 const emotions = await useEmotions()
 const paused = ref(true)
@@ -175,12 +171,6 @@ const emoxyLevel = computed(() => {
   const completed = db.value.activations.filter((a: any) => a.status === 'completed')
   const s = new Set(completed.map((a: any) => a.type[0])).size
   return s > 7 ? 7 : s
-})
-
-console.log(`%c𝓔𝓶𝓸𝔁𝔂 __𝓹𝓻𝓸𝓽𝓸__ ${db.value.emoxy.name}`, 'font-size: 20px; color: blue;')
-console.table({
-  level: emoxyLevel.value,
-  activations: db.value.activations.length
 })
 
 const say = computed(() => {

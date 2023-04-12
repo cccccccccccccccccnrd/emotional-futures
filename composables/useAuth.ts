@@ -38,7 +38,6 @@ export async function signInWithMagic (email: string) {
     console.log(error.message)
     return error
   } else {
-    console.log(data)
     return data
   }
 }
@@ -68,7 +67,6 @@ export async function signUpWithPassword (
     console.log(error.message)
     return error
   } else {
-    console.log(data)
     return data
   }
 }
@@ -85,7 +83,6 @@ export async function signInWithPassword (email: string, password: string) {
     console.log(error.message)
     return error
   } else {
-    console.log(data)
     return data
   }
 }
@@ -107,14 +104,13 @@ export async function verifyOtp (
     console.log(error.message)
     return error
   } else {
-    console.log(data)
     return data
   }
 }
 
 export async function logout () {
   const client = useSupabaseClient()
-  console.log('logout')
+  client.removeAllChannels()
 
   const { error } = await client.auth.signOut()
 

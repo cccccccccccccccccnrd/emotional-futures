@@ -9,11 +9,7 @@
           @click="handleOverlayClick('manual', ['', 0])"
           type="files"
         />
-        <Icon
-          v-if="step !== -1"
-          @click="step--"
-          type="arrow-l"
-        />
+        <Icon v-if="step !== -1" @click="step--" type="arrow-l" />
       </div>
       <div>
         <p v-if="step === -1" class="text-sm text-white-50">Feed Emoxy</p>
@@ -45,13 +41,12 @@
         </div>
       </div>
       <div class="mt-5">
-        <p class="text-xs text-center">Sometimes you need to wait for your Accounterparts to finish another Activation</p>
+        <p class="text-xs text-center">
+          Sometimes you need to wait for your Accounterparts to finish another
+          Activation
+        </p>
       </div>
-      <Btn
-          @click="step = 0"
-          class="mt-5"
-          >Initiate New Activation</Btn
-        >
+      <Btn @click="step = 0" class="mt-5">Initiate New Activation</Btn>
     </div>
     <div v-if="step === 0" class="grow flex flex-col mt-5 overflow-hidden">
       <p class="text-lg font-bold text-center">Who will help you?</p>
@@ -118,24 +113,12 @@
       <Emotions v-model="selectedEmotion" :availableEmotions="emotions" />
     </div>
     <div v-if="step === 2" class="grow flex flex-col mt-5">
-      <p
-        v-if="!selectedRelationshape.name"
-        class="text-lg font-bold text-center"
-      >
-        Choose Relationshape
-      </p>
-      <p
-        v-if="selectedRelationshape.name"
-        class="text-lg font-bold text-center capitalize"
-      >
-        {{ selectedRelationshape.name }}
-      </p>
+      <p class="text-lg font-bold text-center">Choose Relationshape</p>
       <div class="w-full h-full grid grid-cols-2 gap-2 mt-5">
         <LiRelationshape
           v-for="relationshape in relationshapes"
-          @click="selectedRelationshape = relationshape"
+          @click="handleRelationshapeClick(relationshape)"
           :relationshape="relationshape"
-          :selected="selectedRelationshape?.id === relationshape.id"
         />
       </div>
     </div>
@@ -143,13 +126,34 @@
       v-if="step === 2"
       class="flex flex-col justify-center items-center mt-5"
     >
+      <Btn disabled>Confirm Relationshape</Btn>
+    </div>
+    <div
+      v-if="step === 3"
+      class="grow flex flex-col items-center overflow-hidden mt-5"
+    >
+      <p class="text-lg font-bold text-center capitalize">
+        {{ selectedRelationshape.name }} Relationshape
+      </p>
+      <LiRelationshape
+        class="max-w-[50%] max-h-[20%] mt-5"
+        :relationshape="selectedRelationshape"
+      />
+      <div class="mt-5 overflow-y-scroll">
+        <div v-html="selectedRelationshape.description"></div>
+      </div>
+    </div>
+    <div
+      v-if="step === 3"
+      class="flex flex-col justify-center items-center mt-5"
+    >
       <Btn
-        @click="selectedRelationshape.id ? (step = 3) : ''"
+        @click="selectedRelationshape.id ? (step = 4) : null"
         :disabled="selectedRelationshape.id ? false : true"
         >Confirm Relationshape</Btn
       >
     </div>
-    <div v-if="step === 3" class="grow flex flex-col mt-5">
+    <div v-if="step === 4" class="grow flex flex-col mt-5">
       <p class="text-lg font-bold text-center">Review Activation Card</p>
       <div class="grow mt-5">
         <Activation
@@ -162,7 +166,7 @@
       </div>
     </div>
     <div
-      v-if="step === 3"
+      v-if="step === 4"
       class="flex flex-col justify-center items-center mt-5"
     >
       <Btn @click="handleConfirmClick">{{
@@ -208,7 +212,7 @@ const selectedEmotion = ref({
 const selectedRelationshape = ref({
   id: null,
   name: null,
-  shape: null,
+  description: '',
   accounting: <any>[]
 })
 const loading = ref(false)
@@ -263,6 +267,11 @@ function getAccounterpartFromActivation(a: any) {
   return db.value.friends.find(
     (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
   )
+}
+
+function handleRelationshapeClick(relationshape: any) {
+  selectedRelationshape.value = relationshape
+  step.value = 3
 }
 
 function handleFriendClick(friend: Emoxy) {

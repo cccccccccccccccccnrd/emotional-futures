@@ -6,8 +6,7 @@ export const useDb = () =>
       emoxy: {} as Emoxy,
       friends: [] as Array<Emoxy>,
       activations: [] as Array<Activation>,
-      friendsActivations: [] as Array<Activation>,
-      init: false
+      friendsActivations: [] as Array<Activation>
     }
   })
 
@@ -17,12 +16,19 @@ const client: any = useSupabaseClient()
 
 export async function initDb () {
   if (!user?.value?.id) return
-  if (db.value.init) return
-
+  if (client.getChannels().length > 0) return
+  
   db.value.emoxy = await fetchEmoxy()
   db.value.activations = await fetchActivations()
   db.value.friends = await fetchFriends()
   db.value.friendsActivations = await fetchFriendsActivations()
+  
+  console.log(`%cfetching 𝓔𝓶𝓸𝓽𝓲𝓸𝓷𝓪𝓵 𝓕𝓾𝓽𝓾𝓻𝓮𝓼 via ${db.value.emoxy.name}`, 'color: blue;')
+  console.table({
+    bst: db.value.emoxy.bst.toString(),
+    activations: db.value.activations.length,
+    accounterparts: db.value.friends.length
+  })
 
   client
     .channel('any')
@@ -77,8 +83,6 @@ export async function initDb () {
       handlefriendsActivationsChanges
     )
     .subscribe()
-
-    db.value.init = true
 }
 
 async function handlefriendsActivationsChanges (payload: any) {

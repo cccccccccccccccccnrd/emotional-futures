@@ -28,21 +28,15 @@
 <script setup lang="ts">
 const nuxtApp = useNuxtApp()
 const loading = ref(false)
+const overlay = useOverlay()
+const { isMobile } = useDevice()
 
-nuxtApp.hook('page:start', () => {
+nuxtApp.hook('page:start', async () => {
   loading.value = true
 })
 nuxtApp.hook('page:finish', () => {
   loading.value = false
 })
-
-await initDb()
-
-const overlay = useOverlay()
-
-const isMobile = navigator.userAgent.match(
-  /(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i
-)
 
 const h = ref(window.innerHeight)
 const sa =
