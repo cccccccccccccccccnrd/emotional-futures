@@ -1,7 +1,8 @@
 <template>
   <div
-    v-if="accepted || terminated"
+    v-if="accepted || terminated || fed"
     class="absolute h-full w-full p-safe flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[15]"
+    :class="fed ? 'bg-red' : ''"
   >
     <div v-if="accepted" class="flex flex-col justify-center items-center">
       <Icon type="check" size="l" />
@@ -10,6 +11,10 @@
     <div v-if="terminated" class="flex flex-col justify-center items-center">
       <Icon type="close" size="l" />
       <p class="font-bold mt-5">Activation Terminated</p>
+    </div>
+    <div v-if="fed" class="flex flex-col justify-center items-center">
+      <Icon type="emotions" size="l" />
+      <p class="font-bold mt-5">Animating {{ [results[1], results[2], results[0]] }}</p>
     </div>
   </div>
   <div
@@ -385,6 +390,7 @@ const activation: any = ref(null)
 const step = ref(0)
 const accepted = ref(false)
 const terminated = ref(false)
+const fed = ref(false)
 const loading = ref(false)
 
 const selectedFriend = ref<Emoxy>()
@@ -597,7 +603,11 @@ async function handleFeedClick() {
   if (!a) return
 
   setActivation(a)
-  navigateTo('/emoxy?animation=true')
+  fed.value = true
+
+  setTimeout(() => {
+    navigateTo('/emoxy?animation=true')
+  }, 5000)
 }
 
 async function handleAcceptClick() {
