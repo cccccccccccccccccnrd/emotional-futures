@@ -14,7 +14,7 @@
   >
     <div class="flex justify-between items-center shrink">
       <Icon v-if="step === 1" @click="handleBackClick" type="arrow-l" />
-      <Icon v-if="step === 1" type="files" />
+      <Icon v-if="step === 1" @click="handleOverlayClick('manual', ['', 0])" type="files" />
       <div v-if="step === 2"></div>
       <Icon v-if="step === 2" @click="step = 0" type="close" />
     </div>
@@ -147,6 +147,7 @@ const connectInput = ref('')
 const error = ref(false)
 const loading = ref(false)
 const connected = ref(false)
+const overlay = useOverlay()
 
 const validEmoxyName = computed(() => connectInput.value.trim().length >= 4)
 const busy = computed(() => {
@@ -254,5 +255,11 @@ async function handleConnectClick() {
       connected.value = false
     }, 2500)
   }
+}
+
+function handleOverlayClick(type: string, page: [string, number]) {
+  overlay.value.isOpen = true
+  overlay.value.type = type
+  overlay.value.page = page
 }
 </script>
