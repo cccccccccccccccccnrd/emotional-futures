@@ -42,7 +42,7 @@ nuxtApp.hook('page:finish', () => {
 
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
-    initDb()
+    initDb(true)
   }
 })
 
