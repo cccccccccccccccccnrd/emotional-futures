@@ -13,10 +13,10 @@
         </div>
       </div>
     </div>
-    <p v-if="isLevelUp || left === -1" class="text-sm mt-3">You collected enough Drops to grow your Emoxy.</p>
-    <p v-else-if="results" class="text-sm mt-3">Still {{ left }} Drop{{ left > 1 ? 's' : '' }} to grow your Emoxy.</p>
-    <p v-else class="text-sm mt-3">Collect {{ left }} Drop{{ left > 1 ? 's' : '' }} to grow your Emoxy by playing Activations.</p>
-    <div class="w-full h-2 bg-white-20 rounded-full mt-3 overflow-hidden">
+    <p v-if="isLevelUp || left === -1" class="mt-5">You collected enough Drops to grow your Emoxy.</p>
+    <p v-else-if="results" class="mt-5">Still {{ left }} Drop{{ left > 1 ? 's' : '' }} to grow your Emoxy.</p>
+    <p v-else class="mt-5">Collect {{ left }} Drop{{ left > 1 ? 's' : '' }} to grow your Emoxy by playing Activations.</p>
+    <div class="w-full h-2 bg-white-20 rounded-full mt-5 overflow-hidden">
       <div class="h-full bg-white-100 rounded-full" :style="isLevelUp ? 'width: 100%;' : `width: ${percent}%;`"></div>
     </div>
   </div>

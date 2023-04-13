@@ -26,7 +26,7 @@
             : ''
         "
       >
-        <p v-if="activationsByEmotion.length > 0" class="text-xs text-center">
+        <p v-if="activationsByEmotion.length > 0" class="text-sm text-center">
           You have played {{ activationsByEmotion.length }} Activation{{
             activationsByEmotion.length > 1 ? 's' : ''
           }}
@@ -51,13 +51,13 @@
       </div>
     </div>
     <div class="flex justify-center items-end shrink gap-2 mt-5">
-      <Btn @click="navigateTo('/accounterparts')" type="dark" padding="1">
+      <Btn @click="navigateTo('/accounterparts')" type="dark" padding="1.5">
         <Icon type="accounterparts" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/emoxy')" type="dark" padding="1">
+      <Btn @click="navigateTo('/emoxy')" type="dark" padding="1.5">
         <Icon type="heart" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/emotions')" padding="1">
+      <Btn @click="navigateTo('/emotions')" padding="1.5">
         <Icon type="emotions" size="m" invert />
       </Btn>
     </div>

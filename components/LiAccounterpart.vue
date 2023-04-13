@@ -6,11 +6,10 @@
   >
     <div class="flex flex-col">
       <div>
-        {{ name }}
+        <p :class="busy || unavailable ? 'text-sm' : ''">{{ name }}</p>
       </div>
-        <small v-if="busy">is playing with you</small>
-        <small v-if="invited && !unavailable">awaiting confirmation</small>
-        <small v-if="unavailable && !busy">is in another activation</small>
+      <p v-if="busy" class="text-sm">is playing with you</p>
+      <p v-else-if="unavailable" class="text-sm">is in another activation</p>
     </div>
     <div
       v-if="activations.length > 0 && !selected"

@@ -493,11 +493,11 @@ const questions = [
   [
     {
       text: 'Most of my relationships are toxic',
-      values: [3, 0]
+      values: [0, 3]
     },
     {
       text: 'Most of my relationships are not toxic',
-      values: [0, 3]
+      values: [3, 0]
     }
   ],
   [
@@ -513,21 +513,21 @@ const questions = [
   [
     {
       text: 'I spend more time doing things for my friends',
-      values: [0, 3]
+      values: [3, 0]
     },
     {
       text: 'I spend more time doing things for myself',
-      values: [3, 0]
+      values: [0, 3]
     }
   ],
   [
     {
       text: "I generally talk more about my friend's problems",
-      values: [1, 2]
+      values: [2, 1]
     },
     {
       text: 'I try to focus on my own problems',
-      values: [2, 1]
+      values: [1, 2]
     }
   ],
   [

@@ -27,11 +27,9 @@
         <div class="flex flex-col gap-2">
           <LiActivation
             v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
-            @click="navigateTo(`/activation/${a.id}`)"
+            @click="handleActivationClick(a)"
             :activation="a"
-            :invitation="
-              a.status === 'created' && a.user_id === selectedFriend?.user_id
-            "
+            :friendUnavailable="isFriendUnavailable(selectedFriend?.user_id)"
           />
         </div>
       </div>
@@ -107,8 +105,8 @@
       <Btn @click="navigateTo('/emoxy')" type="dark" padding="1.5">
         <Icon type="heart" size="m" />
       </Btn>
-      <Btn @click="navigateTo('/activations')" type="dark" padding="1.5">
-        <Icon type="activation" size="m" />
+      <Btn @click="navigateTo('/emotions')" type="dark" padding="1.5">
+        <Icon type="emotions" size="m" />
       </Btn>
     </div>
   </div>
@@ -157,6 +155,11 @@ const busy = computed(() => {
     ? true
     : false
 })
+
+function handleActivationClick(a: any) {
+  if (isFriendUnavailable(selectedFriend.value?.user_id) && a.status === 'created') return
+  navigateTo(`/activation/${a.id}`)
+}
 
 function handleFriendClick(friend: any) {
   selectedFriend.value = friend

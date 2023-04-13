@@ -38,7 +38,6 @@
             @click="handleInviteClick(a)"
             :activation="a"
             :accounterpart="getAccounterpartFromActivation(a)"
-            :invitation="a.user_id === user?.id"
             :disabled="isFriendUnavailable(a)"
           />
         </div>

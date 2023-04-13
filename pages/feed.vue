@@ -46,8 +46,11 @@
             v-for="a in invites"
             @click="handleInviteClick(a)"
             :activation="a"
-            :accounterpart="getAccounterpartFromActivation(a)"
-            :disabled="isFriendUnavailable(a.user_id)"
+            :friendUnavailable="
+              isFriendUnavailable(
+                user?.id !== a.user_id ? a.user_id : String(a.friend_id)
+              )
+            "
           />
         </div>
       </div>
@@ -82,10 +85,7 @@
             :selected="selectedFriend?.id === friend.id"
             :unavailable="isFriendUnavailable(friend.user_id)"
             :invited="isFriendInvited(friend.user_id)"
-            :disabled="
-              isFriendUnavailable(friend.user_id) ||
-              isFriendInvited(friend.user_id)
-            "
+            :disabled="isFriendUnavailable(friend.user_id)"
           />
         </div>
       </div>
@@ -187,7 +187,11 @@
   </div>
   <div
     class="h-full w-full flex justify-center items-center bg-cover p-10"
-    :style="created ? `background-image: url('/imgs/emotions/bg-${selectedEmotion.id}.png')` : `background-image: url('/imgs/bg-1.png')`"
+    :style="
+      created
+        ? `background-image: url('/imgs/emotions/bg-${selectedEmotion.id}.png')`
+        : `background-image: url('/imgs/bg-1.png')`
+    "
   >
     <div class="h-1/2">
       <!-- <Emoxy /> -->
@@ -288,13 +292,15 @@ function handleRelationshapeClick(relationshape: any) {
 }
 
 function handleFriendClick(friend: Emoxy) {
-  if (isFriendUnavailable(friend.user_id) || isFriendInvited(friend.user_id))
-    return
+  if (isFriendUnavailable(friend.user_id)) return
   selectedFriend.value = friend
 }
 
 function handleInviteClick(a: any) {
-  if (isFriendUnavailable(a.user_id)) return
+  if (
+    isFriendUnavailable(user.value?.id !== a.user_id ? a.user_id : a.friend_id)
+  )
+    return
   navigateTo(`/activation/${a.id}`)
 }
 
