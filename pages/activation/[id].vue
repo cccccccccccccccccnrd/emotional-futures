@@ -2,7 +2,7 @@
   <div
     v-if="accepted || terminated || fed"
     class="absolute h-full w-full p-safe flex flex-col justify-center items-center bg-dark-50 backdrop-blur-md z-[15]"
-    :class="fed ? 'bg-red' : ''"
+    :class="fed ? 'bg-white-100 !p-0' : ''"
   >
     <div v-if="accepted" class="flex flex-col justify-center items-center">
       <Icon type="check" size="l" />
@@ -12,9 +12,26 @@
       <Icon type="close" size="l" />
       <p class="font-bold mt-5">Activation Terminated</p>
     </div>
-    <div v-if="fed" class="flex flex-col justify-center items-center">
-      <Icon type="emotions" size="l" />
-      <p class="font-bold mt-5">Animating {{ [results[1], results[2], results[0]] }}</p>
+    <div
+      v-if="fed"
+      class="relative h-full w-full flex flex-col items-center"
+      :style="`--from-top: ${isMobile ? '45vh' : '290px'}`"
+    >
+      <div class="drop">
+        <img src="/imgs/drop-blood.png" class="opacity-0" />
+      </div>
+      <div class="wave"></div>
+      <div
+        class="absolute h-full w-full p-safe flex flex-col justify-center items-center"
+      >
+        <div class="face">
+          <img src="/imgs/emoxy/eats-1.png" class="opacity-0" />
+        </div>
+      </div>
+      <div
+        class="absolute w-full h-full z-[-10] opacity-30"
+        :style="fed ? `background-image: url('/imgs/bg-1.png');` : ''"
+      ></div>
     </div>
   </div>
   <div
@@ -206,7 +223,9 @@
     </div>
     <div v-if="step === 10" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-5">
-        <Btn @click="handleFeedClick">{{ loading ? 'Feeding...' : 'Feed Emoxy' }}</Btn>
+        <Btn @click="handleFeedClick">{{
+          loading ? 'Feeding...' : 'Feed Emoxy'
+        }}</Btn>
       </div>
     </div>
   </div>
@@ -385,6 +404,8 @@ const db = useDb()
 const overlay = useOverlay()
 const emotions: any = useEmotions()
 const relationshapes: any = useRelationshapes()
+const { isMobile } = useDevice()
+
 const activation: any = ref(null)
 
 const step = ref(0)
@@ -607,7 +628,7 @@ async function handleFeedClick() {
 
   setTimeout(() => {
     navigateTo('/emoxy?animation=true')
-  }, 5000)
+  }, 1000 * 10)
 }
 
 async function handleAcceptClick() {
@@ -683,3 +704,161 @@ function handleShareClick(isReminder: Boolean) {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.wave {
+  margin-top: var(--from-top);
+}
+
+.drop {
+  position: relative;
+  width: 27px;
+  height: 46px;
+  top: -45px;
+  margin: 0 auto;
+  border-radius: 20px;
+  animation-name: drip, drops;
+  animation-timing-function: cubic-bezier(1, 0, 0.91, 0.19);
+  animation-duration: 3s, 9s;
+  animation-iteration-count: infinite;
+  background-image: url('/imgs/drop-blood.png');
+  background-size: cover;
+}
+
+.wave {
+  position: relative;
+  opacity: 0;
+  top: 0;
+  width: 2px;
+  height: 1px;
+  border: 7px solid;
+  border-radius: 300px / 150px;
+  animation-name: ripple, ripple-colors;
+  animation-delay: 3s, 3s;
+  animation-duration: 3s, 9s;
+  animation-iteration-count: infinite;
+}
+
+.wave:after {
+  content: '';
+  position: absolute;
+  opacity: 0;
+  top: -5px;
+  left: -5px;
+  width: 2px;
+  height: 1px;
+  border: 5px solid;
+  border-radius: 300px / 150px;
+  animation-name: ripple-2, ripple-colors;
+  animation-delay: 0s, 3s;
+  animation-duration: 3s, 9s;
+  animation-iteration-count: infinite;
+}
+
+.face {
+  animation-name: faces;
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+  animation-delay: 3s;
+  background-image: url('/imgs/emoxy/eats-1.png');
+  background-size: contain;
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+  }
+  to {
+    width: 600px;
+    height: 300px;
+    border-width: 1px;
+    top: -100px;
+    opacity: 0;
+  }
+}
+
+@keyframes ripple-2 {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    width: 200px;
+    height: 100px;
+    border-width: 1px;
+    top: 100px;
+    left: 200px;
+  }
+}
+
+@keyframes drip {
+  to {
+    top: calc(var(--from-top) + 20px);
+  }
+}
+
+@keyframes faces {
+  0% {
+    background-image: url('/imgs/emoxy/eats-2.png');
+  }
+  14% {
+    background-image: url('/imgs/emoxy/eats-2.png');
+  }
+  15% {
+    background-image: url('/imgs/emoxy/eats-3.png');
+  }
+  34% {
+    background-image: url('/imgs/emoxy/eats-3.png');
+  }
+  35% {
+    background-image: url('/imgs/emoxy/eats-1.png');
+  }
+  100% {
+    background-image: url('/imgs/emoxy/eats-1.png');
+  }
+}
+
+@keyframes drops {
+  0% {
+    background-image: url('/imgs/drop-blood.png');
+  }
+  36% {
+    background-image: url('/imgs/drop-blood.png');
+  }
+  36% {
+    background-image: url('/imgs/drop-sweat.png');
+  }
+  69% {
+    background-image: url('/imgs/drop-sweat.png');
+  }
+  69% {
+    background-image: url('/imgs/drop-tears.png');
+  }
+  100% {
+    background-image: url('/imgs/drop-tears.png');
+  }
+}
+
+@keyframes ripple-colors {
+  0% {
+    border-color: #d5000f;
+  }
+  40% {
+    border-color: #d5000f;
+  }
+  40% {
+    border-color: #ebd350;
+  }
+  72% {
+    border-color: #ebd350;
+  }
+  72% {
+    border-color: #5b8df0;
+  }
+  100% {
+    border-color: #5b8df0;
+  }
+}
+</style>
