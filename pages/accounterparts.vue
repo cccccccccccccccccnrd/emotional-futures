@@ -23,6 +23,9 @@
       class="flex flex-col grow items-center justify-between mt-5 overflow-hidden"
     >
       <p class="text-xl font-bold text-center">{{ selectedFriend.name }}</p>
+      <p class="text-sm text-center mt-5">You have played {{ getActivationsWithFriend(selectedFriend?.user_id).length }} Activation{{
+        getActivationsWithFriend(selectedFriend?.user_id).length > 1 || getActivationsWithFriend(selectedFriend?.user_id).length === 0 ? 's' : ''
+          }}</p>
       <div class="grow w-full mt-5 overflow-y-scroll">
         <div class="flex flex-col gap-2">
           <LiActivation
