@@ -133,7 +133,6 @@ export async function resetPassword (email: string) {
     console.log(error.message)
     return error
   } else {
-    console.log(data, `${useRuntimeConfig().baseURL}/reset`)
     return data
   }
 }
