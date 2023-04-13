@@ -27,7 +27,7 @@
         "
       >
         <p v-if="activationsByEmotion.length > 0" class="text-sm text-center">
-          You have played {{ activationsByEmotion.length }} Activation{{
+          You played {{ activationsByEmotion.length }} Activation{{
             activationsByEmotion.length > 1 ? 's' : ''
           }}
         </p>

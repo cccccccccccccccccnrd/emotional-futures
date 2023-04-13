@@ -2,11 +2,9 @@
   <div class="h-full p-safe flex flex-col">
     <div class="flex justify-between items-center">
       <p class="text-xl font-bold">{{ db.emoxy.name }}</p>
-      <Icon type="menu" @click="handleMenuClick" class="pointer-events-auto"/>
+      <Icon type="menu" @click="handleMenuClick" class="pointer-events-auto" />
     </div>
-    <div
-      class="flex flex-col grow items-center justify-between"
-    >
+    <div class="flex flex-col grow items-center justify-between">
       <div class="flex justify-between w-full">
         <div
           v-for="(v, i) in db.emoxy.bst"
@@ -44,6 +42,7 @@
               type="dark"
               padding="1"
               class="rounded-lg pointer-events-auto"
+              :class="invites.length > 0 ? 'border-red' : ''"
               >Feed</Btn
             >
             <Btn
@@ -129,17 +128,16 @@ const emotions = await useEmotions()
 const paused = ref(true)
 
 const busy = computed(() => {
-  return db.value.activations.find(
-    (a: any) =>
-      a.status === 'accepted' /* ||
-      (a.status === 'created' && a.user_id === user.value?.id) */
-  )
+  return db.value.activations.find((a: any) => a.status === 'accepted')
 })
 
 const busyStatus = computed(() => {
   if (busy.value?.status === 'created') {
     return 'Awaiting Confirmation'
-  } else if (busy.value?.status === 'accepted' && busy.value.accounts?.length === 1) {
+  } else if (
+    busy.value?.status === 'accepted' &&
+    busy.value.accounts?.length === 1
+  ) {
     const f = busy.value?.accounts.find((a: any) => a.userId === user.value?.id)
     if (f) {
       return 'Awaiting Accounting'
@@ -167,8 +165,16 @@ const busyStatus = computed(() => {
   return 'Ongoing Activation'
 })
 
+const invites = computed(() =>
+  db.value.activations.filter(
+    (a: any) => a.status === 'created' && a.friend_id === user.value?.id
+  )
+)
+
 const emoxyLevel = computed(() => {
-  const completed = db.value.activations.filter((a: any) => a.status === 'completed')
+  const completed = db.value.activations.filter(
+    (a: any) => a.status === 'completed'
+  )
   const s = new Set(completed.map((a: any) => a.type[0])).size
   return s > 7 ? 7 : s
 })
