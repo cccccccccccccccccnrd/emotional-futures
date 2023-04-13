@@ -232,7 +232,7 @@
     </div>
     <div v-if="step === 0 || step === 1" class="flex gap-2 items-center mt-5">
       <Btn @click="handleTerminateClick" type="dark">{{
-        activation?.friend_id === user?.id ? loading ? 'Declining...' : 'Decline' : loading ? 'Terminating...' : 'Terminate'
+        activation?.friend_id === user?.id ? 'Decline' : 'Terminate'
       }}</Btn>
       <Btn
         v-if="activation?.friend_id === user?.id"
