@@ -131,7 +131,7 @@
           :disabled="
             selectedRelationshape.accounting.length !== completedAccounts.length
           "
-          >Confirm Investment</Btn
+          >{{ loading ? 'Confirming...' : 'Confirm Investment' }}</Btn
         >
       </div>
     </div>
@@ -201,7 +201,7 @@
     </div>
     <div v-if="step === 10" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-5">
-        <Btn @click="handleFeedClick">Feed Emoxy</Btn>
+        <Btn @click="handleFeedClick">{{ loading ? 'Feeding...' : 'Feed Emoxy' }}</Btn>
       </div>
     </div>
   </div>
@@ -232,7 +232,7 @@
     </div>
     <div v-if="step === 0 || step === 1" class="flex gap-2 items-center mt-5">
       <Btn @click="handleTerminateClick" type="dark">{{
-        activation?.friend_id === user?.id ? 'Decline' : 'Terminate'
+        activation?.friend_id === user?.id ? loading ? 'Declining...' : 'Decline' : loading ? 'Terminating...' : 'Terminate'
       }}</Btn>
       <Btn
         v-if="activation?.friend_id === user?.id"
@@ -443,7 +443,7 @@ onMounted(async () => {
       setTimeout(() => {
         terminated.value = false
         navigateTo('/emoxy')
-      }, 2500)
+      }, 3000)
     }
   }, 3000)
 })
@@ -568,11 +568,13 @@ async function handleMeasureClick() {
 async function handleInvestmentClick() {
   if (!user.value) return
 
+  loading.value = true
   const a: any = await updateActivation(
     activation.value.id,
     user.value.id,
     completedAccounts.value
   )
+  loading.value = false
 
   if (!a) return
 
@@ -588,7 +590,9 @@ async function handleInvestmentClick() {
 async function handleFeedClick() {
   if (!user.value) return
 
+  loading.value = true
   const a: any = await updateActivation(activation.value.id, user.value.id)
+  loading.value = false
 
   if (!a) return
 
@@ -618,7 +622,9 @@ async function handleTerminateClick() {
   const y = confirm('Are you sure?')
 
   if (y) {
+    loading.value = true
     await deleteActivation(activation.value.id)
+    loading.value = false
     navigateTo('/emoxy')
   }
 }

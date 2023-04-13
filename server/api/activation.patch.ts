@@ -43,9 +43,26 @@ export async function updateActivation (
   userId: string,
   accounts: [] | null
 ) {
+  const user = await serverSupabaseUser(event)
   const client: any = serverSupabaseServiceRole(event)
 
   const activation: any = await getActivation(event, activationId)
+
+  if (activation.status === 'completed') {
+    throw createError({
+      statusCode: 403,
+      name: 'Forbidden',
+      message: 'nah, activation completed'
+    })
+  }
+
+  if (activation.user_id !== user?.id && activation.friend_id !== user?.id) {
+    throw createError({
+      statusCode: 403,
+      name: 'Forbidden',
+      message: 'nah, activation not 4 u'
+    })
+  }
 
   if (!accounts) {
     const emoxy = await getEmoxyByUserId(event, userId)

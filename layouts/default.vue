@@ -12,7 +12,9 @@
           : 'max-h-[676px] max-w-[311px] rounded-2xl border-2 border-white-20'
       "
       :style="`${sa ? 'height: 100vh;' : `height: ${h}px;`} ${
-        loading ? 'filter: drop-shadow(0 1rem 1rem rgba(0, 0, 0, 0.5)) blur(7px)' : ''
+        loading
+          ? 'filter: drop-shadow(0 1rem 1rem rgba(0, 0, 0, 0.5)) blur(7px)'
+          : ''
       }`"
     >
       <Overlay
@@ -36,6 +38,12 @@ nuxtApp.hook('page:start', async () => {
 })
 nuxtApp.hook('page:finish', () => {
   loading.value = false
+})
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    initDb()
+  }
 })
 
 const h = ref(window.innerHeight)

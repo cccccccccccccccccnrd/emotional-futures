@@ -14,9 +14,10 @@ const db = useDb()
 const user = useSupabaseUser()
 const client: any = useSupabaseClient()
 
-export async function initDb () {
+export async function initDb (force?: Boolean) {
   if (!user.value?.id) return
-  if (client.getChannels().length > 0) return
+  if (client.getChannels().length > 0 && !force) return
+  if (force) client.removeAllChannels()
   
   db.value.emoxy = await fetchEmoxy()
   db.value.activations = await fetchActivations()
