@@ -17,6 +17,7 @@
           : ''
       }`"
     >
+      <!-- <Toasts /> -->
       <Overlay
         v-if="overlay.isOpen"
         :type="overlay.type"

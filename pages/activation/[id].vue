@@ -650,7 +650,7 @@ async function handleAcceptClick() {
 }
 
 async function handleTerminateClick() {
-  const y = confirm('Are you sure?')
+  const y = confirm('Are you sure you want to terminate and exit the Activation?')
 
   if (y) {
     loading.value = true

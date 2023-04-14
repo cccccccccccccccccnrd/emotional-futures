@@ -117,7 +117,7 @@
     </div>
     <div v-if="step === 1" class="grow flex flex-col mt-5">
       <p v-if="!selectedEmotion.name" class="text-lg font-bold text-center">
-        Choose emotion to activate
+        Choose Emotion to Activate
       </p>
       <p
         v-if="selectedEmotion.name"

@@ -31,8 +31,8 @@ const emotionsValue: any = ref(props.modelValue)
 const emit = defineEmits(['update:modelValue'])
 
 function handleEmotionClick(emotion: any) {
-  if (emotionsValue.value === emotion) {
-    emotionsValue.value = 0
+  if (emotionsValue.value.id === emotion.id) {
+    emotionsValue.value = {}
   } else {
     emotionsValue.value = emotion
   }
