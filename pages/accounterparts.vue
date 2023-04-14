@@ -161,7 +161,7 @@ const busy = computed(() => {
 })
 
 function handleActivationClick(a: any) {
-  if (isFriendUnavailable(selectedFriend.value?.user_id) && a.status === 'created') return
+  if (isFriendUnavailable(selectedFriend.value?.user_id) && a.status === 'created' && user.value?.id !== a.user_id) return
   navigateTo(`/activation/${a.id}`)
 }
 
