@@ -12,7 +12,7 @@
           padding="1"
           :class="completedTab ? '' : '!font-normal'"
           class="text-sm"
-          >Completed [{{ all.length }}]</Btn
+          >Accepted [{{ all.length }}]</Btn
         >
         <Btn
           @click="completedTab = false"
@@ -20,7 +20,7 @@
           padding="1"
           :class="!completedTab ? '' : '!font-normal'"
           class="text-sm"
-          >Invites [{{ invites.length }}]</Btn
+          >Pending [{{ invites.length }}]</Btn
         >
       </div>
       <div class="grow flex flex-col w-full mt-2 overflow-y-scroll">

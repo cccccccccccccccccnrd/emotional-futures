@@ -14,7 +14,7 @@
     class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
   >
     <div class="flex justify-between items-center">
-      <div>
+      <div :class="step === -2 ? 'opacity-0' : ''">
         <Icon
           v-if="step === -1"
           @click="handleOverlayClick('manual', ['', 0])"
@@ -22,7 +22,7 @@
         />
         <Icon v-if="step !== -1" @click="step--" type="arrow-l" />
       </div>
-      <div>
+      <div :class="step === -2 ? 'opacity-0' : ''">
         <p v-if="step === -1" class="text-sm text-white-50">Feed Emoxy</p>
         <p v-if="step !== -1" class="text-sm text-white-50">
           Initiate Activation
@@ -36,6 +36,21 @@
           @click="handleOverlayClick('manual', ['', 0])"
         />
       </div>
+    </div>
+    <div v-if="step === -2" class="grow flex flex-col mt-5 overflow-hidden">
+      <div class="grow flex flex-col">
+        <p class="text-2xl font-bold">Emotional Futures Manual</p>
+        <p class="mt-5">
+          If you are feeling lost, or simply want to know more, you will find
+          all of the information you need here.
+        </p>
+        <p class="mt-5">
+          From extra information about Emotions, Relationshapes, and
+          Accounterpart connections, to a complete guide to creating activation
+          cards, invites, and Accounting.
+        </p>
+      </div>
+      <Btn @click="step = -1" class="mt-5">I get it!</Btn>
     </div>
     <div v-if="step === -1" class="grow flex flex-col mt-5 overflow-hidden">
       <EmoxyProgress />
@@ -247,6 +262,8 @@ onMounted(async () => {
     }
   } else if (route.query.init) {
     step.value = 0
+  } else if (db.value.activations.length === 0) {
+    step.value = -2
   }
 })
 
