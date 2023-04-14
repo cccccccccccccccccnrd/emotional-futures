@@ -1,10 +1,10 @@
 <template>
   <div
-    class="flex justify-between items-center h-[55px] px-5 bg-dark-50 backdrop-blur-md border-2 border-white-20"
+    class="flex justify-between items-center px-5 py-3 bg-dark-50 backdrop-blur-md border-2 border-white-20"
     :style="activation.status === 'created' && friendUnavailable && !own ? 'opacity: 0.5;' : ''"
   >
-    <div class="flex flex-col text-sm">
-      <p class="capitalize">
+    <div class="flex-1 flex flex-col text-sm">
+      <p class="capitalize text-ellipsis overflow-hidden">
         {{ emotions[activation.type[0] - 1].name }}
         {{ relationshapes[activation.type[1] - 1].name }}
       </p>
@@ -21,7 +21,7 @@
         v-if="activation.status === 'created' && !friendUnavailable && !own"
         class="flex justify-center items-center h-6 px-2 border-2 border-red"
       >
-        New Invite
+        Invite
       </div>
       <div
         v-if="activation.status === 'accepted'"

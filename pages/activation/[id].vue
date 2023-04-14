@@ -237,7 +237,7 @@
       <div>
         <Icon
           v-if="
-            step === 0 || step === 1 || step === 2 || step === 8 || step === 12
+            step === 0 || step === 1 || step === 2 || step === 8 || step === 9 || step === 10 || step === 11 || step === 12
           "
           type="files"
           @click="handleOverlayClick('manual', ['', 0])"
@@ -245,18 +245,17 @@
       </div>
     </div>
     <div v-if="step === 0 || step === 1" class="grow flex flex-col mt-5">
-      <p class="text-lg font-bold text-center">Awaiting Confirmation</p>
       <Activation
-        class="mt-5"
         :emotion="selectedEmotion"
         :relationshape="selectedRelationshape"
         :accounterpart="selectedFriend"
+        :invite="activation?.friend_id === user?.id"
         locked
       />
     </div>
     <div v-if="step === 0 || step === 1" class="flex gap-2 items-center mt-5">
       <Btn @click="handleTerminateClick" type="dark">{{
-        activation?.friend_id === user?.id ? 'Decline' : 'Terminate'
+        activation?.friend_id === user?.id ? 'Decline' : 'Cancel Invite'
       }}</Btn>
       <Btn
         v-if="activation?.friend_id === user?.id"
@@ -277,13 +276,11 @@
       "
       class="grow flex flex-col"
     >
-      <p class="text-lg font-bold text-center mt-5">Ongoing Activation</p>
       <Activation
         class="mt-5"
         :emotion="selectedEmotion"
         :relationshape="selectedRelationshape"
         :accounterpart="selectedFriend"
-        isRevealed
       />
     </div>
     <div
@@ -297,14 +294,13 @@
       "
       class="flex gap-2 justify-center items-center mt-5"
     >
-      <Btn @click="handleTerminateClick" type="dark">Terminate</Btn>
+      <Btn @click="handleTerminateClick" type="dark">Delete</Btn>
       <Btn @click="step = 3">Accounting</Btn>
     </div>
     <div
       v-if="step === 8"
       class="grow relative flex flex-col justify-center items-center"
     >
-      <p class="text-lg font-bold text-center mt-5">Accounting</p>
       <Activation
         class="mt-5"
         :emotion="selectedEmotion"
@@ -316,14 +312,13 @@
     </div>
     <div v-if="step === 8" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-5">
-        <Btn type="dark" @click="handleTerminateClick">Terminate</Btn>
+        <Btn disabled>Show Accounting Results</Btn>
       </div>
     </div>
     <div
       v-if="step === 9 || step === 10"
       class="grow relative flex flex-col justify-center items-center"
     >
-      <p class="text-lg font-bold text-center mt-5">Accounting</p>
       <Activation
         class="mt-5"
         :emotion="selectedEmotion"
@@ -345,7 +340,6 @@
       v-if="step === 11"
       class="grow relative flex flex-col justify-center items-center"
     >
-      <p class="text-lg font-bold text-center mt-5">Accounting</p>
       <Activation
         class="mt-5"
         :emotion="selectedEmotion"
@@ -364,7 +358,6 @@
       v-if="step === 12"
       class="grow relative flex flex-col justify-center items-center"
     >
-      <p class="text-lg font-bold text-center mt-5">Activation Complete</p>
       <Activation
         class="mt-5"
         :emotion="selectedEmotion"
@@ -375,7 +368,7 @@
     </div>
     <div v-if="step === 12" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-2 mt-5 opacity-0">
-        <Btn @click="" type="dark">Terminate</Btn>
+        <Btn @click="" type="dark">Delete</Btn>
         <Btn @click="" type="dark">Accounting</Btn>
       </div>
     </div>
@@ -803,16 +796,16 @@ function handleShareClick(isReminder: Boolean) {
   0% {
     background-image: url('/imgs/emoxy/eats-2.png');
   }
-  14% {
+  10% {
     background-image: url('/imgs/emoxy/eats-2.png');
   }
-  15% {
+  11% {
     background-image: url('/imgs/emoxy/eats-3.png');
   }
-  34% {
+  29% {
     background-image: url('/imgs/emoxy/eats-3.png');
   }
-  35% {
+  30% {
     background-image: url('/imgs/emoxy/eats-1.png');
   }
   100% {
@@ -843,21 +836,27 @@ function handleShareClick(isReminder: Boolean) {
 
 @keyframes ripple-colors {
   0% {
+    background: #d5000f;
     border-color: #d5000f;
   }
   40% {
+    background: #d5000f;
     border-color: #d5000f;
   }
   40% {
+    background: #ebd350;
     border-color: #ebd350;
   }
   72% {
+    background: #ebd350;
     border-color: #ebd350;
   }
   72% {
+    background: #5b8df0;
     border-color: #5b8df0;
   }
   100% {
+    background: #5b8df0;
     border-color: #5b8df0;
   }
 }

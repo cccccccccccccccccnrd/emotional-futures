@@ -15,7 +15,7 @@
       >
         <Icon type="time" size="l" />
         <p class="text-center mt-5">
-          Final Balance will become available as soon as your Accounterpart
+          Final Balance will become available as soon as <span class="font-bold">{{ accounterpart?.name }}</span>
           confirms their investment.
         </p>
       </div>
@@ -25,7 +25,7 @@
       >
         <Icon type="time" size="l" />
         <p class="text-center mt-5">
-          Your Accounterpart {{ accounterpart?.name }} still needs to feed their
+          Your Accounterpart <span class="font-bold">{{ accounterpart?.name }}</span> still needs to feed their
           Emoxy.
         </p>
         <p class="text-center mt-5">
@@ -42,18 +42,35 @@
           <Icon type="drop-full" size="l" />
         </div>
         <p class="text-center mt-5">
-          Your activation with {{ accounterpart?.name }} comes to an end.
+          Your activation with <span class="font-bold">{{ accounterpart?.name }}</span> comes to an end.
         </p>
         <p class="text-center mt-5">
           Your Accounting results are ready. Soon you will feed your Emoxy with
           the Drops you gained (or perhaps lost) in the process.
         </p>
       </div>
-      <div>
-        <p class="text-xs text-white-80 text-center drop-shadow-md">
+      <div class="flex flex-col items-center">
+        <div v-if="!bg">
+          <div v-if="invite" class="flex items-center gap-2">
+            <Icon type="activation" />
+            <p class="font-bold">Activation Invite</p>
+          </div>
+          <div
+            v-else-if="!locked"
+            class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm"
+          >
+            <Icon type="eye" />
+            <p class="font-bold">View Task</p>
+          </div>
+          <div v-else-if="locked" class="flex items-center gap-2">
+            <Icon type="time" />
+            <p class="font-bold">Waiting Confirmation</p>
+          </div>
+        </div>
+        <p class="text-sm text-white-80 text-center drop-shadow-md mt-3">
           Accounterpart
         </p>
-        <p class="text-xs text-white-100 text-center font-bold drop-shadow-md">
+        <p class="text-sm text-white-100 text-center font-bold drop-shadow-md">
           {{ accounterpart?.name }}
         </p>
       </div>
@@ -99,13 +116,13 @@
       "
     >
       <div @click="isRevealed = !isRevealed">
-        <p class="text-md text-center font-bold drop-shadow-md capitalize">
+        <p class="text-center font-bold drop-shadow-md capitalize">
           {{ emotion?.name }} {{ relationshape?.name }}
         </p>
-        <p class="text-xs text-white-80 text-center drop-shadow-md mt-5">
+        <p class="text-sm text-white-80 text-center drop-shadow-md mt-5">
           Accounterpart
         </p>
-        <p class="text-xs text-white-100 text-center font-bold drop-shadow-md">
+        <p class="text-sm text-white-100 text-center font-bold drop-shadow-md">
           {{ accounterpart?.name }}
         </p>
       </div>
@@ -211,6 +228,10 @@ const props = defineProps({
     required: false
   },
   isRevealed: {
+    type: Boolean,
+    required: false
+  },
+  invite: {
     type: Boolean,
     required: false
   }
