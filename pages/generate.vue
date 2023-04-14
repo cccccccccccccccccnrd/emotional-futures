@@ -95,6 +95,7 @@
           placeholder="Type your Password"
           type="password"
         />
+        <p class="text-xs">Your password should be at least 8 characters long.</p>
         <Btn
           @click="handleSignUpClick"
           :disabled="!validEmail || !validName || !validPassword"
@@ -482,7 +483,7 @@ const validPassword = computed(() => {
   return password.value.length >= 8
 })
 const validName = computed(() => {
-  return name.value.length >= 4
+  return name.value.length >= 1
 })
 const validEmail = computed(() => {
   return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email.value)
