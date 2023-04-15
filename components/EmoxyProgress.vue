@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-col py-3 px-2 pb-2 bg-dark-20">
+      <div class="flex flex-col py-3 px-2 pb-2 bg-dark-30">
         <div class="w-full h-2 bg-white-20 rounded-full overflow-hidden">
           <div
             class="h-full bg-white-100 rounded-full"
