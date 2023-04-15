@@ -14,13 +14,19 @@
     class="absolute h-full w-full p-safe flex flex-col bg-dark-50 backdrop-blur-md z-[10]"
   >
     <div class="flex justify-between items-center">
-      <div :class="step === -2 ? 'opacity-0' : ''">
+      <div>
         <Icon
           v-if="step === -1"
           @click="handleOverlayClick('manual', ['', 0])"
           type="files"
         />
-        <Icon v-if="step !== -1" @click="step--" type="arrow-l" />
+        <Icon v-if="step !== -1 && step !== -2" @click="step--" type="arrow-l" />
+        <Icon
+          v-if="step === -2"
+          type="files"
+          @click="handleOverlayClick('manual', ['', 0])"
+          flash
+        />
       </div>
       <div :class="step === -2 ? 'opacity-0' : ''">
         <p v-if="step === -1" class="text-sm text-white-50">Feed Emoxy</p>
@@ -31,7 +37,13 @@
       <div>
         <Icon v-if="step === -1" @click="router.back()" type="close" />
         <Icon
-          v-if="step !== -1"
+          v-if="step === -2"
+          type="files"
+          @click="handleOverlayClick('manual', ['', 0])"
+          flash
+        />
+        <Icon
+          v-if="step !== -1 && step !== -2"
           type="files"
           @click="handleOverlayClick('manual', ['', 0])"
         />
