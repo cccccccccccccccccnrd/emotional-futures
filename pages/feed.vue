@@ -53,8 +53,7 @@
       <div class="grow flex flex-col">
         <p class="text-2xl font-bold">Emotional Futures Manual</p>
         <p class="mt-5">
-          If you are feeling lost, or simply want to know more, you will find
-          all of the information you need here.
+          If you are feeling lost, or simply want to know more, you will find all of the information you need once you click on the Manual icon, always available at the top corner of the screen.
         </p>
         <p class="mt-5">
           From extra information about Emotions, Relationshapes, and
@@ -274,7 +273,7 @@ onMounted(async () => {
     }
   } else if (route.query.init) {
     step.value = 0
-  } else if (db.value.activations.length === 0) {
+  } else if (db.value.emoxy.bst.reduce((acc, a) => acc + a, 0) < 50) {
     step.value = -2
   }
 })
@@ -306,12 +305,6 @@ function isFriendUnavailable(userId: string) {
 function getActivationsWithFriend(userId: string) {
   return db.value.activations.filter(
     (a: any) => a.user_id === userId || a.friend_id === userId
-  )
-}
-
-function getAccounterpartFromActivation(a: any) {
-  return db.value.friends.find(
-    (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
   )
 }
 
