@@ -56,6 +56,13 @@
             <p class="font-bold">Activation Invite</p>
           </div>
           <div
+            v-else-if="!locked && results"
+            class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm"
+          >
+            <Icon type="eye" />
+            <p class="font-bold">View Results</p>
+          </div>
+          <div
             v-else-if="!locked"
             class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm"
           >
@@ -138,10 +145,15 @@
         ></div>
       </div>
       <div v-if="!results">
-        <div class="px-10 flex justify-center items-center mt-5">
+        <div class="px-5 flex justify-center items-center mt-5">
           <Icon v-for="d in relationshape?.id" type="drop-full" />
         </div>
-        <div class="px-10 mt-5 flex justify-between items-center">
+        <div class="px-5 mt-5 flex justify-between items-center">
+          <Icon @click="isRevealed = !isRevealed" type="flip" />
+          <div>
+            <Icon v-if="paused" @click="play()" type="audio" />
+            <Icon v-else @click="pause()" type="pause" />
+          </div>
           <Icon
             @click="
               handleOverlayClick('manual', [
@@ -149,13 +161,8 @@
                 Number(relationshape?.id)
               ])
             "
-            type="book"
+            type="file"
           />
-          <div>
-            <Icon v-if="paused" @click="play()" type="audio" />
-            <Icon v-else @click="pause()" type="pause" />
-          </div>
-          <Icon @click="isRevealed = !isRevealed" type="flip" />
         </div>
       </div>
       <div v-if="results">

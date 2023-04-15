@@ -235,6 +235,9 @@
         <Icon @click="router.back()" type="arrow-l" />
       </div>
       <div>
+        <Icon @click="navigateTo('/emoxy')" type="heart" />
+      </div>
+      <div>
         <Icon
           v-if="
             step === 0 || step === 1 || step === 2 || step === 8 || step === 9 || step === 10 || step === 11 || step === 12
@@ -313,7 +316,7 @@
     </div>
     <div v-if="step === 8" class="flex flex-col justify-center items-center">
       <div class="w-full flex gap-4 mt-5">
-        <Btn disabled>Show Accounting Results</Btn>
+        <Btn @click="handleTerminateClick" type="dark">Delete</Btn>
       </div>
     </div>
     <div
@@ -351,8 +354,8 @@
       />
     </div>
     <div v-if="step === 11" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-4 mt-5 opacity-0">
-        <Btn type="dark" @click="handleShareClick(true)">Send Reminder</Btn>
+      <div class="w-full flex gap-4 mt-5">
+        <Btn @click="handleTerminateClick" type="dark">Delete</Btn>
       </div>
     </div>
     <div
@@ -366,12 +369,6 @@
         :accounterpart="selectedFriend"
         :results="results"
       />
-    </div>
-    <div v-if="step === 12" class="flex flex-col justify-center items-center">
-      <div class="w-full flex gap-2 mt-5 opacity-0">
-        <Btn @click="" type="dark">Delete</Btn>
-        <Btn @click="" type="dark">Accounting</Btn>
-      </div>
     </div>
   </div>
   <div class="absolute top-0 left-0 h-full w-full z-[-10]">
