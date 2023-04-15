@@ -33,6 +33,7 @@
             @click="handleActivationClick(a)"
             :activation="a"
             :friendUnavailable="isFriendUnavailable(selectedFriend?.user_id)"
+            :disabled="(a.status === 'created' && isFriendUnavailable(selectedFriend?.user_id) && a.user_id !== user?.id) || (a.status === 'created' && a.user_id !== user?.id && busy)"
           />
         </div>
       </div>
@@ -161,7 +162,7 @@ const busy = computed(() => {
 })
 
 function handleActivationClick(a: any) {
-  if (isFriendUnavailable(selectedFriend.value?.user_id) && a.status === 'created' && user.value?.id !== a.user_id) return
+  if ((a.status === 'created' && isFriendUnavailable(selectedFriend.value?.user_id) && a.user_id !== user.value?.id) || (a.status === 'created' && a.user_id !== user.value?.id && busy)) return
   navigateTo(`/activation/${a.id}`)
 }
 

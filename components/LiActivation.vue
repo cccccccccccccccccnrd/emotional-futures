@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex justify-between items-center px-5 py-3 bg-dark-50 backdrop-blur-md border-2 border-white-20"
-    :style="activation.status === 'created' && friendUnavailable && !own ? 'opacity: 0.5;' : ''"
+    :class="disabled ? 'opacity-50' : ''"
   >
     <div class="flex-1 flex flex-col text-sm">
       <p class="capitalize text-ellipsis overflow-hidden">
@@ -16,7 +16,10 @@
       </p>
     </div>
     <div>
-      <Icon v-if="activation.status === 'created' && friendUnavailable && !own" type="time" />
+      <Icon
+        v-if="activation.status === 'created' && friendUnavailable && !own"
+        type="time"
+      />
       <div
         v-if="activation.status === 'created' && !friendUnavailable && !own"
         class="flex justify-center items-center h-6 px-2 border-2 border-red"
@@ -43,6 +46,10 @@ const props = defineProps({
   friendUnavailable: {
     type: Boolean,
     required: false
+  },
+  disabled: {
+    type: Boolean,
+    required: false
   }
 })
 
@@ -60,4 +67,13 @@ const accounterpart = computed(() =>
       f.user_id === props.activation.user_id
   )
 )
+const busy = computed(() => {
+  return db.value.activations.find(
+    (a: any) =>
+      a.status === 'accepted' ||
+      (a.status === 'created' && a.user_id === user.value?.id)
+  )
+    ? true
+    : false
+})
 </script>
