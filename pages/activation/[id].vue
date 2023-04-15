@@ -240,7 +240,14 @@
       <div>
         <Icon
           v-if="
-            step === 0 || step === 1 || step === 2 || step === 8 || step === 9 || step === 10 || step === 11 || step === 12
+            step === 0 ||
+            step === 1 ||
+            step === 2 ||
+            step === 8 ||
+            step === 9 ||
+            step === 10 ||
+            step === 11 ||
+            step === 12
           "
           type="files"
           @click="handleOverlayClick('manual', ['', 0])"
@@ -264,7 +271,7 @@
         v-if="activation?.friend_id === user?.id"
         @click="handleAcceptClick"
         style="filter: drop-shadow(black 0 0 0)"
-        :disabled="isFriendUnavailable(activation.user_id) || busy"
+        :disabled="isFriendUnavailable || busy"
         >{{ loading ? 'Accepting...' : 'Accept' }}</Btn
       >
     </div>
@@ -439,11 +446,7 @@ const results = computed(() => {
 })
 
 const busy = computed(() => {
-  return db.value.activations.find(
-    (a: any) =>
-      a.status === 'accepted' ||
-      (a.status === 'created' && a.user_id === user.value?.id)
-  )
+  return db.value.activations.find((a: any) => a.status === 'accepted')
     ? true
     : false
 })
@@ -567,15 +570,15 @@ function setActivation(a: any) {
   )
 }
 
-function isFriendUnavailable(userId: string) {
+const isFriendUnavailable = computed(() => {
   return db.value.friendsActivations.find(
     (a: any) =>
-      (a.user_id === userId || a.friend_id === userId) &&
+      (a.user_id === selectedFriend.value?.user_id || a.friend_id === selectedFriend.value?.user_id) &&
       a.status === 'accepted'
   )
     ? true
     : false
-}
+})
 
 async function handleAccountClick(a: any) {
   selectedAccount.value = a
@@ -633,7 +636,7 @@ async function handleFeedClick() {
 }
 
 async function handleAcceptClick() {
-  if (isFriendUnavailable(activation.value.user_id) || busy) return
+  if (isFriendUnavailable.value || busy.value) return
 
   loading.value = true
   const r = await acceptActivation(activation.value.id)
@@ -651,7 +654,9 @@ async function handleAcceptClick() {
 }
 
 async function handleTerminateClick() {
-  const y = confirm('Are you sure you want to terminate and exit the Activation?')
+  const y = confirm(
+    'Are you sure you want to terminate and exit the Activation?'
+  )
 
   if (y) {
     loading.value = true

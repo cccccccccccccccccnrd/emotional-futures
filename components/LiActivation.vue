@@ -68,11 +68,7 @@ const accounterpart = computed(() =>
   )
 )
 const busy = computed(() => {
-  return db.value.activations.find(
-    (a: any) =>
-      a.status === 'accepted' ||
-      (a.status === 'created' && a.user_id === user.value?.id)
-  )
+  return db.value.activations.find((a: any) => a.status === 'accepted')
     ? true
     : false
 })
