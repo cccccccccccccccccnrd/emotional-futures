@@ -23,13 +23,13 @@
       class="flex flex-col grow items-center justify-between mt-5 overflow-hidden"
     >
       <p class="text-xl font-bold text-center">{{ selectedFriend.name }}</p>
-      <p class="text-center mt-5">You played {{ getActivationsWithFriend(selectedFriend?.user_id).length }} Activation{{
-        getActivationsWithFriend(selectedFriend?.user_id).length > 1 || getActivationsWithFriend(selectedFriend?.user_id).length === 0 ? 's' : ''
+      <p class="text-center mt-5">You played {{ activationsWithFriend(selectedFriend?.user_id).length }} Activation{{
+        activationsWithFriend(selectedFriend?.user_id).length > 1 || activationsWithFriend(selectedFriend?.user_id).length === 0 ? 's' : ''
           }}</p>
       <div class="grow w-full mt-5 overflow-y-scroll">
         <div class="flex flex-col gap-2">
           <LiActivation
-            v-for="a in getActivationsWithFriend(selectedFriend?.user_id)"
+            v-for="a in activationsWithFriend(selectedFriend?.user_id)"
             @click="handleActivationClick(a)"
             :activation="a"
             :friendUnavailable="isFriendUnavailable(selectedFriend?.user_id)"
@@ -91,7 +91,7 @@
               v-for="friend in db.friends"
               @click="handleFriendClick(friend)"
               :name="friend.name"
-              :activations="getActivationsWithFriend(friend.user_id)"
+              :activations="activationsWithFriend(friend.user_id)"
               :selected="selectedFriend?.id === friend.id"
               :unavailable="isFriendUnavailable(friend.user_id)"
               :busy="isFriendBusy(friend.user_id)"
@@ -180,7 +180,7 @@ function handleBackClick() {
   step.value = 0
 }
 
-function getActivationsWithFriend(userId: string) {
+function activationsWithFriend(userId: string) {
   return db.value.activations.filter(
     (a: any) => a.user_id === userId || a.friend_id === userId
   )
@@ -218,7 +218,7 @@ function isFriendBusy(userId: string) {
 }
 
 function hasInvitation(userId: string) {
-  const a = getActivationsWithFriend(userId)
+  const a = activationsWithFriend(userId)
   return a.find((a: any) => a.status === 'created' && a.user_id === userId)
     ? true
     : false

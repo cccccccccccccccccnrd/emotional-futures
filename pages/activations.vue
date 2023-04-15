@@ -29,7 +29,7 @@
             v-for="a in all"
             @click="navigateTo(`/activation/${a.id}`)"
             :activation="a"
-            :accounterpart="getAccounterpartFromActivation(a)"
+            :accounterpart="accounterpartFromActivation(a)"
           />
         </div>
         <div v-else class="flex flex-col w-full mt-2 gap-2">
@@ -37,7 +37,7 @@
             v-for="a in invites"
             @click="handleInviteClick(a)"
             :activation="a"
-            :accounterpart="getAccounterpartFromActivation(a)"
+            :accounterpart="accounterpartFromActivation(a)"
             :disabled="isFriendUnavailable(a)"
           />
         </div>
@@ -90,7 +90,7 @@ function handleInviteClick(a: any) {
   navigateTo(`/activation/${a.id}`)
 }
 
-function getAccounterpartFromActivation(a: any) {
+function accounterpartFromActivation(a: any) {
   return db.value.friends.find(
     (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
   )

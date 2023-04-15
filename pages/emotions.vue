@@ -71,7 +71,7 @@
                 v-for="a in activationsByEmotion"
                 @click="navigateTo(`/activation/${a.id}`)"
                 :activation="a"
-                :accounterpart="getAccounterpartFromActivation(a)"
+                :accounterpart="accounterpartFromActivation(a)"
               />
             </div>
           </div>
@@ -140,7 +140,7 @@ const activationsByEmotion = computed(() =>
   )
 )
 
-function getAccounterpartFromActivation(a: any) {
+function accounterpartFromActivation(a: any) {
   return db.value.friends.find(
     (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
   )

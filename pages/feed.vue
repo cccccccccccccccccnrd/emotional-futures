@@ -107,7 +107,7 @@
             v-for="friend in db.friends"
             @click="handleFriendClick(friend)"
             :name="friend.name"
-            :activations="getActivationsWithFriend(friend.user_id)"
+            :activations="activationsWithFriend(friend.user_id)"
             :selected="selectedFriend?.id === friend.id"
             :unavailable="isFriendUnavailable(friend.user_id)"
             :invited="isFriendInvited(friend.user_id)"
@@ -302,7 +302,7 @@ function isFriendUnavailable(userId: string) {
     : false
 }
 
-function getActivationsWithFriend(userId: string) {
+function activationsWithFriend(userId: string) {
   return db.value.activations.filter(
     (a: any) => a.user_id === userId || a.friend_id === userId
   )
