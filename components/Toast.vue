@@ -1,6 +1,6 @@
 <template>
   <div
-    class="toast-in w-full flex flex-col p-5 border-2 border-red bg-dark-80"
+    class="toast-in w-full flex flex-col p-5 border-2 border-red bg-dark-100"
     :class="out ? 'toast-out' : ''"
   >
     <div class="flex gap-3">
