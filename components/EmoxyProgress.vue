@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="flex flex-col border-2 border-white-20 backdrop-blur-md mt-5">
-      <div class="flex bg-dark-50">
+      <div class="flex bg-dark-50 border-b-2 border-white-20">
         <div
           class="px-2 py-1 flex flex-col justify-center items-center border-r-2 border-white-20"
         >

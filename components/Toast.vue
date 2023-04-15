@@ -18,7 +18,7 @@
     </div>
     <div
       @click="handleTaskClick"
-      class="mt-2 flex justify-center gap-2 py-2 px-3 bg-dark-50 rounded-sm"
+      class="mt-3 flex justify-center gap-2 py-2 px-3 bg-dark-50 rounded-sm"
     >
       <Icon type="eye" />
       <p class="font-bold">View Task</p>

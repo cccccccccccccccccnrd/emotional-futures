@@ -28,7 +28,7 @@
         :class="activationsByEmotion.length <= 0 ? 'flex flex-col grow' : ''"
       >
         <div
-          v-if="activationsByEmotion.length <= 0"
+          v-if="!selectedEmotion?.id"
           class="grow flex flex-col justify-between"
         >
           <div>
@@ -50,12 +50,12 @@
           </p>
         </div>
         <div
-          v-if="activationsByEmotion.length > 0"
+          v-if="activationsByEmotion.length > 0 || selectedEmotion?.id"
           class="flex flex-col overflow-hidden"
         >
           <p class="text-center">
             <span class="font-bold">{{ activationsByEmotion.length }}</span>
-            Activation{{ activationsByEmotion.length > 1 ? 's' : '' }} Played
+            Activation{{ activationsByEmotion.length !== 1 ? 's' : '' }} Played
           </p>
           <div
             class="flex-none w-full h-2 bg-white-20 rounded-full mt-5 overflow-hidden"
