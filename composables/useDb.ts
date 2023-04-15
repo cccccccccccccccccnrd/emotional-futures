@@ -194,6 +194,7 @@ export async function fetchFriendsActivations () {
     .or(
       `user_id.in.(${friendIds.toString()}),friend_id.in.(${friendIds.toString()})`
     )
+    .eq('status', 'accepted')
     .order('created_at', { ascending: false })
 
   if (error) {
