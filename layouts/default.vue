@@ -17,7 +17,7 @@
           : ''
       }`"
     >
-      <!-- <Toasts /> -->
+      <Toasts />
       <Overlay
         v-if="overlay.isOpen"
         :type="overlay.type"
@@ -41,9 +41,9 @@ nuxtApp.hook('page:finish', () => {
   loading.value = false
 })
 
-document.addEventListener('visibilitychange', () => {
+document.addEventListener('visibilitychange', async () => {
   if (document.visibilityState === 'visible') {
-    initDb(true)
+    await initDb(true)
   }
 })
 

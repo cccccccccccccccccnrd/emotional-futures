@@ -60,7 +60,7 @@
               @click="navigateTo(`/activation/${busy?.id}`)"
               type="dark"
               padding="1"
-              class="rounded-lg border-2 border-white-80 pointer-events-auto"
+              class="rounded-lg border-2 border-red pointer-events-auto"
               >{{ busyStatus }}</Btn
             >
           </div>

@@ -18,13 +18,16 @@ export async function initDb (force?: Boolean) {
   if (!user.value?.id) return
   if (client.getChannels().length > 0 && !force) return
   if (force) client.removeAllChannels()
-  
+
   db.value.emoxy = await fetchEmoxy()
   db.value.activations = await fetchActivations()
   db.value.friends = await fetchFriends()
   db.value.friendsActivations = await fetchFriendsActivations()
-  
-  console.log(`%cfetching 𝓔𝓶𝓸𝓽𝓲𝓸𝓷𝓪𝓵 𝓕𝓾𝓽𝓾𝓻𝓮𝓼 via ${db.value.emoxy.name}`, 'color: blue;')
+
+  console.log(
+    `%cfetching 𝓔𝓶𝓸𝓽𝓲𝓸𝓷𝓪𝓵 𝓕𝓾𝓽𝓾𝓻𝓮𝓼 via ${db.value.emoxy.name}`,
+    'color: blue; font-weight: bold;'
+  )
   console.table({
     bst: db.value.emoxy.bst.toString(),
     activations: db.value.activations.length,
@@ -86,14 +89,33 @@ export async function initDb (force?: Boolean) {
     .subscribe()
 }
 
+async function toasted (payload: any) {
+  const toasts = useToasts()
+
+  if (
+    payload.old.status === 'created' &&
+    payload.new.status === 'accepted' &&
+    payload.new.user_id === user.value?.id
+  ) {
+    toasts.value.push({
+      type: 'invite-accepted',
+      activation: payload.new
+    })
+  }
+}
+
 async function handleFriendsActivationsChanges (payload: any) {
   if (payload.eventType === 'INSERT') {
     db.value.friendsActivations = [payload.new, ...db.value.friendsActivations]
   } else if (payload.eventType === 'UPDATE') {
-    const i = db.value.friendsActivations.findIndex((a) => a.id === payload.old.id)
+    const i = db.value.friendsActivations.findIndex(
+      a => a.id === payload.old.id
+    )
     db.value.friendsActivations[i] = payload.new
   } else if (payload.eventType === 'DELETE') {
-    const i = db.value.friendsActivations.findIndex((a) => a.id === payload.old.id)
+    const i = db.value.friendsActivations.findIndex(
+      a => a.id === payload.old.id
+    )
     i !== -1 && db.value.friendsActivations.splice(i, 1)
   }
 }
@@ -103,10 +125,11 @@ async function handleActivationsChanges (payload: any) {
   if (payload.eventType === 'INSERT') {
     db.value.activations = [payload.new, ...db.value.activations]
   } else if (payload.eventType === 'UPDATE') {
-    const i = db.value.activations.findIndex((a) => a.id === payload.old.id)
+    const i = db.value.activations.findIndex(a => a.id === payload.old.id)
     db.value.activations[i] = payload.new
+    toasted(payload)
   } else if (payload.eventType === 'DELETE') {
-    const i = db.value.activations.findIndex((a) => a.id === payload.old.id)
+    const i = db.value.activations.findIndex(a => a.id === payload.old.id)
     i !== -1 && db.value.activations.splice(i, 1)
   }
 }

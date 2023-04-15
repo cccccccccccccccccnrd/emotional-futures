@@ -7,6 +7,11 @@ export const useOverlay = () =>
     }
   })
 
+export const useToasts = () =>
+  useState('toasts', () => {
+    return <any>[]
+  })
+
 export function useEmotions () {
   return [
     {

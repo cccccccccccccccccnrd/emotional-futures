@@ -35,9 +35,6 @@
 </template>
 
 <script setup lang="ts">
-const emotions: any = await useEmotions()
-const relationshapes: any = await useRelationshapes()
-
 const props = defineProps({
   activation: {
     type: Object,
@@ -51,6 +48,9 @@ const props = defineProps({
 
 const user = useSupabaseUser()
 const db = useDb()
+
+const emotions: any = useEmotions()
+const relationshapes: any = useRelationshapes()
 
 const own = computed(() => props.activation.user_id === user.value?.id)
 const accounterpart = computed(() =>
