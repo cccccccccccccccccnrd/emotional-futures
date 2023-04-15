@@ -1,59 +1,3 @@
-<template>
-  <Renderer
-    ref="rendererC"
-    antialias
-    :shadow="true"
-    :orbit-ctrl="{
-      enableDamping: true,
-      dampingFactor: 0.07,
-      minDistance: 2,
-      maxDistance: 10,
-      enablePan: false
-    }"
-    resize
-    alpha
-  >
-    <Scene ref="sceneC">
-      <Camera :position="{ z: 5 }" :fov="75" :aspect="2" :near="0.1" :far="900">
-        <PointLight :position="{ x: 3.321, y: 0, z: 4.74 }" :intensity="1" />
-        <PointLight :position="{ x: -5.1, y: 3.35, z: 0.12 }" :intensity="1" />
-        <PointLight :position="{ x: 2, y: -5.2, z: -7 }" :intensity="1" />
-        <PointLight :position="{ x: 1.5, y: 7.5, z: 0 }" :intensity="0.1" />
-        <PointLight
-          :position="{ x: -5.5, y: -4.7, z: 0.12 }"
-          :intensity="0.1"
-        />
-      </Camera>
-
-      <Plane
-        ref="planeC"
-        :visible="showPlane"
-        :position="{ x: 0, y: 0.1, z: 1 }"
-        :scale="{ x: 1.5, y: 1.5, z: 0 }"
-      >
-        <BasicMaterial ref="BM">
-          <Texture :src="face_src" />
-        </BasicMaterial>
-      </Plane>
-
-      <GltfModel
-        :src="emoxy_src"
-        :position="{ x: 0, y: 0, z: 0 }"
-        :scale="{ x: 0.7, y: 0.7, z: 0.7 }"
-        :rotation="{ x: 0, y: 0, z: 0 }"
-        ref="gltfC"
-        @load="onReady"
-        @before-load="whileLoading"
-      >
-      </GltfModel>
-    </Scene>
-
-    <EffectComposer>
-      <RenderPass />
-    </EffectComposer>
-  </Renderer>
-</template>
-
 <script setup lang="ts">
 import {
   BasicMaterial,
@@ -125,24 +69,11 @@ if (activations.length == 0) {
     emotions_played.add(activations[i].type[0])
   }
 
-  level = emotions_played.size
-  last_emotion = Number(activations[0].type[0]) - 1 /* 👿👿👿 */
+  last_emotion = activations[0].type[0] - 1 /* 👿👿👿 */
 }
 
 r = props.emoxy.r
 bst_init = props.emoxy.bst
-
-let emoxy_level
-
-level > 4 ? (emoxy_level = 4) : (emoxy_level = level)
-
-let i = r
-const types = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
-let emoxy_type = types[i]
-level <= 1 ? (emoxy_type = 'X') : (emoxy_type = types[i])
-
-const emoxy_src_path = '/emoxy/meshes/' + emoxy_level + emoxy_type + '.glb'
-emoxy_src.value = emoxy_src_path
 
 const b = bst_init[0]
 const s = bst_init[1]
@@ -155,6 +86,50 @@ if (bst_all <= 0) {
 }
 
 let bst_rel = [b / bst_all, s / bst_all, t / bst_all]
+
+const breakingPoints = [100, 250, 500, 750, 1000, 1250, 1500, 2050]
+level = 0
+bst_all < breakingPoints[0] ? (level = 0) : (level = level)
+bst_all >= breakingPoints[0] && bst_all < breakingPoints[1]
+  ? (level = 1)
+  : (level = level)
+bst_all >= breakingPoints[1] && bst_all < breakingPoints[2]
+  ? (level = 2)
+  : (level = level)
+bst_all >= breakingPoints[2] && bst_all < breakingPoints[3]
+  ? (level = 3)
+  : (level = level)
+bst_all >= breakingPoints[3] && bst_all < breakingPoints[4]
+  ? (level = 4)
+  : (level = level)
+bst_all >= breakingPoints[4] && bst_all < breakingPoints[5]
+  ? (level = 5)
+  : (level = level)
+bst_all >= breakingPoints[5] && bst_all < breakingPoints[6]
+  ? (level = 6)
+  : (level = level)
+bst_all >= breakingPoints[6] && bst_all < breakingPoints[7]
+  ? (level = 7)
+  : (level = level)
+bst_all >= breakingPoints[7] ? (level = 8) : (level = level)
+
+function getRandomIntInclusive(min: number, max: number) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+let emoxy_level
+
+level > 4 ? (emoxy_level = 4) : (emoxy_level = level)
+
+let i = r
+const types = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+let emoxy_type = types[i]
+level <= 1 ? (emoxy_type = 'X') : (emoxy_type = types[i])
+
+const emoxy_src_path = '/emoxy/meshes/' + emoxy_level + emoxy_type + '.glb'
+emoxy_src.value = emoxy_src_path
 
 const closestColor = colors.reduce(
   (acc, color) => {
@@ -174,15 +149,17 @@ const closestColor = colors.reduce(
 )
 
 const m = closestColor[1]
-const phong_color = colors[m - 1].hex
+// @ts-ignore
+const phong_color = colors[m].hex[getRandomIntInclusive(0, 8)]
 
 const closestMaterial = pbr_materials.reduce(
   (acc, material) => {
-    const material_weight = new Vector3(
-      material.weight.b,
-      material.weight.s,
-      material.weight.t
+    const material_weight: any = new Vector3(
+      0.5 * material.weight.b + 0.166,
+      0.5 * material.weight.s + 0.166,
+      0.5 * material.weight.t + 0.166
     )
+
     const distance = Math.sqrt(
       (material_weight.x - bst_rel[0]) * (material_weight.x - bst_rel[0]) +
         (material_weight.y - bst_rel[1]) * (material_weight.y - bst_rel[1]) +
@@ -253,7 +230,6 @@ function onReady(gltf: any) {
   const renderer = rendererC.value as RendererPublicInterface
 
   const mesh = gltf.scene.children[0]
-
   showPlane.value = true
 
   const finetuningSpeed = [
@@ -320,7 +296,7 @@ function onReady(gltf: any) {
   }
 
   if (level >= 6) {
-    let scatter_amount = bst_all
+    let scatter_amount = b
     scatter_amount > 700
       ? (scatter_amount = 700)
       : (scatter_amount = scatter_amount)
@@ -484,3 +460,59 @@ function resample(
   sceneC.value.scene.add(scatter)
 }
 </script>
+
+<template>
+  <Renderer
+    ref="rendererC"
+    antialias
+    :shadow="true"
+    :orbit-ctrl="{
+      enableDamping: true,
+      dampingFactor: 0.07,
+      minDistance: 2,
+      maxDistance: 7,
+      enablePan: false
+    }"
+    resize
+    alpha
+  >
+    <Scene ref="sceneC">
+      <Camera :position="{ z: 5 }" :fov="75" :aspect="2" :near="0.1" :far="900">
+        <PointLight :position="{ x: 3.321, y: 0, z: 4.74 }" :intensity="1" />
+        <PointLight :position="{ x: -5.1, y: 3.35, z: 0.12 }" :intensity="1" />
+        <PointLight :position="{ x: 2, y: -5.2, z: -7 }" :intensity="1" />
+        <PointLight :position="{ x: 1.5, y: 7.5, z: 0 }" :intensity="0.1" />
+        <PointLight
+          :position="{ x: -5.5, y: -4.7, z: 0.12 }"
+          :intensity="0.1"
+        />
+      </Camera>
+
+      <Plane
+        ref="planeC"
+        :visible="showPlane"
+        :position="{ x: 0, y: 0.1, z: 1 }"
+        :scale="{ x: 1.5, y: 1.5, z: 0 }"
+      >
+        <BasicMaterial ref="BM">
+          <Texture :src="face_src" />
+        </BasicMaterial>
+      </Plane>
+
+      <GltfModel
+        :src="emoxy_src"
+        :position="{ x: 0, y: 0, z: 0 }"
+        :scale="{ x: 0.7, y: 0.7, z: 0.7 }"
+        :rotation="{ x: 0, y: 0, z: 0 }"
+        ref="gltfC"
+        @load="onReady"
+        @before-load="whileLoading"
+      >
+      </GltfModel>
+    </Scene>
+
+    <EffectComposer>
+      <RenderPass />
+    </EffectComposer>
+  </Renderer>
+</template>
