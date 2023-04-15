@@ -21,7 +21,7 @@
           <p class="text-2xl font-bold">{{ level < 7 ? level : '∞' }}</p>
           <p class="text-sm opacity-50">level</p>
         </div>
-        <div class="px-2 py-1 flex justify-center items-center text-sm">
+        <div class="px-2 py-1 flex justify-center items-center">
           <div v-if="results">
             <p v-if="isLevelUp">
               You collected enough Drops to grow your Emoxy.
@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-col py-3 px-2 pb-2">
+      <div class="flex flex-col py-3 px-2 pb-2 bg-dark-20">
         <div class="w-full h-2 bg-white-20 rounded-full overflow-hidden">
           <div
             class="h-full bg-white-100 rounded-full"
