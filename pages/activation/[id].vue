@@ -281,6 +281,7 @@
         :emotion="selectedEmotion"
         :relationshape="selectedRelationshape"
         :accounterpart="selectedFriend"
+        isRevealed
       />
     </div>
     <div
