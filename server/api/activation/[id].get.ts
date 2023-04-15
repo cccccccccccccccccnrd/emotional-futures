@@ -58,6 +58,14 @@ export async function handleActivation (event: H3Event, activation: Activation) 
     })
   }
 
+  if (await isUserBusy(event, activation.user_id)) {
+    throw createError({
+      statusCode: 406,
+      name: 'NotAcceptableError',
+      message: 'nah, accounterpart is busy'
+    })
+  }
+
   return await updateActivation(event, activation.id)
 }
 
@@ -97,5 +105,31 @@ export async function getActivation (event: H3Event, id: string) {
     })
   } else {
     return data[0]
+  }
+}
+
+export async function isUserBusy (event: H3Event, userId: string) {
+  const client: any = serverSupabaseServiceRole(event)
+
+  const { data, error } = await client
+    .from('activations')
+    .select()
+    .or(`user_id.eq.${userId},friend_id.eq.${userId}`)
+    .eq('status', 'accepted')
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.log(error)
+    throw createError({
+      statusCode: 500,
+      name: 'InternalServerError',
+      message: error.message
+    })
+  } else {
+    if (data.length > 0) {
+      return true
+    } else {
+      return false
+    }
   }
 }

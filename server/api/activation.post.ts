@@ -18,14 +18,6 @@ export default defineEventHandler(async event => {
 
   const body = await readBody(event)
 
-  /* if (await hasAcceptedActivation(event)) {
-    throw createError({
-      statusCode: 403,
-      name: 'Forbidden',
-      message: 'nah, ur playin'
-    })
-  } */
-
   const { data, error } = await createActivation(
     event,
     body.type,
@@ -61,31 +53,4 @@ export async function createActivation (
     })
     .select()
     .single()
-}
-
-export async function hasAcceptedActivation (event: H3Event) {
-  const client: any = serverSupabaseServiceRole(event)
-  const user = await serverSupabaseUser(event)
-
-  const { data, error } = await client
-    .from('activations')
-    .select()
-    .or(`user_id.eq.${user?.id},friend_id.eq.${user?.id}`)
-    .eq('status', 'accepted')
-    .order('created_at', { ascending: false })
-
-  if (error) {
-    console.log(error)
-    throw createError({
-      statusCode: 500,
-      name: 'InternalServerError',
-      message: error.message
-    })
-  } else {
-    if (data.length > 0) {
-      return true
-    } else {
-      return false
-    }
-  }
 }

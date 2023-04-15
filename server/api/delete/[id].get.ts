@@ -40,6 +40,22 @@ export default defineEventHandler(async event => {
 
 async function deleteUser (event: H3Event, id: string) {
   const client = serverSupabaseServiceRole(event)
-
+  await unfriendAll(event, id)
   return await client.auth.admin.deleteUser(id)
+}
+
+async function unfriendAll(event: H3Event, emoxyId: string) {
+  const friends = await getFriendIds(event, emoxyId)
+
+  friends.map(async (friendId: any) => {
+    await deleteEmoxyFromEmoxyFriends(event, friendId, emoxyId)
+  })
+}
+
+async function getFriendIds(event: H3Event, emoxyId: string) {
+  return []
+}
+
+async function deleteEmoxyFromEmoxyFriends(event: H3Event, friendId: string, emoxyId: string) {
+  
 }

@@ -22,13 +22,13 @@
       />
       <div
         v-if="activation.status === 'created' && !friendUnavailable && !own"
-        class="flex justify-center items-center h-6 px-2 border-2 border-red"
+        class="flex justify-center items-center px-1.5 py-1 border-2 border-red"
       >
         Invite
       </div>
       <div
         v-if="activation.status === 'accepted'"
-        class="flex justify-center items-center h-6 px-2 border-2 border-red"
+        class="flex justify-center items-center px-1.5 py-1 border-2 border-red"
       >
         Ongoing
       </div>
