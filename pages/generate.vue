@@ -11,7 +11,7 @@
     </div>
     <div v-if="step === 2" class="grow flex flex-col mt-5">
       <p class="text-lg font-bold text-center">Emotions Wheel</p>
-      <p class="text-lg text-center capitalize mt-5">
+      <p class="text text-center capitalize mt-5">
         {{ selectedEmotion.id ? selectedEmotion.name : 'Choose Emotion' }}
       </p>
       <Emotions
@@ -95,7 +95,9 @@
           placeholder="Type your Password"
           type="password"
         />
-        <p class="text-xs">Your password should be at least 8 characters long.</p>
+        <p class="text-xs">
+          Your password should be at least 8 characters long.
+        </p>
         <Btn
           @click="handleSignUpClick"
           :disabled="!validEmail || !validName || !validPassword"
@@ -419,26 +421,40 @@
   </div>
   <div class="absolute top-0 left-0 h-full w-full z-[-10]">
     <div
-      v-if="step === 0 || step === 7"
-      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-6.png')] bg-cover"
+      v-if="step < 8"
+      class="absolute top-0 left-0 h-full w-full bg-dark-40"
     ></div>
     <div
-      v-if="
-        step === 1 || step === 2 || step === 9 || (step >= 10 && step <= 16)
-      "
-      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-5.png')] bg-cover"
-    ></div>
-    <div
-      v-if="step === 3 || step === 4 || step === 8"
-      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-4.png')] bg-cover"
+      v-if="step === 7"
+      class="h-full w-full bg-[url('/imgs/bg-10.png')] bg-cover"
     ></div>
     <div
       v-if="step === 5 || step === 6"
-      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-6.png')] bg-cover"
+      class="h-full w-full bg-[url('/imgs/bg-9.png')] bg-cover"
+    ></div>
+    <div
+      v-if="step === 3 || step === 4"
+      class="h-full w-full bg-[url('/imgs/bg-8.png')] bg-cover"
+    ></div>
+    <div
+      v-if="step === 1 || step === 2"
+      class="h-full w-full bg-[url('/imgs/bg-7.png')] bg-cover"
+    ></div>
+    <div
+      v-if="step === 0 || step === 7"
+      class="h-full w-full bg-[url('/imgs/bg-6.png')] bg-cover"
+    ></div>
+    <div
+      v-if="step === 9 || (step >= 10 && step <= 16)"
+      class="h-full w-full bg-[url('/imgs/bg-5.png')] bg-cover"
+    ></div>
+    <div
+      v-if="step === 8"
+      class="h-full w-full bg-[url('/imgs/bg-4.png')] bg-cover"
     ></div>
     <div
       v-if="step === 17 || step === 18 || step === 19 || step === 20"
-      class="h-full w-full flex justify-center items-center bg-[url('/imgs/bg-1.png')] bg-cover"
+      class="h-full w-full bg-[url('/imgs/bg-1.png')] bg-cover"
     ></div>
   </div>
 </template>
