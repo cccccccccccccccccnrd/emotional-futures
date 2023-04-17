@@ -33,7 +33,7 @@
             @click="handleActivationClick(a)"
             :activation="a"
             :friendUnavailable="isFriendUnavailable(selectedFriend?.user_id)"
-            :disabled="(a.status === 'created' && isFriendUnavailable(selectedFriend?.user_id) && a.user_id !== user?.id) || (a.status === 'created' && a.user_id !== user?.id && busy)"
+            :disabled="(a.status === 'created' && isFriendUnavailable(selectedFriend?.user_id) && a.user_id !== user?.id)"
           />
         </div>
       </div>
@@ -151,18 +151,9 @@ const connected = ref(false)
 const overlay = useOverlay()
 
 const validEmoxyName = computed(() => connectInput.value.trim().length >= 4)
-const busy = computed(() => {
-  return db.value.activations.find(
-    (a: any) =>
-      a.status === 'accepted' ||
-      (a.status === 'created' && a.user_id === user.value?.id)
-  )
-    ? true
-    : false
-})
 
 function handleActivationClick(a: any) {
-  if ((a.status === 'created' && isFriendUnavailable(selectedFriend.value?.user_id) && a.user_id !== user.value?.id) || (a.status === 'created' && a.user_id !== user.value?.id && busy)) return
+  if (a.status === 'created' && isFriendUnavailable(selectedFriend.value?.user_id) && a.user_id !== user.value?.id) return
   navigateTo(`/activation/${a.id}`)
 }
 

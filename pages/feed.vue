@@ -20,7 +20,11 @@
           @click="handleOverlayClick('manual', ['', 0])"
           type="files"
         />
-        <Icon v-if="step !== -1 && step !== -2" @click="step--" type="arrow-l" />
+        <Icon
+          v-if="step !== -1 && step !== -2"
+          @click="step--"
+          type="arrow-l"
+        />
         <Icon
           v-if="step === -2"
           type="files"
@@ -53,7 +57,9 @@
       <div class="grow flex flex-col">
         <p class="text-2xl font-bold">Emotional Futures Manual</p>
         <p class="mt-5">
-          If you are feeling lost, or simply want to know more, you will find all of the information you need once you click on the Manual icon, always available at the top corner of the screen.
+          If you are feeling lost, or simply want to know more, you will find
+          all of the information you need once you click on the Manual icon,
+          always available at the top corner of the screen.
         </p>
         <p class="mt-5">
           From extra information about Emotions, Relationshapes, and
@@ -73,6 +79,11 @@
             @click="handleInviteClick(a)"
             :activation="a"
             :friendUnavailable="
+              isFriendUnavailable(
+                user?.id !== a.user_id ? a.user_id : String(a.friend_id)
+              )
+            "
+            :disabled="
               isFriendUnavailable(
                 user?.id !== a.user_id ? a.user_id : String(a.friend_id)
               )
