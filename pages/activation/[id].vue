@@ -84,23 +84,6 @@
         <Icon v-if="step === 10" type="close" @click="step = 9" />
       </div>
     </div>
-    <div v-if="step === 1" class="grow flex flex-col items-center">
-      <p class="text-lg font-bold text-center">Activation invite</p>
-      <p class="text-sm text-center mt-5">
-        If you are on the same place, scan the qr-code, and you will instantly
-        share the activation invite. You can also share it with the link below.
-      </p>
-      <Qr
-        :value="`${useRuntimeConfig().baseURL}/api/activation/${activation.id}`"
-        class="w-3/5 mt-5"
-      />
-      <p class="text-sm text-center mt-5" @click="handleShareClick(false)">
-        Share invite link
-      </p>
-    </div>
-    <div v-if="step === 1" class="flex flex-col justify-center items-center">
-      <Btn @click="step = 0">I shared the invitation</Btn>
-    </div>
     <div v-if="step === 3" class="grow flex flex-col items-center">
       <p class="text-lg font-bold mt-5">Get ready to invest in your future.</p>
       <p class="mt-5">
@@ -387,7 +370,7 @@
 </template>
 
 <script setup lang="ts">
-import { Emoxy } from '~/types/futures'
+import type { Emoxy, Activation } from '~/types/futures'
 
 definePageMeta({
   middleware: 'auth'
@@ -404,13 +387,13 @@ const emotions: any = useEmotions()
 const relationshapes: any = useRelationshapes()
 const { isMobile } = useDevice()
 
-const activation: any = ref(null)
-
 const step = ref(0)
 const accepted = ref(false)
 const terminated = ref(false)
 const fed = ref(false)
 const loading = ref(false)
+
+const activation = ref<Activation>()
 
 const selectedFriend = ref<Emoxy>()
 const selectedEmotion = ref({
@@ -435,10 +418,11 @@ const sweat = ref('5')
 const tears = ref('5')
 
 const results = computed(() => {
-  const f = activation.value.results.find(
+  const f = activation.value?.results.find(
     (a: any) => a.userId === user.value?.id
   )
   if (f) {
+    // @ts-ignore
     return f.results
   } else {
     return null
@@ -451,129 +435,95 @@ const busy = computed(() => {
     : false
 })
 
-let interval: any = null
-let terminateInterval: any = null
+onMounted(() => {
+  check(true)
+})
 
-onMounted(async () => {
+watch(db.value.activations, () => {
+  check()
+})
+
+function check(first?: Boolean) {
   const id = String(route.params.id)
-  const a = db.value.activations.find((a: any) => a.id === id)
+  activation.value = db.value.activations.find((a: any) => a.id === id)
 
-  if (!a) {
-    navigateTo('/emoxy')
+  if (first && !activation.value) {
+    return navigateTo('/emoxy')
+  } else if (!activation.value) {
+    terminated.value = true
+    setTimeout(() => {
+      terminated.value = false
+      navigateTo('/emoxy')
+    }, 3000)
     return
   }
 
-  loadActivation(a)
+  selectedFriend.value = db.value.friends.find(
+    (f: any) =>
+      f.user_id === activation.value?.friend_id ||
+      f.user_id === activation.value?.user_id
+  )
+  selectedEmotion.value = emotions.find(
+    (e: any) => e.id === activation.value?.type[0]
+  )
+  selectedRelationshape.value = relationshapes.find(
+    (r: any) => r.id === activation.value?.type[1]
+  )
 
-  terminateInterval = setInterval(async () => {
-    const id = String(route.params.id)
-    const a = db.value.activations.find((a: any) => a.id === id)
-
-    if (!a) {
-      terminated.value = true
-      setTimeout(() => {
-        terminated.value = false
-        navigateTo('/emoxy')
-      }, 3000)
-    }
-  }, 3000)
-})
-
-onUnmounted(async () => {
-  if (interval) clearInterval(interval)
-  if (terminateInterval) clearInterval(terminateInterval)
-})
-
-function loadActivation(a: any) {
-  setActivation(a)
-
-  if (a.status === 'created') {
+  if (activation.value?.status === 'created') {
     step.value = 0
-    check('accepted')
     console.log('open activation', activation.value)
-  } else if (a.status === 'accepted' && a.accounts.length === 0) {
+  } else if (
+    activation.value?.status === 'accepted' &&
+    activation.value?.accounts.length === 0
+  ) {
     step.value = 2
     console.log('accepted activation', activation.value)
-  } else if (a.status === 'accepted' && a.accounts.length === 1) {
-    const f = a.accounts.find((a: any) => a.userId === user.value?.id)
+  } else if (
+    activation.value?.status === 'accepted' &&
+    activation.value?.accounts.length === 1
+  ) {
+    const f = activation.value?.accounts.find(
+      (a: any) => a.userId === user.value?.id
+    )
     if (f) {
       step.value = 8
-      check('accounting')
       console.log('friends accounting move activation', activation.value)
     } else {
       step.value = 2
       console.log('accepted activation', activation.value)
     }
   } else if (
-    a.status === 'accepted' &&
-    a.accounts.length === 2 &&
-    a.fed.length === 0
+    activation.value?.status === 'accepted' &&
+    activation.value?.accounts.length === 2 &&
+    activation.value?.fed.length === 0
   ) {
     step.value = 9
     console.log('ending activation', activation.value)
   } else if (
-    a.status === 'accepted' &&
-    a.accounts.length === 2 &&
-    a.fed.length === 1
+    activation.value?.status === 'accepted' &&
+    activation.value?.accounts.length === 2 &&
+    activation.value?.fed.length === 1
   ) {
-    const f = a.fed.find((f: any) => f === user.value?.id)
+    const f = activation.value?.fed.find((f: any) => f === user.value?.id)
     if (f) {
       step.value = 11
-      check('feeding')
       console.log('friends fed move activation', activation.value)
     } else {
       step.value = 9
       console.log('ending activation', activation.value)
     }
-  } else if (a.status === 'completed') {
+  } else if (activation.value?.status === 'completed') {
     step.value = 12
     console.log('completed activation', activation.value)
   }
 }
 
-function check(status: any) {
-  interval = setInterval(async () => {
-    const id = String(route.params.id)
-    const a = db.value.activations.find((a: any) => a.id === id)
-
-    if (!a) return navigateTo('/emoxy')
-
-    if (status === 'accepted') {
-      if (a.status === 'accepted') {
-        loadActivation(a)
-        clearInterval(interval)
-      }
-    } else if (status === 'accounting') {
-      const f = a.accounts?.find((a: any) => a.userId !== user.value?.id)
-      if (f) {
-        loadActivation(a)
-        clearInterval(interval)
-      }
-    } else if (status === 'feeding') {
-      const f = a.fed.find((f: any) => f !== user.value?.id)
-      if (f) {
-        loadActivation(a)
-        clearInterval(interval)
-      }
-    }
-  }, 3000)
-}
-
-function setActivation(a: any) {
-  activation.value = a
-  selectedFriend.value = db.value.friends.find(
-    (f: any) => f.user_id === a.friend_id || f.user_id === a.user_id
-  )
-  selectedEmotion.value = emotions.find((e: any) => e.id === a.type[0])
-  selectedRelationshape.value = relationshapes.find(
-    (r: any) => r.id === a.type[1]
-  )
-}
-
 const isFriendUnavailable = computed(() => {
   return db.value.friendsActivations.find(
     (a: any) =>
-      (a.user_id === selectedFriend.value?.user_id || a.friend_id === selectedFriend.value?.user_id) &&
+      (a.user_id === selectedFriend.value?.user_id ||
+        a.friend_id === selectedFriend.value?.user_id) &&
       a.status === 'accepted'
   )
     ? true
@@ -597,7 +547,7 @@ async function handleMeasureClick() {
 }
 
 async function handleInvestmentClick() {
-  if (!user.value) return
+  if (!user.value || !activation.value) return
 
   loading.value = true
   const a: any = await updateActivation(
@@ -609,17 +559,15 @@ async function handleInvestmentClick() {
 
   if (!a) return
 
-  setActivation(a)
   if (a.status === 'accepted' && a.accounts.length === 2) {
     step.value = 9
   } else {
     step.value = 8
-    check('accounting')
   }
 }
 
 async function handleFeedClick() {
-  if (!user.value) return
+  if (!user.value || !activation.value) return
 
   loading.value = true
   const a: any = await updateActivation(activation.value.id, user.value.id)
@@ -627,7 +575,6 @@ async function handleFeedClick() {
 
   if (!a) return
 
-  setActivation(a)
   fed.value = true
 
   setTimeout(() => {
@@ -636,6 +583,7 @@ async function handleFeedClick() {
 }
 
 async function handleAcceptClick() {
+  if (!user.value || !activation.value) return
   if (isFriendUnavailable.value || busy.value) return
 
   loading.value = true
@@ -654,6 +602,8 @@ async function handleAcceptClick() {
 }
 
 async function handleTerminateClick() {
+  if (!user.value || !activation.value) return
+
   const y = confirm(
     'Are you sure you want to terminate and exit the Activation?'
   )
@@ -670,44 +620,6 @@ function handleOverlayClick(type: string, page: [string, number]) {
   overlay.value.isOpen = true
   overlay.value.type = type
   overlay.value.page = page
-}
-
-function handleShareClick(isReminder: Boolean) {
-  if (navigator.share) {
-    if (isReminder) {
-      navigator.share({
-        title: 'Emotional Futures Invitation',
-        text: `Hey, our Emotional Future is waiting for your investment. Follow the link to complete the Accounting of our Activation.`,
-        url: `${useRuntimeConfig().baseURL}/activation/${activation.value.id}`
-      })
-    } else {
-      navigator.share({
-        title: 'Emotional Futures Invitation',
-        text: `Hey, let\'s feed our Emoxys! Join me in a ${selectedEmotion.value.name} ${selectedRelationshape.value.name} Activation. Follow the link to initiate the activation.`,
-        url: `${useRuntimeConfig().baseURL}/api/activation/${
-          activation.value.id
-        }`
-      })
-    }
-  } else {
-    if (isReminder) {
-      alert(
-        `Hey, our Emotional Future is waiting for your investment. Follow the link to complete the Accounting of our Activation. ${
-          useRuntimeConfig().baseURL
-        }/activation/${activation.value.id}`
-      )
-    } else {
-      alert(
-        `Hey, let\'s feed our Emoxys! Join me in a ${
-          selectedEmotion.value.name
-        } ${
-          selectedRelationshape.value.name
-        } Activation. Follow the link to initiate the activation. ${
-          useRuntimeConfig().baseURL
-        }/api/activation/${activation.value.id}`
-      )
-    }
-  }
 }
 </script>
 
