@@ -28,6 +28,7 @@
           <img src="/imgs/emoxy/eats-1.png" class="opacity-0" />
         </div>
       </div>
+      <p class="absolute bottom-0 w-full p-safe text-center underline text-dark-100 font-bold text-sm" @click="handleSkipClick">Skip</p>
       <div
         class="absolute w-full h-full z-[-10] opacity-30"
         :style="fed ? `background-image: url('/imgs/bg-1.png');` : ''"
@@ -566,6 +567,8 @@ async function handleInvestmentClick() {
   }
 }
 
+let animationTimeout: any
+
 async function handleFeedClick() {
   if (!user.value || !activation.value) return
 
@@ -577,8 +580,8 @@ async function handleFeedClick() {
 
   fed.value = true
 
-  setTimeout(() => {
-    navigateTo('/emoxy?animation=true')
+  animationTimeout = setTimeout(() => {
+    navigateTo('/emoxy')
   }, 1000 * 10)
 }
 
@@ -612,7 +615,7 @@ async function handleTerminateClick() {
     loading.value = true
     await deleteActivation(activation.value.id)
     loading.value = false
-    navigateTo('/emoxy')
+    navigateTo('/emoxy/')
   }
 }
 
@@ -620,6 +623,11 @@ function handleOverlayClick(type: string, page: [string, number]) {
   overlay.value.isOpen = true
   overlay.value.type = type
   overlay.value.page = page
+}
+
+function handleSkipClick() {
+  clearTimeout(animationTimeout)
+  navigateTo('/emoxy')
 }
 </script>
 
@@ -678,7 +686,7 @@ function handleOverlayClick(type: string, page: [string, number]) {
   animation-iteration-count: infinite;
   animation-duration: 3s;
   animation-delay: 3s;
-  background-image: url('/imgs/emoxy/eats-1.png');
+  background-image: url('/imgs/emoxy//eats-1.png');
   background-size: contain;
 }
 
@@ -719,10 +727,10 @@ function handleOverlayClick(type: string, page: [string, number]) {
 
 @keyframes faces {
   0% {
-    background-image: url('/imgs/emoxy/eats-2.png');
+    background-image: url('/imgs/emoxy//eats-2.png');
   }
   10% {
-    background-image: url('/imgs/emoxy/eats-2.png');
+    background-image: url('/imgs/emoxy//eats-2.png');
   }
   11% {
     background-image: url('/imgs/emoxy/eats-3.png');
