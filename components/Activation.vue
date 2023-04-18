@@ -204,6 +204,9 @@ import { Emoxy } from '~/types/futures'
 const props = defineProps({
   accounterpart: {
     type: Object as PropType<Emoxy>,
+    default: {
+      name: 'Unknown'
+    },
     required: false
   },
   emotion: {

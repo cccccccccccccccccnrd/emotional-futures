@@ -65,7 +65,9 @@ const accounterpart = computed(() =>
     (f: any) =>
       f.user_id === props.activation.friend_id ||
       f.user_id === props.activation.user_id
-  )
+  ) || {
+    name: 'Unknown'
+  }
 )
 const busy = computed(() => {
   return db.value.activations.find((a: any) => a.status === 'accepted')

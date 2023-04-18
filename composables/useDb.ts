@@ -321,3 +321,12 @@ export async function acceptActivation (id: string) {
     return error
   }
 }
+
+export async function deleteUser (id: string) {
+  try {
+    const response = await $fetch(`/api/delete/${id}`)
+    return response
+  } catch (error) {
+    return error
+  }
+}

@@ -1,6 +1,6 @@
 import { serverSupabaseUser, serverSupabaseServiceRole } from '#supabase/server'
 import { H3Event } from 'h3'
-import { Activation } from '~/types/futures'
+import type { Activation, Emoxy } from '~/types/futures'
 
 export default defineEventHandler(async event => {
   const user = await serverSupabaseUser(event)
@@ -14,7 +14,6 @@ export default defineEventHandler(async event => {
   }
 
   const id = event.context.params.id
-  console.log(user.id, id)
 
   if (user.id !== id) {
     throw createError({
@@ -40,22 +39,116 @@ export default defineEventHandler(async event => {
 
 async function deleteUser (event: H3Event, id: string) {
   const client = serverSupabaseServiceRole(event)
-  await unfriendAll(event, id)
+  await drop(event, id)
   return await client.auth.admin.deleteUser(id)
 }
 
-async function unfriendAll(event: H3Event, emoxyId: string) {
-  const friends = await getFriendIds(event, emoxyId)
+async function drop(event: H3Event, id: string) {
+  const emoxy = await getEmoxyByUserId(event, id)
+  const friends = await getEmoxies(event, emoxy.friends)
 
-  friends.map(async (friendId: any) => {
-    await deleteEmoxyFromEmoxyFriends(event, friendId, emoxyId)
-  })
+  await Promise.all(friends.map(async (friend: Emoxy) => {
+    const i = friend.friends.findIndex((id: string) => id === emoxy.id)
+    if (i !== -1) {
+      friend.friends.splice(i, 1)
+      await updateEmoxy(event, friend.id, {
+        friends: friend.friends
+      })
+    } else {
+      throw createError({
+        statusCode: 404,
+        name: 'NotFoundError',
+        message: 'not friends'
+      })
+    }
+  }))
+  await deleteActivations(event, emoxy.user_id)
 }
 
-async function getFriendIds(event: H3Event, emoxyId: string) {
-  return []
+export async function getEmoxyByUserId (event: H3Event, id: string) {
+  const client: any = await serverSupabaseServiceRole(event)
+
+  const { data, error } = await client
+    .from('emoxies')
+    .select()
+    .eq('user_id', id)
+    .single()
+
+  if (error) {
+    throw createError({
+      statusCode: 404,
+      name: 'NotFoundError',
+      message: error.message
+    })
+  } else {
+    return data
+  }
 }
 
-async function deleteEmoxyFromEmoxyFriends(event: H3Event, friendId: string, emoxyId: string) {
-  
+export async function getEmoxies (event: H3Event, ids: string) {
+  const client: any = await serverSupabaseServiceRole(event)
+
+  const { data, error } = await client
+    .from('emoxies')
+    .select()
+    .in('id', ids)
+
+  if (error) {
+    throw createError({
+      statusCode: 404,
+      name: 'NotFoundError',
+      message: error.message
+    })
+  } else {
+    return data
+  }
+}
+
+export async function updateEmoxy (
+  event: H3Event,
+  id: string,
+  metadata: object
+) {
+  const client = serverSupabaseServiceRole(event)
+
+  const { data, error } = await client
+    .from('emoxies')
+    // @ts-ignore
+    .update({
+      ...metadata,
+      updated_at: new Date()
+    })
+    .eq('id', id)
+    .select()
+
+  if (error) {
+    throw createError({
+      statusCode: 500,
+      name: 'InternalServerError',
+      message: error.message
+    })
+  } else {
+    return data
+  }
+}
+
+export async function deleteActivations (event: H3Event, userId: string) {
+  const client: any = serverSupabaseServiceRole(event)
+
+  const { data, error } = await client
+    .from('activations')
+    .delete()
+    .or(`user_id.eq.${userId},friend_id.eq.${userId}`)
+    .neq('status', 'completed')
+
+  if (error) {
+    console.log(error)
+    throw createError({
+      statusCode: 500,
+      name: 'InternalServerError',
+      message: error.message
+    })
+  } else {
+    return data
+  }
 }

@@ -5,19 +5,81 @@
     <div v-if="overlay.type === 'menu'" class="flex flex-col w-full h-full">
       <div class="flex justify-between items-center">
         <div>
-          <p class="text-lg font-bold">Menu</p>
+          <p v-if="step === 0" class="text-lg font-bold">Menu</p>
+          <div
+            v-else
+            class="flex justify-center items-center gap-3"
+            @click="step = 0"
+          >
+            <Icon type="arrow-l" />
+            <p class="text-xs opacity-50">Back to Menu</p>
+          </div>
         </div>
         <div>
           <Icon type="close" @click="overlay.isOpen = false" />
         </div>
       </div>
-      <div class="grow flex flex-col justify-center gap-2 mt-5">
-        <Btn type="dark" @click="handleOverlayClick('manual')">How to Play?</Btn>
-        <Btn type="dark">Add Emoxy to Homescreen</Btn>
-        <Btn type="dark">Export Emoxy</Btn>
-        <Btn type="dark" @click="handleOverlayClick('manual')">Emotional Help Resources</Btn>
-        <Btn type="dark">About</Btn>
-        <Btn @click="handleLogoutClick" type="dark">Logout</Btn>
+      <div v-if="step === 0" class="grow flex flex-col mt-5">
+        <div class="grow flex flex-col gap-2">
+          <Btn type="dark" @click="handleOverlayClick('manual')"
+            >Emotional Futures Manual</Btn
+          >
+          <Btn type="dark" @click="step = 1">Add Emoxy to Homescreen</Btn>
+          <Btn type="dark" @click="handleOverlayClick('manual')"
+            >Emotional Help Resources</Btn
+          >
+          <Btn
+            @click="
+              navigateTo('https://discord.gg/hqwEKPPj', { external: true })
+            "
+            type="dark"
+            >Discord Channel</Btn
+          >
+          <Btn @click="handleLogoutClick" type="dark">Logout</Btn>
+        </div>
+        <div class="flex flex-col items-center gap-2 mt-5">
+          <p @click="" class="text-sm text-center underline">Data Privacy</p>
+          <Btn type="dark" @click="handleDeleteClick" class="mt-3"
+            >Delete All My Data</Btn
+          >
+        </div>
+      </div>
+      <div v-if="step === 1" class="grow flex flex-col mt-5">
+        <p class="text-lg font-bold">Add Emoxy to Homescreen</p>
+        <div v-if="isIos">
+          <p class="mt-5">To add your Emoxy to an iPhone home screen,</p>
+          <p class="mt-5">
+            1. Open the Emotional Futures web app with Safari on your smartphone
+          </p>
+          <p class="mt-5">
+            2. Tap on the share icon at the center on the bottom of the screen
+          </p>
+          <p class="mt-5">3. Select Add to Home screen</p>
+          <p class="mt-5">4. Confirm EF Bookmark</p>
+        </div>
+        <div v-else-if="isAndroid">
+          <p class="mt-5">To add your Emoxy to an Android home screen,</p>
+          <p class="mt-5">
+            1. Open the Emotional Futures web app with Google Chrome on your
+            smartphone
+          </p>
+          <p class="mt-5">
+            2. Tap on the screen’s three-dot icon at the top right-hand corner
+          </p>
+          <p class="mt-5">3. Select Add to Home screen</p>
+          <p class="mt-5">4. Confirm EF Bookmark</p>
+        </div>
+        <div v-else>
+          <p class="mt-5">To add your Emoxy to your home screen or Desktop,</p>
+          <p class="mt-5">
+            1. Open the Emotional Futures web app with Google Chrome
+          </p>
+          <p class="mt-5">
+            2. Find the Install/Download icon on the right side of the adress
+            bar
+          </p>
+          <p class="mt-5">3. Click on it and confirm the install prompt</p>
+        </div>
       </div>
     </div>
     <div v-else class="flex flex-col w-full h-full">
@@ -454,9 +516,12 @@ const props = defineProps({
   }
 })
 
+const user = useSupabaseUser()
 const overlay = useOverlay()
+
 const step = ref(0)
 const currencyAmount = ref('10')
+const { isAndroid, isIos } = useDevice()
 
 const emotions = await useEmotions()
 const relationshapes: any = await useRelationshapes()
@@ -495,7 +560,9 @@ onMounted(() => {
       step.value = 9
     } else {
       step.value = 10
-      const f: any = relationshapes.find((r: any) => r.id === overlay.value.page[1])
+      const f: any = relationshapes.find(
+        (r: any) => r.id === overlay.value.page[1]
+      )
       if (f) selectedRelationshape.value = f
     }
   }
@@ -516,6 +583,17 @@ function handleOverlayClick(type: string, page?: [string, number]) {
 function handleLogoutClick() {
   logout()
   overlay.value.isOpen = false
+}
+
+async function handleDeleteClick() {
+  if (!user.value) return
+
+  const y = confirm('Are you sure you want to delete all your data including your Emoxy?')
+
+  if (y) {
+    await deleteUser(user.value?.id)
+    logout()
+  }
 }
 </script>
 
