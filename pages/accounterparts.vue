@@ -150,7 +150,7 @@ const loading = ref(false)
 const connected = ref(false)
 const overlay = useOverlay()
 
-const validEmoxyName = computed(() => connectInput.value.trim().length >= 4)
+const validEmoxyName = computed(() => connectInput.value.trim().length >= 1)
 
 function handleActivationClick(a: any) {
   if (a.status === 'created' && isFriendUnavailable(selectedFriend.value?.user_id) && a.user_id !== user.value?.id) return
@@ -213,22 +213,6 @@ function hasInvitation(userId: string) {
   return a.find((a: any) => a.status === 'created' && a.user_id === userId)
     ? true
     : false
-}
-
-function handleShareClick() {
-  if (navigator.share) {
-    navigator.share({
-      title: 'Emotional Futures Invitation',
-      text: "Hey, I'm playing the Emotional Futures game and would like to invite you to join me in growing my Emoxy. Follow the link to learn more and accept this invitation.",
-      url: `${useRuntimeConfig().baseURL}/api/connect/${db.value.emoxy.id}`
-    })
-  } else {
-    alert(
-      `Hey, I'm playing the Emotional Futures game and would like to invite you to join me in growing my Emoxy. Follow the link to learn more and accept this invitation. ${
-        useRuntimeConfig().baseURL
-      }/api/connect/${db.value.emoxy.id}`
-    )
-  }
 }
 
 async function handleConnectClick() {

@@ -40,7 +40,7 @@
               class="w-full h-2 bg-white-20 rounded-full mt-5 overflow-hidden"
             >
               <div
-                class="h-full bg-white-100 rounded-full"
+                class="h-full bg-white-100 rounded-full transition-all duration-700"
                 :style="`width: ${(uniqueActivationTypes.length / 64) * 100}%;`"
               ></div>
             </div>
@@ -61,7 +61,7 @@
             class="flex-none w-full h-2 bg-white-20 rounded-full mt-5 overflow-hidden"
           >
             <div
-              class="h-full bg-white-100 rounded-full"
+              class="h-full bg-white-100 rounded-full transition-all"
               :style="`width: ${(uniqueRelationshapes.length / 8) * 100}%;`"
             ></div>
           </div>

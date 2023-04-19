@@ -74,7 +74,7 @@ onMounted(async () => {
 @-moz-document url-prefix() {
   .backdrop-blur-md {
     backdrop-filter: none !important;
-    /* background: rgba(150, 150, 150, 0.95) !important; */
+    background: rgba(33, 33, 33, 0.95);
   }
 }
 </style>
