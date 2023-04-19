@@ -339,6 +339,7 @@ export function useRelationshapes () {
     {
       id: 1,
       name: 'language',
+      collect: 0,
       description:
         '<p>Relationshape 1 captures the value of human emotions in words.</p><p class="mt-5">The emotional operating system (EOS) is installed in the human by default. It functions as a primary mode of responding to the world, even before the human learns to speak. Through language the human can assign meaning, process stimuli, and regulate the sensory data produced by the EOS.</p><p class="mt-5">Give emotions a name and extract their essence.</p> ',
       accounting: [
@@ -351,6 +352,7 @@ export function useRelationshapes () {
     {
       id: 2,
       name: 'split',
+      collect: 0,
       description:
         '<p>Relationshape 2 captures emotional liquids by splitting humans into soft and hard parts.</p><p class="mt-5">Emotions are messages sent by the bodily hardware to protect humans or show them what they want. Yet mental software often runs in conflict to these bodily signals.</p><p class="mt-5">1. software</p><p>2. hardware</p><p class="mt-5">Sync your body and mind to optimize emotional (re)actions.</p>',
       accounting: [
@@ -367,6 +369,7 @@ export function useRelationshapes () {
     {
       id: 3,
       name: 'palette',
+      collect: 0,
       description:
         '<p>Relationshape 3 captures emotional liquids through visualization.</p><p class="mt-5">Like a painting on a canvas, humans use colors to visualize their internal processing:</p><p class="mt-5">1. base</p><p>2. layers</p><p>3. mixtures</p><p class="mt-5">The human EOS comes installed with a basic palette of colors. These base colors can produce new colors, as emotions occur simultaneously and transform each other.</p><p class="mt-5">Paint a better picture of your inner emotional composition.</p>',
       accounting: [
@@ -387,6 +390,7 @@ export function useRelationshapes () {
     {
       id: 4,
       name: 'rhythms',
+      collect: 60,
       description:
         '<p>Relationshape 4 captures emotional liquids through sentiment analysis and pattern recognition.</p><p class="mt-5">Humans perceive emotions in varying intensity, polarity (positive - negative) and scales of activation. Over time their repeated patterns can be encoded like the composition of a song:</p><p class="mt-5">1. volume</p><p>2. tone</p> <p>3. tempo</p><p>4. rhythm</p><p class="mt-5">Get attuned to your emotional rhythms to predict the automated operations of your EOS.</p>',
       accounting: [
@@ -411,6 +415,7 @@ export function useRelationshapes () {
     {
       id: 5,
       name: 'organs',
+      collect: 80,
       description:
         '<p>Relationshape 5 captures emotional liquids in the human hardware.</p><p class="mt-5">The emotional operating system runs in correspondence with the cyclical operation of the human organs:</p><p class="mt-5">1. heart</p><p>2. stomach</p><p>3. lungs</p><p>4. kidney</p><p>5. liver</p><p class="mt-5">Release emotional blockage to avoid crashing software and hardware failure.</p>',
       accounting: [
@@ -439,6 +444,7 @@ export function useRelationshapes () {
     {
       id: 6,
       name: 'expression',
+      collect: 100,
       description:
         '<p>Relationshape 6 captures emotional value as expressed in the different regions of the human face.</p><p class="mt-5">Train the facial action of your:</p><p class="mt-5">1. forehead</p><p>2. cheeks</p><p>3. brows</p><p>4. eyes</p> <p>5. nose</p><p>6. lips</p><p class="mt-5">Control and decode the subtle reactions of the face, your chief emotional display.</p>',
       accounting: [
@@ -471,6 +477,7 @@ export function useRelationshapes () {
     {
       id: 7,
       name: 'feedback',
+      collect: 120,
       description:
         '<p>Relationshape 7 captures emotional value in the feedback loop between two human operating systems.</p><p class="mt-5">Social interactions can be optimized through conscious integration and management of emotional inputs and outputs in your EOS:</p><p class="mt-5">1. signal recognition</p><p>2. signal decoding</p><p>3. impulse control</p><p>4. response ability</p><p>5. shared circuits</p><p>6. feedback synthesis</p><p>7. goal-setting</p><p class="mt-5">Let your emotions work for you, not against.</p>',
       accounting: [
@@ -507,6 +514,7 @@ export function useRelationshapes () {
     {
       id: 8,
       name: 'labour',
+      collect: 140,
       description:
         '<p>Relationshape 8 captures emotional value produced through labor.</p><p class="mt-5">Humans generate emotions on demand to conform to the requirements and expectations of various social situations. The effort spent on performing in these moments is measured through:</p><p class="mt-5">1. surface acting</p><p>2. deep acting</p><p>3. suppressing emotion</p><p>4. expressing emotion</p><p>5. adapting thought</p><p>6. adapting behavior</p><p>7. cognitive dissonance</p><p>8. cognitive harmony</p><p class="mt-5">Humans display emotions by adjusting body language (surface acting) or by generating required emotions in their EOS (deep acting). Depending on the alignment of artificial and real emotion, the EOS can be strained through cognitive dissonance or run smoothly in cognitive harmony.</p><p class="mt-5">Calculate the exchange value of your emotional labor.</p>',
       accounting: [

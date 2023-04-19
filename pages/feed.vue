@@ -162,11 +162,12 @@
     </div>
     <div v-if="step === 2" class="grow flex flex-col mt-5">
       <p class="text-lg font-bold text-center">Choose Relationshape</p>
-      <div class="w-full h-full grid grid-cols-2 gap-2 mt-5">
+      <div class="w-full h-full grid grid-cols-2 auto-rows-fr gap-2 mt-5">
         <LiRelationshape
           v-for="relationshape in relationshapes"
           @click="handleRelationshapeClick(relationshape)"
           :relationshape="relationshape"
+          :available="availableRelationshapes.includes(relationshape)"
         />
       </div>
     </div>
@@ -295,6 +296,14 @@ const invites = computed(() =>
   )
 )
 
+const availableRelationshapes = computed(() =>
+  relationshapes.filter((r: any) =>
+    r.collect <= db.value.emoxy.bst[0]
+  )
+)
+
+console.log(availableRelationshapes.value)
+
 function isFriendInvited(userId: string) {
   return db.value.activations.find(
     (a: any) => a.friend_id === userId && a.status === 'created'
@@ -320,6 +329,7 @@ function activationsWithFriend(userId: string) {
 }
 
 function handleRelationshapeClick(relationshape: any) {
+  if (!availableRelationshapes.value.includes(relationshape)) return
   selectedRelationshape.value = relationshape
   step.value = 3
 }

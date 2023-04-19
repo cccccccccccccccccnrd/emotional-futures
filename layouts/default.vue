@@ -1,7 +1,7 @@
 <template>
   <div
     class="h-full flex flex-col justify-center items-center"
-    :class="isMobile ? '' : 'h-screen'"
+    :class="isMobile ? '' : 'h-screen p-5'"
   >
     <div
       class="h-full w-full relative overflow-hidden"
@@ -63,11 +63,18 @@ onMounted(async () => {
 })
 </script>
 
-<style lang="postcss">
+<style>
 .p-safe {
   padding: max(env(safe-area-inset-top), 1.25rem)
     max(env(safe-area-inset-right), 1.25rem)
     max(env(safe-area-inset-bottom), 1.25rem)
     max(env(safe-area-inset-left), 1.25rem);
+}
+
+@-moz-document url-prefix() {
+  .backdrop-blur-md {
+    backdrop-filter: none !important;
+    /* background: rgba(150, 150, 150, 0.95) !important; */
+  }
 }
 </style>
