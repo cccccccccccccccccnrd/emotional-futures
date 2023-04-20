@@ -42,8 +42,8 @@
       </div>
       <div>
         <div class="flex gap-5 justify-center items-center mt-5">
-          <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
-          <img src="/imgs/logos/las.png" class="h-5 w-auto" />
+          <img @click="navigateTo('https://discord.gg/hqwEKPPj', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
+          <img @click="navigateTo('https://www.las-art.foundation/programme/emotional-futures', { external: true })" src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
         <p @click="handleOverlayClick('menu', ['data-privacy', 0])" class="text-xs text-center underline mt-5">
           Data Privacy
@@ -82,8 +82,8 @@
       <div>
         <p class="underline">What is this game about?</p>
         <div class="flex gap-5 justify-center items-center mt-5">
-          <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
-          <img src="/imgs/logos/las.png" class="h-5 w-auto" />
+          <img @click="navigateTo('https://discord.gg/hqwEKPPj', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
+          <img @click="navigateTo('https://www.las-art.foundation/programme/emotional-futures', { external: true })" src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
         <p class="text-xs underline mt-5" @click="handleOverlayClick('menu', ['data-privacy', 0])">Data Privacy</p>
       </div>

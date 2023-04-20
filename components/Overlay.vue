@@ -33,13 +33,14 @@
             type="dark"
             >Discord Channel</Btn
           >
+          <Btn @click="step = 4" type="dark">Credits</Btn>
           <Btn v-if="user" @click="handleLogoutClick" type="dark">Logout</Btn>
         </div>
         <div class="flex flex-col items-center gap-2 mt-5">
           <p @click="step = 1" class="text-sm text-center underline">
             Data Privacy
           </p>
-          <Btn v-if="user"  @click="handleDeleteClick" type="dark" class="mt-3"
+          <Btn v-if="user" @click="handleDeleteClick" type="dark" class="mt-3"
             >Delete All My Data</Btn
           >
         </div>
@@ -86,6 +87,38 @@
       </div>
       <div v-if="step === 3" class="grow flex flex-col mt-5">
         <p class="text-lg font-bold">Safe Play</p>
+      </div>
+      <div v-if="step === 4" class="grow flex flex-col mt-5 overflow-y-scroll">
+        <p class="text-lg font-bold">Credits</p>
+        <div class="overflow-y-scroll mt-5">
+          <p>
+            Emotional Futures is collaboratively produced by Marcel Darienzo,
+            Carina Erdmann, Steph Holl-Trieu, Andrew Pasquier, Xiaoji Song, Moritz
+            Tontsch, and Ingeborg Wie Henriksen.
+          </p>
+          <p class="mt-5">
+            IRL Collective, Emotional Futures, 2023.<br />
+            Developer: Conrad Weise<br />
+            Graphic Designers (Relationshapes, Painted Backdrops): Robuche<br />
+            Copy Editor: Mitch Speed<br />
+          </p>
+          <p class="mt-5">
+            Curator (LAS): Liz Stumpf<br />
+            Project Manager (LAS): Alexis Convento<br />
+            Communications Manager (LAS): Selin Şahin.<br />
+          </p>
+          <p class="mt-5">
+            Special Thanks to: Black Swan, Callie’s, KW, Léon Kruijswijk, Ed Fornieles, Penny Rafferty, Calum Bowden, Laura Lotti, Leith Benkhedda, Agnesa Schmudke, Carly Whitefield, Patricia Reed.
+          </p>
+          <p class="mt-5">
+            © 2023 IRL<br />
+            Commissioned by LAS Art Foundation<br />
+          </p>
+        </div>
+        <div class="flex gap-5 justify-center items-center mt-5">
+          <img @click="navigateTo('https://discord.gg/hqwEKPPj', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
+          <img @click="navigateTo('https://www.las-art.foundation/programme/emotional-futures', { external: true })" src="/imgs/logos/las.png" class="h-5 w-auto" />
+        </div>
       </div>
     </div>
     <div v-else class="flex flex-col w-full h-full">

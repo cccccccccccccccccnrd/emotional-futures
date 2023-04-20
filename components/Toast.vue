@@ -6,12 +6,11 @@
     <div class="flex gap-3">
       <div v-if="type === 'invite-accepted'">
         <p>
+          <span class="font-bold">{{ accounterpart?.name }}</span> accepted your invite to play
           <span class="capitalize font-bold"
             >{{ emotions[activation.type[0] - 1].name }}
             {{ relationshapes[activation.type[1] - 1].name }}</span
-          >
-          was accepted by
-          <span class="font-bold">{{ accounterpart?.name }}</span>
+          >.
         </p>
       </div>
       <Icon type="close" size="s/m" @click="handleCloseClick" />

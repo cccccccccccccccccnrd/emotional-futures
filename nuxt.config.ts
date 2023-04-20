@@ -39,18 +39,16 @@ export default defineNuxtConfig({
         { property: 'og:title', content: 'Emotional Futures' },
         {
           property: 'og:description',
-          content: 'How does the message of an emotion change over time?'
+          content: 'Emotional Futures is a web-based game which delves into the gamification and commodification of human emotions produced by IRL, a gaming collective under the distributed artistic direction of Marcel Darienzo, Carina Erdmann, Steph Holl-Trieu, Andrew Pasquier, Xiaoji Song, Moritz Tontsch, and Ingeborg Wie Henriksen.'
         },
         { property: 'og:type', content: 'website' },
         {
           property: 'og:image',
           content: 'https://x.emotionalfutures.com/imgs/app/share.png'
         },
-        { property: 'og:image:width', content: '932' },
-        { property: 'og:image:height', content: '431' },
+        { property: 'og:image:width', content: '1000' },
+        { property: 'og:image:height', content: '562' },
         { property: 'og:site_name', content: 'Emotional Futures' },
-        { property: 'twitter:site', content: '@emotionalfutures' },
-        { property: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [{ rel: 'icon', type: 'image/png', href: 'imgs/app/app-192.png' }]
     }

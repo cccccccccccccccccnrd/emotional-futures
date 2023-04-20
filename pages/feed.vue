@@ -16,13 +16,8 @@
     <div class="flex justify-between items-center">
       <div>
         <Icon
-          v-if="step === -1"
-          @click="handleOverlayClick('manual', ['', 0])"
-          type="files"
-        />
-        <Icon
-          v-if="step !== -1 && step !== -2"
-          @click="step--"
+          v-if="step !== -2"
+          @click="step != -1 ? step-- : router.back()"
           type="arrow-l"
         />
         <Icon
@@ -39,7 +34,6 @@
         </p>
       </div>
       <div>
-        <Icon v-if="step === -1" @click="router.back()" type="close" />
         <Icon
           v-if="step === -2"
           type="files"
@@ -47,7 +41,7 @@
           flash
         />
         <Icon
-          v-if="step !== -1 && step !== -2"
+          v-if="step !== -2"
           type="files"
           @click="handleOverlayClick('manual', ['', 0])"
         />
@@ -301,8 +295,6 @@ const availableRelationshapes = computed(() =>
     r.collect <= db.value.emoxy.bst[0]
   )
 )
-
-console.log(availableRelationshapes.value)
 
 function isFriendInvited(userId: string) {
   return db.value.activations.find(

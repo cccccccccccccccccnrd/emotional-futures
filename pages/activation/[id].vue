@@ -55,12 +55,7 @@
     <div class="flex justify-between items-center">
       <div>
         <Icon
-          v-if="step === 3 || step === 4"
-          type="files"
-          @click="handleOverlayClick('manual', ['', 0])"
-        />
-        <Icon
-          v-if="step === 5 || step === 6 || step === 7"
+          v-if="step === 3 || step === 4 || step === 5 || step === 6 || step === 7"
           type="arrow-l"
           @click="step = step - 1"
         />
@@ -75,16 +70,9 @@
       </div>
       <div>
         <Icon v-if="step === 1" type="close" @click="step = 0" />
-        <Icon
-          v-if="
-            step === 3 || step === 4
-          "
-          type="close"
-          @click="step = 2"
-        />
         <Icon v-if="step === 10" type="close" @click="step = 9" />
         <Icon
-          v-if="step === 5 || step === 6 || step === 7"
+          v-if="step === 3 || step === 4 || step === 5 || step === 6 || step === 7"
           type="files"
           @click="handleOverlayClick('manual', ['', 0])"
         />
