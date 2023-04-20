@@ -33,7 +33,7 @@
         <div
           class="w-full flex flex-col p-3 border-2 border-white-30 bg-dark-30 backdrop-blur-md rounded-2xl mt-2"
         >
-          <p class="text-sm text-align">
+          <p class="text-sm text-align italic">
             {{ say }}
           </p>
           <div v-if="!busy" class="flex gap-2 mt-3 text-sm">

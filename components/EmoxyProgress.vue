@@ -19,7 +19,7 @@
           class="px-2 py-1 flex flex-col justify-center items-center border-r-2 border-white-20"
         >
           <p class="text-2xl font-bold">{{ level < 7 ? level : '∞' }}</p>
-          <p class="text-sm opacity-50">level</p>
+          <p class="text-sm opacity-50">Phase</p>
         </div>
         <div class="px-2 py-1 flex justify-center items-center">
           <div v-if="results">
@@ -66,7 +66,7 @@ const props = defineProps({
 
 const db = useDb()
 
-const dist = [0, 50, 250, 500, 750, 1000, 1500]
+const dist = [0, 50, 250, 450, 650, 850, 1050]
 
 const bst = computed(() => {
   if (props.results) {

@@ -24,8 +24,8 @@
       max="10"
     />
     <div class="flex justify-between mt-1">
-      <p class="text-sm font-bold">Nothing</p>
-      <p class="text-sm font-bold">Everything</p>
+      <p class="font-bold">-</p>
+      <p class="font-bold">+</p>
     </div>
   </div>
 </template>

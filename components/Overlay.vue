@@ -24,9 +24,9 @@
           <Btn type="dark" @click="handleOverlayClick('manual')"
             >Emotional Futures Manual</Btn
           >
-          <Btn type="dark" @click="step = 1">Add Emoxy to Homescreen</Btn>
-          <Btn type="dark" @click="handleOverlayClick('manual')"
-            >Emotional Help Resources</Btn
+          <Btn type="dark" @click="step = 2">Add Emoxy to Homescreen</Btn>
+          <Btn type="dark" @click="step = 3"
+            >Safe Play</Btn
           >
           <Btn
             @click="
@@ -38,13 +38,16 @@
           <Btn @click="handleLogoutClick" type="dark">Logout</Btn>
         </div>
         <div class="flex flex-col items-center gap-2 mt-5">
-          <p @click="" class="text-sm text-center underline">Data Privacy</p>
+          <p @click="step = 1" class="text-sm text-center underline">Data Privacy</p>
           <Btn type="dark" @click="handleDeleteClick" class="mt-3"
             >Delete All My Data</Btn
           >
         </div>
       </div>
       <div v-if="step === 1" class="grow flex flex-col mt-5">
+        <p class="text-lg font-bold">Data Privacy</p>
+      </div>
+      <div v-if="step === 2" class="grow flex flex-col mt-5">
         <p class="text-lg font-bold">Add Emoxy to Homescreen</p>
         <div v-if="isIos">
           <p class="mt-5">To add your Emoxy to an iPhone home screen,</p>
@@ -80,6 +83,9 @@
           </p>
           <p class="mt-5">3. Click on it and confirm the install prompt</p>
         </div>
+      </div>
+      <div v-if="step === 3" class="grow flex flex-col mt-5">
+        <p class="text-lg font-bold">Safe Play</p>
       </div>
     </div>
     <div v-else class="flex flex-col w-full h-full">

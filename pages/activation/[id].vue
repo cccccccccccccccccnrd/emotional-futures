@@ -28,7 +28,12 @@
           <img src="/imgs/emoxy/eats-1.png" class="opacity-0" />
         </div>
       </div>
-      <p class="absolute bottom-0 w-full p-safe text-center underline text-dark-100 font-bold text-sm" @click="handleSkipClick">Skip</p>
+      <p
+        class="absolute bottom-0 w-full p-safe text-center underline text-dark-100 font-bold text-sm"
+        @click="handleSkipClick"
+      >
+        Skip
+      </p>
       <div
         class="absolute w-full h-full z-[-10] opacity-30"
         :style="fed ? `background-image: url('/imgs/bg-1.png');` : ''"
@@ -50,12 +55,7 @@
     <div class="flex justify-between items-center">
       <div>
         <Icon
-          v-if="step === 3"
-          type="files"
-          @click="handleOverlayClick('manual', ['', 0])"
-        />
-        <Icon
-          v-if="step === 4"
+          v-if="step === 3 || step === 4"
           type="files"
           @click="handleOverlayClick('manual', ['', 0])"
         />
@@ -77,12 +77,17 @@
         <Icon v-if="step === 1" type="close" @click="step = 0" />
         <Icon
           v-if="
-            step === 3 || step === 4 || step === 5 || step === 6 || step === 7
+            step === 3 || step === 4
           "
           type="close"
           @click="step = 2"
         />
         <Icon v-if="step === 10" type="close" @click="step = 9" />
+        <Icon
+          v-if="step === 5 || step === 6 || step === 7"
+          type="files"
+          @click="handleOverlayClick('manual', ['', 0])"
+        />
       </div>
     </div>
     <div v-if="step === 3" class="grow flex flex-col items-center">
@@ -152,9 +157,7 @@
     </div>
     <div v-if="step === 6" class="grow flex flex-col">
       <p class="text-lg text-center font-bold mt-5">Sweat</p>
-      <p class="text-center mt-2">
-        Measure your emotional input<br /><span class="opacity-0">o</span>
-      </p>
+      <p class="text-center mt-2">Evaluate yourself</p>
       <div class="grow flex justify-center items-center mt-5 px-10">
         <InputDrop v-model="sweat" type="sweat" />
       </div>
@@ -166,10 +169,7 @@
     </div>
     <div v-if="step === 7" class="grow flex flex-col">
       <p class="text-lg text-center font-bold mt-5">Tears</p>
-      <p class="text-center mt-2">
-        Measure your Accounterpart's<br />
-        emotional input
-      </p>
+      <p class="text-center mt-2">Evaluate your Accounterpart</p>
       <div class="grow flex justify-center items-center mt-5 px-10">
         <InputDrop v-model="tears" type="tears" />
       </div>
@@ -190,9 +190,9 @@
           v-for="(r, i) in [results[1], results[2], results[0]]"
           class="w-full flex justify-between items-center font-bold p-5 bg-dark-50 backdrop-blur-md border-2 border-white-50"
         >
-          <p v-if="i === 0" class="text-sm">You gave Sweat</p>
-          <p v-if="i === 1" class="text-sm">You received Tears</p>
-          <p v-if="i === 2" class="text-sm">You gained Blood</p>
+          <p v-if="i === 0" class="text-sm">Sweat collected</p>
+          <p v-if="i === 1" class="text-sm">Tears collected</p>
+          <p v-if="i === 2" class="text-sm">Blood collected</p>
           <div class="flex gap-2 items-center">
             {{ r }}
             <img
