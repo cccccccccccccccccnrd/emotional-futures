@@ -25,9 +25,7 @@
             >Emotional Futures Manual</Btn
           >
           <Btn type="dark" @click="step = 2">Add Emoxy to Homescreen</Btn>
-          <Btn type="dark" @click="step = 3"
-            >Safe Play</Btn
-          >
+          <Btn type="dark" @click="step = 3">Safe Play</Btn>
           <Btn
             @click="
               navigateTo('https://discord.gg/hqwEKPPj', { external: true })
@@ -35,11 +33,13 @@
             type="dark"
             >Discord Channel</Btn
           >
-          <Btn @click="handleLogoutClick" type="dark">Logout</Btn>
+          <Btn v-if="user" @click="handleLogoutClick" type="dark">Logout</Btn>
         </div>
         <div class="flex flex-col items-center gap-2 mt-5">
-          <p @click="step = 1" class="text-sm text-center underline">Data Privacy</p>
-          <Btn type="dark" @click="handleDeleteClick" class="mt-3"
+          <p @click="step = 1" class="text-sm text-center underline">
+            Data Privacy
+          </p>
+          <Btn v-if="user"  @click="handleDeleteClick" type="dark" class="mt-3"
             >Delete All My Data</Btn
           >
         </div>
@@ -548,31 +548,36 @@ const selectedRelationshape = ref({
 })
 
 onMounted(() => {
-  if (overlay.value.type === 'menu') return
-  if (overlay.value.page[0] === 'emoxy') step.value = 1
-  if (overlay.value.page[0] === 'accounterparts') step.value = 2
-  if (overlay.value.page[0] === 'activations') step.value = 4
-  if (overlay.value.page[0] === 'emotions') {
-    if (overlay.value.page[1] === 0) {
-      step.value = 7
-    } else {
-      step.value = 8
-      const f: any = emotions.find((e: any) => e.id === overlay.value.page[1])
-      if (f) selectedEmotion.value = f
-    }
+  if (overlay.value.type === 'menu') {
+    if (overlay.value.page[0] === 'data-privacy') step.value = 1
   }
-  if (overlay.value.page[0] === 'relationshapes') {
-    if (overlay.value.page[1] === 0) {
-      step.value = 9
-    } else {
-      step.value = 10
-      const f: any = relationshapes.find(
-        (r: any) => r.id === overlay.value.page[1]
-      )
-      if (f) selectedRelationshape.value = f
+
+  if (overlay.value.type === 'manual') {
+    if (overlay.value.page[0] === 'emoxy') step.value = 1
+    if (overlay.value.page[0] === 'accounterparts') step.value = 2
+    if (overlay.value.page[0] === 'activations') step.value = 4
+    if (overlay.value.page[0] === 'emotions') {
+      if (overlay.value.page[1] === 0) {
+        step.value = 7
+      } else {
+        step.value = 8
+        const f: any = emotions.find((e: any) => e.id === overlay.value.page[1])
+        if (f) selectedEmotion.value = f
+      }
     }
+    if (overlay.value.page[0] === 'relationshapes') {
+      if (overlay.value.page[1] === 0) {
+        step.value = 9
+      } else {
+        step.value = 10
+        const f: any = relationshapes.find(
+          (r: any) => r.id === overlay.value.page[1]
+        )
+        if (f) selectedRelationshape.value = f
+      }
+    }
+    if (overlay.value.page[0] === 'accounting') step.value = 11
   }
-  if (overlay.value.page[0] === 'accounting') step.value = 11
 })
 
 function handleRelationshapeClick(r: any) {
@@ -594,7 +599,9 @@ function handleLogoutClick() {
 async function handleDeleteClick() {
   if (!user.value) return
 
-  const y = confirm('Are you sure you want to delete all your data including your Emoxy?')
+  const y = confirm(
+    'Are you sure you want to delete all your data including your Emoxy?'
+  )
 
   if (y) {
     await deleteUser(user.value?.id)

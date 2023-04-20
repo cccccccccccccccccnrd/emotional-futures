@@ -52,7 +52,7 @@
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
           <img src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
-        <p @click="step = 1" class="text-xs text-center underline mt-5">
+        <p @click="handleOverlayClick('menu', ['data-privacy', 0])" class="text-xs text-center underline mt-5">
           Data Privacy
         </p>
       </div>
@@ -95,7 +95,7 @@
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
           <img src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
-        <p @click="step = 1" class="text-xs text-center underline mt-5">
+        <p @click="handleOverlayClick('menu', ['data-privacy', 0])" class="text-xs text-center underline mt-5">
           Data Privacy
         </p>
       </div>
@@ -233,14 +233,14 @@
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
           <img src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
-        <p @click="step = 1" class="text-xs underline mt-5">Data Privacy</p>
+        <p @click="handleOverlayClick('menu', ['data-privacy', 0])" class="text-xs underline mt-5">Data Privacy</p>
       </div>
       <div v-if="step === 1 || step === 2 || step === 3 || step === 4">
         <Btn @click="navigateTo('/generate')">Start New Game</Btn>
         <Btn @click="step = 5" type="dark" class="mt-2"
           >Keep Feeding My Emoxy</Btn
         >
-        <p @click="step = 1" class="text-xs underline mt-5">Data Privacy</p>
+        <p @click="handleOverlayClick('menu', ['data-privacy', 0])" class="text-xs underline mt-5">Data Privacy</p>
       </div>
     </div>
   </div>
@@ -252,7 +252,6 @@
 </template>
 
 <script setup lang="ts">
-const nuxtApp = useNuxtApp()
 const user = useSupabaseUser()
 
 watch(user, () => {
@@ -261,6 +260,7 @@ watch(user, () => {
   }
 })
 
+const overlay = useOverlay()
 const step = ref(0)
 const email = ref('')
 const password = ref('')
@@ -306,25 +306,9 @@ async function handleResetClick () {
   }
 }
 
-async function handleSignInWithMagic () {
-  if (!validEmail.value) return
-  error.value = ''
-  loading.value = true
-  const r = await signInWithMagic(email.value)
-  loading.value = false
-
-  if (r instanceof Error) {
-    if (r.message === 'Signups not allowed for otp') {
-      error.value = 'Please create an Emoxy first.'
-    } else {
-      error.value = 'Please try again in a minute.'
-    }
-  } else {
-    step.value = 6
-  }
-}
-
-async function handleInstallClick () {
-  await nuxtApp.$pwa.install()
+function handleOverlayClick(type: string, page: [string, number]) {
+  overlay.value.isOpen = true
+  overlay.value.type = type
+  overlay.value.page = page
 }
 </script>

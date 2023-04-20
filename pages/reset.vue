@@ -45,7 +45,7 @@
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
           <img src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
-        <p @click="step = 1" class="text-xs text-center underline mt-5">
+        <p @click="handleOverlayClick('menu', ['data-privacy', 0])" class="text-xs text-center underline mt-5">
           Data Privacy
         </p>
       </div>
@@ -85,7 +85,7 @@
           <img src="/imgs/logos/irl.png" class="h-5 w-auto" />
           <img src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
-        <p class="text-xs underline mt-5">Data Privacy</p>
+        <p class="text-xs underline mt-5" @click="handleOverlayClick('menu', ['data-privacy', 0])">Data Privacy</p>
       </div>
     </div>
   </div>
@@ -97,6 +97,7 @@
 </template>
 
 <script setup lang="ts">
+const overlay = useOverlay()
 const step = ref(0)
 const password = ref('')
 const passwordConfirm = ref('')
@@ -116,5 +117,11 @@ async function handleUpdatePasswordClick () {
   } else {
     navigateTo('/')
   }
+}
+
+function handleOverlayClick(type: string, page: [string, number]) {
+  overlay.value.isOpen = true
+  overlay.value.type = type
+  overlay.value.page = page
 }
 </script>
