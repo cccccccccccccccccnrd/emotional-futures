@@ -77,8 +77,8 @@
         <p class="text-sm text-white-80 text-center drop-shadow-md mt-3">
           Accounterpart
         </p>
-        <p class="text-sm text-white-100 text-center font-bold drop-shadow-md">
-          {{ accounterpart?.name }}
+        <p class="text-sm text-white-100 text-center font-bold drop-shadow-md" :class="accounterpart?.name ? '' : 'italic'">
+          {{ accounterpart?.name ? accounterpart?.name : 'Deleted Emoxy' }}
         </p>
       </div>
       <div
@@ -129,8 +129,8 @@
         <p class="text-sm text-white-80 text-center drop-shadow-md mt-5">
           Accounterpart
         </p>
-        <p class="text-sm text-white-100 text-center font-bold drop-shadow-md">
-          {{ accounterpart?.name }}
+        <p class="text-sm text-white-100 text-center font-bold drop-shadow-md" :class="accounterpart?.name ? '' : 'italic'">
+          {{ accounterpart?.name ? accounterpart?.name : 'Deleted Emoxy' }}
         </p>
       </div>
       <div
@@ -204,9 +204,6 @@ import { Emoxy } from '~/types/futures'
 const props = defineProps({
   accounterpart: {
     type: Object as PropType<Emoxy>,
-    default: {
-      name: 'Unknown'
-    },
     required: false
   },
   emotion: {

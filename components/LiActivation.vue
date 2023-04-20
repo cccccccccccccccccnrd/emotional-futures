@@ -9,10 +9,10 @@
         {{ relationshapes[activation.type[1] - 1].name }}
       </p>
       <p v-if="own">
-        you invited <span class="font-bold">{{ accounterpart?.name }}</span>
+        you invited <span class="font-bold" :class="accounterpart?.name ? '' : 'italic'">{{ accounterpart?.name ? accounterpart?.name : 'Deleted Emoxy' }}</span>
       </p>
       <p v-else>
-        with <span class="font-bold">{{ accounterpart?.name }}</span>
+        with <span class="font-bold" :class="accounterpart?.name ? '' : 'italic'">{{ accounterpart?.name ? accounterpart?.name : 'Deleted Emoxy' }}</span>
       </p>
     </div>
     <div>
@@ -65,9 +65,7 @@ const accounterpart = computed(() =>
     (f: any) =>
       f.user_id === props.activation.friend_id ||
       f.user_id === props.activation.user_id
-  ) || {
-    name: 'Unknown'
-  }
+  )
 )
 const busy = computed(() => {
   return db.value.activations.find((a: any) => a.status === 'accepted')
