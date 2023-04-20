@@ -62,19 +62,3 @@ onMounted(async () => {
   }
 })
 </script>
-
-<style>
-.p-safe {
-  padding: max(env(safe-area-inset-top), 1.25rem)
-    max(env(safe-area-inset-right), 1.25rem)
-    max(env(safe-area-inset-bottom), 1.25rem)
-    max(env(safe-area-inset-left), 1.25rem);
-}
-
-@-moz-document url-prefix() {
-  .backdrop-blur-md {
-    backdrop-filter: none !important;
-    background: rgba(33, 33, 33, 0.95);
-  }
-}
-</style>

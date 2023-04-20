@@ -80,4 +80,32 @@ input[type='range']::-moz-range-thumb {
   border-radius: 100px;
   outline: none;
 }
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.p-safe {
+  padding: max(env(safe-area-inset-top), 1.25rem)
+    max(env(safe-area-inset-right), 1.25rem)
+    max(env(safe-area-inset-bottom), 1.25rem)
+    max(env(safe-area-inset-left), 1.25rem);
+}
+
+@-moz-document url-prefix() {
+  .backdrop-blur-md {
+    backdrop-filter: none !important;
+    background: rgba(33, 33, 33, 0.95);
+  }
+}
 </style>
