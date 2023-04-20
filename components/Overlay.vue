@@ -111,6 +111,10 @@
             Special Thanks to: Black Swan, Callie’s, KW, Léon Kruijswijk, Ed Fornieles, Penny Rafferty, Calum Bowden, Laura Lotti, Leith Benkhedda, Agnesa Schmudke, Carly Whitefield, Patricia Reed.
           </p>
           <p class="mt-5">
+            Fonts: Ubuntu Mono by Dalton Maag, Digital Disco by jeti, and Arizona by ABCDinamo.<br />
+            Icons: Pixelarticons.<br />
+          </p>
+          <p class="mt-5">
             © 2023 IRL<br />
             Commissioned by LAS Art Foundation<br />
           </p>
@@ -124,7 +128,7 @@
     <div v-else class="flex flex-col w-full h-full">
       <div class="flex justify-between items-center">
         <div>
-          <Icon v-if="step === 0" type="files" @click="" />
+          <Icon v-if="step === 0" type="files" />
           <div
             v-if="
               (step >= 1 && step <= 9 && step != 8) ||
