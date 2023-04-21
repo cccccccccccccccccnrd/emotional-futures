@@ -170,7 +170,7 @@
         </p>
       </div>
       <div v-if="step === 3" class="flex flex-col items-center">
-        <Icon type="flip" />
+        <Icon type="activation" />
         <p class="mt-2 font-bold">Activations</p>
         <p class="mt-5">
           Activations are unique tasks asking players to recall memories,
