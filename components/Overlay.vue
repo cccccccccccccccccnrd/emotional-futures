@@ -7,6 +7,14 @@
         <div>
           <p v-if="step === 0" class="text-lg font-bold">Menu</p>
           <div
+            v-else-if="step === 4"
+            class="flex justify-center items-center gap-3"
+            @click="step = 3"
+          >
+            <Icon type="arrow-l" />
+            <p class="text-xs opacity-50">Back to Safe Play</p>
+          </div>
+          <div
             v-else
             class="flex justify-center items-center gap-3"
             @click="step = 0"
@@ -28,12 +36,12 @@
           <Btn type="dark" @click="step = 3">Safe Play</Btn>
           <Btn
             @click="
-              navigateTo('https://discord.gg/hqwEKPPj', { external: true })
+              navigateTo('https://discord.gg/sW2PZQpytS', { external: true })
             "
             type="dark"
             >Discord Channel</Btn
           >
-          <Btn @click="step = 4" type="dark">Credits</Btn>
+          <Btn @click="step = 5" type="dark">Credits</Btn>
           <Btn v-if="user" @click="handleLogoutClick" type="dark">Logout</Btn>
         </div>
         <div class="flex flex-col items-center gap-2 mt-5">
@@ -85,16 +93,80 @@
           <p class="mt-5">3. Click on it and confirm the install prompt</p>
         </div>
       </div>
-      <div v-if="step === 3" class="grow flex flex-col mt-5">
+      <div v-if="step === 3" class="grow flex flex-col mt-5 overflow-hidden">
         <p class="text-lg font-bold">Safe Play</p>
+        <div class="mt-5 overflow-y-scroll">
+          <p>
+            Emotional Future is a game that asks you to play with your emotions.
+            While unique personal backgrounds and relationship dynamics will
+            inform gameplay,  here are a few guidelines  on safe play:
+          </p>
+          <p class="mt-3">
+            1. Be aware of your boundaries. If there are any topics you don’t
+            want to touch upon, you don’t need to.
+          </p>
+          <p class="mt-2">
+            2. It is completely fine to skip, cheat, make up stories, take a
+            break, or to stop the game completely. No explanation is needed if
+            you don't wish.
+          </p>
+          <p class="mt-2">
+            3. It can be nice to talk about limits with your partner before
+            playing, and to check in with each other during play.
+          </p>
+          <p class="mt-2">
+            4. At the end of play, it can be healthy to debrief with your
+            Accounterpart(s):  How was the game? How did you feel? Did you learn
+            things about each other? What concerns arose during play?
+          </p>
+          <p class="mt-5">
+            If you need help or support you can always reach out to us via
+            e-mail. We also manage a discord channel for players to raise
+            questions and connect with the community.
+          </p>
+          <p class="mt-5">
+            If you need professional psychological support, please see our
+            Emotional Support Resources.
+          </p>
+        </div>
+        <Btn type="dark" @click="step = 4" class="mt-5"
+          >Emotional Support Resources</Btn
+        >
       </div>
-      <div v-if="step === 4" class="grow flex flex-col mt-5 overflow-y-scroll">
+      <div v-if="step === 4" class="grow flex flex-col mt-5 overflow-hidden">
+        <p class="text-lg font-bold">Emotional Support Resources</p>
+        <p class="mt-5">
+          In case of a need for professional support, please contact in Germany:
+        </p>
+        <p class="font-bold mt-5">Telefonseelsorge</p>
+        <p class="mt-1">
+          Free and confidential crisis helpline for emotional support, available
+          24/7. <br />
+          0800-111-0-111 or 0800-111-0-222 <br />
+          <NuxtLink to="https://www.telefonseelsorge.de/" target="_blank">
+            www.telefonseelsorge.de
+          </NuxtLink>
+        </p>
+        <p class="mt-5">
+          Alternatively you can find information for long-term psychological
+          care such as therapy sessions here:
+        </p>
+        <p class="font-bold mt-5">Therapie.de</p>
+        <NuxtLink to="https://www.therapie.de/" target="_blank" class="mt-1">
+          www.therapie.de
+        </NuxtLink>
+      </div>
+      <div v-if="step === 5" class="grow flex flex-col mt-5 overflow-y-scroll">
         <p class="text-lg font-bold">Credits</p>
         <div class="overflow-y-scroll mt-5">
-          <p>
+          <div class="flex gap-2 items-center">
+            <Icon type="mail" size="s/m" />
+            <p @click="">irl@emotionalfutures.com</p>
+          </div>
+          <p class="mt-5">
             Emotional Futures is collaboratively produced by Marcel Darienzo,
-            Carina Erdmann, Steph Holl-Trieu, Andrew Pasquier, Xiaoji Song, Moritz
-            Tontsch, and Ingeborg Wie Henriksen.
+            Carina Erdmann, Steph Holl-Trieu, Andrew Pasquier, Xiaoji Song,
+            Moritz Tontsch, and Ingeborg Wie Henriksen.
           </p>
           <p class="mt-5">
             IRL Collective, Emotional Futures, 2023.<br />
@@ -108,10 +180,13 @@
             Communications Manager (LAS): Selin Şahin.<br />
           </p>
           <p class="mt-5">
-            Special Thanks to: Black Swan, Callie’s, KW, Léon Kruijswijk, Ed Fornieles, Penny Rafferty, Calum Bowden, Laura Lotti, Leith Benkhedda, Agnesa Schmudke, Carly Whitefield, Patricia Reed.
+            Special Thanks to: Black Swan, Callie’s, KW, Léon Kruijswijk, Ed
+            Fornieles, Penny Rafferty, Calum Bowden, Laura Lotti, Leith
+            Benkhedda, Agnesa Schmudke, Carly Whitefield, Patricia Reed.
           </p>
           <p class="mt-5">
-            Fonts: Ubuntu Mono by Dalton Maag, Digital Disco by jeti, and Arizona by ABCDinamo.<br />
+            Fonts: Ubuntu Mono by Dalton Maag, Digital Disco by jeti, and
+            Arizona by ABCDinamo.<br />
             Icons: Pixelarticons.<br />
           </p>
           <p class="mt-5">
@@ -120,8 +195,23 @@
           </p>
         </div>
         <div class="flex gap-5 justify-center items-center mt-5">
-          <img @click="navigateTo('https://discord.gg/hqwEKPPj', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
-          <img @click="navigateTo('https://www.las-art.foundation/programme/emotional-futures', { external: true })" src="/imgs/logos/las.png" class="h-5 w-auto" />
+          <img
+            @click="
+              navigateTo('https://discord.gg/sW2PZQpytS', { external: true })
+            "
+            src="/imgs/logos/irl.png"
+            class="h-5 w-auto"
+          />
+          <img
+            @click="
+              navigateTo(
+                'https://www.las-art.foundation/programme/emotional-futures',
+                { external: true }
+              )
+            "
+            src="/imgs/logos/las.png"
+            class="h-5 w-auto"
+          />
         </div>
       </div>
     </div>
@@ -287,7 +377,7 @@
       >
         <div v-if="step === 4" class="overflow-y-scroll">
           <p class="text-lg font-bold">Activations</p>
-          <Icon type="flip" class="mt-5" />
+          <Icon type="activation" class="mt-5" />
           <p class="mt-5">
             Activations are unique tasks asking players to recall memories,
             discuss feelings, and produce new emotional experiences.

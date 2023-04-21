@@ -49,7 +49,7 @@
       </div>
       <div>
         <div class="flex gap-5 justify-center items-center mt-5">
-          <img @click="navigateTo('https://discord.gg/hqwEKPPj', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
+          <img @click="navigateTo('https://discord.gg/sW2PZQpytS', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
           <img @click="navigateTo('https://www.las-art.foundation/programme/emotional-futures', { external: true })" src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
         <p @click="handleOverlayClick('menu', ['data-privacy', 0])" class="text-xs text-center underline mt-5">
@@ -92,7 +92,7 @@
       </div>
       <div>
         <div class="flex gap-5 justify-center items-center mt-5">
-          <img @click="navigateTo('https://discord.gg/hqwEKPPj', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
+          <img @click="navigateTo('https://discord.gg/sW2PZQpytS', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
           <img @click="navigateTo('https://www.las-art.foundation/programme/emotional-futures', { external: true })" src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
         <p @click="handleOverlayClick('menu', ['data-privacy', 0])" class="text-xs text-center underline mt-5">
@@ -128,9 +128,7 @@
         <Btn @click="step = 5" type="dark" class="mt-2">
           Keep Feeding My Emoxy</Btn
         >
-        <p @click="step = 0" class="text-md underline mt-5 font-bold opacity-0">
-          Back
-        </p>
+        <p @click="step = 1" class="underline font-bold mt-5">What is this game about?</p>
       </div>
       <div
         v-if="step === 1 || step === 2 || step === 3 || step === 4"
@@ -228,9 +226,8 @@
     </div>
     <div class="flex flex-col justify-center text-center font-bold p-safe">
       <div v-if="step === 0 || step === 5 || step === 6">
-        <p @click="step = 1" class="underline">What is this game about?</p>
         <div class="flex gap-5 justify-center items-center mt-5">
-          <img @click="navigateTo('https://discord.gg/hqwEKPPj', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
+          <img @click="navigateTo('https://discord.gg/sW2PZQpytS', { external: true })" src="/imgs/logos/irl.png" class="h-5 w-auto" />
           <img @click="navigateTo('https://www.las-art.foundation/programme/emotional-futures', { external: true })" src="/imgs/logos/las.png" class="h-5 w-auto" />
         </div>
         <p @click="handleOverlayClick('menu', ['data-privacy', 0])" class="text-xs underline mt-5">Data Privacy</p>
