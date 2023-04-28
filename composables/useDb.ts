@@ -44,7 +44,7 @@ export async function initDb (force?: Boolean) {
         table: 'emoxies',
         filter: `user_id=eq.${user.value?.id}`
       },
-      handleEmoxiesChanges
+      handleEmoxyChanges
     )
     .on(
       'postgres_changes',
@@ -89,18 +89,34 @@ export async function initDb (force?: Boolean) {
     .subscribe()
 }
 
-async function toasted (payload: any) {
+async function toasted (type: string, payload: any) {
   const toasts = useToasts()
+  const relationshapes = useRelationshapes()
 
   if (
+    type === 'activations' &&
     payload.old.status === 'created' &&
     payload.new.status === 'accepted' &&
     payload.new.user_id === user.value?.id
   ) {
     toasts.value.push({
       type: 'invite-accepted',
-      activation: payload.new
+      payload: payload.new
     })
+  } else if (
+    type === 'emoxy' &&
+    payload.old.bst[0] <= relationshapes[relationshapes.length - 1].collect
+  ) {
+    const available = relationshapes.filter(
+      (r: any) => r.collect > payload.old.bst[0]
+    )
+    const unlocked = available.filter(r => r.collect <= payload.new.bst[0])
+    if (unlocked.length >= 1) {
+      toasts.value.push({
+        type: 'relationshapes-unlocked',
+        payload: unlocked
+      })
+    }
   }
 }
 
@@ -127,20 +143,21 @@ async function handleActivationsChanges (payload: any) {
   } else if (payload.eventType === 'UPDATE') {
     const i = db.value.activations.findIndex(a => a.id === payload.old.id)
     db.value.activations[i] = payload.new
-    toasted(payload)
+    toasted('activations', payload)
   } else if (payload.eventType === 'DELETE') {
     const i = db.value.activations.findIndex(a => a.id === payload.old.id)
     i !== -1 && db.value.activations.splice(i, 1)
   }
 }
 
-async function handleEmoxiesChanges (payload: any) {
+async function handleEmoxyChanges (payload: any) {
   if (payload.eventType === 'UPDATE') {
-    if (db.value.emoxy.friends !== payload.new.friends) {
+    if (db.value.emoxy.friends.length !== payload.new.friends.length) {
       db.value.emoxy = payload.new
       db.value.friends = await fetchFriends()
     } else {
       db.value.emoxy = payload.new
+      toasted('emoxy', payload)
     }
   }
 }

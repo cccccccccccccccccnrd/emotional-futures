@@ -674,7 +674,7 @@ function handleSkipClick() {
   animation-iteration-count: infinite;
   animation-duration: 3s;
   animation-delay: 3s;
-  background-image: url('/imgs/emoxy//eats-1.png');
+  background-image: url('/imgs/emoxy/eats-1.png');
   background-size: contain;
 }
 
@@ -715,10 +715,10 @@ function handleSkipClick() {
 
 @keyframes faces {
   0% {
-    background-image: url('/imgs/emoxy//eats-2.png');
+    background-image: url('/imgs/emoxy/eats-2.png');
   }
   10% {
-    background-image: url('/imgs/emoxy//eats-2.png');
+    background-image: url('/imgs/emoxy/eats-2.png');
   }
   11% {
     background-image: url('/imgs/emoxy/eats-3.png');

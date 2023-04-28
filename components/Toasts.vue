@@ -7,7 +7,7 @@
       v-for="(t, i) in toasts"
       :i="i"
       :type="t.type"
-      :activation="t.activation"
+      :payload="t.payload"
     />
   </div>
 </template>
