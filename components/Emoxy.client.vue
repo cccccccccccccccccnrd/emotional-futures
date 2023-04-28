@@ -87,7 +87,7 @@ if (bst_all <= 0) {
 
 let bst_rel = [b / bst_all, s / bst_all, t / bst_all]
 
-const breakingPoints = [100, 250, 500, 750, 1000, 1250, 1500, 2050]
+const breakingPoints = [50, 250, 500, 750, 1000, 1500, 2000, 3050]
 level = 0
 bst_all < breakingPoints[0] ? (level = 0) : (level = level)
 bst_all >= breakingPoints[0] && bst_all < breakingPoints[1]
@@ -122,12 +122,11 @@ const types = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 let emoxy_type = types[i]
 level <= 1 ? (emoxy_type = 'X') : (emoxy_type = types[i])
 
-/// determine emoxy src path to src prop of the GLTF Comopnent
 const emoxy_src_path = '/emoxy/meshes/' + emoxy_level + emoxy_type + '.glb'
 emoxy_src.value = emoxy_src_path
 
 const closestColor = colors.reduce(
-  (acc: any, color: any) => {
+  (acc, color) => {
     const color_weight = new Vector3(
       color.weight.b,
       color.weight.s,
@@ -147,14 +146,11 @@ const m = closestColor[1]
 const phong_color = colors[m].hex[last_emotion]
 
 const closestMaterial = pbr_materials.reduce(
-  (acc: any, material: any) => {
+  (acc, material) => {
     const material_weight: any = new Vector3(
       0.5 * material.weight.b + 0.166,
       0.5 * material.weight.s + 0.166,
       0.5 * material.weight.t + 0.166
-      // material.weight.b,
-      // material.weight.s,
-      // material.weight.t
     )
 
     const distance = Math.sqrt(
@@ -167,7 +163,7 @@ const closestMaterial = pbr_materials.reduce(
   [9999999, 0]
 )
 
-const n = closestMaterial[1] - 1 //I started the ID count of the materials at 1 instead of 0 so i have to subtract 1 here
+const n = closestMaterial[1] - 1
 const selected_material = pbr_materials[n].material
 const selected_material_src = '/emoxy/materials/' + selected_material + '/'
 
@@ -216,23 +212,16 @@ const showPlane: any = ref(false)
 let selected_face = last_emotion + 'A'
 face_src.value = '/emoxy/faces/' + selected_face + '.png'
 
-// while loading
-
 function whileLoading() {
   showPlane.value = false
 }
 
-///// determine Shaders, Animation once GltF has loaded
-/////// READY //////
 function onReady(gltf: any) {
   Scene.environment = envTexture
 
   const renderer = rendererC.value as RendererPublicInterface
 
   const mesh = gltf.scene.children[0]
-
-  // mesh.rotation.set(0,0,0)
-  // face selection
   showPlane.value = true
 
   const finetuningSpeed = [
@@ -248,16 +237,10 @@ function onReady(gltf: any) {
     face_src.value = '/emoxy/faces/' + selected_face + '.png'
   })
 
-  /// make plane transparent
   const plane = planeC.value.mesh
   plane.material.transparent = true
 
-  ///// Materials
-
-  //// PBR //////
-
   if (level > 4) {
-    // check if has opacity map and set transparent true if defined
     opacity.image == undefined
       ? (mesh.material.transparent = false)
       : (mesh.material.transparent = true)
@@ -270,7 +253,6 @@ function onReady(gltf: any) {
       normalMap: normal
     })
   } else {
-    //set up refraction
     mesh.material = new MeshBasicMaterial({
       color: phong_color,
       reflectivity: 1,
@@ -278,7 +260,6 @@ function onReady(gltf: any) {
       refractionRatio: 0.98
     })
 
-    //copy mesh and add reflection material
     const scaleMesh = 1
 
     const reflectionmesh = mesh.clone()
@@ -306,8 +287,6 @@ function onReady(gltf: any) {
     })
   }
 
-  ////  SCATTER ///
-
   if (level >= 6) {
     let scatter_amount = b
     scatter_amount > 700
@@ -317,7 +296,6 @@ function onReady(gltf: any) {
     const scatter_material = new MeshPhysicalMaterial({
       color: phong_color,
       opacity: 0.8,
-
       metalness: 0.42,
       reflectivity: 0.8,
       roughness: 0.5,
@@ -340,13 +318,10 @@ function onReady(gltf: any) {
     })
   }
 
-  // Handling Animation for  Emoxy Level 1
-
   if (level == 1) {
     let morphMesh = gltf.scene.getObjectByName('blob1001')
     morphMesh.rotation.set(-0.9, 1.3, 1.3)
 
-    //setup refraction Material
     morphMesh.material = new MeshBasicMaterial({
       color: phong_color,
       reflectivity: 1,
@@ -354,7 +329,6 @@ function onReady(gltf: any) {
       refractionRatio: 0.98
     })
 
-    // clone mesh and add reflection Material
     const scaleMesh = 1
 
     const reflectionmesh = morphMesh.clone()
@@ -381,8 +355,6 @@ function onReady(gltf: any) {
       blending: AdditiveBlending,
       opacity: 1
     })
-
-    // Set-up Animation
 
     const clip = gltf.animations[0]
 

@@ -12,7 +12,11 @@ export const useToasts = () =>
     return <any>[]
   })
 
-export function useEmotions () {
+export function useDist() {
+  return [0, 50, 250, 450, 650, 850, 1050]
+}
+
+export function useEmotions() {
   return [
     {
       id: 1,
@@ -334,7 +338,7 @@ export function useEmotions () {
   ]
 }
 
-export function useRelationshapes () {
+export function useRelationshapes() {
   return [
     {
       id: 1,

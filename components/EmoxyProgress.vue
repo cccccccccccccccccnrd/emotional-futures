@@ -65,8 +65,7 @@ const props = defineProps({
 })
 
 const db = useDb()
-
-const dist = [0, 50, 250, 450, 650, 850, 1050]
+const dist = useDist()
 
 const bst = computed(() => {
   if (props.results) {

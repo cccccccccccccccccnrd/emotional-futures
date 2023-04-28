@@ -406,6 +406,10 @@ const completedAccounts = ref(<any>[])
 const sweat = ref('5')
 const tears = ref('5')
 
+onUnmounted(() => {
+  audio.value.pause()
+})
+
 const results = computed(() => {
   const f = activation.value?.results.find(
     (a: any) => a.userId === user.value?.id
@@ -567,6 +571,9 @@ async function handleFeedClick() {
   if (!a) return
 
   fed.value = true
+  setTimeout(() => {
+    play()
+  }, 3000)
 
   animationTimeout = setTimeout(() => {
     navigateTo('/emoxy')
@@ -616,6 +623,35 @@ function handleOverlayClick(type: string, page: [string, number]) {
 function handleSkipClick() {
   clearTimeout(animationTimeout)
   navigateTo('/emoxy')
+}
+
+const audio = ref(
+  new Audio(
+    '/audios/emoxy/eating.mp3'
+  )
+)
+
+const paused = ref(true)
+
+function play() {
+  paused.value = false
+  audio.value.play()
+  audio.value.loop = true
+
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: 'Eating...',
+      artist: db.value.emoxy.name,
+      album: 'Emotional Futures',
+      artwork: [
+        { src: '/imgs/app/app-192.png', sizes: '128x128', type: 'image/png' },
+        { src: '/imgs/app/app-192.png', sizes: '192x192', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '256x256', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '384x384', type: 'image/png' },
+        { src: '/imgs/app/app-512.png', sizes: '512x512', type: 'image/png' }
+      ]
+    })
+  }
 }
 </script>
 

@@ -123,6 +123,7 @@ onUnmounted(() => {
 const user = useSupabaseUser()
 const db = useDb()
 
+const dist = useDist()
 const overlay = useOverlay()
 const emotions = await useEmotions()
 const paused = ref(true)
@@ -171,12 +172,15 @@ const invites = computed(() =>
   )
 )
 
+const total = computed(() => {
+  return db.value.emoxy.bst[0] + db.value.emoxy.bst[1] + db.value.emoxy.bst[2]
+})
+
 const emoxyLevel = computed(() => {
-  const completed = db.value.activations.filter(
-    (a: any) => a.status === 'completed'
-  )
-  const s = new Set(completed.map((a: any) => a.type[0])).size
-  return s > 7 ? 7 : s
+  const l = dist
+    .map((n, index) => (total.value >= n ? index : null))
+    .filter(Boolean)
+  return (l[l.length - 1] || 0) + 1
 })
 
 const say = computed(() => {
