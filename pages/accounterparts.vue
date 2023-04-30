@@ -37,6 +37,12 @@
           />
         </div>
       </div>
+      <div class="mt-5">
+        <p class="text-xs text-center">
+          Sometimes you need to wait for your Accounterpart to finish another
+          Activation
+        </p>
+      </div>
       <div class="w-full mt-5">
         <Btn
           @click="navigateTo(`/feed?accounterpart=${selectedFriend.id}`)"

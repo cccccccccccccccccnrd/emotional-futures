@@ -45,9 +45,14 @@
           <Btn v-if="user" @click="handleLogoutClick" type="dark">Logout</Btn>
         </div>
         <div class="flex flex-col items-center gap-2 mt-5">
-          <p @click="step = 1" class="text-sm text-center underline">
-            Data Privacy
-          </p>
+          <div class="flex gap-5">
+            <p @click="step = 1" class="text-sm text-center underline">
+              Data Privacy
+            </p>
+            <p @click="step = 6" class="text-sm text-center underline">
+              Imprint
+            </p>
+          </div>
           <Btn v-if="user" @click="handleDeleteClick" type="dark" class="mt-3"
             >Delete All My Data</Btn
           >
@@ -214,6 +219,16 @@
           />
         </div>
       </div>
+      <div v-if="step === 6" class="grow flex flex-col mt-5 overflow-y-scroll">
+        <p class="text-lg font-bold">Imprint</p>
+        <p class="mt-5">
+          Moritz Tontsch <br />
+          c/o Städelschule<br />
+          Dürerstr. 10<br />
+          60596 Frankfurt am Main
+        </p>
+        <p class="mt-5">mail@moritztontsch.com</p>
+      </div>
     </div>
     <div v-else class="flex flex-col w-full h-full">
       <div class="flex justify-between items-center">
@@ -223,7 +238,8 @@
             v-if="
               (step >= 1 && step <= 9 && step != 8) ||
               step === 11 ||
-              step === 12
+              step === 12 ||
+              step === 14
             "
             class="flex justify-center items-center gap-3"
             @click="step = 0"
@@ -269,7 +285,8 @@
           <div class="flex flex-col gap-2 mt-5">
             <Btn
               v-for="p in [
-                ['How to Feed your Emoxy?', 1],
+                ['Emoxy', 1],
+                ['EOS', 14],
                 ['Accounterparts', 2],
                 ['Activations', 4],
                 ['Emotions', 7],
@@ -282,10 +299,20 @@
             >
           </div>
         </div>
-        <p class="font-bold text-center underline">Download Complete Manual</p>
+        <p
+          @click="
+            navigateTo(`${useRuntimeConfig().baseURL}/ef-playbook.pdf`, {
+              external: true
+            })
+          "
+          class="font-bold text-center underline"
+        >
+          Download Complete Manual
+        </p>
       </div>
       <div v-if="step === 1" class="grow flex flex-col mt-5">
-        <p class="text-lg font-bold">How To Feed Your Emoxy?</p>
+        <p class="text-lg font-bold">Emoxy</p>
+        <Icon type="heart" class="mt-5" />
         <p class="mt-5">
           To grow your Emoxy, you have to capture value from your personal
           relationships. You can do this by playing Activations.
@@ -610,28 +637,41 @@
             />
           </div>
         </div>
-        <div
-          class="w-full px-5 flex justify-between items-center justify-self-end"
-          v-if="step === 11 || step === 12"
-        >
-          <Icon
-            type="arrow-l"
-            @click="step <= 11 ? null : step--"
-            :class="step <= 11 ? 'opacity-20' : ''"
-          />
-          <div class="flex justify-center items-center gap-1">
-            <div
-              v-for="n in 2"
-              :class="step - 10 === n ? 'w-2 h-2' : 'w-1 h-1'"
-              class="bg-white-100"
-            ></div>
-          </div>
-          <Icon
-            type="arrow-r"
-            @click="step >= 12 ? null : step++"
-            :class="step >= 12 ? 'opacity-20' : ''"
-          />
+      </div>
+      <div v-if="step === 14" class="mt-5 flex flex-col">
+        <p class="text-lg font-bold">EOS</p>
+        <p class="mt-5">
+          Every human comes installed with an Emotional Operating System,
+          referred to as EOS.
+        </p>
+        <p class="mt-5">
+          The EOS constitutes all mechanisms in a human body that help form and
+          process emotions - from facial expressions and organ-level responses
+          to cognitive memory processes. These automated messaging systems are
+          needed for humans to respond to their environments.
+        </p>
+      </div>
+      <div
+        class="w-full px-5 flex justify-between items-center justify-self-end"
+        v-if="step === 11 || step === 12"
+      >
+        <Icon
+          type="arrow-l"
+          @click="step <= 11 ? null : step--"
+          :class="step <= 11 ? 'opacity-20' : ''"
+        />
+        <div class="flex justify-center items-center gap-1">
+          <div
+            v-for="n in 2"
+            :class="step - 10 === n ? 'w-2 h-2' : 'w-1 h-1'"
+            class="bg-white-100"
+          ></div>
         </div>
+        <Icon
+          type="arrow-r"
+          @click="step >= 12 ? null : step++"
+          :class="step >= 12 ? 'opacity-20' : ''"
+        />
       </div>
     </div>
   </div>

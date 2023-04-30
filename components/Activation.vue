@@ -148,7 +148,8 @@
         <div class="px-5 flex justify-center items-center mt-5">
           <Icon v-for="d in relationshape?.id" type="drop-full" />
         </div>
-        <div class="px-5 mt-5 flex justify-between items-center">
+        <p class="mt-3 text-xs text-center">Tune into the Emotion by listening to the Activation sound. Complete the task, and then proceed to Accounting.</p>
+        <div class="px-5 mt-3 flex justify-between items-center">
           <Icon @click="isRevealed = !isRevealed" type="flip" />
           <div>
             <Icon v-if="paused" @click="play()" type="audio" />

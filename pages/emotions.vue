@@ -9,11 +9,11 @@
     >
       <p
         v-if="selectedEmotion.name"
-        class="mt-5 font-bold text-center capitalize"
+        class="mt-3 font-bold text-center capitalize"
       >
         {{ selectedEmotion.name }}
       </p>
-      <p v-else class="mt-5 text-center capitalize">
+      <p v-else class="mt-3 text-center capitalize">
         <span class="font-bold">{{ availableEmotions.length }}</span> Emotions
         Activated
       </p>
@@ -24,7 +24,7 @@
         />
       </div>
       <div
-        class="flex flex-col w-full mt-5 px-5 pb-5 overflow-hidden"
+        class="flex flex-col w-full mt-5 px-3 pb-3 overflow-hidden"
         :class="activationsByEmotion.length <= 0 ? 'flex flex-col grow' : ''"
       >
         <div

@@ -87,7 +87,7 @@ if (bst_all <= 0) {
 
 let bst_rel = [b / bst_all, s / bst_all, t / bst_all]
 
-const breakingPoints = [50, 250, 500, 750, 1000, 1500, 2000, 3050]
+const breakingPoints = [50, 250, 450, 650, 850, 1050, 2000, 3050]
 level = 0
 bst_all < breakingPoints[0] ? (level = 0) : (level = level)
 bst_all >= breakingPoints[0] && bst_all < breakingPoints[1]

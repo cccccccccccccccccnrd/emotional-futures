@@ -46,43 +46,6 @@ export function useEmotions() {
     },
     {
       id: 2,
-      name: 'trust',
-      description:
-        'Trust is experienced by humans when they encounter a group member whom they consider a friend. The emotion ranges from acceptance to admiration. It often leads to a need for affiliation.',
-      prompts: [
-        '<p>Words have power.</p><p class="mt-5">Write each other a list of promises and try to gain the other person’s TRUST.</p>',
-        '<p>Think of a future event in which you trust beyond your reason.</p><p class="mt-5">One person chooses the role of TRUST. The other person chooses the role of reason. Write a dialog for the debate.</p><p class="mt-5">Stop when you agree who wins the argument.</p>',
-        '<p>If you were to paint an image of TRUST, what objects would you depict? How would you render their shape, color, and texture?</p><p class="mt-5">Compare your mental paintings. Are there any objects that you share?</p><p class="mt-5">Do you associate your imagined objects with any of these mixtures?</p><div class="text-left"><p class="mt-5">Mixtures of TRUST</p><p>+ Joy = Love</p><p>+ Fear = Submission</p><p>+ Surprise = Curiosity</p><p>+ Anticipation = Fatalism</p><p>+ Sadness = Nostalgia</p><p>+ Anger = Domination</p></div>',
-        '<p>Think of your patterns of TRUST. How quickly or slowly do you build them?</p><p class="mt-5">Describe your relationship to trust, over time. Is there a refrain that you repeat  to yourself to keep faith in someone?</p><p class="mt-5">Find suitable songs for one another.</p>',
-        '<p>When making hard decisions, you should TRUST your guts.</p><p class="mt-5">Lay on your back and close your eyes. Put your hand on your stomach. Talk about a decision you need to make, that has no easy answer.</p><p class="mt-5">What do your guts tell you?</p>',
-        '<p>Explain how someone gained your TRUST.</p><p class="mt-5">Now make promises to each other. Stop only when you catch real trust in each other\'s eyes.</p><p class="mt-5">Interpret the lines that mark your faces. Do they reveal a truth?</p>',
-        '<p>Take each other to a place that fills you with a sense of TRUST.</p><p class="mt-5">Analyze each other’s choices. What do they tell you about each other?</p><p class="mt-5">Explain your own choice.</p>',
-        '<p>Think about a situation in your life in which you had to pretend to feel TRUST.</p><p class="mt-5">Tell each other what you said in those situations.</p><p class="mt-5">Show each other how you carried your bodies.</p>'
-      ],
-      say: [
-        'My human!',
-        'Feed me! I’m thirsty for your emotional outpour.',
-        'When I go to sleep, I dream of your Blood, Sweat and Tears.',
-        'Let’s get your emotional liquids flowing.',
-        'Where are my emotional dropsssss?!',
-        "You've just squeezed yourself through your first Relationshape. How do you feel?",
-        'Your emotional operating system needs lubricating.',
-        'Are there feelings you don’t have words for? Invent new ones.',
-        'Your Emotional Future is shapeshifting.',
-        'Let me tell you a secret: I’ll change three times. Then I’ll change differently.',
-        'Juuuiiiiceeeee those emotions!',
-        'Can you feel how hangry I am? Feeed mee!',
-        'Your future is my body.',
-        'To connect with yourself is to connect with someone else.',
-        'I can tell there is an emotion in your EOS waiting to be released.',
-        'You’re my favorite emotional support animal!',
-        'Blood, Sweat, Tears, take away my fears.',
-        'Grow new organs to pump more Blood, Sweat and Tears.'
-      ],
-      hear: 4
-    },
-    {
-      id: 3,
       name: 'fear',
       description:
         'Humans experience fear when they encounter a threat that they categorize as danger. This emotion ranges from apprehension to terror. A common reaction is to seek protection.',
@@ -116,6 +79,43 @@ export function useEmotions() {
         'Let your emotions flow freely. Let me grow.',
         'Feed me. I’ll show you what your Emotional Future looks like.',
         'I see you as a beautiful fountain. If only I could lend you my eyes...'
+      ],
+      hear: 4
+    },
+    {
+      id: 3,
+      name: 'trust',
+      description:
+        'Trust is experienced by humans when they encounter a group member whom they consider a friend. The emotion ranges from acceptance to admiration. It often leads to a need for affiliation.',
+      prompts: [
+        '<p>Words have power.</p><p class="mt-5">Write each other a list of promises and try to gain the other person’s TRUST.</p>',
+        '<p>Think of a future event in which you trust beyond your reason.</p><p class="mt-5">One person chooses the role of TRUST. The other person chooses the role of reason. Write a dialog for the debate.</p><p class="mt-5">Stop when you agree who wins the argument.</p>',
+        '<p>If you were to paint an image of TRUST, what objects would you depict? How would you render their shape, color, and texture?</p><p class="mt-5">Compare your mental paintings. Are there any objects that you share?</p><p class="mt-5">Do you associate your imagined objects with any of these mixtures?</p><div class="text-left"><p class="mt-5">Mixtures of TRUST</p><p>+ Joy = Love</p><p>+ Fear = Submission</p><p>+ Surprise = Curiosity</p><p>+ Anticipation = Fatalism</p><p>+ Sadness = Nostalgia</p><p>+ Anger = Domination</p></div>',
+        '<p>Think of your patterns of TRUST. How quickly or slowly do you build them?</p><p class="mt-5">Describe your relationship to trust, over time. Is there a refrain that you repeat  to yourself to keep faith in someone?</p><p class="mt-5">Find suitable songs for one another.</p>',
+        '<p>When making hard decisions, you should TRUST your guts.</p><p class="mt-5">Lay on your back and close your eyes. Put your hand on your stomach. Talk about a decision you need to make, that has no easy answer.</p><p class="mt-5">What do your guts tell you?</p>',
+        '<p>Explain how someone gained your TRUST.</p><p class="mt-5">Now make promises to each other. Stop only when you catch real trust in each other\'s eyes.</p><p class="mt-5">Interpret the lines that mark your faces. Do they reveal a truth?</p>',
+        '<p>Take each other to a place that fills you with a sense of TRUST.</p><p class="mt-5">Analyze each other’s choices. What do they tell you about each other?</p><p class="mt-5">Explain your own choice.</p>',
+        '<p>Think about a situation in your life in which you had to pretend to feel TRUST.</p><p class="mt-5">Tell each other what you said in those situations.</p><p class="mt-5">Show each other how you carried your bodies.</p>'
+      ],
+      say: [
+        'My human!',
+        'Feed me! I’m thirsty for your emotional outpour.',
+        'When I go to sleep, I dream of your Blood, Sweat and Tears.',
+        'Let’s get your emotional liquids flowing.',
+        'Where are my emotional dropsssss?!',
+        "You've just squeezed yourself through your first Relationshape. How do you feel?",
+        'Your emotional operating system needs lubricating.',
+        'Are there feelings you don’t have words for? Invent new ones.',
+        'Your Emotional Future is shapeshifting.',
+        'Let me tell you a secret: I’ll change three times. Then I’ll change differently.',
+        'Juuuiiiiceeeee those emotions!',
+        'Can you feel how hangry I am? Feeed mee!',
+        'Your future is my body.',
+        'To connect with yourself is to connect with someone else.',
+        'I can tell there is an emotion in your EOS waiting to be released.',
+        'You’re my favorite emotional support animal!',
+        'Blood, Sweat, Tears, take away my fears.',
+        'Grow new organs to pump more Blood, Sweat and Tears.'
       ],
       hear: 8
     },

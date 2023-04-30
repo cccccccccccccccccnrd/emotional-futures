@@ -55,7 +55,9 @@
     <div class="flex justify-between items-center">
       <div>
         <Icon
-          v-if="step === 3 || step === 4 || step === 5 || step === 6 || step === 7"
+          v-if="
+            step === 3 || step === 4 || step === 5 || step === 6 || step === 7
+          "
           type="arrow-l"
           @click="step = step - 1"
         />
@@ -72,27 +74,30 @@
         <Icon v-if="step === 1" type="close" @click="step = 0" />
         <Icon v-if="step === 10" type="close" @click="step = 9" />
         <Icon
-          v-if="step === 3 || step === 4 || step === 5 || step === 6 || step === 7"
+          v-if="
+            step === 3 || step === 4 || step === 5 || step === 6 || step === 7
+          "
           type="files"
           @click="handleOverlayClick('manual', ['', 0])"
         />
       </div>
     </div>
     <div v-if="step === 3" class="grow flex flex-col items-center">
-      <p class="text-lg font-bold mt-5">Get ready to invest in your future.</p>
+      <p class="mt-5">Account for your investments and collect your revenue.</p>
+      <p class="mt-5">SWEAT measures your emotional investment.</p>
+      <p class="mt-5">TEARS measure your Accounterpart’s investment.</p>
       <p class="mt-5">
-        Measuring the value of an emotional interaction is not easy for humans.
-      </p>
-      <p class="mt-5">
-        Humans may find the accounting process uncomfortable, and at times even
-        upsetting.
-      </p>
-      <p class="mt-5">
-        This is an essential step on your path to your Emotional Future.
+        BLOOD calculates the balance of your emotional exchange.
       </p>
     </div>
     <div v-if="step === 3" class="flex flex-col justify-center items-center">
-      <Btn @click="step = 4">Start Accounting</Btn>
+      <div
+        class="w-full flex items-center gap-2 py-2 px-3 bg-dark-50 rounded-sm"
+      >
+        <Icon type="alert" />
+        <p class="text-xs">Have you completed the Activation task? Do it before proceeding to Accounting</p>
+      </div>
+      <Btn class="mt-5" @click="step = 4">Start Accounting</Btn>
     </div>
     <div v-if="step === 4" class="grow flex flex-col overflow-hidden">
       <p class="mt-5">
@@ -470,7 +475,7 @@ function check(first?: Boolean) {
     activation.value?.status === 'accepted' &&
     activation.value?.accounts.length === 0
   ) {
-    step.value = 2
+    if (step.value !== 2) step.value = 2
     console.log('accepted activation', activation.value)
   } else if (
     activation.value?.status === 'accepted' &&
@@ -480,10 +485,10 @@ function check(first?: Boolean) {
       (a: any) => a.userId === user.value?.id
     )
     if (f) {
-      step.value = 8
+      if (step.value !== 8) step.value = 8
       console.log('friends accounting move activation', activation.value)
     } else {
-      step.value = 2
+      if (step.value === 0 || step.value === 1) step.value = 2
       console.log('accepted activation', activation.value)
     }
   } else if (
@@ -491,7 +496,7 @@ function check(first?: Boolean) {
     activation.value?.accounts.length === 2 &&
     activation.value?.fed.length === 0
   ) {
-    step.value = 9
+    if (step.value !== 9) step.value = 9
     console.log('ending activation', activation.value)
   } else if (
     activation.value?.status === 'accepted' &&
@@ -500,14 +505,14 @@ function check(first?: Boolean) {
   ) {
     const f = activation.value?.fed.find((f: any) => f === user.value?.id)
     if (f) {
-      step.value = 11
+      if (step.value !== 11) step.value = 11
       console.log('friends fed move activation', activation.value)
     } else {
-      step.value = 9
+      if (step.value !== 9) step.value = 9
       console.log('ending activation', activation.value)
     }
   } else if (activation.value?.status === 'completed') {
-    step.value = 12
+    if (step.value !== 12) step.value = 12
     console.log('completed activation', activation.value)
   }
 }
@@ -625,11 +630,7 @@ function handleSkipClick() {
   navigateTo('/emoxy')
 }
 
-const audio = ref(
-  new Audio(
-    '/audios/emoxy/eating.mp3'
-  )
-)
+const audio = ref(new Audio('/audios/emoxy/eating.mp3'))
 
 const paused = ref(true)
 
