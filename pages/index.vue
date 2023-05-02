@@ -139,8 +139,7 @@
       </div>
       <div v-if="step === 1">
         <p>
-          Emotional Futures is not just a game, it is the beginning of a new
-          economy.
+          Emotional Futures is not just a game, it is the beginning of a new economy.
         </p>
         <p class="mt-5">
           An invitation to greater accountability and collective growth.
@@ -149,55 +148,43 @@
           When the world has become a game, any human can be a player.
         </p>
         <p class="mt-5">
-          Reprogram your Emotional Operating System (EOS). Extract the value of
-          your relationships. Grow your Emoxy, your emotional proxy.
+          Reprogram your Emotional Operating System (EOS). Extract the value of your relationships. Grow your Emoxy, your emotional proxy.
         </p>
       </div>
       <div v-if="step === 2" class="flex flex-col items-center">
         <Icon type="accounterparts" />
         <p class="mt-2 font-bold">Accounterparts</p>
         <p class="mt-5">
-          The Emotional Futures game interface connects humans in a network of
-          players called Accounterparts.
+          The Emotional Futures game interface connects humans in a network of players called Accounterparts.
         </p>
         <p class="mt-5">
-          Accounterparts are humans that are linked through existing, real-life
-          relationships: friends, lovers, and acquaintances.
+          Accounterparts are humans that are linked through real-life relationships: friends, lovers and acquaintances.
         </p>
         <p class="mt-5">
-          Accounterparts grow their personal Emoxys by playing activations and
-          accounting for their emotional investments.
+          Accounterparts grow their personal Emoxys by playing activations and accounting for their emotional investments.
         </p>
       </div>
       <div v-if="step === 3" class="flex flex-col items-center">
         <Icon type="activation" />
         <p class="mt-2 font-bold">Activations</p>
         <p class="mt-5">
-          Activations are unique tasks asking players to recall memories,
-          discuss feelings, and produce new emotional experiences.
+          Activations are unique tasks asking players to recall memories, discuss feelings and produce new emotional experiences.
         </p>
         <p class="mt-5">
-          Grow your Emoxy by feeding it with the virtual currencies Blood, Sweat
-          and Tears. Extract them from your body through playing Activations
-          with your chosen Accounterpart.
+          Grow your Emoxy by feeding it with the virtual currencies Blood, Sweat and Tears. Extract them from your body through playing Activations with your chosen Accounterpart.
         </p>
         <p class="mt-5">
-          Complete Activations from eight core emotions to realize your Emoxy's
-          full potential.
+          Complete Activations from eight core emotions to realize your Emoxy's full potential.
         </p>
       </div>
       <div v-if="step === 4" class="flex flex-col items-center">
         <Icon type="drop-half" />
         <p class="mt-2 font-bold">Accounting</p>
         <p class="mt-5">
-          Once you complete an Activation, you will be directed to the
-          Accounting phase where you collect Drops of Blood, Sweat and Tears.
-          These fluids account for the emotional energy you give and receive
-          from your Accounterpart.
+          Once you complete an Activation, you will be directed to the Accounting phase where you collect Drops of Blood, Sweat and Tears. These fluids account for the emotional energy you give and receive from your Accounterpart.
         </p>
         <p class="mt-5">
-          Accounting allows you to extract your mutual emotional investment as
-          Drops that feed your Emoxy’s growth.
+          Accounting allows you to extract your mutual emotional investment as Drops that feed your Emoxy’s growth.
         </p>
         <p class="mt-5 font-bold underline">Learn More</p>
       </div>
