@@ -45,11 +45,15 @@
           min="1"
           max="10"
         />
+        <div class="flex w-full justify-between mt-1">
+          <p class="font-bold">-</p>
+          <p class="font-bold">+</p>
+        </div>
       </div>
     </div>
     <div v-if="step === 6" class="grow flex flex-col w-full mt-5">
       <p class="text-lg font-bold text-center">Relationshapes</p>
-      <p class="text-lg text-center capitalize mt-5">
+      <p class="text-center capitalize mt-5">
         {{
           selectedRelationshape.id
             ? selectedRelationshape.name
@@ -161,19 +165,26 @@
     </div>
     <div v-if="step === 0" class="grow flex flex-col">
       <p class="font-bold">The year is 2023.</p>
-      <p class="mt-5">Humans can feel the future drawing closer.</p>
+      <p class="mt-5">Humans are in a state of existential crisis.</p>
       <p class="mt-5">
-        They are under pressure to convert every ounce of their existence into
+        They feel the pressure to convert every ounce of their existence into
         economic profit and personal gain.
       </p>
       <p class="mt-5">
-        The value of friendship and intimacy is unrealized as humans continue to
-        give away their emotions for free.
+        The value of their relationships remains unrealized as humans continue
+        to give away their emotional labor for free.
       </p>
-      <p class="mt-5">In the face of this, a solution appears.</p>
+      <p class="mt-5">
+        In Emotional Futures they can turn draining encounters into a source of
+        wealth.
+      </p>
+      <p class="mt-5">
+        By mastering the rules of this game, humans can win real emotional
+        rewards.
+      </p>
     </div>
     <div v-if="step === 0" class="w-full mt-5">
-      <Btn @click="step = 1">Take me to the Solution</Btn>
+      <Btn @click="step = 1">Teach Me the Ways</Btn>
     </div>
     <div
       v-if="step === 1 || step === 2"
@@ -209,10 +220,10 @@
       </div>
       <p class="mt-5">
         In these complex times, measuring emotional labor can lead to greater
-        care.
+        accountability.
       </p>
       <p class="mt-5">
-        Emotional Futures offers a way to convert your emotional outflows into
+        Emotional Futures offers a way to convert your emotional outpour into
         profit.
       </p>
       <p class="mt-5">
@@ -234,15 +245,15 @@
       </div>
       <p class="mt-5">
         Relationshapes are emotional programs that operate in different parts of
-        the human EOS (Emotional Operating System).
+        the human Emotional Operating System (EOS).
       </p>
       <p class="mt-5">
-        Based on eight models of the human EOS, they are tools which activate
-        the production of emotional currencies.
+        Based on eight models of the human EOS, they are tools that activate the
+        production of Emotional Currencies.
       </p>
     </div>
     <div v-if="step === 5 || step === 6" class="w-full mt-5">
-      <Btn @click="step = 7">I Am Open to Test New Tools</Btn>
+      <Btn @click="step = 7">I Am Open to Testing New Tools</Btn>
     </div>
     <div v-if="step === 7" class="grow flex flex-col items-center mt-10">
       <Icon type="heart" />

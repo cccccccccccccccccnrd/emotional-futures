@@ -63,48 +63,42 @@
       </div>
       <div v-if="step === 2" class="grow flex flex-col mt-5">
         <p class="text-lg font-bold">Add Emoxy to Homescreen</p>
-        <div v-if="isIos">
-          <p class="mt-5">To add your Emoxy to an iPhone home screen,</p>
+        <div v-if="isAndroid">
           <p class="mt-5">
-            1. Open the Emotional Futures web app with Safari on your smartphone
+            To add your Emoxy to an Android homescreen, open the Emotional
+            Futures webapp with Google Chrome on your smartphone.
           </p>
           <p class="mt-5">
-            2. Tap on the share icon at the center on the bottom of the screen
+            Tap on the screen’s three-dot icon at the top right-hand corner.
           </p>
-          <p class="mt-5">3. Select Add to Home screen</p>
-          <p class="mt-5">4. Confirm EF Bookmark</p>
+          <p class="mt-5">Select Add to Homescreen</p>
         </div>
-        <div v-else-if="isAndroid">
-          <p class="mt-5">To add your Emoxy to an Android home screen,</p>
+        <div v-else-if="isIos">
           <p class="mt-5">
-            1. Open the Emotional Futures web app with Google Chrome on your
-            smartphone
+            To add your Emoxy to an iPhone homescreen, open the Emotional
+            Futures webapp with Safari on your smartphone.
           </p>
           <p class="mt-5">
-            2. Tap on the screen’s three-dot icon at the top right-hand corner
+            Tap on the share icon at the center on the bottom of the screen.
           </p>
-          <p class="mt-5">3. Select Add to Home screen</p>
-          <p class="mt-5">4. Confirm EF Bookmark</p>
+          <p class="mt-5">Select Add to Homescreen</p>
         </div>
         <div v-else>
-          <p class="mt-5">To add your Emoxy to your home screen or Desktop,</p>
           <p class="mt-5">
-            1. Open the Emotional Futures web app with Google Chrome
+            To add your Emoxy to an homescreen, open the Emotional Futures
+            webapp with Google Chrome or Safari on your smartphone.
           </p>
-          <p class="mt-5">
-            2. Find the Install/Download icon on the right side of the adress
-            bar
-          </p>
-          <p class="mt-5">3. Click on it and confirm the install prompt</p>
+          <p class="mt-5">Tap on the screen’s three-dot icon at the corner.</p>
+          <p class="mt-5">Select Add to Homescreen</p>
         </div>
       </div>
       <div v-if="step === 3" class="grow flex flex-col mt-5 overflow-hidden">
         <p class="text-lg font-bold">Safe Play</p>
         <div class="mt-5 overflow-y-scroll">
           <p>
-            Emotional Future is a game that asks you to play with your emotions.
-            While unique personal backgrounds and relationship dynamics will
-            inform gameplay,  here are a few guidelines  on safe play:
+            Emotional Futures is a game that asks you to play with your
+            emotions. Your personal background and relationship dynamics will
+            inevitably inform gameplay. Here are a few guidelines on safe play:
           </p>
           <p class="mt-3">
             1. Be aware of your boundaries. If there are any topics you don’t
@@ -112,22 +106,30 @@
           </p>
           <p class="mt-2">
             2. It is completely fine to skip, cheat, make up stories, take a
-            break, or to stop the game completely. No explanation is needed if
-            you don't wish.
+            break or to stop the game entirely. No explanation is needed.
           </p>
           <p class="mt-2">
             3. It can be nice to talk about limits with your partner before
             playing, and to check in with each other during play.
           </p>
           <p class="mt-2">
-            4. At the end of play, it can be healthy to debrief with your
-            Accounterpart(s):  How was the game? How did you feel? Did you learn
-            things about each other? What concerns arose during play?
+            4. At the end of play, take a moment to debrief together: How was
+            the game? How did you feel? Did you learn things about each other?
+            What concerns arose during play?
           </p>
           <p class="mt-5">
             If you need help or support you can always reach out to us via
-            e-mail. We also manage a discord channel for players to raise
-            questions and connect with the community.
+            <NuxtLink to="mailto:irl@emotionalfutures.com" class="underline">
+              e-mail</NuxtLink
+            >. We also manage a
+            <span
+              @click="
+                navigateTo('https://discord.gg/sW2PZQpytS', { external: true })
+              "
+              class="underline"
+              >discord channel</span
+            >
+            for players to raise questions and connect with the community.
           </p>
           <p class="mt-5">
             If you need professional psychological support, please see our
@@ -141,14 +143,18 @@
       <div v-if="step === 4" class="grow flex flex-col mt-5 overflow-hidden">
         <p class="text-lg font-bold">Emotional Support Resources</p>
         <p class="mt-5">
-          In case of a need for professional support, please contact in Germany:
+          Should you require professional support, please contact in Germany:
         </p>
         <p class="font-bold mt-5">Telefonseelsorge</p>
         <p class="mt-1">
           Free and confidential crisis helpline for emotional support, available
           24/7. <br />
           0800-111-0-111 or 0800-111-0-222 <br />
-          <NuxtLink to="https://www.telefonseelsorge.de/" target="_blank">
+          <NuxtLink
+            to="https://www.telefonseelsorge.de/"
+            target="_blank"
+            class="underline"
+          >
             www.telefonseelsorge.de
           </NuxtLink>
         </p>
@@ -157,13 +163,17 @@
           care such as therapy sessions here:
         </p>
         <p class="font-bold mt-5">Therapie.de</p>
-        <NuxtLink to="https://www.therapie.de/" target="_blank" class="mt-1">
+        <NuxtLink
+          to="https://www.therapie.de/"
+          target="_blank"
+          class="mt-1 underline"
+        >
           www.therapie.de
         </NuxtLink>
       </div>
       <div v-if="step === 5" class="grow flex flex-col mt-5 overflow-y-scroll">
         <p class="text-lg font-bold">Credits</p>
-        <div class="overflow-y-scroll mt-5">
+        <div class="overflow-y-scroll mt-5 grow">
           <div class="flex gap-2 items-center">
             <Icon type="mail" size="s/m" />
             <p @click="">irl@emotionalfutures.com</p>
@@ -547,18 +557,20 @@
           models for understanding the human Emotional Operating System (EOS).
         </p>
         <p class="mt-5">
-          Based on historical and contemporary psychological theory, they are tools that activate the production of emotional currencies.
+          Based on historical and contemporary psychological theory, they are
+          tools that activate the production of emotional currencies.
         </p>
         <p class="mt-5">
-          In order to unlock higher Relationshapes, collect Blood, the currency representing the balance of your emotional exchange. 
+          In order to unlock higher Relationshapes, collect Blood, the currency
+          representing the balance of your emotional exchange.
         </p>
         <div
-            @click="step = 10"
-            class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm mt-5"
-          >
-            <Icon type="eye" />
-            <p class="font-bold">Relationshapes</p>
-          </div>
+          @click="step = 10"
+          class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm mt-5"
+        >
+          <Icon type="eye" />
+          <p class="font-bold">Relationshapes</p>
+        </div>
       </div>
       <div
         v-if="step === 10"
