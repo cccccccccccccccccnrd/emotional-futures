@@ -244,7 +244,7 @@
         <p class="font-bold">Relationshapes</p>
       </div>
       <p class="mt-5">
-        Relationshapes are emotional programs that operate in different parts of
+        Relationshapes are mental programs that operate in different parts of
         the human Emotional Operating System (EOS).
       </p>
       <p class="mt-5">

@@ -619,7 +619,7 @@
             IRL Collective, Emotional Futures, 2023.<br />
             Developer: Conrad Weise<br />
             Graphic Designers (Relationshapes, Painted Backdrops): Robuche<br />
-            Copy Editor: Mitch Speed<br />
+            Copy Editor: Mitch Speed and Janine Armin<br />
           </p>
           <p class="mt-5">
             Curator (LAS): Liz Stumpf<br />
