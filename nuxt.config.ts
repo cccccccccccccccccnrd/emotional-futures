@@ -44,7 +44,7 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         {
           property: 'og:image',
-          content: 'https://x.emotionalfutures.com/imgs/app/share.png'
+          content: 'https://emotionalfutures.com/imgs/app/share.png'
         },
         { property: 'og:image:width', content: '1000' },
         { property: 'og:image:height', content: '562' },
