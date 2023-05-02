@@ -58,8 +58,440 @@
           >
         </div>
       </div>
-      <div v-if="step === 1" class="grow flex flex-col mt-5">
+      <div v-if="step === 1" class="grow flex flex-col mt-5 overflow-hidden">
         <p class="text-lg font-bold">Data Privacy</p>
+        <div class="mt-5 overflow-scroll">
+          <p>Privacy Notice for Emotional Futures</p>
+
+          <p class="mt-5">
+            This Privacy Notice explains how Moritz Tontsch, with Marcel
+            Darienzo, Carina Erdmann, Steph Holl-Trieu, Andrew Pasquier, Xiaoji
+            Song and Ingeborg Wie Henriksen (hereinafter: 'IRL') processes your
+            personal data in connection with your use of the online game 'IRL:
+            Emotional Futures', which is accessible at www.emotionalfutures.com
+            (hereinafter: '<span class="font-bold">Emotional Futures</span>').
+          </p>
+
+          <p class="mt-5">
+            The protection of your personal data is important to us. IRL
+            therefore collects and processes your personal data in accordance
+            with applicable data protection laws, in particular the General Data
+            Protection Regulation (EU) 2016/679 (hereinafter: 'GDPR').
+          </p>
+
+          <p class="mt-5 font-bold">1. Controller and contact details</p>
+
+          <p class="mt-5">
+            The controller for the data processing within the meaning of
+            Art. 4 no. 7 GDPR is Moritz Tontsch, IRL, Elbestraße 2 53919
+            Weilerswist, Germany, email: irl@emotionalfutures.com ( '<span
+              class="font-bold"
+              >IRL</span
+            >', '<span class="font-bold">we</span>', '<span class="font-bold"
+              >our</span
+            >', '<span class="font-bold">us</span>', etc.).
+          </p>
+
+          <p class="mt-5 font-bold">2. What is personal data</p>
+
+          <p class="mt-5">
+            Personal data within the meaning of Art. 4 no. 1 GDPR is all
+            information that can be associated with you individually. This for
+            example includes your name and your email address. On the other
+            hand, general information by means of which you cannot be identified
+            does not constitute personal data (e.g. the number of users of
+            Emotional Futures).
+          </p>
+
+          <p class="mt-5 font-bold">
+            3. What types of personal data do we process for which purposes and
+            on which legal basis
+          </p>
+
+          <p class="mt-5">
+            In the following, we describe how IRL collects and processes your
+            personal data in connection with your use of Emotional Futures.
+          </p>
+
+          <p class="mt-5">
+            3.1. Webserver protocols (including the IP address)
+          </p>
+
+          <p class="mt-5">
+            When you use Emotional Futures, due to technical requirements, our
+            web server will automatically record your full IP address, the date
+            and the time at which you are using Emotional Futures, the sections
+            you access on Emotional Futures, the website you visited before
+            accessing Emotional Futures, the browser you use (e.g. Google
+            Chrome, Safari etc.), the operating system you use (e.g. Windows 10,
+            MacOS, Android, iOS etc.), and the domain name and address of your
+            Internet provider (e.g. Deutsche Telekom). This information is
+            required for the technical transmission of Emotional Futures and the
+            secure operation of the web server on which it is hosted. This
+            information is not merged with other data sources.
+          </p>
+
+          <p class="mt-5">
+            We process this information in order to observe and monitor the
+            stability, functionality, and technical performance of Emotional
+            Futures and in order to detect, identify, eliminate and solve any
+            potential problems and errors within Emotional Futures.
+          </p>
+
+          <p class="mt-5">
+            The legal basis for the processing of this information is our
+            legitimate interests (Art. 6 (1) lit. f GDPR), which consist of
+            ensuring and improving the integrity, stability and functionality of
+            Emotional Futures – as far as this is technically possible and
+            reasonable.
+          </p>
+
+          <p class="mt-5">
+            Furthermore, for reasons of technical security, in particular, to
+            ward off attempted attacks or other abuse of Emotional Futures
+            and/or our web server on which it is hosted, this information is
+            stored for a short period of time. We are not able to directly
+            associate this information with individual persons. After seven days
+            at the latest, this information will be anonymized through the
+            shortening of the IP address to the domain level, so that it will no
+            longer be possible to connect this information to an individual
+            person. However, in the period of time until the shortening of the
+            IP address, we may process this information in case of a security
+            incident (attempted attack or abuse, etc.) in cooperation with your
+            internet provider and/or the local authorities in order to identify
+            the party that caused the security incident.
+          </p>
+
+          <p class="mt-5">
+            The legal basis for this is our legitimate interests (Art. 6 (1)
+            lit. f GDPR), which consist of protecting the integrity of Emotional
+            Futures, our web server, our system and our users.
+          </p>
+
+          <p class="mt-5">
+            This information will only be processed for statistical, market
+            research and/or advertising purposes in anonymized form, i.e. after
+            the IP address has been shortened to the domain level.
+          </p>
+
+          <p class="mt-5">3.2. Intended use of Emotional Futures</p>
+
+          <p class="mt-5">
+            Emotional Futures is an online web-based game and Artwork. We
+            process your personal data provided during the game in order to
+            enable you to play Emotional Futures as intended by the game plan.
+            This in particular includes the following processing activities.
+          </p>
+
+          <p class="mt-5">(a) Questionnaire</p>
+
+          <p class="mt-5">
+            At the beginning of the game, you are required to complete a
+            questionnaire.
+          </p>
+
+          <p class="mt-5">
+            Through this questionnaire, you answer short questions to assess
+            whether you are more giving or taking in your relationships. Your
+            answers to the questionnaire are converted to our digital currencies
+            value, and therefore are not stored as qualitative data on the user.
+            We process your answers in order to set out your initial game
+            currencies Blood, Sweat and Tears. This helps to create your
+            personal Emoxy, which is your game avatar made up of your current
+            account balance of Blood, Sweat and Tears.
+          </p>
+
+          <p class="mt-5">
+            We process the personal data provided during the questionnaire
+            solely to enable you to play Emotional Futures.
+          </p>
+
+          <p class="mt-5">
+            The legal basis for the processing of your personal data is the
+            fulfilment of our contractual obligations to provide Emotional
+            Futures to you (Art. 6 (1) lit. b GDPR).
+          </p>
+
+          <p class="mt-5">(b) Registration</p>
+
+          <p class="mt-5">
+            In order to save your current game progress and to interact with
+            other players, you must register with IRL in the next step. For this
+            purpose you are asked to enter a name for your Emoxy and your e-mail
+            address. The e-mail address has to be confirmed by clicking on the
+            link we have sent to your e-mail address.
+          </p>
+           
+
+          <p class="mt-5">
+            You may choose not to provide your real name if you do not feel
+            comfortable providing this information. For greater clarity: the
+            information you enter in the registration process does not need to
+            be true to your individual. It can be made up, such as a nickname or
+            a fictional name.
+          </p>
+
+          <p class="mt-5">
+            Your Emoxy will then be linked to the name chosen for it. If you
+            decide to connect with other players, they can see the name of your
+            Emoxy.
+          </p>
+
+          <p class="mt-5">
+            We process and store the personal data provided during the
+            registration and password recovery solely to enable you to play
+            Emotional Futures with Supabase (Data Processor).
+          </p>
+
+          <p class="mt-5">
+            The legal basis for the processing of your personal data is the
+            fulfilment of our contractual obligations to provide Emotional
+            Futures to you (Art. 6 (1) lit. b GDPR).
+          </p>
+
+          <p class="mt-5">(c) Interaction with other players</p>
+
+          <p class="mt-5">
+            You can connect with other players to join Emotional Futures by
+            searching their Emoxy name on the Emotional Futures network. Your
+            Emoxy name can be searched and connected by anyone that signed up
+            for the Emotional Futures game. In particular, we do not process any
+            personal data about who you connect to. The other person becomes
+            your so-called 'Accounterpart'. Your Accounterparts can see your
+            Emoxy name. Accounterparts can invite each other to further gameplay
+            and can subsequently see the interactions they have with each other
+            in the gameplay (see Section 3.2 (d)).
+          </p>
+
+          <p class="mt-5">
+            We process the personal data provided during the interaction with
+            other players solely to enable you to play Emotional Futures. The
+            legal basis for the processing of your personal data is the
+            fulfilment of our contractual obligations to provide Emotional
+            Futures to you (Art. 6 (1) lit. b GDPR).
+          </p>
+
+          <p class="mt-5">(d) Further gameplay</p>
+
+          <p class="mt-5">
+            In further gameplay, you can feed and grow your Emoxy by playing
+            so-called Activations with your Accounterparts. Based on certain
+            parameters you choose ('Emotion' and 'Relationshape') you and your
+            Accounterpart will be shown a task, which needs to be fulfilled
+            outside the game. After fulfilling the task, you and your
+            Accounterpart evaluate the experience you had when performing the
+            task by accounting it with the game currencies Sweat and Tears. Your
+            Accounterpart will be able to see your accounting of the game
+            currency Tears and you will be able to see their accounting of the
+            game currency Tears. You will be awarded with a certain amount of
+            the game currency Blood based on the results of the accounting
+            process. The game currencies Blood, Sweat and Tears feed and change
+            the appearance of your Emoxy.
+          </p>
+
+          <p class="mt-5">
+            We process all personal data provided during the further gameplay
+            solely to enable you to play Emotional Futures.
+          </p>
+
+          <p class="mt-5">
+            The legal basis for the processing of your personal data is the
+            fulfillment of our contractual obligations to provide Emotional
+            Futures to you (Art. 6 (1) lit. b GDPR).
+          </p>
+
+          <p class="mt-5">3.3. Contacting us</p>
+
+          <p class="mt-5">
+            If you wish to contact us, e.g. by e-mail
+            (irl@emotionalfutures.com), the data you provide in the process will
+            be used to process your inquiry and to contact you. The provision of
+            this data is necessary to process and respond to your request;
+            without this data we cannot answer your request completely or at
+            all.
+          </p>
+           
+
+          <p class="mt-5">
+            The legal basis for the processing of your personal data is the
+            fulfilment of our contractual obligations (Art. 6 (1) lit. b GDPR)
+            as well as safeguarding our legitimate interests, which include, but
+            are not limited to, contacting you and communicating with you about
+            any concerns you have contacted us about (Art. 6 (1) lit. f GDPR).
+          </p>
+           
+
+          <p class="mt-5">3.4. Cookies</p>
+
+          <p class="mt-5">
+            We store strictly necessary cookies only to enable basic functioning
+            and access to the game.
+          </p>
+
+          <p class="mt-5">
+            Strictly necessary cookies are those that enable a website to
+            function. Without them, it will either not work at all or will not
+            work properly. These cookies include ones that enable users to log
+            in to secure areas of the website and use a shopping cart. These
+            cookies do not track any personal data of visitors.
+          </p>
+
+          <p class="mt-5 font-bold">
+            4. Automated individual decision-making, including profiling
+          </p>
+
+          <p class="mt-5">
+            We do not use automated individual decision-making or profiling
+            (Art. 22 GDPR).
+          </p>
+
+          <p class="mt-5 font-bold">5. Disclosure of your personal data</p>
+
+          <p class="mt-5">
+            We do not disclose any personal data to third parties unless such
+            disclosure is required for contractual performance or otherwise
+            allowed by applicable statutory provisions or unless you have given
+            us your consent.
+          </p>
+
+          <p class="mt-5">
+            Please note that IRL is entitled to outsource the processing of your
+            personal data fully or partially to external service providers
+            working on behalf of IRL as so-called data processors within the
+            meaning of Art. 4 no. 8 GDPR. In this context we may transfer your
+            personal data to the technical service provider Supabase (data
+            processor), who assist us with the technical provision and support
+            of Emotional Futures. In all cases, we have concluded data
+            processing agreements with the data processors involved in
+            accordance with Art. 28 DSGVO, which stipulate in particular that
+            the data processing will be carried out exclusively in accordance
+            with the instructions of IRL and in compliance with the applicable
+            data protection laws.
+          </p>
+
+          <p class="mt-5 font-bold">6. International data transfers</p>
+
+          <p class="mt-5">
+            The processing of your personal data may be carried out by IRL in
+            Germany, in a Member State of the EU or the EEA or, if an adequacy
+            decision pursuant to Art. 45 GDPR exists in a third country outside
+            of the EU or the EEA. If a recipient is located outside of the EU or
+            the EEA, and no adequacy decision pursuant to Art. 45 GDPR exists in
+            such country, IRL will, where required by law, put in place
+            appropriate safeguards in accordance with the requirements set by
+            applicable data protection law (e.g. the execution of Standard
+            Contract Clauses) to ensure that your personal data is duly
+            protected through the recipient. You can find out more information
+            about these safeguards, and obtain a copy of them, by contacting IRL
+            under the contact details as provided in Section 1 above.
+          </p>
+
+          <p class="mt-5 font-bold">7. Storage period</p>
+
+          <p class="mt-5">
+            IRL only stores your personal data as long as necessary to achieve
+            the purposes for which the personal data was collected (i.e.
+            provision of Emotional Futures, which includes saving your game
+            progress).
+          </p>
+
+          <p class="mt-5">
+            Your personal data will be automatically deleted no later than the
+            scheduled end date of Emotional Futures on 16 May 2024. You can
+            choose to delete your data completely at any time by clicking on the
+            'Delete all my data' button, which you will find in the Menu. Please
+            note that in this case you will lose your game progress and your
+            Emoxy.
+          </p>
+
+          <p class="mt-5">
+            If additional statutory storage obligations exist, your personal
+            data will be stored for the duration of the applicable statutory
+            storage obligations. After the expiry of the statutory storage
+            obligations your personal data will be deleted.
+          </p>
+
+          <p class="mt-5 font-bold">
+            8. Your data protection rights as a data subject
+          </p>
+
+          <p class="mt-5">
+            According to applicable data protection law, you are, in particular,
+            entitled to the following data protection rights.
+          </p>
+
+          <p class="mt-5">
+            (a) <span class="font-bold">Right to information</span>: You have
+            the right to request at any time information on your personal data
+            stored by us.
+          </p>
+
+          <p class="mt-5">
+            (b) <span class="font-bold">Right to rectification</span>: When
+            processing your personal data, we attempt to ensure through
+            appropriate measures that your personal data is correct and up to
+            date for the purposes for which it has been collected. If your
+            personal data is incorrect or incomplete, you may request the
+            rectification of the respective data.
+          </p>
+
+          <p class="mt-5">
+            (c)
+            <span class="font-bold"
+              >Right to erasure and restriction of processing</span
+            >: You may have the right to request the erasure and/or a
+            restriction of processing of your personal data, e.g. if, according
+            to this Privacy Notice or applicable law, a legitimate business
+            purpose for such processing does no longer exist and if statutory
+            retention obligations do not require a continued storage.
+          </p>
+
+          <p class="mt-5">
+            (d) <span class="font-bold">Right to data portability</span>: You
+            may have the right to receive the respective personal data you
+            provided to us in a structured, commonly used and machine-readable
+            format or to transmit those data to another controller.
+          </p>
+
+          <p class="mt-5">
+            (e)
+            <span class="font-bold"
+              >Right to object: You may have the right to object, on grounds
+              relating to your particular situation, to the processing of your
+              personal data. Further, you have the right at any time to object
+              to the processing of your personal data for the purposes of direct
+              marketing without any reasons.</span
+            >
+          </p>
+
+          <p class="mt-5">
+            (f) <span class="font-bold">Right to complain</span>: You have the
+            right to complain to the competent data protection authority. The
+            data protection authority responsible for IRL is the Bayerisches
+            Landesamt für Datenschutzaufsicht, Promenade 18, 91522 Ansbach,
+            Germany, phone: +49 (0) 981 180093-0, fax: +49 (0) 981 180093-800,
+            email: poststelle@lda.bayern.de. A list of other data protection
+            authorities that you can contact (e.g. the one at your place of
+            residence) is available here (<NuxtLink
+              to="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html" target="_blank" class="underline"
+              >www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html</NuxtLink
+            >).
+          </p>
+
+          <p class="mt-5">
+            For the purpose of enforcing your data protection rights, please
+            contact us via the contact details specified in Section 1 above.
+          </p>
+
+          <p class="mt-5 font-bold">9. Right to make changes</p>
+
+          <p class="mt-5">
+            We reserve the right to change this Privacy Notice at any time in
+            accordance with the statutory provisions. Changes may for example be
+            required for compliance with new statutory provisions, due to new
+            technologies or in case of new features in Emotional Futures.
+          </p>
+        </div>
       </div>
       <div v-if="step === 2" class="grow flex flex-col mt-5">
         <p class="text-lg font-bold">Add Emoxy to Homescreen</p>
