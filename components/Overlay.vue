@@ -222,7 +222,7 @@
       <div v-if="step === 6" class="grow flex flex-col mt-5 overflow-y-scroll">
         <p class="text-lg font-bold">Imprint</p>
         <p class="mt-5">
-          Moritz Tontsch <br />
+          Moritz Tontsch<br />
           c/o Städelschule<br />
           Dürerstr. 10<br />
           60596 Frankfurt am Main
@@ -237,9 +237,9 @@
           <div
             v-if="
               (step >= 1 && step <= 9 && step != 8) ||
-              step === 11 ||
               step === 12 ||
-              step === 14
+              step === 13 ||
+              step === 15
             "
             class="flex justify-center items-center gap-3"
             @click="step = 0"
@@ -261,12 +261,20 @@
             @click="step = 9"
           >
             <Icon type="arrow-l" />
+            <p class="text-xs opacity-50">Back to Relationshapes</p>
+          </div>
+          <div
+            v-if="step === 11"
+            class="flex justify-center items-center gap-3"
+            @click="step = 10"
+          >
+            <Icon type="arrow-l" />
             <p class="text-xs opacity-50">See All Relationshapes</p>
           </div>
           <div
-            v-if="step === 13"
+            v-if="step === 14"
             class="flex justify-center items-center gap-3"
-            @click="step = 11"
+            @click="step = 12"
           >
             <Icon type="arrow-l" />
             <p class="text-xs opacity-50">Back to Accounting</p>
@@ -286,12 +294,12 @@
             <Btn
               v-for="p in [
                 ['Emoxy', 1],
-                ['EOS', 14],
+                ['EOS', 15],
                 ['Accounterparts', 2],
                 ['Activations', 4],
                 ['Emotions', 7],
                 ['Relationshapes', 9],
-                ['Accounting', 11]
+                ['Accounting', 12]
               ]"
               @click="step = Number(p[1])"
               type="dark"
@@ -314,18 +322,14 @@
         <p class="text-lg font-bold">Emoxy</p>
         <Icon type="heart" class="mt-5" />
         <p class="mt-5">
-          To grow your Emoxy, you have to capture value from your personal
-          relationships. You can do this by playing Activations.
+          The Emoxy is an emotional proxy, an alchemical creature that grows
+          with your emotional journey as you feed it with the fluids you extract
+          from yourself through Activations: Blood, Sweat and Tears.
         </p>
         <p class="mt-5">
-          After completing each Activation, you are invited to account for the
-          mutual emotional investment made by you and your Accounterpart in
-          three virtual currencies: Blood, Sweat and Tears.
-        </p>
-        <p class="mt-5">
-          The numerical Drops that you extract from your body in the Accounting
-          process form the liquid value that flow into your Emoxy, fueling its
-          growth.
+          Your Emoxy is what it eats. The more Drops you collect the more your
+          Emoxy grows. Watch it crystallize, change color and morph. The balance
+          of fluids determines what it will become.
         </p>
       </div>
       <div
@@ -340,7 +344,7 @@
             connects humans in a network of Accounterparts, or players.
           </p>
           <p class="mt-5">
-            These Accounterparts are based in existing real-life relationships:
+            These Accounterparts are based on existing real-life relationships:
             romances, acquaintances, friendships.
           </p>
           <p class="mt-5">
@@ -358,22 +362,19 @@
           <p class="text-lg font-bold">Connecting Accounterpart</p>
           <p class="mt-5">
             To connect with a new Accounterpart, go to your Accounterparts tab
-            and select ”New Connection Invite”. Two options will appear on the
-            screen:
+            and select 'Plus Icon' on top right corner.
           </p>
-          <p class="font-bold mt-5">1 Scan QR code</p>
           <p class="mt-5">
-            If you are both in the same location, just have your Accounterpart
-            scan the code on your device's screen and you will be instantly
-            connected.
+            A search field will pop up asking you to type in your
+            Accounterpart's Emoxy name.
           </p>
-          <p class="font-bold mt-5">2 Invitation Link</p>
           <p class="mt-5">
-            Once you select this option the share function of your device will
-            appear and direct you to your most-used messaging apps.
+            If you type the correct Emoxy name of your Accounterpart you will be
+            instantly connected, and can start playing Activations.
           </p>
-          <p class="font-bold mt-5">
-            If not accepted, the invitation link expires after 24 hours.
+          <p class="mt-5">
+            Your Emoxy name is the key for you to be found in the Emotional
+            Futures Network - keep it safe.
           </p>
         </div>
         <div
@@ -407,19 +408,21 @@
           <Icon type="activation" class="mt-5" />
           <p class="mt-5">
             Activations are unique tasks asking players to recall memories,
-            discuss feelings, and produce new emotional experiences.
+            discuss feelings and produce new emotional experiences.
           </p>
           <p class="mt-5">
-            Complete Activations from the eight core emotions to feed your
-            Emoxy's growth. You can only perform one Activation at a time, so
-            both you and your Accounterpart need to commit to the task in play.
+            As you complete Activations from the eight core emotions, your Emoxy
+            will express the emotion just played. You can only perform one
+            Activation at a time, so both you and your Accounterpart need to
+            commit to the task in play.
           </p>
         </div>
         <div v-if="step === 5" class="overflow-y-scroll">
           <p class="text-lg font-bold">How To Play an Activation?</p>
           <p class="mt-5">
-            To play an Activation and feed your Emoxy you need to create an
-            Activation Card which you:
+            To start a new Activation you need to create an Activation Card. You
+            can initiate it from the Accounterpart’s page, or by clicking to
+            feed your Emoxy. You will follow these steps:
           </p>
           <p class="mt-5">
             1. Choose an Accounterpart<br />
@@ -428,14 +431,15 @@
             4. Send Activation Invite<br />
           </p>
           <p class="mt-5">
-            Once your Accounterpart has accepted the invitation, you will be
-            shown your task.
+            Once your Accounterpart has accepted the invitation, your task will
+            be revealed.
           </p>
           <p class="mt-5">
-            After completing the Activation, you shall proceed to Accounting.
-            Here you will take account of your experience and the value of your
-            emotional exchange. Afterwards, your account will be updated with
-            the Blood, Sweat and Tears gained through the Activation.
+            After completing the Activation, proceed to Accounting. Here you
+            will take account of your experience and the value of your emotional
+            exchange. Afterward, your account will be updated with the Blood,
+            Sweat and Tears gained through the Activation. You must feed your
+            Emoxy to bring the Activation to an end.
           </p>
         </div>
         <div v-if="step === 6" class="overflow-y-scroll">
@@ -444,22 +448,21 @@
             To complete an Activation a player must invite an Accounterpart.
           </p>
           <p class="mt-5">
-            After you confirmed an Activation, an invitation link will be
-            provided in two forms:
+            After you confirmed an Activation, the invitation will be sent
+            automatically to your Accounterpart. They need to accept the invite
+            for you to start playing the Activation together.
           </p>
-          <p class="font-bold mt-5">1 Scan QR Code</p>
           <p class="mt-5">
-            If you and your Accounterpart are in the same location, scan the QR
-            code, and you will be instantly connected. You can also share an
-            invite link below.
+            You can find the invitations received by clicking to feed your
+            Emoxy, or in the Accounterpart page.
           </p>
-          <p class="font-bold mt-5">2 Invitation Link</p>
-          <p class="font-bold mt-5">
-            Once you select this option the share function of your device will
-            appear and direct you to your most-used messaging apps.
+          <p class="mt-5">
+            Be aware that you can accumulate many Activation Invites, but you
+            can only play one at a time.
           </p>
           <p class="font-bold mt-5">
-            If not accepted, the invitation link expires after 24 hours.
+            Remember, your Activation only comes to an end when both you and
+            your Accounterpart feed your Emoxy.
           </p>
         </div>
         <div
@@ -493,6 +496,9 @@
           class="flex flex-col items-center overflow-y-scroll"
         >
           <p class="text-lg font-bold w-full">Emotions</p>
+          <div class="w-full">
+            <Icon type="emotions" class="mt-5" />
+          </div>
           <p class="mt-5">
             Emotional Futures allow players and their Accounterparts to activate
             their eight core emotions. These emotions form the foundation of the
@@ -535,6 +541,29 @@
         v-if="step === 9"
         class="grow flex flex-col items-center overflow-hidden mt-5"
       >
+        <p class="text-lg font-bold w-full">Relationshapes</p>
+        <p class="mt-5">
+          Relationshapes are emotional programs that represent eight different
+          models for understanding the human Emotional Operating System (EOS).
+        </p>
+        <p class="mt-5">
+          Based on historical and contemporary psychological theory, they are tools that activate the production of emotional currencies.
+        </p>
+        <p class="mt-5">
+          In order to unlock higher Relationshapes, collect Blood, the currency representing the balance of your emotional exchange. 
+        </p>
+        <div
+            @click="step = 10"
+            class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm mt-5"
+          >
+            <Icon type="eye" />
+            <p class="font-bold">Relationshapes</p>
+          </div>
+      </div>
+      <div
+        v-if="step === 10"
+        class="grow flex flex-col items-center overflow-hidden mt-5"
+      >
         <p class="text-lg font-bold text-center">Relationshapes</p>
         <div class="w-full h-full grid grid-cols-2 gap-2 mt-5">
           <LiRelationshape
@@ -545,7 +574,7 @@
         </div>
       </div>
       <div
-        v-if="step === 10"
+        v-if="step === 11"
         class="grow flex flex-col items-center overflow-hidden mt-5"
       >
         <p class="text-lg font-bold text-center capitalize">
@@ -560,29 +589,35 @@
         </div>
       </div>
       <div
-        v-if="step === 11 || step === 12 || step === 13"
+        v-if="step === 12 || step === 13 || step === 14"
         class="grow flex flex-col justify-between overflow-hidden mt-5"
       >
-        <div v-if="step === 11" class="overflow-y-scroll">
+        <div v-if="step === 12" class="overflow-y-scroll">
           <p class="text-lg font-bold">Accounting</p>
           <Icon type="drop-half" class="mt-5" />
           <p class="mt-5">
             After completing each Activation, you must proceed to the Accounting
-            phase. There you extract Drops of Blood, Sweat and Tears. These
+            phase, where you extract Drops of Blood, Sweat and Tears. These
             fluids reflect the emotional energy you give to and receive from
             your Accounterpart.
           </p>
           <p class="mt-5">
-            Accounting will synthesise your experiences and guide you through a
+            Accounting will synthesize your experiences and guide you through a
             series of extracting questions to pour yourself into your Emoxy.
           </p>
           <p class="mt-5">
             Each Relationshape has a specific set of Accounting steps that must
             be completed before you can collect your Drops and feed your Emoxy.
           </p>
+          <p class="mt-5">
+            Your Emoxy will move to a new growth phase based on the total sum of
+            Blood, Sweat and Tears in your account. Your progress can be
+            followed via a tracker bar representing the remaining quantity of
+            Drops your Emoxy needs to grow.
+          </p>
         </div>
         <div
-          v-if="step === 12"
+          v-if="step === 13"
           class="flex flex-col items-center overflow-y-scroll"
         >
           <p class="text-lg font-bold">Accounting in Drops</p>
@@ -590,7 +625,7 @@
             For each Activation you earn Blood, Sweat and Tears.
           </p>
           <p class="mt-5">
-            The Accounting will prompt you with elements of your Activation that
+            Accounting will prompt you with elements of your Activation that
             will be measured by you:
           </p>
           <p class="mt-5">
@@ -603,16 +638,18 @@
             be awarded Blood based on the balance of their emotional exchange.
           </p>
           <div
-            @click="step = 13"
+            @click="step = 14"
             class="flex gap-2 py-2 px-3 bg-dark-50 rounded-sm mt-5"
           >
             <Icon type="eye" />
             <p class="font-bold">Emotional Currencies</p>
           </div>
         </div>
-        <div v-if="step === 13" class="flex flex-col items-center">
+        <div v-if="step === 14" class="flex flex-col items-center">
           <p class="text-lg font-bold text-center">Emotional Currencies</p>
-          <div class="grow flex flex-col justify-center items-center">
+          <div
+            class="grow w-full px-10 flex flex-col justify-center items-center"
+          >
             <div
               v-for="d in ['blood', 'sweat', 'tears']"
               class="relative flex flex-col items-center mt-10"
@@ -630,15 +667,19 @@
             </div>
             <input
               v-model="currencyAmount"
-              class="mt-10"
+              class="w-full mt-10"
               type="range"
               min="1"
               max="10"
             />
+            <div class="w-full flex justify-between mt-1">
+              <p class="font-bold">-</p>
+              <p class="font-bold">+</p>
+            </div>
           </div>
         </div>
       </div>
-      <div v-if="step === 14" class="mt-5 flex flex-col">
+      <div v-if="step === 15" class="mt-5 flex flex-col">
         <p class="text-lg font-bold">EOS</p>
         <p class="mt-5">
           Every human comes installed with an Emotional Operating System,
@@ -653,24 +694,24 @@
       </div>
       <div
         class="w-full px-5 flex justify-between items-center justify-self-end"
-        v-if="step === 11 || step === 12"
+        v-if="step === 12 || step === 13"
       >
         <Icon
           type="arrow-l"
-          @click="step <= 11 ? null : step--"
-          :class="step <= 11 ? 'opacity-20' : ''"
+          @click="step <= 12 ? null : step--"
+          :class="step <= 12 ? 'opacity-20' : ''"
         />
         <div class="flex justify-center items-center gap-1">
           <div
             v-for="n in 2"
-            :class="step - 10 === n ? 'w-2 h-2' : 'w-1 h-1'"
+            :class="step - 11 === n ? 'w-2 h-2' : 'w-1 h-1'"
             class="bg-white-100"
           ></div>
         </div>
         <Icon
           type="arrow-r"
-          @click="step >= 12 ? null : step++"
-          :class="step >= 12 ? 'opacity-20' : ''"
+          @click="step >= 13 ? null : step++"
+          :class="step >= 13 ? 'opacity-20' : ''"
         />
       </div>
     </div>
@@ -749,7 +790,7 @@ onMounted(() => {
 
 function handleRelationshapeClick(r: any) {
   selectedRelationshape.value = r
-  step.value = 10
+  step.value = 11
 }
 
 function handleOverlayClick(type: string, page?: [string, number]) {
