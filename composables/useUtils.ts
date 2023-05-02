@@ -349,7 +349,7 @@ export function useRelationshapes() {
       accounting: [
         {
           name: 'Words',
-          text: '<p>Humans use language to regulate emotions, labeling affects and putting feelings into words.</p><p class="mt-5">Evaluate: how much of the activated emotion you could capture with words?</p>'
+          text: '<p>Humans use language to regulate emotions. They are able to process feelings by putting them into words.</p><p class="mt-5">How well could you capture your emotions in words?</p>'
         }
       ]
     },
@@ -362,11 +362,11 @@ export function useRelationshapes() {
       accounting: [
         {
           name: 'Software',
-          text: '<p>Emotional responses are an automatic function of the human\'s hardware. Still, software programs can affect this mechanism.</p><p class="mt-5">Evaluate how well did your body respond to the messages of your mind.</p>'
+          text: '<p>The human’s hardware (body) produces emotions on autopilot. Software signals (thoughts) can reprogram this automatic function.</p><p class="mt-5">How well did your bodies respond to the signals of your minds?</p>'
         },
         {
           name: 'Hardware',
-          text: '<p>The human\'s software interprets the signals of the hardware as emotions.</p><p class="mt-5">Evaluate how well did your mind decode the signals of your body.</p>'
+          text: '<p>The human’s software (mind) interprets the signals of the hardware (body) as emotions.</p><p class="mt-5">How well did your minds respond to the signals of your bodies?</p>'
         }
       ]
     },
@@ -379,15 +379,15 @@ export function useRelationshapes() {
       accounting: [
         {
           name: 'Base',
-          text: '<p>Base colors are the primary emotions you chose to activate.</p><p class="mt-5">Evaluate: How clear were you able to visualize your base emotions?</p>'
+          text: '<p>A base emotion is the first emotion that is felt in response to a situation.</p><p class="mt-5">How vivid was the color of your initial base emotion?</p>'
         },
         {
           name: 'Layers',
-          text: '<p>Layers are secondary emotions that are triggered by the primary emotion. Layering adds to the base color, while also letting it shine through.</p><p class="mt-5">Account for the emotional layers produced by your base emotions.</p>'
+          text: '<p>Layers are new emotions triggered by the base emotion. Layering adds to the base color, while also letting it shine through.</p><p class="mt-5">How many emotions were layered on top of your initial base color?</p>'
         },
         {
           name: 'Mixtures',
-          text: '<p>Mixtures occur when different emotions are produced simultaneously, creating entirely new emotions.</p><p class="mt-5">Account for the emotional mixtures created from your base emotions.</p>'
+          text: '<p>Mixtures occur when different base emotions appear simultaneously, creating entirely new emotions.</p><p class="mt-5">How much did your initial emotion transform into new mixtures?</p>'
         }
       ]
     },
@@ -400,19 +400,19 @@ export function useRelationshapes() {
       accounting: [
         {
           name: 'Volume',
-          text: '<p>Volume expresses the felt force of an emotion on a gradient from low to high intensity.</p><p class="mt-5">Evaluate with how much nuance were you able to transmit your emotional range through a change in volume.</p>'
+          text: '<p>Volume expresses the felt force of an emotion on a gradient from low to high intensity.</p><p class="mt-5">How loud was the sound of your emotions?</p>'
         },
         {
           name: 'Tone',
-          text: '<p>Tone expresses the subjective value of an emotion on a gradient from discomfort to pleasure.</p><p class="mt-5">Judge how clearly you could hear a negative or positive tone in your emotional patterns.</p>'
+          text: '<p>Tone expresses the subjective value of an emotion on a gradient from discomfort to pleasure.</p><p class="mt-5">How pleasurable was the sound of your emotions?</p>'
         },
         {
           name: 'Tempo',
-          text: '<p>Tempo expresses the level of activation that emotions effect in the EOS by raising or lowering a human’s pulse.</p><p class="mt-5">A regular heart rate ranges from 60 and 100 beats per minute. Slower rhythms evoke relaxation, serenity and sadness. Quicker rhythms invoke happiness excitement, anger and fear.</p><p class="mt-5">Evaluate the value of the activated emotion expressed through its tempo.</p>'
+          text: '<p>Tempo expresses the arousal that emotions cause in the EOS.</p><p class="mt-5">Slower rhythms evoke relaxation, serenity and sadness. Quicker rhythms invoke happiness excitement, anger and fear.</p><p class="mt-5">How quick was the sound of your emotions?</p>'
         },
         {
           name: 'Rhythm',
-          text: '<p>Rhythm expresses the emotional patterns that are produced over time as learned behaviors and beliefs become habits.</p><p class="mt-5">Measure the emotional rhythm felt during this Activation.</p>'
+          text: '<p>Rhythm expresses the emotional patterns that emerge when learned behaviors become habits.</p><p class="mt-5">How rhythmic was the sound of your emotions?</p>'
         }
       ]
     },
@@ -425,23 +425,23 @@ export function useRelationshapes() {
       accounting: [
         {
           name: 'Heart',
-          text: '<p>In the creative cycle the heart (summer) supports the stomach (harvest) and is supported by the kidney (spring).</p><p class="mt-5">In the destructive cycle the heart (fire) controls the lungs (metal) and is controlled by the kidney (water).</p><p class="mt-5">Which cycle did your hearts go through? Measure your heartbeats.</p>'
+          text: '<p>A healthy heart is associated with joy, love and appreciation.</p><p class="mt-5">Hate or impatience are stored in the heart. This can lead to heart palpitations, insomnia and an irregular heartbeat.</p><p class="mt-5">How healthy are your hearts?</p>'
         },
         {
           name: 'Stomach',
-          text: '<p>In the creative cycle the stomach (harvest) supports the lungs (autumn) and is supported by the heart (summer).</p><p class="mt-5">In the destructive cycle the stomach (earth) controls the kidney (water) and is controlled by the liver (wood).</p><p class="mt-5">Which cycle did your stomachs go through? Measure the size of your stomachs.</p>'
+          text: '<p>A healthy stomach is associated with fairness, openness and trust.</p><p class="mt-5">Worry, anxiety and mistrust are stored in the stomach. This can lead to fatigue, bloating or eating disorders.</p><p class="mt-5">How healthy are your stomachs?</p>'
         },
         {
           name: 'Lungs',
-          text: '<p>In the creative cycle the lungs (autumn) support the kidney (winter) and are supported by the stomach (harvest).</p><p class="mt-5">In the destructive cycle the lungs (metal) control the liver (wood) and are controlled by the heart (fire).</p><p class="mt-5">Which cycle did your lungs go through? Measure the amount of air inside of them.</p>'
+          text: '<p>Healthy lungs are associated with clear thinking, openness to new ideas and good communication.</p><p class="mt-5">Sadness and grief affect the taking in and letting go of the lungs. This can lead to chest pain, shortness of breath, asthma and frequent colds.</p><p class="mt-5">How healthy are your lungs?</p>'
         },
         {
           name: 'Kidney',
-          text: '<p>In the creative cycle the kidney (winter) supports the liver (spring) and is supported by the lungs (autumn).</p><p class="mt-5">In the destructive cycle the lungs (metal) controls the liver (wood) and is controlled by the heart (fire).</p><p class="mt-5">Which cycle did your kidneys go through? Measure their efforts.</p> '
+          text: '<p>Healthy kidneys are associated with gentleness, calmness and silence.</p><p class="mt-5">Frequent fear can harm your kidneys. This can lead to sudden urination, night sweats and a dry mouth.</p><p class="mt-5">How healthy are your kidneys?</p>'
         },
         {
           name: 'Liver',
-          text: '<p>In the creative cycle the liver (spring) supports the heart (summer) and is supported by the kidney (winter).</p><p class="mt-5">In the destructive cycle the liver (wood) controls the stomach (earth) and is controlled by the lung (metal).</p><p class="mt-5">Which cycle did your livers go through? Measure the regeneration of  your livers.</p>'
+          text: '<p>A healthy liver is associated with kindness and generosity.</p><p class="mt-5">Anger, frustration, jealousy and envy are stored in the liver. This can lead to headaches, irritability and dizziness.</p><p class="mt-5">How healthy are your livers?</p>'
         }
       ]
     },
@@ -454,27 +454,27 @@ export function useRelationshapes() {
       accounting: [
         {
           name: 'Forehead',
-          text: '<p>Forehead furrows can point to unresolved trauma. Horizontal lines also mark a tendency to over-think and worry.</p><p class="mt-5">Evaluate the levels of emotion expressed on your foreheads.</p>'
+          text: '<p>Forehead furrows can point to unresolved trauma. Horizontal lines also mark a tendency to overthink and worry.</p><p class="mt-5">How well could you read your emotions on each other’s foreheads?</p>'
         },
         {
-          name: 'Cheeks',
-          text: '<p class="mt-5">A tight jaw indicates resentment and anger felt due to a lack of self-expression. A drooping jawline can be caused by a tight neck which is a sign of fear.</p><p class="mt-5">Evaluate the emotions expressed in your cheeks and jaws.</p><p class="mt-5">How much was the activated emotion legible in the tensing or relaxing of these regions of your face?</p>'
-        },
-        {
-          name: 'Brows',
-          text: '<p>Frown lines between the eyebrows can be a sign of intense focus but also show frustration and impatience.</p><p class="mt-5">Evaluate the movement of your eyebrows.</p><p class="mt-5">Did they soften or relax to communicate the activated emotion?</p><p class="mt-5">How much did you transmit the activated emotion by the movement of your eyebrows?</p>'
+          name: 'Eyebrows',
+          text: '<p>Frown lines between the eyebrows can be a sign of intense focus but also show frustration and impatience.</p><p class="mt-5">How well could you read your emotions in the movement of each other’s eyebrows?</p>'
         },
         {
           name: 'Eyes',
-          text: '<p>Crow’s feet are small lines radiating from your eyes. Soft wrinkles are a sign of happiness. Deeper marks indicate tension and time spent making difficult decisions.</p><p class="mt-5">Lines under the eyes indicate a deep sadness and grief.</p><p class="mt-5">Evaluate each other’s eyes.</p><p class="mt-5">Did you blink, tense, stare or look away to express the activated emotion?</p><p class="mt-5">How much did your eyes express how you felt during this activation?</p>'
+          text: '<p>Crow’s feet are small lines radiating from your eyes. Soft wrinkles are a sign of happiness. Lines under the eyes indicate a deep sadness and grief.</p><p class="mt-5">How well could you read your emotions in each other’s eyes?</p>'
         },
         {
           name: 'Nose',
-          text: '<p>Bunny lines, the small wrinkles around the nose, are the trace of a smile. The laugh lines that run from the nose to the corners of the mouth also record joy. Deep lines can also point to disappointment which makes it difficult to smile.</p><p class="mt-5">Evaluate your noses.</p><p class="mt-5">Did they wrinkle or flare in response to the activated emotion?</p><p class="mt-5">How much did your noses communicate your feelings?</p>'
+          text: '<p>Bunny lines, the small wrinkles around the nose, are the trace of a smile. The laugh lines that run from the nose to the corners of the mouth also record joy. Deep lines can also point to disappointment, which makes it difficult to smile.</p><p class="mt-5">How well could you read your emotions in the wrinkles around each other’s noses?</p>'
         },
         {
           name: 'Lips',
-          text: '<p>Lines on the upper lip indicate bitterness. A dropping mouth is a sign of grief, sadness, and suffering.</p><p class="mt-5">Evaluate your lips.</p> <p class="mt-5">Did your mouths part or purse to express the activated emotion?</p><p class="mt-5">How much did your lips reveal your inner feelings?</p>'
+          text: '<p>Lines on the upper lip indicate bitterness. A drooping mouth is a sign of grief, sadness and suffering.</p><p class="mt-5">How well could you read your emotions in the curves of each other’s mouths?</p>'
+        },
+        {
+          name: 'Jaws',
+          text: '<p>A tight jaw indicates resentment and anger felt due to a lack of self-expression. A drooping jawline can be caused by a tight neck, which is a sign of fear.</p><p class="mt-5">How well could you read your emotions in each other’s jaws?</p>'
         }
       ]
     },
@@ -487,31 +487,31 @@ export function useRelationshapes() {
       accounting: [
         {
           name: 'Signal Recognition',
-          text: '<p>Signal recognition is the ability to perceive and be aware of the fluid nature of emotions.</p><p class="mt-5">Evaluate your abilities to perceive emotional signals in each other and yourselves.</p>'
+          text: '<p>Signal Recognition is the ability to perceive emotions in each other and yourself.</p><p class="mt-5">How able were you to perceive emotional signals?</p>'
         },
         {
           name: 'Signal Decoding',
-          text: '<p>Signal decoding is the ability to interpret the underlying messages carried by emotions</p><p class="mt-5">What is the subtext you understood from this Activation?</p><p class="mt-5">Evaluate your skills in decoding emotional signals.</p>'
+          text: '<p>Signal Decoding is the ability to interpret the underlying messages carried by emotions.</p><p class="mt-5">How skilled were you in decoding emotional signals?</p>'
         },
         {
           name: 'Impulse Control',
-          text: '<p>Impulse control is the human ability to delay the need for gratification.</p><p class="mt-5">Measure your capacities to control your impulses.</p>'
+          text: '<p>Impulse Control is the human ability to delay the need for gratification.</p><p class="mt-5">How capable were you of controlling your impulses?</p>'
         },
         {
           name: 'Response Ability',
-          text: '<p>Response ability is the processing power with which the human EOS responds to an incoming call.</p><p class="mt-5">It is measured in the use value and reaction time of the systems’ response.</p><p class="mt-5">Rate your ability to respond.</p>'
+          text: '<p>Response Ability is the processing power with which the human EOS responds to an incoming call.</p><p class="mt-5">How suitable were your system’s responses?</p>'
         },
         {
           name: 'Shared Circuits',
-          text: '<p>Shared circuits enable humans to interact with and understand each other. They operate by re-creating the other’s experience in the same brain regions used for one’s own self-experience.</p><p class="mt-5">Did your EOS reproduce the emotional experiences of your Accounterparts?</p><p class="mt-5">Evaluate how much the activated emotion was felt in your shared circuits.</p>'
+          text: '<p>Shared Circuits enable humans to understand each other. They operate by recreating the other’s experience in the same brain regions.</p><p class="mt-5">How good were you at relating to each other’s experiences?</p>'
         },
         {
           name: 'Feedback Synthesis',
-          text: '<p>Feedback synthesis is the ability to invite, evaluate and integrate the reflections received from the environment. Optimal adaptation maintains a high flexibility but is critical to the context.</p><p class="mt-5">Though training, humans can improve their ability to give feedback to others.</p><p class="mt-5">Evaluate your abilities to give and receive feedback.</p>'
+          text: '<p>Feedback Synthesis is the ability to invite, evaluate and integrate the reflections received from the environment. Though training, humans can improve their ability to give feedback to others.</p><p class="mt-5">How competent were you at giving and receiving emotional feedback?</p>'
         },
         {
-          name: 'Goal-setting',
-          text: '<p>Goal-setting combines the ability to predict an outcome with the drive to capitalize on opportunities.</p><p class="mt-5">How clearly can you envision your Emotional Futures?</p><p class="mt-5">Evaluate your abilities to set goals.</p>'
+          name: 'Goal Setting',
+          text: '<p>Goal Setting combines the ability to predict an outcome with the drive to capitalize on opportunities.</p><p class="mt-5">How clearly can you envision your Emotional Futures?</p>'
         }
       ]
     },
@@ -524,35 +524,35 @@ export function useRelationshapes() {
       accounting: [
         {
           name: 'Surface Acting',
-          text: '<p>Surface acting is a process in which humans simulate a required emotion by controlling their body language without generating the emotion in their EOS (Emotional Operating System).</p><p class="mt-5">Account for the labor invested in surface acting in the situations described or re-enacted.</p>'
+          text: '<p>Surface Acting is a process in which humans simulate a required emotion by controlling their body language without generating the emotion in their EOS.</p><p class="mt-5">How much labor did you invest in Surface Acting?</p> '
         },
         {
           name: 'Deep Acting',
-          text: '<p>Deep acting is a process through which humans generate required emotions in their EOS.</p><p class="mt-5">Account for the labor invested in deep acting, in the situations described or re-enacted.</p>'
+          text: '<p>Deep Acting is a process through which humans generate required emotions in their EOS.</p><p class="mt-5">How much labor did you invest in Deep Acting?</p>'
         },
         {
           name: 'Supressed Emotion',
-          text: '<p>Humans adapt to social situations by suppressing emotions that do not conform to the required emotional display.</p><p class="mt-5">Measure the labor invested in suppressing emotions in the situation described or re-enacted.</p>'
+          text: '<p>Humans adapt to social situations by suppressing emotions that do not conform to the required emotional display.</p><p class="mt-5">How much labor did you invest in suppressing real emotions?</p>'
         },
         {
           name: 'Expressed Emotion',
-          text: '<p>Humans generate the required emotional display by expressing emotion that they actually do not feel.</p><p class="mt-5">Measure the labor invested in expressing artificial emotion in the situations described or re-enacted.</p>'
+          text: '<p>Humans generate the required emotional display by expressing emotions that they actually do not feel.</p><p class="mt-5">How much labor did you invest in expressing fake emotions?</p>'
         },
         {
           name: 'Adapted Thoughts',
-          text: '<p>Humans produce artificial emotions by adapting thought. This can be a calculated or automated act.</p><p class="mt-5">Replay the internal dialogues you had in the situation described or re-enacted.</p><p class="mt-5">Measure the labor invested in adapting your thoughts.</p>'
+          text: '<p>Humans produce artificial emotions by adapting their thoughts.</p><p class="mt-5">How much labor did you invest in adapting your thoughts?</p>'
         },
         {
           name: 'Adapted Behaviour',
-          text: '<p>To produce artificial emotions humans learn to adapt their behavior.</p><p class="mt-5">How did you adapt your behaviors in the situations described or re-enacted?</p><p class="mt-5">Measure the labor invested in doing this.</p>'
+          text: '<p>To produce artificial emotions humans learn to adapt their behavior.</p><p class="mt-5">How much labor did you invest in adapting your behaviors?</p>'
         },
         {
           name: 'Cognitive Dissonance',
-          text: '<p>Cognitive dissonance is the effect produced if artificial and real emotion are unaligned.</p><p class="mt-5">It can cause the Emotional Operating System to malfunction.</p><p class="mt-5">Account for the cognitive dissonance caused in your EOS through emotional labor in the described or re-enacted situations.</p>'
+          text: '<p>Cognitive Dissonance is the effect produced if artificial and real emotion are unaligned. It can cause the EOS to malfunction.</p><p class="mt-5">How much Cognitive Dissonance was caused in your EOS through the emotional labor?</p>'
         },
         {
           name: 'Cognitive Consonance',
-          text: '<p>Cognitive consonance is the effect produced if artificial and real emotion are aligned.</p><p class="mt-5">It supports good performance of the EOS.</p><p class="mt-5">Account for the cognitive consonance produced in your systems through emotional labor in the described or re-enacted situations.</p>'
+          text: '<p>Cognitive Consonance is the effect produced if artificial and real emotion are aligned. It supports the good performance of the EOS.</p><p class="mt-5">How much Cognitive Consonance was produced in your systems through the emotional labor?</p>'
         }
       ]
     }
