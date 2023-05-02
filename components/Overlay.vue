@@ -60,7 +60,7 @@
       </div>
       <div v-if="step === 1" class="grow flex flex-col mt-5 overflow-hidden">
         <p class="text-lg font-bold">Data Privacy</p>
-        <div class="mt-5 overflow-scroll">
+        <div class="mt-5 overflow-y-scroll grow">
           <p>Privacy Notice for Emotional Futures</p>
 
           <p class="mt-5">
@@ -472,10 +472,10 @@
             Germany, phone: +49 (0) 981 180093-0, fax: +49 (0) 981 180093-800,
             email: poststelle@lda.bayern.de. A list of other data protection
             authorities that you can contact (e.g. the one at your place of
-            residence) is available here (<NuxtLink
+            residence) is available <NuxtLink
               to="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html" target="_blank" class="underline"
-              >www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html</NuxtLink
-            >).
+              >here</NuxtLink
+            >.
           </p>
 
           <p class="mt-5">
