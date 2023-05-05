@@ -255,9 +255,7 @@
             You can connect with other players to join Emotional Futures by
             searching their Emoxy name on the Emotional Futures network. Your
             Emoxy name can be searched and connected by anyone that signed up
-            for the Emotional Futures game. In particular, we do not process any
-            personal data about who you connect to. The other person becomes
-            your so-called 'Accounterpart'. Your Accounterparts can see your
+            for the Emotional Futures game. Your Accounterparts can see your
             Emoxy name. Accounterparts can invite each other to further gameplay
             and can subsequently see the interactions they have with each other
             in the gameplay (see Section 3.2 (d)).
