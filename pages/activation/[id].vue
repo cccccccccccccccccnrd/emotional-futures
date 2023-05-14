@@ -475,7 +475,7 @@ function check(first?: Boolean) {
     activation.value?.status === 'accepted' &&
     activation.value?.accounts.length === 0
   ) {
-    if (step.value !== 2) step.value = 2
+    step.value = 2
     console.log('accepted activation', activation.value)
   } else if (
     activation.value?.status === 'accepted' &&
@@ -485,10 +485,10 @@ function check(first?: Boolean) {
       (a: any) => a.userId === user.value?.id
     )
     if (f) {
-      if (step.value !== 8) step.value = 8
+      step.value = 8
       console.log('friends accounting move activation', activation.value)
     } else {
-      if (step.value === 0 || step.value === 1) step.value = 2
+      step.value = 2
       console.log('accepted activation', activation.value)
     }
   } else if (
@@ -496,7 +496,7 @@ function check(first?: Boolean) {
     activation.value?.accounts.length === 2 &&
     activation.value?.fed.length === 0
   ) {
-    if (step.value !== 9) step.value = 9
+    step.value = 9
     console.log('ending activation', activation.value)
   } else if (
     activation.value?.status === 'accepted' &&
@@ -505,14 +505,14 @@ function check(first?: Boolean) {
   ) {
     const f = activation.value?.fed.find((f: any) => f === user.value?.id)
     if (f) {
-      if (step.value !== 11) step.value = 11
+      step.value = 11
       console.log('friends fed move activation', activation.value)
     } else {
-      if (step.value !== 9) step.value = 9
+      step.value = 9
       console.log('ending activation', activation.value)
     }
   } else if (activation.value?.status === 'completed') {
-    if (step.value !== 12) step.value = 12
+    step.value = 12
     console.log('completed activation', activation.value)
   }
 }
