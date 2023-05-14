@@ -17,7 +17,7 @@ export default defineEventHandler(async event => {
     })
   }
 
-  const name = event.context.params.name
+  const name =  decodeURI(event.context.params.name)
 
   const emoxy = await getEmoxy(event, name)
   return await handleConnection(event, emoxy)
