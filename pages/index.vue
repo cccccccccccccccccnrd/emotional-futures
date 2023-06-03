@@ -238,7 +238,7 @@
 <script setup lang="ts">
 const user = useSupabaseUser()
 
-watch(user, () => {
+watchEffect(() => {
   if (user.value) {
     navigateTo('/emoxy')
   }
