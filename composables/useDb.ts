@@ -12,9 +12,10 @@ export const useDb = () =>
 
 const db = useDb()
 const user = useSupabaseUser()
-const client: any = useSupabaseClient()
 
 export async function initDb (force?: Boolean) {
+  const client: any = useSupabaseClient()
+
   if (!user.value?.id) return
   if (client.getChannels().length > 0 && !force) return
   if (force) client.removeAllChannels()
@@ -163,6 +164,8 @@ async function handleEmoxyChanges (payload: any) {
 }
 
 export async function fetchEmoxy () {
+  const client: any = useSupabaseClient()
+
   const { data, error } = await client
     .from('emoxies')
     .select()
@@ -177,6 +180,8 @@ export async function fetchEmoxy () {
 }
 
 export async function fetchFriends () {
+  const client: any = useSupabaseClient()
+
   const { data, error } = await client
     .from('emoxies')
     .select()
@@ -190,6 +195,8 @@ export async function fetchFriends () {
 }
 
 export async function fetchActivations () {
+  const client: any = useSupabaseClient()
+
   const { data, error } = await client
     .from('activations')
     .select()
@@ -204,6 +211,8 @@ export async function fetchActivations () {
 }
 
 export async function fetchFriendsActivations () {
+  const client: any = useSupabaseClient()
+
   const friendIds = db.value.friends.map((f: any) => f.user_id)
   const { data, error } = await client
     .from('activations')
@@ -222,6 +231,8 @@ export async function fetchFriendsActivations () {
 }
 
 export async function useActivation (id: string) {
+  const client: any = useSupabaseClient()
+
   const { data, error } = await client
     .from('activations')
     .select()
@@ -236,6 +247,8 @@ export async function useActivation (id: string) {
 }
 
 export async function createEmoxy (metadata: object) {
+  const client: any = useSupabaseClient()
+
   const { data, error } = await client
     .from('emoxies')
     .insert({
@@ -252,6 +265,8 @@ export async function createEmoxy (metadata: object) {
 }
 
 export async function updateEmoxy (metadata: object) {
+  const client: any = useSupabaseClient()
+
   const { data, error } = await client
     .from('emoxies')
     .update({
